@@ -1,74 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Grip : MonoBehaviour
+[ExecuteInEditMode]
+public class Grip : MonoBehaviour 
 {
-    public Sprite open;
-    public Sprite closed;
-    public string axis;
-    private SpriteRenderer renderer;
-    private bool isOnGrip;
+    public List<GripPoint> gripPoints = new List<GripPoint>();
 
-    private Vector3 offset;
-
-    private Insect insectScript;
-    public Transform grip;
-
-    public Vector3 GripPosition
+    void Start()
     {
-        get
+        gripPoints.Clear();
+
+        for (int i = 0; i < transform.childCount; i++)
         {
-            return grip.position;
+            gripPoints.Add(transform.GetChild(i).GetComponent<GripPoint>());
         }
     }
 
-	void Start () 
+    public GripPoint GetClosestGrip(Vector3 handPosition, string holderName)
     {
-        renderer = GetComponent<SpriteRenderer>();
-	}
-	
-	void Update ()
-    {
-        if (Input.GetButtonUp(axis))
+        int minIndex = 0;
+
+        for (int i = 1; i < gripPoints.Count; i++)
         {
-            renderer.sprite = open;
-            if (isOnGrip)
+            float minDistance= Vector3.Distance(handPosition, gripPoints[minIndex].transform.position);
+            float distance = Vector3.Distance(handPosition, gripPoints[i].transform.position);
+
+            if (distance < minDistance)
             {
-                isOnGrip = false;
-                grip = null;
-            } 
-            else if (insectScript != null)
-            {
-                insectScript.SetParalyze(false);
+                minIndex = i;
             }
         }
-	}
 
-    public bool IsOnGrip()
-    {
-        return isOnGrip;
+        return gripPoints[minIndex];
     }
 
-    void OnTriggerStay2D(Collider2D c)
+    void OnDrawGizmos()
     {
-        if (c.transform.tag == "Grip")
+        for (int i = 0; i < gripPoints.Count; i++)
         {
-            if (Input.GetButton(axis))
-            {
-                isOnGrip = true;
-                grip = c.transform;
-                renderer.sprite = closed;
-            }
-        }
-        else if (c.transform.tag == "Insect")
-        {
-            if (Input.GetButton(axis))
-            {
-                renderer.sprite = closed;
-                insectScript = c.transform.GetComponent<Insect>();
-                insectScript.SetParalyze(true);
-                insectScript.SetHand(transform);
-            }
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(gripPoints[i].transform.position, 0.05f);
         }
     }
 }

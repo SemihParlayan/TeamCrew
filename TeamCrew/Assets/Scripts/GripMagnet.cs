@@ -4,7 +4,7 @@ using System.Collections;
 public class GripMagnet : MonoBehaviour
 {
     public Vector3 magnetDir;
-    public Grip gripScript;
+    public HandGrip gripScript;
     private Transform grip;
 
 	void Start () 
