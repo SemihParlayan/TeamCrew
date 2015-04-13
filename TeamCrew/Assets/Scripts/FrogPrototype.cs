@@ -17,8 +17,8 @@ public class FrogPrototype : MonoBehaviour
     public string horizontalRight;
     public string verticalRight;
 
-    public Grip leftGripScript;
-    public Grip rightGripScript;
+    public HandGrip leftGripScript;
+    public HandGrip rightGripScript;
 
     public HingeJoint2D leftJoint;
     public HingeJoint2D rightJoint;
