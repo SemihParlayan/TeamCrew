@@ -7,6 +7,7 @@ public class FrogPrototype : MonoBehaviour
     public ParticleSystem leftParticle;
 
     public float speed;
+    public float scracthForce = 75.0f;
 
     //For fly power up
     public float speedBoost;
@@ -67,39 +68,30 @@ public class FrogPrototype : MonoBehaviour
         ControlScratch();
 
         //Control Hands
-        if (!leftParticle.enableEmission)
-            ControlHand(leftGripScript, horizontalLeft, verticalLeft, leftJoint, 1, leftBody, leftHandMagnet, leftHand, originLeftHand);
-        if (!rightParticle.enableEmission)
-            ControlHand(rightGripScript, horizontalRight, verticalRight, rightJoint, -1, rightBody, rightHandMagnet, rightHand, originRightHand);
+        ControlHand(leftGripScript, horizontalLeft, verticalLeft, leftJoint, 1, leftBody, leftHandMagnet, leftHand, originLeftHand);
+        ControlHand(rightGripScript, horizontalRight, verticalRight, rightJoint, -1, rightBody, rightHandMagnet, rightHand, originRightHand);
     }
 
     void ControlScratch()
     {
         if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
             return;
+
         if (body.velocity.y > -1)
             return;
 
-        if (leftGripScript.isGripping && leftGripScript.isOnWall)
+        float vertical = Input.GetAxis(verticalLeft);
+        if (leftGripScript.isOnWall && vertical > 0)
         {
-            leftBody.AddForce(Vector2.up * 100);
             leftParticle.enableEmission = true;
-            body.AddForce(Vector2.up * 150);
-
-            Vector2 vel = leftBody.velocity;
-            vel.x = Mathf.Clamp(vel.x, -4, 4);
-            leftBody.velocity = vel;
+            body.AddForce(Vector2.up * scracthForce);
         }
 
-        if (rightGripScript.isGripping && rightGripScript.isOnWall)
+        vertical = Input.GetAxis(verticalRight);
+        if (rightGripScript.isOnWall && vertical > 0) 
         {
-            rightBody.AddForce(Vector2.up * 100);
             rightParticle.enableEmission = true;
-            body.AddForce(Vector2.up * 150);
-
-            Vector2 vel = rightBody.velocity;
-            vel.x = Mathf.Clamp(vel.x, -4, 4);
-            rightBody.velocity = vel;
+            body.AddForce(Vector2.up * scracthForce);
         }
     }
     void ControlHand(HandGrip handScript, string horizontalAxis, string verticalAxis, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handOrigin)
