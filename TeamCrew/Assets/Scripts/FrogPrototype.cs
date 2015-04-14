@@ -15,11 +15,7 @@ public class FrogPrototype : MonoBehaviour
     float boostTimer;
 
 
-    public string horizontalLeft;
-    public string verticalLeft;
-
-    public string horizontalRight;
-    public string verticalRight;
+    public string player;
 
     public HandGrip leftGripScript;
     public HandGrip rightGripScript;
@@ -27,13 +23,13 @@ public class FrogPrototype : MonoBehaviour
     public HingeJoint2D leftJoint;
     public HingeJoint2D rightJoint;
 
-    public Transform originLeft;
-    public Transform originLeftHand;
+    public Transform leftHandOrigin;
+    public Transform leftHandNeutral;
     public Transform leftHand;
     private Rigidbody2D leftBody;
 
-    public Transform originRight;
-    public Transform originRightHand;
+    public Transform rightHandOrigin;
+    public Transform rightHandNeutral;
     public Transform rightHand;
     private Rigidbody2D rightBody;
 
@@ -68,8 +64,8 @@ public class FrogPrototype : MonoBehaviour
         ControlScratch();
 
         //Control Hands
-        ControlHand(leftGripScript, horizontalLeft, verticalLeft, leftJoint, 1, leftBody, leftHandMagnet, leftHand, originLeftHand);
-        ControlHand(rightGripScript, horizontalRight, verticalRight, rightJoint, -1, rightBody, rightHandMagnet, rightHand, originRightHand);
+        ControlHand(leftGripScript, player + "HL", player + "VL", leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin);
+        ControlHand(rightGripScript, player + "HR", player +"VR", rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin);
     }
 
     void ControlScratch()
@@ -80,21 +76,21 @@ public class FrogPrototype : MonoBehaviour
         if (body.velocity.y > -1)
             return;
 
-        float vertical = Input.GetAxis(verticalLeft);
+        float vertical = Input.GetAxis(player + "VL");
         if (leftGripScript.isOnWall && vertical > 0)
         {
             leftParticle.enableEmission = true;
             body.AddForce(Vector2.up * scracthForce);
         }
 
-        vertical = Input.GetAxis(verticalRight);
+        vertical = Input.GetAxis(player + "VR");
         if (rightGripScript.isOnWall && vertical > 0) 
         {
             rightParticle.enableEmission = true;
             body.AddForce(Vector2.up * scracthForce);
         }
     }
-    void ControlHand(HandGrip handScript, string horizontalAxis, string verticalAxis, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handOrigin)
+    void ControlHand(HandGrip handScript, string horizontalAxis, string verticalAxis, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin)
     {
         bool grip = joint.useMotor = body.isKinematic = handScript.isOnGrip;
 
@@ -128,13 +124,13 @@ public class FrogPrototype : MonoBehaviour
         {
             //Move towards joystick Direction
             Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
-            Vector3 targetPosition = handOrigin.position + dir * 1.5f + magnet.magnetDir;
+            Vector3 targetPosition = handOrigin.position + dir * 2.0f + magnet.magnetDir;
             body.velocity = (targetPosition - hand.position) * speed;
         }
         else //If hand is not moving and not on grip
         {
             //Move towards neutral position
-            Vector3 targetPosition = handOrigin.position;
+            Vector3 targetPosition = handNeutral.position;
             body.velocity = (targetPosition - hand.position) * speed;
         }
     }
