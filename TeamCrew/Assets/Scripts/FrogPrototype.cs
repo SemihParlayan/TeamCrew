@@ -3,6 +3,9 @@ using System.Collections;
 
 public class FrogPrototype : MonoBehaviour
 {
+    public ParticleSystem rightParticle;
+    public ParticleSystem leftParticle;
+
     public float speed;
 
     //For fly power up
@@ -49,94 +52,105 @@ public class FrogPrototype : MonoBehaviour
 
     void Update()
     {
+        //TEMPORARY RESTART
         if (Input.GetButtonDown("Start"))
         {
             Application.LoadLevel(Application.loadedLevel);
         }
-        Vector3 input = new Vector3(Input.GetAxis(horizontalLeft), Input.GetAxis(verticalLeft));
+
+        //Keeps body still until a grip is made
+        ActivateBody();
+
+        //Activate scratch
+        rightParticle.enableEmission = false;
+        leftParticle.enableEmission = false;
+        ControlScratch();
+
+        //Control Hands
+        if (!leftParticle.enableEmission)
+            ControlHand(leftGripScript, horizontalLeft, verticalLeft, leftJoint, 1, leftBody, leftHandMagnet, leftHand, originLeftHand);
+        if (!rightParticle.enableEmission)
+            ControlHand(rightGripScript, horizontalRight, verticalRight, rightJoint, -1, rightBody, rightHandMagnet, rightHand, originRightHand);
+    }
+
+    void ControlScratch()
+    {
+        if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
+            return;
+        if (body.velocity.y > -1)
+            return;
+
+        if (leftGripScript.isGripping && leftGripScript.isOnWall)
+        {
+            leftBody.AddForce(Vector2.up * 100);
+            leftParticle.enableEmission = true;
+            body.AddForce(Vector2.up * 150);
+
+            Vector2 vel = leftBody.velocity;
+            vel.x = Mathf.Clamp(vel.x, -4, 4);
+            leftBody.velocity = vel;
+        }
+
+        if (rightGripScript.isGripping && rightGripScript.isOnWall)
+        {
+            rightBody.AddForce(Vector2.up * 100);
+            rightParticle.enableEmission = true;
+            body.AddForce(Vector2.up * 150);
+
+            Vector2 vel = rightBody.velocity;
+            vel.x = Mathf.Clamp(vel.x, -4, 4);
+            rightBody.velocity = vel;
+        }
+    }
+    void ControlHand(HandGrip handScript, string horizontalAxis, string verticalAxis, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handOrigin)
+    {
+        bool grip = joint.useMotor = body.isKinematic = handScript.isOnGrip;
+
+        Vector3 input = new Vector3(Input.GetAxis(horizontalAxis), Input.GetAxis(verticalAxis));
         float angle = Mathf.Rad2Deg * (float)Mathf.Atan2(input.x, input.y);
         if (angle < 0)
         {
             angle = 180 + (180 - Mathf.Abs(angle));
         }
-
         float i = (int)(angle / 45.0f);
-        angle = 45 * i;
-        angle *= Mathf.Deg2Rad;
-        bool leftGrip = leftJoint.useMotor = leftBody.isKinematic = leftGripScript.IsOnGrip();
-        bool rightGrip = rightJoint.useMotor = rightBody.isKinematic = rightGripScript.IsOnGrip();
+        angle = (45 * i) * Mathf.Deg2Rad;
 
-
-        if (leftGrip)
+        //Left hand movement
+        if (grip)
         {
             JointMotor2D motor = new JointMotor2D();
-            motor.motorSpeed = (input.sqrMagnitude - 0.5f) * 500;
+            motor.motorSpeed = (input.sqrMagnitude - 0.5f) * 500 * motorDir;
             motor.maxMotorTorque = 1000;
 
-            leftJoint.motor = motor;
+            joint.motor = motor;
         }
 
-
-
-        //Left Input
-        if ((input.x != 0 || input.y != 0) && !leftGrip)
+        //Hand grip
+        if (grip) //If hand is on a grip
         {
+            //Move towards grip point
+            Vector3 targetPosition = handScript.GripPosition;
+            body.velocity = (targetPosition - hand.position) * speed;
+        }
+        else if ((input.x != 0 || input.y != 0)) //If hand is moving and not on a grip
+        {
+            //Move towards joystick Direction
             Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
-            Vector3 targetPosition = originLeft.position + dir * 1.5f + leftHandMagnet.magnetDir;
-            leftBody.velocity = (targetPosition - leftHand.position) * speed;
+            Vector3 targetPosition = handOrigin.position + dir * 1.5f + magnet.magnetDir;
+            body.velocity = (targetPosition - hand.position) * speed;
         }
-        else if (!leftGrip)
+        else //If hand is not moving and not on grip
         {
-            Vector3 targetPosition = originLeftHand.position;
-            leftBody.velocity = (targetPosition - leftHand.position) * speed;
+            //Move towards neutral position
+            Vector3 targetPosition = handOrigin.position;
+            body.velocity = (targetPosition - hand.position) * speed;
         }
-        if (leftGrip)
-        {
-            Vector3 targetPosition = leftGripScript.GripPosition;
-            leftBody.velocity = (targetPosition - leftHand.position) * speed;
-        }
-
-        input = new Vector3(Input.GetAxis(horizontalRight), Input.GetAxis(verticalRight));
-        angle = Mathf.Rad2Deg * (float)Mathf.Atan2(input.x, input.y);
-        if (angle < 0)
-        {
-            angle = 180 + (180 - Mathf.Abs(angle));
-        }
-
-        i = (int)(angle / 45.0f);
-        angle = 45 * i;
-        angle *= Mathf.Deg2Rad;
-
-        if (rightGrip)
-        {
-            JointMotor2D motor = new JointMotor2D();
-            motor.motorSpeed = (input.sqrMagnitude - 0.5f) * -500;
-            motor.maxMotorTorque = 1000;
-
-            rightJoint.motor = motor;
-        }
-
-        //Right Input
-        if ((input.x != 0 || input.y != 0) && !rightGrip)
-        {
-            Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
-            Vector3 targetPosition = originRight.position + dir * 1.5f + rightHandMagnet.magnetDir;
-            rightBody.velocity = (targetPosition - rightHand.position) * speed;
-        }
-        else if (!rightGrip)
-        {
-            Vector3 targetPosition = originRightHand.position;
-            rightBody.velocity = (targetPosition - rightHand.position) * speed;
-        }
-        if (rightGrip)
-        {
-            Vector3 targetPosition = rightGripScript.GripPosition;
-            rightBody.velocity = (targetPosition - rightHand.position) * speed;
-        }
-
+    }
+    void ActivateBody()
+    {
         if (body.isKinematic)
         {
-            if (leftGrip || rightGrip)
+            if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
             {
                 body.isKinematic = false;
             }
