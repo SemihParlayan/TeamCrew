@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Respawn : MonoBehaviour 
 {
-    public LayerMask mask;
     public float respawnTime = 2f;
 
     private Transform playerOne;

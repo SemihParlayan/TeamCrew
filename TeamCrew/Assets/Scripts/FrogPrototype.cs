@@ -7,7 +7,6 @@ public class FrogPrototype : MonoBehaviour
     public ParticleSystem leftParticle;
 
     public float speed;
-    public float scracthForce = 75.0f;
 
     //For fly power up
     public float speedBoost;
@@ -80,14 +79,12 @@ public class FrogPrototype : MonoBehaviour
         if (leftGripScript.isOnWall && vertical > 0)
         {
             leftParticle.enableEmission = true;
-            body.AddForce(Vector2.up * scracthForce);
         }
 
         vertical = Input.GetAxis(player + "VR");
         if (rightGripScript.isOnWall && vertical > 0) 
         {
             rightParticle.enableEmission = true;
-            body.AddForce(Vector2.up * scracthForce);
         }
     }
     void ControlHand(HandGrip handScript, string horizontalAxis, string verticalAxis, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin)
