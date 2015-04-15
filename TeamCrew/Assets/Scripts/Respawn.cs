@@ -4,6 +4,8 @@ using System.Collections;
 public class Respawn : MonoBehaviour 
 {
     public float respawnTime = 2f;
+    public Transform playerOnePrefab;
+    public Transform playerTwoPrefab;
 
     private Transform playerOne;
     private Transform playerTwo;
@@ -25,13 +27,15 @@ public class Respawn : MonoBehaviour
         if (playerOne.position.y < minHeight)
         {
             follow.SetAbsoluteZoom(true);
-            Invoke("RespawnPlayerOne", respawnTime);
+            if (!IsInvoking())
+                Invoke("RespawnPlayerOne", respawnTime);
         }
 
         if (playerTwo.position.y < minHeight)
         {
             follow.SetAbsoluteZoom(true);
-            Invoke("RespawnPlayerTwo", respawnTime);
+            if (!IsInvoking())
+                Invoke("RespawnPlayerTwo", respawnTime);
         }
 	}
 
@@ -43,7 +47,21 @@ public class Respawn : MonoBehaviour
 
         body.isKinematic = true;
 
-        playerOne.position = GetSpawnPosition();
+        playerOne.parent.position = GetSpawnPosition();
+        playerOne.localPosition = GetRandomOffset();
+        playerOne.localRotation = Quaternion.Euler(Vector3.zero);
+
+        Transform leg = playerOne.parent.FindChild("left_leg_lower");
+        leg.localPosition = playerOnePrefab.FindChild("left_leg_lower").localPosition;
+
+        Transform upperLeg = playerOne.parent.FindChild("left_leg_upper");
+        upperLeg.localPosition = playerOnePrefab.FindChild("left_leg_upper").localPosition;
+
+        leg = playerOne.parent.FindChild("right_leg_lower");
+        leg.localPosition = playerOnePrefab.FindChild("right_leg_lower").localPosition;
+
+        upperLeg = playerOne.parent.FindChild("right_leg_upper");
+        upperLeg.localPosition = playerOnePrefab.FindChild("right_leg_upper").localPosition;
 
         follow.SetAbsoluteZoom(false);
     }
@@ -55,7 +73,21 @@ public class Respawn : MonoBehaviour
 
         body.isKinematic = true;
 
-        playerTwo.position = GetSpawnPosition();
+        playerTwo.parent.position = GetSpawnPosition();
+        playerTwo.localPosition = GetRandomOffset();
+        playerTwo.localRotation = Quaternion.Euler(Vector3.zero);
+
+        Transform leg = playerTwo.parent.FindChild("left_leg_lower");
+        leg.localPosition = playerTwoPrefab.FindChild("left_leg_lower").localPosition;
+
+        Transform upperLeg = playerTwo.parent.FindChild("left_leg_upper");
+        upperLeg.localPosition = playerTwoPrefab.FindChild("left_leg_upper").localPosition;
+
+        leg = playerTwo.parent.FindChild("right_leg_lower");
+        leg.localPosition = playerTwoPrefab.FindChild("right_leg_lower").localPosition;
+
+        upperLeg = playerTwo.parent.FindChild("right_leg_upper");
+        upperLeg.localPosition = playerTwoPrefab.FindChild("right_leg_upper").localPosition;
 
         follow.SetAbsoluteZoom(false);
     }
@@ -81,9 +113,21 @@ public class Respawn : MonoBehaviour
                 }
             }
 
+
             return grips[minIndex].transform.position;
         }
 
         return cam.transform.position;
+    }
+    Vector2 GetRandomOffset()
+    {
+        Vector2[] offsets = new Vector2[3];
+        offsets[0] = new Vector2(1.58f, -1.4f);
+        offsets[1] = new Vector2(-1.58f, -1.4f);
+        offsets[2] = new Vector2(0, -1.8f);
+
+        int i = Random.Range(0, offsets.Length);
+
+        return offsets[i];
     }
 }
