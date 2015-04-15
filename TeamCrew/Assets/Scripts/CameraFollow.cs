@@ -47,5 +47,8 @@ public class CameraFollow : MonoBehaviour
         float targetSize = Mathf.Clamp(Mathf.Abs(frogOneY - frogTwoY), minZoom, maxZoom);
 
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetSize, Time.deltaTime * 2);
+        Vector3 pos = cam.transform.position;
+        pos.z = (cam.orthographicSize - minZoom) / (maxZoom - minZoom) * -20 - 10;
+        cam.transform.position = pos;
 	}
 }
