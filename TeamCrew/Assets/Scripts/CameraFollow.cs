@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraFollow : MonoBehaviour 
+public class CameraFollow : MonoBehaviour
 {
     public float smooth = 1.0f;
     public float movementSpeed;
@@ -15,23 +15,23 @@ public class CameraFollow : MonoBehaviour
     private Transform frogTwo;
 
     public bool absoluteZoom;
-	void Start () 
+    void Start()
     {
         cam = GetComponent<Camera>();
         frogOne = GameObject.FindWithTag("PlayerOne").transform;
         frogTwo = GameObject.FindWithTag("PlayerTwo").transform;
 
         cam.orthographicSize = (maxZoom + minZoom) / 2;
-	}
+    }
 
 
-	void Update () 
+    void Update()
     {
         if (frogOne == null || frogTwo == null)
             return;
 
         FollowTopFrog();
-	}
+    }
 
     void FollowTopFrog()
     {
@@ -52,32 +52,13 @@ public class CameraFollow : MonoBehaviour
         {
             targetSize = minZoom;
         }
+
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetSize, Time.deltaTime * zoomSpeed);
 
-
-        //float targetY = 0;
-        //if (cam.orthographicSize >= maxZoom - 1)
-        //{
-        //    targetY = (frogOne.position.y > frogTwo.position.y) ? frogOne.position.y : frogTwo.position.y;
-        //    targetY -= maxZoom / 2;
-        //}
-        //else
-        //{
-        //    targetY = (frogOne.position.y + frogTwo.position.y) / 2;
-        //}
-        //float currentY = transform.position.y;
-
-
-        //transform.position += new Vector3(0, (targetY - currentY) * smooth, 0);
-
-
-
-        //float frogOneY = frogOne.position.y;
-        //float frogTwoY = frogTwo.position.y;
-
-        //float targetSize = Mathf.Clamp(Mathf.Abs(frogOneY - frogTwoY), minZoom, maxZoom);
-
-        //cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetSize, Time.deltaTime * 2);
+        //Fix Z position
+        Vector3 pos = cam.transform.position;
+        pos.z = (cam.orthographicSize - minZoom) / (maxZoom - minZoom) * -20 - 10;
+        cam.transform.position = pos;
     }
 
     public void SetAbsoluteZoom(bool state)
