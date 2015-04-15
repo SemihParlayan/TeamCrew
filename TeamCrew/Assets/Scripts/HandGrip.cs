@@ -3,11 +3,13 @@ using System.Collections;
 
 public class HandGrip : MonoBehaviour
 {
+    public bool isOnGrip;
+    public bool isOnWall;
+    public bool isGripping;
     public Sprite open;
     public Sprite closed;
     public string axis;
     private SpriteRenderer renderer;
-    private bool isOnGrip;
 
     private Vector3 offset;
 
@@ -29,8 +31,13 @@ public class HandGrip : MonoBehaviour
 	
 	void Update ()
     {
-        if (Input.GetButtonUp(axis))
+        if(Input.GetButton(axis))
         {
+            isGripping = true;
+        }
+        else if (Input.GetButtonUp(axis))
+        {
+            isGripping = false;
             renderer.sprite = open;
             if (isOnGrip)
             {
@@ -45,17 +52,12 @@ public class HandGrip : MonoBehaviour
         }
 	}
 
-    public bool IsOnGrip()
-    {
-        return isOnGrip;
-    }
-
     void OnTriggerStay2D(Collider2D c)
     {
         if (c.transform.tag == "Grip")
         {
             string holdername = axis.Substring(0, 2);
-            if (Input.GetButton(axis) && !IsOnGrip())
+            if (Input.GetButton(axis) && !isOnGrip)
             {
                 gripPoint = c.GetComponent<Grip>().GetClosestGrip(transform.position, holdername);
 
@@ -79,6 +81,17 @@ public class HandGrip : MonoBehaviour
                 insectScript.SetParalyze(true);
                 insectScript.SetHand(transform);
             }
+        }
+        else if (c.transform.tag == "Wall")
+        {
+            isOnWall = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D c)
+    {
+        if (c.transform.tag == "Wall")
+        {
+            isOnWall = false;
         }
     }
 }
