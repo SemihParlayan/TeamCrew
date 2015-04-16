@@ -53,23 +53,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &131290
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 451172}
-  - 82: {fileID: 8214018}
-  - 114: {fileID: 11481508}
-  m_Layer: 0
-  m_Name: Grip Sounder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &134310
 GameObject:
   m_ObjectHideFlags: 1
@@ -84,6 +67,23 @@ GameObject:
   - 199: {fileID: 19902986}
   m_Layer: 0
   m_Name: right_magnet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &134856
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 435702}
+  - 82: {fileID: 8226532}
+  - 114: {fileID: 11411338}
+  m_Layer: 0
+  m_Name: Grip Sounder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,6 +186,23 @@ GameObject:
   - 212: {fileID: 21280818}
   m_Layer: 0
   m_Name: left_arm_lower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &165726
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 406768}
+  - 82: {fileID: 8217954}
+  - 114: {fileID: 11459450}
+  m_Layer: 0
+  m_Name: Grip Sounder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,23 +367,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &192294
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 416536}
-  - 82: {fileID: 8226568}
-  - 114: {fileID: 11494798}
-  m_Layer: 0
-  m_Name: Grip Sounder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &196564
 GameObject:
   m_ObjectHideFlags: 1
@@ -452,6 +452,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 407204}
   m_RootOrder: 3
+--- !u!4 &406768
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .310000002, y: -.0289999992, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 418928}
+  m_RootOrder: 0
 --- !u!4 &407204
 Transform:
   m_ObjectHideFlags: 1
@@ -467,18 +479,6 @@ Transform:
   - {fileID: 436890}
   - {fileID: 405560}
   m_Father: {fileID: 465598}
-  m_RootOrder: 0
---- !u!4 &416536
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 192294}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .310000002, y: -.0289999992, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 468586}
   m_RootOrder: 0
 --- !u!4 &417216
 Transform:
@@ -514,7 +514,7 @@ Transform:
   m_LocalPosition: {x: .510999978, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 451172}
+  - {fileID: 406768}
   m_Father: {fileID: 443078}
   m_RootOrder: 0
 --- !u!4 &421004
@@ -529,6 +529,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 443078}
   m_RootOrder: 1
+--- !u!4 &435702
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .310000002, y: -.0289999992, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 468586}
+  m_RootOrder: 0
 --- !u!4 &436490
 Transform:
   m_ObjectHideFlags: 1
@@ -605,18 +617,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 407204}
   m_RootOrder: 0
---- !u!4 &451172
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131290}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .310000002, y: -.0289999992, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 418928}
-  m_RootOrder: 0
 --- !u!4 &456680
 Transform:
   m_ObjectHideFlags: 1
@@ -660,7 +660,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.41000009, y: 12.96, z: 0}
+  m_LocalPosition: {x: -4.63999987, y: -3.53999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 407204}
@@ -686,7 +686,7 @@ Transform:
   m_LocalPosition: {x: .510999978, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 416536}
+  - {fileID: 435702}
   m_Father: {fileID: 436700}
   m_RootOrder: 0
 --- !u!4 &488262
@@ -982,12 +982,12 @@ CircleCollider2D:
   m_Offset: {x: -.0399999991, y: -.440201759}
   serializedVersion: 2
   m_Radius: .170000002
---- !u!82 &8214018
+--- !u!82 &8217954
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131290}
+  m_GameObject: {fileID: 165726}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -1051,12 +1051,12 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
---- !u!82 &8226568
+--- !u!82 &8226532
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 192294}
+  m_GameObject: {fileID: 134856}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -1167,7 +1167,7 @@ MonoBehaviour:
   open: {fileID: 21300006, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
   closed: {fileID: 21300008, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
   gripPoint: {fileID: 0}
-  gripSoundSource: {fileID: 8226568}
+  gripSoundSource: {fileID: 8226532}
 --- !u!114 &11410500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1181,6 +1181,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnetDir: {x: 0, y: 0, z: 0}
   gripScript: {fileID: 11410344}
+--- !u!114 &11411338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 562bf7cb44f813846ad7fa107e90967b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundList:
+  - {fileID: 8300000, guid: f724c35e2319f484b8bd7c7941ba5973, type: 3}
+  - {fileID: 8300000, guid: 4e869077face85c49a5be27cb596f21c, type: 3}
+  - {fileID: 8300000, guid: 02ba5fcb57940fb4480036419f3f27b3, type: 3}
+  - {fileID: 8300000, guid: 7b85199f4112e3b40b3a234337cf6fc5, type: 3}
+  - {fileID: 8300000, guid: 8368bf243c5d3de4e835fdd9df91ee6d, type: 3}
+  - {fileID: 8300000, guid: c43f341f6c3b00049ad3f6e394cecefe, type: 3}
+  - {fileID: 8300000, guid: 44fb0297105780242992dbcdcfbffcb2, type: 3}
+  - {fileID: 8300000, guid: f0d73dd707633244fb249699f999b4aa, type: 3}
+  - {fileID: 8300000, guid: 607c7ae27b72fa64bbc149927b0982f6, type: 3}
+  - {fileID: 8300000, guid: 458044745883a1941addd4a0afde97b4, type: 3}
 --- !u!114 &11421416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1199,7 +1221,29 @@ MonoBehaviour:
   open: {fileID: 21300006, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
   closed: {fileID: 21300008, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
   gripPoint: {fileID: 0}
-  gripSoundSource: {fileID: 8214018}
+  gripSoundSource: {fileID: 8217954}
+--- !u!114 &11459450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 562bf7cb44f813846ad7fa107e90967b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundList:
+  - {fileID: 8300000, guid: f724c35e2319f484b8bd7c7941ba5973, type: 3}
+  - {fileID: 8300000, guid: 4e869077face85c49a5be27cb596f21c, type: 3}
+  - {fileID: 8300000, guid: 02ba5fcb57940fb4480036419f3f27b3, type: 3}
+  - {fileID: 8300000, guid: 7b85199f4112e3b40b3a234337cf6fc5, type: 3}
+  - {fileID: 8300000, guid: 8368bf243c5d3de4e835fdd9df91ee6d, type: 3}
+  - {fileID: 8300000, guid: c43f341f6c3b00049ad3f6e394cecefe, type: 3}
+  - {fileID: 8300000, guid: 44fb0297105780242992dbcdcfbffcb2, type: 3}
+  - {fileID: 8300000, guid: f0d73dd707633244fb249699f999b4aa, type: 3}
+  - {fileID: 8300000, guid: 607c7ae27b72fa64bbc149927b0982f6, type: 3}
+  - {fileID: 8300000, guid: 458044745883a1941addd4a0afde97b4, type: 3}
 --- !u!114 &11463726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1213,28 +1257,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnetDir: {x: 0, y: 0, z: 0}
   gripScript: {fileID: 11421416}
---- !u!114 &11481508
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aa251d4e4c6e504681bf0d4264f7fec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SoundList:
-  - {fileID: 8300000, guid: 840f3ed4d68bf754786d93bd2319f52a, type: 3}
-  - {fileID: 8300000, guid: 4a85a4b77eeb72a47b83f8e624bb4855, type: 3}
-  - {fileID: 8300000, guid: 8e41c1d0865d9e541906e38fbfba60d1, type: 3}
-  - {fileID: 8300000, guid: 9d5c67db5055a4140beed7a70b32e35b, type: 3}
-  - {fileID: 8300000, guid: f9b0960540ec20b41865aa29ff1a2945, type: 3}
-  - {fileID: 8300000, guid: d7acd70e898c6cb4fa9b106fe12d0c66, type: 3}
-  - {fileID: 8300000, guid: afc8cee4167793c45bcb6ae709273c27, type: 3}
-  - {fileID: 8300000, guid: e716a726fb22f7b4988c52d6c3f95555, type: 3}
-  - {fileID: 8300000, guid: 681034f8f5aa8c840ae0463f28c553ad, type: 3}
-  - {fileID: 8300000, guid: 458044745883a1941addd4a0afde97b4, type: 3}
 --- !u!114 &11489714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1246,28 +1268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1095f13cc85bcf549bf570da0cfbfe70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11494798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 192294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aa251d4e4c6e504681bf0d4264f7fec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SoundList:
-  - {fileID: 8300000, guid: 840f3ed4d68bf754786d93bd2319f52a, type: 3}
-  - {fileID: 8300000, guid: 4a85a4b77eeb72a47b83f8e624bb4855, type: 3}
-  - {fileID: 8300000, guid: 8e41c1d0865d9e541906e38fbfba60d1, type: 3}
-  - {fileID: 8300000, guid: 9d5c67db5055a4140beed7a70b32e35b, type: 3}
-  - {fileID: 8300000, guid: f9b0960540ec20b41865aa29ff1a2945, type: 3}
-  - {fileID: 8300000, guid: d7acd70e898c6cb4fa9b106fe12d0c66, type: 3}
-  - {fileID: 8300000, guid: afc8cee4167793c45bcb6ae709273c27, type: 3}
-  - {fileID: 8300000, guid: e716a726fb22f7b4988c52d6c3f95555, type: 3}
-  - {fileID: 8300000, guid: 681034f8f5aa8c840ae0463f28c553ad, type: 3}
-  - {fileID: 8300000, guid: 458044745883a1941addd4a0afde97b4, type: 3}
 --- !u!198 &19802652
 ParticleSystem:
   m_ObjectHideFlags: 1
