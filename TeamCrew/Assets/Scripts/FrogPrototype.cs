@@ -101,14 +101,15 @@ public class FrogPrototype : MonoBehaviour
         angle = (45 * i) * Mathf.Deg2Rad;
 
         //Left hand movement
-        if (grip)
-        {
-            JointMotor2D motor = new JointMotor2D();
-            motor.motorSpeed = (input.sqrMagnitude - 0.5f) * 500 * motorDir;
-            motor.maxMotorTorque = 1000;
+        //if (grip && input.y < 0)
+        //{
+        //    JointMotor2D motor = new JointMotor2D();
+        //    motor.motorSpeed = (input.sqrMagnitude - 0.5f) * 500 * motorDir;
+        //    motor.maxMotorTorque = 1000;
 
-            joint.motor = motor;
-        }
+        //    joint.motor = motor;
+        //}
+        joint.useMotor = (grip && input.y < 0);
 
         //Hand grip
         if (grip) //If hand is on a grip

@@ -11,14 +11,13 @@ public class LevelGeneration : MonoBehaviour
     public List<Block> hardBlocks = new List<Block>();
     public List<Block> topBlocks = new List<Block>();
 
-    public List<Block> level;
-
     public Vector3 blockHeight;
 
 	void Start () 
     {
         SpriteRenderer renderer = tutorialBlock.transform.GetComponent<SpriteRenderer>();
         blockHeight = new Vector3(0, renderer.sprite.rect.height / renderer.sprite.pixelsPerUnit);
+        blockHeight -= new Vector3(0, 0.15f);
         Generate();
 	}
 
@@ -29,21 +28,29 @@ public class LevelGeneration : MonoBehaviour
         if (b == null)
             return;
         Transform block = Instantiate(b.transform, tutorialBlock.transform.position + blockHeight, Quaternion.identity) as Transform;
+        block.name = "Easy";
+        block.parent = transform;
 
         b = GetBlock(b, ref mediumBlocks);
         if (b == null)
             return;
         block = Instantiate(b.transform, block.transform.position + blockHeight, Quaternion.identity) as Transform;
+        block.name = "Medium";
+        block.parent = transform;
 
         b = GetBlock(b, ref hardBlocks);
         if (b == null)
             return;
         block = Instantiate(b.transform, block.transform.position + blockHeight, Quaternion.identity) as Transform;
+        block.name = "Hard";
+        block.parent = transform;
 
         b = GetBlock(b, ref topBlocks);
         if (b == null)
             return;
         block = Instantiate(b.transform, block.transform.position + blockHeight, Quaternion.identity) as Transform;
+        block.name = "Top";
+        block.parent = transform;
     }
 
     Block GetBlock(Block previousBlock, ref List<Block> list)
