@@ -50,7 +50,13 @@ public class HandGrip : MonoBehaviour
             if (isOnGrip)
             {
                 isOnGrip = false;
-                gripPoint.holderName = "";
+                gripPoint.numberOfHands--;
+
+                string holdername = axis.Substring(0, 2);
+                if (gripPoint.numberOfHands <= 0)
+                {
+                    gripPoint.holderName = "";
+                }
                 gripPoint = null;
 
                 //Playing release sound
@@ -69,6 +75,7 @@ public class HandGrip : MonoBehaviour
         if (gripPoint)
         {
             gripPoint.holderName = "";
+            gripPoint.numberOfHands--;
             gripPoint = null;
         }
     }
@@ -86,13 +93,17 @@ public class HandGrip : MonoBehaviour
                 {
                     if (gripPoint.holderName == string.Empty || gripPoint.holderName == holdername)
                     {
-                        gripPoint.holderName = holdername;
-                        isOnGrip = true;
-                        renderer.sprite = closed;
+                        if (gripPoint.numberOfHands < 3)
+                        {
+                            gripPoint.holderName = holdername;
+                            gripPoint.numberOfHands++;
+                            isOnGrip = true;
+                            renderer.sprite = closed;
 
-                        //Playing a randomly chosen grip sound
-                        randSoundGen.GenerateGrip();
-                        gripSoundSource.Play();
+                            //Playing a randomly chosen grip sound
+                            randSoundGen.GenerateGrip();
+                            gripSoundSource.Play();
+                        }
                     }
                 }
             }
