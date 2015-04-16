@@ -54,7 +54,7 @@ public class HandGrip : MonoBehaviour
                 gripPoint = null;
 
                 //Playing release sound
-                randSoundGen.GenerateGrip();
+                randSoundGen.GenerateRelease();
                 gripSoundSource.Play();
             } 
             else if (insectScript != null)

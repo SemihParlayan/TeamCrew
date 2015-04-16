@@ -8,7 +8,7 @@ public class RandomSoundFromList : MonoBehaviour
 
 	void Start ()
     {
-	
+        speaker = GetComponent<AudioSource>();
 	}
 
     public void GenerateGrip()
