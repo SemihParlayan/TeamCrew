@@ -8,7 +8,7 @@ public class FrogPrototype : MonoBehaviour
 
     public float speed;
 
-    //For fly power up
+    //Fly power up
     public float speedBoost;
     public float BoostDuration;
     float boostTimer;

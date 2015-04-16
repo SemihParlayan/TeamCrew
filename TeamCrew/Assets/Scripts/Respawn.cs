@@ -28,7 +28,12 @@ public class Respawn : MonoBehaviour
         {
             follow.SetAbsoluteZoom(true);
             if (!IsInvoking())
+            {
                 Invoke("RespawnPlayerOne", respawnTime);
+                AudioSource mouth = playerOne.GetComponent<AudioSource>();
+                if(!mouth.isPlaying) mouth.Play();
+            }
+                
         }
         else
         {
@@ -39,7 +44,11 @@ public class Respawn : MonoBehaviour
         {
             follow.SetAbsoluteZoom(true);
             if (!IsInvoking())
-                Invoke("RespawnPlayerTwo", respawnTime);
+            {
+                Invoke("RespawnPlayerOne", respawnTime);
+                AudioSource mouth = playerOne.GetComponent<AudioSource>();
+                if (!mouth.isPlaying) mouth.Play();
+            }
         }
         else
         {
@@ -50,6 +59,7 @@ public class Respawn : MonoBehaviour
     void RespawnPlayerOne()
     {
         Rigidbody2D body = playerOne.GetComponent<Rigidbody2D>();
+
         body.isKinematic = true;
 
         playerOne.parent.position = GetSpawnPosition();
