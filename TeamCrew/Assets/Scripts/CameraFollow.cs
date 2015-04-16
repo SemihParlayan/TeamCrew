@@ -3,12 +3,12 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
-    public float smooth = 1.0f;
     public float movementSpeed;
     public float zoomSpeed;
 
     public float maxZoom = 12;
     public float minZoom = 6;
+    public float absoluteZoomValue = 8;
 
     private Camera cam;
     private Transform frogOne;
@@ -50,7 +50,7 @@ public class CameraFollow : MonoBehaviour
         float targetSize = Mathf.Clamp(Mathf.Abs(frogOne.position.y - frogTwo.position.y), minZoom, maxZoom);
         if (absoluteZoom)
         {
-            targetSize = minZoom;
+            targetSize = absoluteZoomValue;
         }
 
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetSize, Time.deltaTime * zoomSpeed);

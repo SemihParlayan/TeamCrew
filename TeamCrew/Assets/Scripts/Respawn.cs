@@ -30,6 +30,10 @@ public class Respawn : MonoBehaviour
             if (!IsInvoking())
                 Invoke("RespawnPlayerOne", respawnTime);
         }
+        else
+        {
+            CancelInvoke("RespawnPlayerOne");
+        }
 
         if (playerTwo.position.y < minHeight)
         {
@@ -37,19 +41,22 @@ public class Respawn : MonoBehaviour
             if (!IsInvoking())
                 Invoke("RespawnPlayerTwo", respawnTime);
         }
+        else
+        {
+            CancelInvoke("RespawnPlayerTwo");
+        }
 	}
 
     void RespawnPlayerOne()
     {
         Rigidbody2D body = playerOne.GetComponent<Rigidbody2D>();
-        if (body.isKinematic)
-            return;
-
         body.isKinematic = true;
 
         playerOne.parent.position = GetSpawnPosition();
         playerOne.localPosition = GetRandomOffset();
         playerOne.localRotation = Quaternion.Euler(Vector3.zero);
+        playerOne.GetComponent<FrogPrototype>().leftGripScript.ResetGrip();
+        playerOne.GetComponent<FrogPrototype>().rightGripScript.ResetGrip();
 
         Transform leg = playerOne.parent.FindChild("left_leg_lower");
         leg.localPosition = playerOnePrefab.FindChild("left_leg_lower").localPosition;
@@ -68,14 +75,14 @@ public class Respawn : MonoBehaviour
     void RespawnPlayerTwo()
     {
         Rigidbody2D body = playerTwo.GetComponent<Rigidbody2D>();
-        if (body.isKinematic)
-            return;
 
         body.isKinematic = true;
 
         playerTwo.parent.position = GetSpawnPosition();
         playerTwo.localPosition = GetRandomOffset();
         playerTwo.localRotation = Quaternion.Euler(Vector3.zero);
+        playerTwo.GetComponent<FrogPrototype>().leftGripScript.ResetGrip();
+        playerTwo.GetComponent<FrogPrototype>().rightGripScript.ResetGrip();
 
         Transform leg = playerTwo.parent.FindChild("left_leg_lower");
         leg.localPosition = playerTwoPrefab.FindChild("left_leg_lower").localPosition;
@@ -104,8 +111,8 @@ public class Respawn : MonoBehaviour
 
             for (int i = 1; i < grips.Length; i++)
             {
-                float minDistance = Vector2.Distance(grips[minIndex].transform.position, cam.transform.position);
-                float distance = Vector2.Distance(grips[i].transform.position, cam.transform.position);
+                float minDistance = Vector2.Distance(grips[minIndex].transform.position, cam.transform.position + new Vector3(0, -2.5f));
+                float distance = Vector2.Distance(grips[i].transform.position, cam.transform.position + new Vector3(0, -2.5f));
 
                 if (distance < minDistance)
                 {

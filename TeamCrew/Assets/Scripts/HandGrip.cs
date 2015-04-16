@@ -51,6 +51,15 @@ public class HandGrip : MonoBehaviour
             }
         }
 	}
+    public void ResetGrip()
+    {
+        isOnGrip = false;
+        if (gripPoint)
+        {
+            gripPoint.holderName = "";
+            gripPoint = null;
+        }
+    }
 
     void OnTriggerStay2D(Collider2D c)
     {
