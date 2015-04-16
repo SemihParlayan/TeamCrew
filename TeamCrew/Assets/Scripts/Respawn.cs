@@ -12,12 +12,24 @@ public class Respawn : MonoBehaviour
     private Camera cam;
     private CameraFollow follow;
 
+    private AudioSource p1ScreamSource;
+    private AudioSource p2ScreamSource;
+
 	void Start () 
     {
         cam = Camera.main;
         follow = cam.transform.GetComponent<CameraFollow>();
         playerOne = GameObject.FindWithTag("PlayerOne").transform;
         playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
+
+
+        SoundMaster playerSoundMaster;
+
+        playerSoundMaster= playerOne.GetComponent<SoundMaster>();
+        p1ScreamSource = playerSoundMaster.GetSource(0);
+
+        playerSoundMaster = playerTwo.GetComponent<SoundMaster>();
+        p2ScreamSource = playerSoundMaster.GetSource(0);
 	}
 	
 	void Update () 
@@ -30,8 +42,7 @@ public class Respawn : MonoBehaviour
             if (!IsInvoking())
             {
                 Invoke("RespawnPlayerOne", respawnTime);
-                AudioSource mouth = playerOne.GetComponent<AudioSource>();
-                if(!mouth.isPlaying) mouth.Play();
+                if (!p1ScreamSource.isPlaying) p1ScreamSource.Play();
             }
                 
         }
@@ -45,9 +56,8 @@ public class Respawn : MonoBehaviour
             follow.SetAbsoluteZoom(true);
             if (!IsInvoking())
             {
-                Invoke("RespawnPlayerOne", respawnTime);
-                AudioSource mouth = playerOne.GetComponent<AudioSource>();
-                if (!mouth.isPlaying) mouth.Play();
+                Invoke("RespawnPlayerTwo", respawnTime);
+                if (!p2ScreamSource.isPlaying) p2ScreamSource.Play();
             }
         }
         else
