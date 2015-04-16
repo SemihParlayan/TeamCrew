@@ -6,15 +6,22 @@ public class HandGrip : MonoBehaviour
     public bool isOnGrip;
     public bool isOnWall;
     public bool isGripping;
+    public string axis;
     public Sprite open;
     public Sprite closed;
-    public string axis;
-    private SpriteRenderer renderer;
 
-    private Vector3 offset;
-
-    private Insect insectScript;
     public GripPoint gripPoint;
+
+    public AudioSource gripSoundSource;
+
+    private RandomSoundFromList randSoundGen;
+
+    private SpriteRenderer renderer;
+    private Vector3 offset;
+    private Insect insectScript;
+    
+
+    
 
     public Vector3 GripPosition
     {
@@ -27,6 +34,7 @@ public class HandGrip : MonoBehaviour
 	void Start () 
     {
         renderer = GetComponent<SpriteRenderer>();
+        randSoundGen = gripSoundSource.GetComponent<RandomSoundFromList>();
 	}
 	
 	void Update ()
@@ -44,6 +52,10 @@ public class HandGrip : MonoBehaviour
                 isOnGrip = false;
                 gripPoint.holderName = "";
                 gripPoint = null;
+
+                //Playing release sound
+                randSoundGen.GenerateGrip();
+                gripSoundSource.Play();
             } 
             else if (insectScript != null)
             {
@@ -68,6 +80,10 @@ public class HandGrip : MonoBehaviour
                         gripPoint.holderName = holdername;
                         isOnGrip = true;
                         renderer.sprite = closed;
+
+                        //Playing a randomly chosen grip sound
+                        randSoundGen.GenerateGrip();
+                        gripSoundSource.Play();
                     }
                 }
             }
