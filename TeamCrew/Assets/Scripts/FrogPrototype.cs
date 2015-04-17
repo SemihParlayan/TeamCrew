@@ -63,8 +63,8 @@ public class FrogPrototype : MonoBehaviour
         ControlScratch();
 
         //Control Hands
-        ControlHand(leftGripScript, player + "HL", player + "VL", leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin);
-        ControlHand(rightGripScript, player + "HR", player +"VR", rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin);
+        ControlHand(leftGripScript, player + "HL", player + "VL", leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
+        ControlHand(rightGripScript, player + "HR", player +"VR", rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
     }
 
     void ControlScratch()
@@ -87,7 +87,7 @@ public class FrogPrototype : MonoBehaviour
             rightParticle.enableEmission = true;
         }
     }
-    void ControlHand(HandGrip handScript, string horizontalAxis, string verticalAxis, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin)
+    void ControlHand(HandGrip handScript, string horizontalAxis, string verticalAxis, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin, HandGrip otherGripScript)
     {
         bool grip = joint.useMotor = body.isKinematic = handScript.isOnGrip;
 
@@ -100,17 +100,13 @@ public class FrogPrototype : MonoBehaviour
         float i = (int)(angle / 45.0f);
         angle = (45 * i) * Mathf.Deg2Rad;
 
-        //Left hand movement
-        //if (grip && input.y < 0)
-        //{
-        //    JointMotor2D motor = new JointMotor2D();
-        //    motor.motorSpeed = (input.sqrMagnitude - 0.5f) * 500 * motorDir;
-        //    motor.maxMotorTorque = 1000;
-
-        //    joint.motor = motor;
-        //}
         joint.useMotor = (grip && input.y < 0);
 
+        HingeJoint2D j = null;
+        if (joint == leftJoint)
+            j = rightJoint;
+        else
+            j = leftJoint;
         //Hand grip
         if (grip) //If hand is on a grip
         {
@@ -120,9 +116,14 @@ public class FrogPrototype : MonoBehaviour
         }
         else if ((input.x != 0 || input.y != 0)) //If hand is moving and not on a grip
         {
-            //Move towards joystick Direction
-            Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
-            Vector3 targetPosition = handOrigin.position + dir * 2.0f + magnet.magnetDir;
+                //Move towards joystick Direction
+                Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
+                Vector3 targetPosition = handOrigin.position + dir * 2.0f + magnet.magnetDir;
+                body.velocity = (targetPosition - hand.position) * speed;
+        }
+        else if (otherGripScript.isOnGrip && j.useMotor && handScript.isGripping)
+        {
+            Vector3 targetPosition = otherGripScript.gripPoint.transform.position;
             body.velocity = (targetPosition - hand.position) * speed;
         }
         else //If hand is not moving and not on grip

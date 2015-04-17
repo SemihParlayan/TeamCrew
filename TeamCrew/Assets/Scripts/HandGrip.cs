@@ -8,6 +8,7 @@ public class HandGrip : MonoBehaviour
     public bool isGripping;
     public string axis;
     public Sprite open;
+    public Sprite semiOpen;
     public Sprite closed;
 
     public GripPoint gripPoint;
@@ -42,6 +43,8 @@ public class HandGrip : MonoBehaviour
         if(Input.GetButton(axis))
         {
             isGripping = true;
+            if (!isOnGrip)
+                renderer.sprite = semiOpen;
         }
         else if (Input.GetButtonUp(axis))
         {
@@ -77,6 +80,7 @@ public class HandGrip : MonoBehaviour
             gripPoint.holderName = "";
             gripPoint.numberOfHands--;
             gripPoint = null;
+            renderer.sprite = open;
         }
     }
 
@@ -88,7 +92,6 @@ public class HandGrip : MonoBehaviour
             if (Input.GetButton(axis) && !isOnGrip)
             {
                 gripPoint = c.GetComponent<Grip>().GetClosestGrip(transform.position, holdername);
-
                 if (gripPoint != null)
                 {
                     if (gripPoint.holderName == string.Empty || gripPoint.holderName == holdername)
