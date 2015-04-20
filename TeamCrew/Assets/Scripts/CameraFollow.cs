@@ -15,6 +15,7 @@ public class CameraFollow : MonoBehaviour
     private Transform frogTwo;
 
     public bool absoluteZoom;
+    public LayerMask mask;
     void Start()
     {
         cam = GetComponent<Camera>();
@@ -35,12 +36,20 @@ public class CameraFollow : MonoBehaviour
 
     void FollowTopFrog()
     {
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.zero, 0.1f, mask);
+        float targetX = transform.position.x;
+        if (hit)
+        {
+            targetX = hit.transform.position.x;
+        }
+
         //Aquire top frogs y position
         float topFrogY = (frogOne.position.y > frogTwo.position.y) ? frogOne.position.y : frogTwo.position.y;
 
         //Set target position to frogs feet
         Vector3 targetPosition = transform.position;
         targetPosition.y = topFrogY - 2;
+        targetPosition.x = targetX;
 
 
         //Move towards target
@@ -58,6 +67,7 @@ public class CameraFollow : MonoBehaviour
         //Fix Z position
         Vector3 pos = cam.transform.position;
         pos.z = (cam.orthographicSize - minZoom) / (maxZoom - minZoom) * -20 - 10;
+        pos.y = Mathf.Clamp(pos.y, 0, int.MaxValue);
         cam.transform.position = pos;
     }
 
