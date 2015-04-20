@@ -13,13 +13,42 @@ GameObject:
   - 58: {fileID: 5817528}
   - 50: {fileID: 5058460}
   - 82: {fileID: 8258572}
+  - 114: {fileID: 11413354}
   m_Layer: 0
   m_Name: Fly
-  m_TagString: Insect
+  m_TagString: VersusGrip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &183188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 428074}
+  - 114: {fileID: 11400244}
+  m_Layer: 0
+  m_Name: GripPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &428074
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183188}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.0869999975, y: -.0710000023, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 432452}
+  m_RootOrder: 0
 --- !u!4 &432452
 Transform:
   m_ObjectHideFlags: 1
@@ -27,9 +56,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.40999985, y: 11.5200005, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
-  m_Children: []
+  m_LocalPosition: {x: -5.76999998, y: 8.88000011, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 428074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!50 &5058460
@@ -38,10 +68,10 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149926}
-  m_Mass: 1
+  m_Mass: 80
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -59,7 +89,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: -.0599999987, y: -.0700000003}
   serializedVersion: 2
-  m_Radius: .209999993
+  m_Radius: .370000005
 --- !u!82 &8258572
 AudioSource:
   m_ObjectHideFlags: 1
@@ -103,7 +133,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -129,6 +159,34 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &11400244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holderName: 
+  numberOfHands: 0
+--- !u!114 &11413354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b4af78a9e43c64aa7be9e4b3ff83ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripPoints:
+  - {fileID: 11400244}
+  connectedBody: {fileID: 5058460}
+  anchor: {x: 0, y: 0}
 --- !u!114 &11465268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,8 +199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementMode: 2
-  MinRandomSittingTime: .5
-  MaxRandomSittingTime: 3
+  MinRandomSittingTime: 1
+  MaxRandomSittingTime: 5
   speed: 2
 --- !u!212 &21282804
 SpriteRenderer:
@@ -168,7 +226,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -398591093
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 7e8c49d5050173b46b23ec9f0fef85f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 421719ea08c47e844a580cb232de06b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

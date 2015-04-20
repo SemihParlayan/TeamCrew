@@ -32,6 +32,8 @@ public class Insect : MonoBehaviour
     bool curve;
     bool jitter;
 
+    float thing;
+
 
 	void Start ()
     {
@@ -68,17 +70,18 @@ public class Insect : MonoBehaviour
                     movementMode = MovementType.SIN;
                 }
             }
-           
-            
+
+            Rigidbody2D body = GetComponent<Rigidbody2D>();
+            thing += Time.deltaTime;
             if(curve)      
             {
-                transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, startY + swing * Mathf.Sin(cycleStart + frequency * transform.position.x));
+                //transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, startY + swing * Mathf.Sin(cycleStart + frequency * transform.position.x));
+                body.AddForce(new Vector2(40,610+400*Mathf.Sin(thing*2)));
             }
             if (jitter)
             {
-                //Rigidbody2D body = GetComponent<Rigidbody2D>();
-                //body.velocity 
-                transform.position += new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f)) * Time.deltaTime;
+                body.AddForce(new Vector2(40, 610 + 400 * Mathf.Sin(thing * 2)));
+                //transform.position += new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f)) * Time.deltaTime;
             }
         }
 	}
