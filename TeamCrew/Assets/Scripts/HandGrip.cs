@@ -3,6 +3,7 @@ using System.Collections;
 
 public class HandGrip : MonoBehaviour
 {
+    public bool isVersus;
     public bool isOnGrip;
     public bool isOnWall;
     public bool isGripping;
@@ -12,6 +13,9 @@ public class HandGrip : MonoBehaviour
     public Sprite closed;
 
     public GripPoint gripPoint;
+
+    private HingeJoint2D joint;
+    private Vector2 jointDefaultAnchor;
 
     public AudioSource gripSoundSource;
 
@@ -36,6 +40,10 @@ public class HandGrip : MonoBehaviour
     {
         renderer = GetComponent<SpriteRenderer>();
         randSoundGen = gripSoundSource.GetComponent<RandomSoundFromList>();
+
+        joint = transform.parent.GetComponent<HingeJoint2D>();
+        joint.enabled = false;
+        jointDefaultAnchor = joint.connectedAnchor;
 	}
 	
 	void Update ()
@@ -55,17 +63,21 @@ public class HandGrip : MonoBehaviour
                 isOnGrip = false;
                 gripPoint.numberOfHands--;
 
-                string holdername = axis.Substring(0, 2);
                 if (gripPoint.numberOfHands <= 0)
                 {
                     gripPoint.holderName = "";
                 }
+                joint.enabled = false;
+                joint.connectedBody = null;
+                isVersus = false;
                 gripPoint = null;
 
                 //Playing release sound
                 randSoundGen.GenerateRelease();
                 gripSoundSource.Play();
-            } 
+
+                
+            }
             else if (insectScript != null)
             {
                 insectScript.SetParalyze(false);
@@ -101,11 +113,27 @@ public class HandGrip : MonoBehaviour
                             gripPoint.holderName = holdername;
                             gripPoint.numberOfHands++;
                             isOnGrip = true;
+                            
                             renderer.sprite = closed;
+
+                            joint.enabled = true;
+                            Transform parentparent = gripPoint.transform.parent.parent;
+                            if (gripPoint.transform.parent.name.Contains("foot"))
+                            {
+                                joint.connectedBody = c.transform.parent.GetComponent<Rigidbody2D>();
+                                joint.connectedAnchor = jointDefaultAnchor;
+                                isVersus = true;
+                            }
+                            else
+                            {
+                                joint.connectedAnchor = gripPoint.transform.position;
+                            }
 
                             //Playing a randomly chosen grip sound
                             randSoundGen.GenerateGrip();
                             gripSoundSource.Play();
+
+                            
                         }
                     }
                 }

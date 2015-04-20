@@ -13,7 +13,9 @@ public class Grip : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            gripPoints.Add(transform.GetChild(i).GetComponent<GripPoint>());
+            GripPoint p = transform.GetChild(i).GetComponent<GripPoint>();
+            if (p)
+                gripPoints.Add(p);
         }
     }
 

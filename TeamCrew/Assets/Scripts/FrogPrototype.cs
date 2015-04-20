@@ -91,6 +91,8 @@ public class FrogPrototype : MonoBehaviour
     {
         bool grip = joint.useMotor = body.isKinematic = handScript.isOnGrip;
 
+        body.isKinematic = false;
+
         Vector3 input = new Vector3(Input.GetAxis(horizontalAxis), Input.GetAxis(verticalAxis));
         float angle = Mathf.Rad2Deg * (float)Mathf.Atan2(input.x, input.y);
         if (angle < 0)
@@ -107,30 +109,35 @@ public class FrogPrototype : MonoBehaviour
             j = rightJoint;
         else
             j = leftJoint;
+
         //Hand grip
         if (grip) //If hand is on a grip
         {
             //Move towards grip point
-            Vector3 targetPosition = handScript.GripPosition;
-            body.velocity = (targetPosition - hand.position) * speed;
+            //Vector3 targetPosition = handScript.GripPosition;
+            //body.velocity = (targetPosition - hand.position) * speed;
         }
-        else if ((input.x != 0 || input.y != 0)) //If hand is moving and not on a grip
+
+        if (!grip)
         {
+            if ((input.x != 0 || input.y != 0)) //If hand is moving and not on a grip
+            {
                 //Move towards joystick Direction
                 Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
                 Vector3 targetPosition = handOrigin.position + dir * 2.0f + magnet.magnetDir;
                 body.velocity = (targetPosition - hand.position) * speed;
-        }
-        else if (otherGripScript.isOnGrip && j.useMotor && handScript.isGripping)
-        {
-            Vector3 targetPosition = otherGripScript.gripPoint.transform.position;
-            body.velocity = (targetPosition - hand.position) * speed;
-        }
-        else //If hand is not moving and not on grip
-        {
-            //Move towards neutral position
-            Vector3 targetPosition = handNeutral.position;
-            body.velocity = (targetPosition - hand.position) * speed;
+            }
+            else if (otherGripScript.isOnGrip && j.useMotor && handScript.isGripping) // Move towards other hand when neutral
+            {
+                Vector3 targetPosition = otherGripScript.gripPoint.transform.position;
+                body.velocity = (targetPosition - hand.position) * speed;
+            }
+            else //If hand is not moving and not on grip
+            {
+                //Move towards neutral position
+                Vector3 targetPosition = handNeutral.position;
+                body.velocity = (targetPosition - hand.position) * speed;
+            }
         }
     }
     void ActivateBody()
