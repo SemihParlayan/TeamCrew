@@ -6,70 +6,99 @@ using System.Linq;
 public class LevelGeneration : MonoBehaviour 
 {
     public Block tutorialBlock;
-    public List<Block> easyBlocks = new List<Block>();
-    public List<Block> mediumBlocks = new List<Block>();
-    public List<Block> hardBlocks = new List<Block>();
-    public List<Block> topBlocks = new List<Block>();
+    public List<Block> blockList = new List<Block>();
 
-    public Vector3 blockHeight;
+    private List<Transform> level = new List<Transform>();
+
+    public float blockSize;
+
+    public Transform currentTop;
+    public Transform previousTop;
+    private float movementWidth;
 
 	void Start () 
     {
         SpriteRenderer renderer = tutorialBlock.transform.GetComponent<SpriteRenderer>();
-        blockHeight = new Vector3(0, renderer.sprite.rect.height / renderer.sprite.pixelsPerUnit);
-        blockHeight -= new Vector3(0, 0.15f);
+        blockSize = renderer.sprite.rect.height / renderer.sprite.pixelsPerUnit;
         Generate();
 	}
 
-    void Generate()
+    public void Generate()
     {
-        //Easy
-        Block b = GetBlock(tutorialBlock, ref easyBlocks);
-        if (b == null)
-            return;
-        Transform block = Instantiate(b.transform, tutorialBlock.transform.position + blockHeight, Quaternion.identity) as Transform;
-        block.name = "Easy";
-        block.parent = transform;
+        for (int i = 0; i < level.Count; i++)
+        {
+            Destroy(level[i].gameObject);
+        }
+        level.Clear();
 
-        b = GetBlock(b, ref mediumBlocks);
-        if (b == null)
-            return;
-        block = Instantiate(b.transform, block.transform.position + blockHeight, Quaternion.identity) as Transform;
-        block.name = "Medium";
-        block.parent = transform;
+        Block block = GetBlock(tutorialBlock, BlockDifficulty.Easy);
+        block.transform.name = "Easy"; block.transform.parent = transform; level.Add(block.transform);
 
-        b = GetBlock(b, ref hardBlocks);
-        if (b == null)
-            return;
-        block = Instantiate(b.transform, block.transform.position + blockHeight, Quaternion.identity) as Transform;
-        block.name = "Hard";
-        block.parent = transform;
+        block = GetBlock(block, BlockDifficulty.Medium);
+        block.transform.name = "Medium"; block.transform.parent = transform; level.Add(block.transform);
 
-        b = GetBlock(b, ref topBlocks);
-        if (b == null)
-            return;
-        block = Instantiate(b.transform, block.transform.position + blockHeight, Quaternion.identity) as Transform;
-        block.name = "Top";
-        block.parent = transform;
+        block = GetBlock(block, BlockDifficulty.Hard);
+        block.transform.name = "Hard"; block.transform.parent = transform; level.Add(block.transform);
+
+        block = GetBlock(block, BlockDifficulty.Top);
+        block.transform.name = "Top"; block.transform.parent = transform;
+
+        previousTop = currentTop;
+
+        currentTop = block.transform;
+
+        if (previousTop)
+        {
+            previousTop.parent = null;
+            //float diffX = previousTop.position.x - transform.position.x;
+
+           // transform.position += new Vector3(diffX, 0);
+
+            //Destroy(previousTop.gameObject);
+        }
+
+        Vector3 camPos = Camera.main.transform.position;
+        camPos.x = currentTop.position.x;
+        Camera.main.transform.position = camPos;
     }
 
-    Block GetBlock(Block previousBlock, ref List<Block> list)
+    Block GetBlock(Block previousBlock, BlockDifficulty difficulty)
     {
         List<Block> foundBlocks = new List<Block>();
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < blockList.Count; i++)
         {
-            if (list[i].start == previousBlock.end)
-            {
-                if (list[i].start == previousBlock.start && list[i].end == previousBlock.end)
-                    continue;
+            if (blockList[i].difficulty != difficulty)
+                continue;
 
-                foundBlocks.Add(list[i]);
+            if (previousBlock.end == BlockEnding.AB)
+            {
+                if (blockList[i].start == BlockEnding.AB)
+                {
+                    foundBlocks.Add(blockList[i]);
+                }
+            }
+            else if (blockList[i].start != BlockEnding.AB)
+            {
+                foundBlocks.Add(blockList[i]);
             }
         }
 
         if (foundBlocks.Count > 0)
         {
-            return foundBlocks[Random.Range(0, foundBlocks.Count)];
+            Transform t = Instantiate(foundBlocks[Random.Range(0, foundBlocks.Count)].transform, previousBlock.transform.position, Quaternion.identity) as Transform;
+            Block b = t.GetComponent<Block>();
+
+            if (previousBlock.end == BlockEnding.B && b.start == BlockEnding.A)
+            {
+                b.transform.position += new Vector3(6, 0);
+            }
+            else if (previousBlock.end == BlockEnding.A && b.start == BlockEnding.B)
+            {
+                b.transform.position += new Vector3(-6, 0);
+            }
+
+            b.transform.position += new Vector3(0, blockSize);
+            return b;
         }
         return null;
     }
