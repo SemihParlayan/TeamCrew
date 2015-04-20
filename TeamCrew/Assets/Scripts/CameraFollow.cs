@@ -36,12 +36,12 @@ public class CameraFollow : MonoBehaviour
 
     void FollowTopFrog()
     {
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.zero, 0.1f, mask);
-        float targetX = transform.position.x;
-        if (hit)
-        {
-            targetX = hit.transform.position.x;
-        }
+        //RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.zero, 0.1f, mask);
+        //float targetX = transform.position.x;
+        //if (hit)
+        //{
+        //    targetX = hit.transform.position.x;
+        //}
 
         //Aquire top frogs y position
         float topFrogY = (frogOne.position.y > frogTwo.position.y) ? frogOne.position.y : frogTwo.position.y;
@@ -49,7 +49,7 @@ public class CameraFollow : MonoBehaviour
         //Set target position to frogs feet
         Vector3 targetPosition = transform.position;
         targetPosition.y = topFrogY - 2;
-        targetPosition.x = targetX;
+        //targetPosition.x = targetX;
 
 
         //Move towards target
