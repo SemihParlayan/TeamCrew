@@ -3,29 +3,31 @@ using System.Collections;
 
 public class HandGrip : MonoBehaviour
 {
-    public bool isVersus;
+    //Hand states
     public bool isOnGrip;
     public bool isOnWall;
     public bool isGripping;
+    public bool isVersusGripping;
+
+    //Axis of which to grip with
     public string axis;
+
+    //Sprites for different hand states
+    private SpriteRenderer renderer;
     public Sprite open;
     public Sprite semiOpen;
     public Sprite closed;
 
+    //Current grip and joint
     public GripPoint gripPoint;
-
     private HingeJoint2D joint;
-    private Vector2 jointDefaultAnchor;
 
+    //Sound
     public AudioSource gripSoundSource;
-
     private RandomSoundFromList randSoundGen;
 
-    private SpriteRenderer renderer;
-    private Vector3 offset;
+    //Insect reference
     private Insect insectScript;
-    
-
     
 
     public Vector3 GripPosition
@@ -38,55 +40,72 @@ public class HandGrip : MonoBehaviour
 
 	void Start () 
     {
+        //Aquire spriterenderer and sound
         renderer = GetComponent<SpriteRenderer>();
         randSoundGen = gripSoundSource.GetComponent<RandomSoundFromList>();
 
+        //Aquire joint and disable it
         joint = transform.parent.GetComponent<HingeJoint2D>();
         joint.enabled = false;
-        jointDefaultAnchor = joint.connectedAnchor;
 	}
 	
 	void Update ()
     {
-        if(Input.GetButton(axis))
+        if(Input.GetButton(axis)) //Grip button down is down
         {
+            //Set gripping to true
             isGripping = true;
+
+            //Change hand sprite to semi-open
             if (!isOnGrip)
                 renderer.sprite = semiOpen;
         }
-        else if (Input.GetButtonUp(axis))
+        else if (Input.GetButtonUp(axis)) //Grip button goes up
         {
-            isGripping = false;
+            //Reset hand sprite
             renderer.sprite = open;
+
+            //If hand is on a grip
             if (isOnGrip)
             {
+                //Reset on grip
                 isOnGrip = false;
+
+                //Decrease number of hands on grip point
                 gripPoint.numberOfHands--;
 
-                if (gripPoint.numberOfHands <= 0)
+                //if hand count is zero.... reset owner of the grip
+                if (gripPoint.numberOfHands <= 0 && !isVersusGripping)
                 {
                     gripPoint.holderName = "";
                 }
+
+                //Disable connected hand joint
                 joint.enabled = false;
                 joint.connectedBody = null;
-                isVersus = false;
+
+                //Disable grip point
                 gripPoint = null;
 
-                //Playing release sound
+                //Play release sound
                 randSoundGen.GenerateRelease();
                 gripSoundSource.Play();
-
-                
             }
             else if (insectScript != null)
             {
                 insectScript.SetParalyze(false);
             }
+
+            //Reset grip
+            isGripping = false;
+            isVersusGripping = false;
         }
 	}
     public void ResetGrip()
     {
         isOnGrip = false;
+        isVersusGripping = false;
+
         if (gripPoint)
         {
             gripPoint.holderName = "";
@@ -96,46 +115,78 @@ public class HandGrip : MonoBehaviour
         }
     }
 
+    bool AllowGrip(Grip g)
+    {
+        //Find name of the hand
+        string holdername = axis.Substring(0, 2);
+
+        //Check for grip input
+        if (Input.GetButton(axis) && !isOnGrip)
+        {
+            //Aquire grip point
+            gripPoint = g.GetClosestGrip(transform.position, holdername);
+
+            //Do we have a grip point?
+            if (gripPoint != null)
+            {
+                //Is the grip empty or is it already owned by the same player
+                if (gripPoint.holderName == string.Empty || gripPoint.holderName == holdername)
+                {
+                    //Is there to much hand on the grip?
+                    if (gripPoint.numberOfHands < 3)
+                    {
+                        //Hand is on a grip
+                        isOnGrip = true;
+
+                        //Set grips holder and number of hands
+                        gripPoint.holderName = holdername;
+                        gripPoint.numberOfHands++;
+
+                        //Change hand sprite
+                        renderer.sprite = closed;
+
+                        //Enable hand joints
+                        joint.enabled = true;
+                        joint.connectedAnchor = gripPoint.transform.position;
+
+                        //Playing a randomly chosen grip sound
+                        randSoundGen.GenerateGrip();
+                        gripSoundSource.Play();
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
     void OnTriggerStay2D(Collider2D c)
     {
         if (c.transform.tag == "Grip")
         {
-            string holdername = axis.Substring(0, 2);
-            if (Input.GetButton(axis) && !isOnGrip)
+            //Aquire grip script
+            Grip grip = c.transform.GetComponent<Grip>();
+
+            if (grip)
             {
-                gripPoint = c.GetComponent<Grip>().GetClosestGrip(transform.position, holdername);
-                if (gripPoint != null)
+                //Attach to grip if possible
+                AllowGrip(grip);
+            }
+
+        }
+        else if (c.transform.tag == "VersusGrip")
+        {
+            //Aquire moving grip script
+            MovingGrip movingGrip = c.transform.GetComponent<MovingGrip>();
+
+            if (movingGrip)
+            {
+                //Attach to moving grip if possible
+                if (AllowGrip(movingGrip))
                 {
-                    if (gripPoint.holderName == string.Empty || gripPoint.holderName == holdername)
-                    {
-                        if (gripPoint.numberOfHands < 3)
-                        {
-                            gripPoint.holderName = holdername;
-                            gripPoint.numberOfHands++;
-                            isOnGrip = true;
-                            
-                            renderer.sprite = closed;
-
-                            joint.enabled = true;
-                            Transform parentparent = gripPoint.transform.parent.parent;
-                            if (gripPoint.transform.parent.name.Contains("foot"))
-                            {
-                                joint.connectedBody = c.transform.parent.GetComponent<Rigidbody2D>();
-                                joint.connectedAnchor = jointDefaultAnchor;
-                                isVersus = true;
-                            }
-                            else
-                            {
-                                joint.connectedAnchor = gripPoint.transform.position;
-                            }
-
-                            //Playing a randomly chosen grip sound
-                            randSoundGen.GenerateGrip();
-                            gripSoundSource.Play();
-
-                            
-                        }
-                    }
+                    joint.connectedBody = movingGrip.connectedBody;
+                    joint.connectedAnchor = movingGrip.anchor;
+                    isVersusGripping = true;
                 }
             }
         }

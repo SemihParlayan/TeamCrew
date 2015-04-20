@@ -13,7 +13,6 @@ public class FrogPrototype : MonoBehaviour
     public float BoostDuration;
     float boostTimer;
 
-
     public string player;
 
     public HandGrip leftGripScript;
@@ -110,13 +109,6 @@ public class FrogPrototype : MonoBehaviour
         else
             j = leftJoint;
 
-        //Hand grip
-        if (grip) //If hand is on a grip
-        {
-            //Move towards grip point
-            //Vector3 targetPosition = handScript.GripPosition;
-            //body.velocity = (targetPosition - hand.position) * speed;
-        }
 
         if (!grip)
         {
