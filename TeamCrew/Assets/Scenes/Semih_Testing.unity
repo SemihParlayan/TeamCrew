@@ -980,11 +980,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 494670, guid: 32d81332af0c8b942a2207d9dbb2328d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 6.86000013
+      value: 6.96000004
       objectReference: {fileID: 0}
     - target: {fileID: 494670, guid: 32d81332af0c8b942a2207d9dbb2328d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -6.75
+      value: -6.25
       objectReference: {fileID: 0}
     - target: {fileID: 494670, guid: 32d81332af0c8b942a2207d9dbb2328d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1008,7 +1008,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 494670, guid: 32d81332af0c8b942a2207d9dbb2328d, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5066174, guid: 32d81332af0c8b942a2207d9dbb2328d, type: 2}
       propertyPath: m_Mass
@@ -1044,13 +1044,28 @@ Transform:
   m_Children:
   - {fileID: 1340773399}
   - {fileID: 1608894979}
-  - {fileID: 1886125683}
+  - {fileID: 702818812}
   - {fileID: 605644810}
   - {fileID: 1274151834}
   - {fileID: 1688923275}
   - {fileID: 656681138}
   m_Father: {fileID: 2039325626}
   m_RootOrder: 0
+--- !u!1 &587359124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 786798056}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1886125683}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &605644810 stripped
 Transform:
   m_PrefabParentObject: {fileID: 486810, guid: 996a17e449a1abc4a925cc2db4c2d5f6, type: 2}
@@ -1077,6 +1092,34 @@ MonoBehaviour:
   end: 2
   start: 2
   difficulty: 0
+--- !u!1 &702818811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 786798056}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 702818812}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &702818812
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 786798056}
+  m_GameObject: {fileID: 702818811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1886125683}
+  m_Father: {fileID: 518083159}
+  m_RootOrder: 2
 --- !u!1001 &786798056
 Prefab:
   m_ObjectHideFlags: 0
@@ -2151,10 +2194,18 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af13f8425c11a614bb7c956c3e3ca9ee, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &1886125683 stripped
+--- !u!4 &1886125683
 Transform:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495518, guid: d78b767c12f88bd46b256b3aee49aacc, type: 2}
   m_PrefabInternal: {fileID: 786798056}
+  m_GameObject: {fileID: 587359124}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 702818812}
+  m_RootOrder: 0
 --- !u!1 &1926486445
 GameObject:
   m_ObjectHideFlags: 0
