@@ -15,7 +15,8 @@ public class Insect : MonoBehaviour
     public float MaxRandomSittingTime;
     public float speed;
 
-    float sittingTime;
+
+    float sittingTime; //timer
     bool paralyzed;
 
     Transform hand;
@@ -26,6 +27,11 @@ public class Insect : MonoBehaviour
     int cycleStart;
     float frequency;
 
+    //Movement types
+    //bool[] movementTypes;
+    bool curve;
+    bool jitter;
+
 
 	void Start ()
     {
@@ -34,6 +40,10 @@ public class Insect : MonoBehaviour
         swing = 1.0f;
         cycleStart = Random.Range(0, 360);
         frequency = 1.0f;
+
+        //movement
+        curve = true;
+        jitter = true;
 	}
 	
 	
@@ -59,15 +69,16 @@ public class Insect : MonoBehaviour
                 }
             }
            
-
-            switch(movementMode)
+            
+            if(curve)      
             {
-                case MovementType.RANDOM:
-                    transform.position += new Vector3(Random.Range(-3.0f, 5.0f), Random.Range(-5.0f, 5.0f)) * Time.deltaTime;
-                    break;
-                case MovementType.SIN:
-                    transform.position = new Vector3(transform.position.x + speed * Time.deltaTime,startY + swing * Mathf.Sin(cycleStart + frequency * transform.position.x));
-                    break;
+                transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, startY + swing * Mathf.Sin(cycleStart + frequency * transform.position.x));
+            }
+            if (jitter)
+            {
+                //Rigidbody2D body = GetComponent<Rigidbody2D>();
+                //body.velocity 
+                transform.position += new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f)) * Time.deltaTime;
             }
         }
 	}

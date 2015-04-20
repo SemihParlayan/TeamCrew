@@ -139,7 +139,7 @@ public class HandGrip : MonoBehaviour
                 }
             }
         }
-        else if (c.transform.tag == "Insect")
+        /*else if (c.transform.tag == "Insect")
         {
             if (Input.GetButton(axis))
             {
@@ -148,7 +148,7 @@ public class HandGrip : MonoBehaviour
                 insectScript.SetParalyze(true);
                 insectScript.SetHand(transform);
             }
-        }
+        }*/
         else if (c.transform.tag == "Wall")
         {
             isOnWall = true;
