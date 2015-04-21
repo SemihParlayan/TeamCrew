@@ -9,9 +9,9 @@ public class VelocityPitch : MonoBehaviour {
 	void Start () {
         body = GetComponent<Rigidbody2D>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        soundSource.pitch = 1 + body.velocity.magnitude / 20;
-	}
+
+    void FixedUpdate()
+    {
+        soundSource.pitch = 1 + body.velocity.magnitude / 45;
+    }
 }

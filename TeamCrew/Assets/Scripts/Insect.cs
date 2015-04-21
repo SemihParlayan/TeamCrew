@@ -19,6 +19,8 @@ public class Insect : MonoBehaviour
     public float intenseForce;
     public float normalForce;
 
+    Rigidbody2D body;
+
 
     float sittingTime; //timer
     bool paralyzed;
@@ -55,6 +57,8 @@ public class Insect : MonoBehaviour
         curve = true;
         jitter = true;
         targetY = 20;
+
+        body = GetComponent<Rigidbody2D>();
 	}
 	
 	
@@ -80,29 +84,25 @@ public class Insect : MonoBehaviour
                 }
             }
 
-            Rigidbody2D body = GetComponent<Rigidbody2D>();
+            
             thing += Time.deltaTime;
-            if(curve)      
-            {
-                
-                if (transform.position.y < targetY)
-                {
-                    body.AddForce(new Vector2(0, intenseForce));
-                    //soundSource.pitch = intenseForce/normalForce;
-                }
-                else if (body.velocity.y < 0)
-                {
-                    body.AddForce(new Vector2(0, normalForce));
-                    //soundSource.pitch = 1;
-
-                }
-            }
-            if (jitter)
-            {
-
-            }
         }
 	}
+
+    void FixedUpdate()
+    {
+        if (transform.position.y < targetY)
+        {
+            body.AddForce(new Vector2(0, intenseForce));
+            //soundSource.pitch = intenseForce/normalForce;
+        }
+        else if (body.velocity.y < 0)
+        {
+            body.AddForce(new Vector2(0, normalForce));
+            //soundSource.pitch = 1;
+
+        }
+    }
 
     public void SetParalyze(bool state)
     {
