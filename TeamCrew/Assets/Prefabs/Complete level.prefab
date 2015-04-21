@@ -473,7 +473,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.82877207, y: 38.9920464, z: 0}
+  m_LocalPosition: {x: -6.80000019, y: 36.2999992, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 470442}
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05a13dfb262b0c45b3593323095fab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: .75
+  movementSpeed: .5
 --- !u!114 &11408290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -847,7 +847,6 @@ MonoBehaviour:
   - {fileID: 11439744, guid: 7285a1d85ec2533469d8af83c258406a, type: 2}
   - {fileID: 11491962, guid: 4e866c194046d264cb9eb4057ee928a1, type: 2}
   - {fileID: 11498932, guid: 3dd7c98e04b2c124bb1b6df2a09a36e8, type: 2}
-  - {fileID: 11456996, guid: 5dda9a7d2f54c6746a82f3e6a2a84303, type: 2}
   - {fileID: 11454020, guid: 706574caa92388948b2c4ef5ac17bf39, type: 2}
   - {fileID: 11447480, guid: bb5e86408974fff48b0b78b5f42405fe, type: 2}
   - {fileID: 11454542, guid: a01056c68e7e8ac4fad1232737d555f6, type: 2}
@@ -873,7 +872,7 @@ MonoBehaviour:
   terrainMask:
     serializedVersion: 2
     m_Bits: 256
-  movementSpeed: .5
+  movementSpeed: 1
 --- !u!124 &12447802
 Behaviour:
   m_ObjectHideFlags: 1
