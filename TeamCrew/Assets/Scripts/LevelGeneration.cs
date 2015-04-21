@@ -5,23 +5,35 @@ using System.Linq;
 
 public class LevelGeneration : MonoBehaviour 
 {
-    public Block tutorialBlock;
+    public Transform startTop;
     public List<Block> blockList = new List<Block>();
 
     private List<Transform> level = new List<Transform>();
 
-    public float blockSize;
+    private float blockSize;
 
-    public Transform currentTop;
-    public Transform previousTop;
+    private Transform currentTop;
+    private Transform previousTop;
     private float movementWidth;
+
+    public int numberOfHardBlocks = 1;
+    public int numberOfMediumBlocks = 1;
+    public int numberOfEasyBlocks = 1;
+
+    public float LevelHeight { get { return (numberOfEasyBlocks + numberOfMediumBlocks + numberOfHardBlocks + 1) * blockSize; } }
+
+    void Awake()
+    {
+        blockSize = -19.2f;
+        GameManager.LevelHeight = LevelHeight - 5;
+    }
 
 	void Start () 
     {
-        SpriteRenderer renderer = tutorialBlock.transform.GetComponent<SpriteRenderer>();
-        blockSize = renderer.sprite.rect.height / renderer.sprite.pixelsPerUnit;
-        blockSize *= -1;
-        Generate();
+        if (startTop)
+            level.Add(startTop);
+        else
+            Debug.LogError("Assign a START-TOP on GameMaster!");
 	}
 
     public void Generate()
@@ -33,36 +45,65 @@ public class LevelGeneration : MonoBehaviour
         level.Clear();
 
 
+        //Spawn top block
         Block block = GetBlock(null, BlockDifficulty.Top);
         block.transform.name = "Top"; block.transform.parent = transform;
         previousTop = currentTop;
         currentTop = block.transform;
 
+        float x = 0;
+        if (block.start == BlockEnding.A)
+            x = 3;
+        else if (block.start == BlockEnding.B)
+            x = -3;
+        //transform.position = new Vector3(x, transform.position.y);
+        block.transform.position = new Vector3(x, block.transform.position.y);
         if (previousTop)
         {
             previousTop.parent = null;
-            float x = 0;
-            if (block.start == BlockEnding.A)
-                x = 3;
-            else if (block.start == BlockEnding.B)
-                x = -3;
-            //transform.position = new Vector3(x, transform.position.y);
-            block.transform.position = new Vector3(x, block.transform.position.y);
             Destroy(previousTop.gameObject);
         }
 
-        block = GetBlock(block, BlockDifficulty.Hard);
-        block.transform.name = "Hard"; block.transform.parent = transform; level.Add(block.transform);
+        //Spawn Hard Blocks
+        for (int i = 0; i < numberOfHardBlocks; i++)
+        {
+            block = GetBlock(block, BlockDifficulty.Hard);                
+            block.transform.name = "Hard"; block.transform.parent = transform; level.Add(block.transform);
+        }
 
-        block = GetBlock(block, BlockDifficulty.Medium);
-        block.transform.name = "Medium"; block.transform.parent = transform; level.Add(block.transform);
+        //Spawn Medium Blocks
+        for (int i = 0; i < numberOfMediumBlocks; i++)
+        {
+            block = GetBlock(block, BlockDifficulty.Medium);
+            block.transform.name = "Medium"; block.transform.parent = transform; level.Add(block.transform);
+        }
 
-        block = GetBlock(block, BlockDifficulty.Easy);
-        block.transform.name = "Easy"; block.transform.parent = transform; level.Add(block.transform);
+        //Spawn Easy Blocks
+        for (int i = 0; i < numberOfEasyBlocks; i++)
+        {
+            block = GetBlock(block, BlockDifficulty.Easy);
 
+            if (i == numberOfEasyBlocks - 1)
+            {
+                while (true)
+                {
+                    if (block.start == BlockEnding.AB)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Destroy(block.transform.gameObject);
+                        block = GetBlock(level.Last().GetComponent<Block>(), BlockDifficulty.Easy);
+                    }
+                }
+            }
+            block.transform.name = "Easy"; block.transform.parent = transform; level.Add(block.transform);
+        }
 
-        Vector3 camPos = Camera.main.transform.position;
-        camPos.x = currentTop.position.x;
+        //Spawn Tutorial
+        block = GetBlock(block, BlockDifficulty.Tutorial);
+        block.transform.name = "Tutorial"; block.transform.parent = transform; level.Add(block.transform);
     }
 
     Block GetBlock(Block previousBlock, BlockDifficulty difficulty)
@@ -118,6 +159,8 @@ public class LevelGeneration : MonoBehaviour
             b.transform.position += new Vector3(0, blockSize);
             return b;
         }
+
+        Debug.LogError("Error finding a " + difficulty.ToString() + " Block!");
         return null;
     }
 }
