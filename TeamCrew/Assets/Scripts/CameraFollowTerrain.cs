@@ -14,7 +14,7 @@ public class CameraFollowTerrain : MonoBehaviour
 
 	void Update () 
     {
-        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(transform.position.x - 50, transform.position.y), new Vector2(10, 10), 0, Vector2.right, 100, terrainMask);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x - 20, transform.position.y), Vector2.right, 200, terrainMask);
         float targetX = transform.position.x;
         if (hit)
         {
