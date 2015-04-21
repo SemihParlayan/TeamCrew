@@ -11,9 +11,13 @@ public enum MovementType
 public class Insect : MonoBehaviour
 {
     public MovementType movementMode;
-    public float MinRandomSittingTime;
-    public float MaxRandomSittingTime;
+    public AudioSource soundSource;
+    public float MinSittingTime;
+    public float MaxSittingTime;
     public float speed;
+
+    public float intenseForce;
+    public float normalForce;
 
 
     float sittingTime; //timer
@@ -34,11 +38,15 @@ public class Insect : MonoBehaviour
 
     float thing;
 
+    float targetY;
 
 	void Start ()
     {
         paralyzed = false;
-        startY = transform.position.y;
+
+        intenseForce = 1500;
+        normalForce = 500;
+       targetY = startY = transform.position.y;
         swing = 1.0f;
         cycleStart = Random.Range(0, 360);
         frequency = 1.0f;
@@ -46,6 +54,7 @@ public class Insect : MonoBehaviour
         //movement
         curve = true;
         jitter = true;
+        targetY = 20;
 	}
 	
 	
@@ -75,13 +84,22 @@ public class Insect : MonoBehaviour
             thing += Time.deltaTime;
             if(curve)      
             {
-                //transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, startY + swing * Mathf.Sin(cycleStart + frequency * transform.position.x));
-                body.AddForce(new Vector2(40,610+400*Mathf.Sin(thing*2)));
+                
+                if (transform.position.y < targetY)
+                {
+                    body.AddForce(new Vector2(0, intenseForce));
+                    //soundSource.pitch = intenseForce/normalForce;
+                }
+                else if (body.velocity.y < 0)
+                {
+                    body.AddForce(new Vector2(0, normalForce));
+                    //soundSource.pitch = 1;
+
+                }
             }
             if (jitter)
             {
-                body.AddForce(new Vector2(40, 610 + 400 * Mathf.Sin(thing * 2)));
-                //transform.position += new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f)) * Time.deltaTime;
+
             }
         }
 	}
@@ -103,7 +121,7 @@ public class Insect : MonoBehaviour
         if (c.transform.tag == "Grip" && Random.Range(0,2) == 1)
         {
             movementMode = MovementType.NONE;
-            sittingTime = Random.Range(MinRandomSittingTime, MaxRandomSittingTime);
+            sittingTime = Random.Range(MinSittingTime, MaxSittingTime);
 
             //Todo: Change sprite to sitting!
         }

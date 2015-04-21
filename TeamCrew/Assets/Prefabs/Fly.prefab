@@ -8,12 +8,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 432452}
+  - 50: {fileID: 5058460}
   - 212: {fileID: 21282804}
   - 114: {fileID: 11465268}
-  - 58: {fileID: 5817528}
-  - 50: {fileID: 5058460}
-  - 82: {fileID: 8258572}
   - 114: {fileID: 11413354}
+  - 58: {fileID: 5817528}
+  - 82: {fileID: 8258572}
   m_Layer: 0
   m_Name: Fly
   m_TagString: VersusGrip
@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.76999998, y: 8.88000011, z: 0}
+  m_LocalPosition: {x: -8.80000019, y: 13.8000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 428074}
@@ -99,16 +99,16 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 52ab3698e0c36fc4da668d5586b11886, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6436d4be34a5e66438b63d80411795e9, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 1.29436493
+  MaxDistance: 3.73280811
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -199,9 +199,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementMode: 2
-  MinRandomSittingTime: 1
-  MaxRandomSittingTime: 5
+  soundSource: {fileID: 0}
+  MinSittingTime: 0
+  MaxSittingTime: 0
   speed: 2
+  intenseForce: 0
+  normalForce: 0
 --- !u!212 &21282804
 SpriteRenderer:
   m_ObjectHideFlags: 1
