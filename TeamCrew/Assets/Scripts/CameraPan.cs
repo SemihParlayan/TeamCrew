@@ -1,15 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraPan : MonoBehaviour {
+public class CameraPan : MonoBehaviour 
+{
+    public float movementSpeed = 10;
 
-	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+    {
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+    {
+        Vector3 velocity = -Vector3.up * Time.deltaTime;
+        velocity *= Mathf.Abs(transform.position.y - GameManager.LevelHeight);
+        velocity *= movementSpeed;
+
+        transform.position += velocity;
 	}
+
+    public bool Complete()
+    {
+        bool complete = (transform.position.y <= GameManager.LevelHeight + 2);
+        
+        if (complete)
+        {
+            this.enabled = false;
+        }
+        return complete;
+    }
 }
