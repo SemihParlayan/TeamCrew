@@ -64,6 +64,13 @@ public class CameraFollow : MonoBehaviour
         cam.transform.position = pos;
     }
 
+    public void ActivateScript()
+    {
+        Debug.Log("Activate script");
+        this.enabled = true;
+        frogOne = GameObject.FindWithTag("PlayerOne").transform;
+        frogTwo = GameObject.FindWithTag("PlayerTwo").transform;
+    }
     public void SetAbsoluteZoom(bool state)
     {
         absoluteZoom = state;

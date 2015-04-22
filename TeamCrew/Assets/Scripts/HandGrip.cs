@@ -9,6 +9,7 @@ public class HandGrip : MonoBehaviour
     public bool isGripping;
     public bool isVersusGripping;
 
+
     //Axis of which to grip with
     public string axis;
 
@@ -28,6 +29,11 @@ public class HandGrip : MonoBehaviour
 
     //Insect reference
     private Insect insectScript;
+
+    //Game manager reference
+    private GameManager gameManager;
+
+    private bool disabled;
     
 
     public Vector3 GripPosition
@@ -47,6 +53,9 @@ public class HandGrip : MonoBehaviour
         //Aquire joint and disable it
         joint = transform.parent.GetComponent<HingeJoint2D>();
         joint.enabled = false;
+
+        //Aquire game manager
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 	}
 	
 	void Update ()
@@ -104,15 +113,19 @@ public class HandGrip : MonoBehaviour
     public void ResetGrip()
     {
         isOnGrip = false;
-        isVersusGripping = false;
 
         if (gripPoint)
         {
-            gripPoint.holderName = "";
-            gripPoint.numberOfHands--;
+            if (!isVersusGripping)
+            {
+                gripPoint.holderName = "";
+            }
+            gripPoint.numberOfHands = 0;
             gripPoint = null;
             renderer.sprite = open;
         }
+
+        isVersusGripping = false;
     }
 
     bool AllowGrip(Grip g)
@@ -152,6 +165,12 @@ public class HandGrip : MonoBehaviour
                         //Playing a randomly chosen grip sound
                         randSoundGen.GenerateGrip();
                         gripSoundSource.Play();
+
+                        if (g.winningGrip)
+                        {
+                            gameManager.Win();
+                            disabled = true;
+                        }
                         return true;
                     }
                 }
@@ -162,6 +181,9 @@ public class HandGrip : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D c)
     {
+        if (disabled)
+            return;
+
         if (c.transform.tag == "Grip")
         {
             //Aquire grip script
@@ -174,7 +196,7 @@ public class HandGrip : MonoBehaviour
             }
 
         }
-        else if (c.transform.tag == "VersusGrip")
+        else if (c.transform.tag == "VersusGrip" || c.transform.tag == "MovingGrip")
         {
             //Aquire moving grip script
             MovingGrip movingGrip = c.transform.GetComponent<MovingGrip>();
@@ -186,7 +208,9 @@ public class HandGrip : MonoBehaviour
                 {
                     joint.connectedBody = movingGrip.connectedBody;
                     joint.connectedAnchor = movingGrip.anchor;
-                    isVersusGripping = true;
+
+                    if (c.transform.tag == "VersusGrip")
+                        isVersusGripping = true;
                 }
             }
         }

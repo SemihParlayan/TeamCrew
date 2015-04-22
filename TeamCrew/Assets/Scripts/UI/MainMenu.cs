@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour 
 {
+    public Transform UIParent;
     public Button singleplayerButton;
     public Button multiplayerButton;
 
@@ -18,6 +19,8 @@ public class MainMenu : MonoBehaviour
             Debug.LogError("Attach both singleplayer and multiplayer button to MainMenu.cs!");
 
         anim = GetComponent<Animator>();
+
+        selectedButton = 2;
         multiplayerButton.Select();
 	}
 
@@ -41,24 +44,30 @@ public class MainMenu : MonoBehaviour
         //Click buttons
         if (Input.GetButtonDown("P1GL") || Input.GetButtonDown("P1GR"))
         {
-            if (selectedButton == 1)
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Default"))
             {
+                if (selectedButton == 1)
+                {
 
-            }
-            else if (selectedButton == 2)
-            {
-                multiplayerButton.onClick.Invoke();
-                //gameObject.SetActive(false);
-            }
+                }
+                else if (selectedButton == 2)
+                {
+                    multiplayerButton.onClick.Invoke();
+                    //gameObject.SetActive(false);
+                }
 
-            anim.SetTrigger("AnimationStart");
+                anim.SetTrigger("SignsOut");
+            }
         }
-
 	}
 
-    public void SignAnimationComplete()
+    public void DisableUI()
     {
-        anim.SetTrigger("AnimationComplete");
-        gameObject.SetActive(false);
+        UIParent.gameObject.SetActive(false);
+    }
+    public void EnableUI()
+    {
+        UIParent.gameObject.SetActive(true);
+        anim.SetTrigger("SignsIn");
     }
 }
