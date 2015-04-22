@@ -34,6 +34,9 @@ public class Respawn : MonoBehaviour
 	
 	void Update () 
     {
+        if (playerOne == null || playerTwo == null)
+            return;
+
         float minHeight = cam.transform.position.y - cam.orthographicSize;
 
         if (playerOne.position.y < minHeight)

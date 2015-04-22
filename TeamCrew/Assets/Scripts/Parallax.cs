@@ -6,6 +6,7 @@ public class Parallax : MonoBehaviour
     Vector2 startPosition;
     public float distance;
     private Camera cam;
+
 	void Start ()
     {
         cam = Camera.main;

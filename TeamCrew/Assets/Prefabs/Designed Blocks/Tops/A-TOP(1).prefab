@@ -670,7 +670,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 147950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .517933369, y: 38.1855927, z: 0}
+  m_LocalPosition: {x: 19.4099998, y: -.200000003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 466256}
@@ -1037,6 +1037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winningGrip: 0
   gripPoints:
   - {fileID: 11463088}
 --- !u!114 &11404502
@@ -1063,6 +1064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winningGrip: 1
   gripPoints:
   - {fileID: 11485248}
   - {fileID: 11461072}
@@ -1120,6 +1122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winningGrip: 0
   gripPoints:
   - {fileID: 11404502}
   - {fileID: 11423518}
@@ -1177,6 +1180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winningGrip: 0
   gripPoints:
   - {fileID: 11412718}
 --- !u!114 &11442546
@@ -1204,6 +1208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winningGrip: 0
   gripPoints:
   - {fileID: 11463434}
 --- !u!114 &11451838
@@ -1230,6 +1235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winningGrip: 0
   gripPoints:
   - {fileID: 11414086}
 --- !u!114 &11461072
@@ -1282,6 +1288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winningGrip: 0
   gripPoints:
   - {fileID: 11488152}
 --- !u!114 &11468638
@@ -1308,6 +1315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winningGrip: 0
   gripPoints:
   - {fileID: 11496452}
 --- !u!114 &11475596
