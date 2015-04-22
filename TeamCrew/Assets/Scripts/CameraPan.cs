@@ -20,7 +20,7 @@ public class CameraPan : MonoBehaviour
 
     public bool Complete()
     {
-        bool complete = (transform.position.y <= GameManager.LevelHeight + 2);
+        bool complete = (transform.position.y <= GameManager.LevelHeight + 5);
         
         if (complete)
         {

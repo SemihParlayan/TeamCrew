@@ -12,8 +12,7 @@ public class Respawn : MonoBehaviour
     private Camera cam;
     private CameraFollow follow;
 
-    private AudioSource p1ScreamSource;
-    private AudioSource p2ScreamSource;
+    private AudioSource screamSource;
 
 	void Start () 
     {
@@ -22,14 +21,7 @@ public class Respawn : MonoBehaviour
         playerOne = GameObject.FindWithTag("PlayerOne").transform;
         playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
 
-
-        SoundMaster playerSoundMaster;
-
-        playerSoundMaster= playerOne.GetComponent<SoundMaster>();
-        p1ScreamSource = playerSoundMaster.GetSource(0);
-
-        playerSoundMaster = playerTwo.GetComponent<SoundMaster>();
-        p2ScreamSource = playerSoundMaster.GetSource(0);
+        screamSource = GetComponent<AudioSource>();
 	}
 	
 	void Update () 
@@ -42,10 +34,15 @@ public class Respawn : MonoBehaviour
         if (playerOne.position.y < minHeight)
         {
             follow.SetAbsoluteZoom(true);
-            if (!IsInvoking())
+            if (!IsInvoking("RespawnPlayerOne"))
             {
                 Invoke("RespawnPlayerOne", respawnTime);
-                if (!p1ScreamSource.isPlaying) p1ScreamSource.Play();
+
+                if (playerOne.position.y < minHeight - 2)
+                {
+                    if (!screamSource.isPlaying)
+                        screamSource.Play();
+                }
             }
                 
         }
@@ -57,10 +54,11 @@ public class Respawn : MonoBehaviour
         if (playerTwo.position.y < minHeight)
         {
             follow.SetAbsoluteZoom(true);
-            if (!IsInvoking())
+            if (!IsInvoking("RespawnPlayerTwo"))
             {
                 Invoke("RespawnPlayerTwo", respawnTime);
-                if (!p2ScreamSource.isPlaying) p2ScreamSource.Play();
+                if (!screamSource.isPlaying) 
+                    screamSource.Play();
             }
         }
         else
@@ -71,54 +69,34 @@ public class Respawn : MonoBehaviour
 
     void RespawnPlayerOne()
     {
-        Rigidbody2D body = playerOne.GetComponent<Rigidbody2D>();
+        //Destroy player
+        Destroy(playerOne.parent.gameObject);
 
-        body.isKinematic = true;
+        //Instantiate a new player
+        Transform t = Instantiate(playerOnePrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
 
-        playerOne.parent.position = GetSpawnPosition();
+        //Set new player start values
+        playerOne = t.FindChild("body");
         playerOne.localPosition = GetRandomOffset();
-        playerOne.localRotation = Quaternion.Euler(Vector3.zero);
-        playerOne.GetComponent<FrogPrototype>().leftGripScript.ResetGrip();
-        playerOne.GetComponent<FrogPrototype>().rightGripScript.ResetGrip();
 
-        Transform leg = playerOne.parent.FindChild("left_leg_lower");
-        leg.localPosition = playerOnePrefab.FindChild("left_leg_lower").localPosition;
-
-        Transform upperLeg = playerOne.parent.FindChild("left_leg_upper");
-        upperLeg.localPosition = playerOnePrefab.FindChild("left_leg_upper").localPosition;
-
-        leg = playerOne.parent.FindChild("right_leg_lower");
-        leg.localPosition = playerOnePrefab.FindChild("right_leg_lower").localPosition;
-
-        upperLeg = playerOne.parent.FindChild("right_leg_upper");
-        upperLeg.localPosition = playerOnePrefab.FindChild("right_leg_upper").localPosition;
-
+        //Set camera values
+        follow.playerOne = playerOne;
         follow.SetAbsoluteZoom(false);
     }
     void RespawnPlayerTwo()
     {
-        Rigidbody2D body = playerTwo.GetComponent<Rigidbody2D>();
+        //Destroy player
+        Destroy(playerTwo.parent.gameObject);
 
-        body.isKinematic = true;
+        //Instantiate a new player
+        Transform t = Instantiate(playerTwoPrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
 
-        playerTwo.parent.position = GetSpawnPosition();
-        playerTwo.localPosition = GetRandomOffset();
-        playerTwo.localRotation = Quaternion.Euler(Vector3.zero);
-        playerTwo.GetComponent<FrogPrototype>().leftGripScript.ResetGrip();
-        playerTwo.GetComponent<FrogPrototype>().rightGripScript.ResetGrip();
+        //Set new player start values
+        playerTwo = t.FindChild("body");
+        playerOne.localPosition = GetRandomOffset();
 
-        Transform leg = playerTwo.parent.FindChild("left_leg_lower");
-        leg.localPosition = playerTwoPrefab.FindChild("left_leg_lower").localPosition;
-
-        Transform upperLeg = playerTwo.parent.FindChild("left_leg_upper");
-        upperLeg.localPosition = playerTwoPrefab.FindChild("left_leg_upper").localPosition;
-
-        leg = playerTwo.parent.FindChild("right_leg_lower");
-        leg.localPosition = playerTwoPrefab.FindChild("right_leg_lower").localPosition;
-
-        upperLeg = playerTwo.parent.FindChild("right_leg_upper");
-        upperLeg.localPosition = playerTwoPrefab.FindChild("right_leg_upper").localPosition;
-
+        //Set camera values
+        follow.playerTwo = playerTwo;
         follow.SetAbsoluteZoom(false);
     }
 

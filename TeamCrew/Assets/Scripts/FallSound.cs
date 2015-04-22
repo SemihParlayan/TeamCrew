@@ -10,8 +10,7 @@ public class FallSound : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
 
-        SoundMaster soundMaster = GetComponent<SoundMaster>();
-        sound = soundMaster.GetSource(1);
+        sound = GetComponent<AudioSource>();
 	}
 	
 	

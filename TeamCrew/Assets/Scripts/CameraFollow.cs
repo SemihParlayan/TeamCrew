@@ -11,16 +11,16 @@ public class CameraFollow : MonoBehaviour
     public float absoluteZoomValue = 8;
 
     private Camera cam;
-    private Transform frogOne;
-    private Transform frogTwo;
+    public Transform playerOne;
+    public Transform playerTwo;
 
     public bool absoluteZoom;
 
     void Start()
     {
         cam = GetComponent<Camera>();
-        frogOne = GameObject.FindWithTag("PlayerOne").transform;
-        frogTwo = GameObject.FindWithTag("PlayerTwo").transform;
+        playerOne = GameObject.FindWithTag("PlayerOne").transform;
+        playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
 
         cam.orthographicSize = (maxZoom + minZoom) / 2;
     }
@@ -28,7 +28,7 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        if (frogOne == null || frogTwo == null)
+        if (playerOne == null || playerTwo == null)
             return;
 
         FollowTopFrog();
@@ -37,19 +37,19 @@ public class CameraFollow : MonoBehaviour
     void FollowTopFrog()
     {
         //Aquire top frogs y position
-        float topFrogY = (frogOne.position.y > frogTwo.position.y) ? frogOne.position.y : frogTwo.position.y;
+        float topFrogY = (playerOne.position.y > playerTwo.position.y) ? playerOne.position.y : playerTwo.position.y;
 
         //Set target position to frogs feet
         Vector3 targetPosition = transform.position;
         targetPosition.y = topFrogY - 2;
-        targetPosition.x = (frogOne.position.x + frogTwo.position.x) / 2;
+        targetPosition.x = (playerOne.position.x + playerTwo.position.x) / 2;
 
 
         //Move towards target
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * movementSpeed);
 
         //Set target size
-        float targetSize = Mathf.Clamp(Mathf.Abs(frogOne.position.y - frogTwo.position.y), minZoom, maxZoom);
+        float targetSize = Mathf.Clamp(Mathf.Abs(playerOne.position.y - playerTwo.position.y), minZoom, maxZoom);
         if (absoluteZoom)
         {
             targetSize = absoluteZoomValue;
@@ -60,16 +60,15 @@ public class CameraFollow : MonoBehaviour
         //Fix Z position
         Vector3 pos = cam.transform.position;
         pos.z = (cam.orthographicSize - minZoom) / (maxZoom - minZoom) * -20 - 10;
-        pos.y = Mathf.Clamp(pos.y, GameManager.LevelHeight, int.MaxValue);
+        pos.y = Mathf.Clamp(pos.y, GameManager.LevelHeight + 5, int.MaxValue);
         cam.transform.position = pos;
     }
 
     public void ActivateScript()
     {
-        Debug.Log("Activate script");
         this.enabled = true;
-        frogOne = GameObject.FindWithTag("PlayerOne").transform;
-        frogTwo = GameObject.FindWithTag("PlayerTwo").transform;
+        playerOne = GameObject.FindWithTag("PlayerOne").transform;
+        playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
     }
     public void SetAbsoluteZoom(bool state)
     {
