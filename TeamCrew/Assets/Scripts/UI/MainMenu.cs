@@ -14,8 +14,11 @@ public class MainMenu : MonoBehaviour
 
 	void Start () 
     {
-        //ERROR CHECK RAWR
+        if (singleplayerButton == null || multiplayerButton == null)
+            Debug.LogError("Attach both singleplayer and multiplayer button to MainMenu.cs!");
+
         anim = GetComponent<Animator>();
+        multiplayerButton.Select();
 	}
 
 	void Update () 
