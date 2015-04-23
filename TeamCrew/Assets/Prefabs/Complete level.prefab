@@ -571,6 +571,7 @@ GameObject:
   - 114: {fileID: 11494612}
   - 114: {fileID: 11457272}
   - 82: {fileID: 8233810}
+  - 114: {fileID: 11495624}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: GameManager
@@ -1692,7 +1693,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 2.92000008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 463300}
@@ -1717,7 +1718,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2686,10 +2687,8 @@ MonoBehaviour:
   movementSpeed: 4
   zoomSpeed: 1.5
   maxZoom: 9
-  minZoom: 6
+  minZoom: 5
   absoluteZoomValue: 8
-  playerOne: {fileID: 0}
-  playerTwo: {fileID: 0}
   absoluteZoom: 0
 --- !u!114 &11457272
 MonoBehaviour:
@@ -3010,30 +3009,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTop: {fileID: 425200}
   blockList:
-  - {fileID: 11496544, guid: efb7770ae1e82b6499fa6751c75c84fc, type: 2}
-  - {fileID: 11424878, guid: 210e047733598b94d8d274edd2b4a263, type: 2}
-  - {fileID: 11414196, guid: e41aa229d5a61444b8ef6ac82aa4536b, type: 2}
-  - {fileID: 11439744, guid: ba23faac52e1e6545a07f8d8a8572492, type: 2}
-  - {fileID: 11486426, guid: 312a5e04f6c204443a3fa4bbfd3db675, type: 2}
-  - {fileID: 11491962, guid: 62c2e4685f6c3ba4b9bbd856e476a4d5, type: 2}
-  - {fileID: 11498932, guid: 55197e2433efd9a42bdb5c9e5a4c3575, type: 2}
-  - {fileID: 11425246, guid: 37fb1687e8281784e86e2cc7a69c9e8b, type: 2}
-  - {fileID: 11454020, guid: 0eaf604f266c22649afb43919ffd6e79, type: 2}
-  - {fileID: 11447480, guid: df21389333d474840bb30bf681fbc054, type: 2}
-  - {fileID: 11454542, guid: fd1557f4d7c9c854bbe178d106a0a033, type: 2}
-  - {fileID: 11455062, guid: b8188b6f11ecea442af86aa1b1db0be7, type: 2}
-  - {fileID: 11401020, guid: e31ec19fc15b8a14cbf221bf548e516f, type: 2}
-  - {fileID: 11471760, guid: 6343f33c49cd73e40be427a846ac4d7f, type: 2}
-  - {fileID: 11474548, guid: 8425597d826ec8748b9c071a55aacb12, type: 2}
-  - {fileID: 11498540, guid: 6d6471ec2f56e554d915136aed32021e, type: 2}
-  - {fileID: 11456152, guid: 7e410c8bebdcc0a47b01063a8d90b06e, type: 2}
-  - {fileID: 11487026, guid: a86731b2cd208f24dba5228d5aef8ba7, type: 2}
+  - {fileID: 11496544, guid: 63deaf96d1967744db82b782ebbdd120, type: 2}
+  - {fileID: 11456162, guid: b4a9565784fa3fe4e85db4860a4a4c88, type: 2}
+  - {fileID: 11434270, guid: a4eb29fef1266d048b9a15e3c607236c, type: 2}
+  - {fileID: 11424878, guid: 83ec0ba31f239ba44a49032b932a9568, type: 2}
+  - {fileID: 11414196, guid: f12d2e1de2c7dc94c954461f56a438e2, type: 2}
+  - {fileID: 11439744, guid: 2c960600e36007847bef046e5c38a2ef, type: 2}
+  - {fileID: 11486426, guid: 142677a9b3c8dcb478b0a31e8a993dde, type: 2}
+  - {fileID: 11491962, guid: 00d41fb2996d39b44bf6f16677ff804b, type: 2}
+  - {fileID: 11497620, guid: 253ec009684d0ff43b3db51baca2fed8, type: 2}
+  - {fileID: 11407862, guid: 4dd281e10317a4343802349c2b654602, type: 2}
+  - {fileID: 11454542, guid: 0ce396da2f6b5424a88b41b1034af189, type: 2}
+  - {fileID: 11455062, guid: 8eb2ff23c591434488754429adcc3746, type: 2}
+  - {fileID: 11456152, guid: 2657f5bbc9be1bb488f4d8689a2912be, type: 2}
+  - {fileID: 11401020, guid: 3eb14074d3da57641903c7bb04a0dff7, type: 2}
+  - {fileID: 11487026, guid: 061c2dabdc27b3d41be441c94c31c395, type: 2}
+  - {fileID: 11471760, guid: 15741150ad493694aa78eac30c630a20, type: 2}
+  - {fileID: 11474548, guid: ae5b965cfe0c5af4d821369cfff697ba, type: 2}
+  - {fileID: 11498540, guid: b874b6c978423fe4bae68865ebcf80ae, type: 2}
+  - {fileID: 11402930, guid: 99787794627cf174d8771937548e83aa, type: 2}
   - {fileID: 11434770, guid: a05a595db0701af42b8e025fc44fba80, type: 2}
   - {fileID: 11442546, guid: 69998067e3323644aab41a7530b19ecf, type: 2}
   - {fileID: 11401292, guid: c5a6a5a937a22ff41a9e3bb8b6467285, type: 2}
   numberOfHardBlocks: 0
-  numberOfMediumBlocks: 0
-  numberOfEasyBlocks: 3
+  numberOfMediumBlocks: 1
+  numberOfEasyBlocks: 2
+--- !u!114 &11495624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b5421976f7d344d9d823a580d0daf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gladDistance: 7
 --- !u!114 &11495812
 MonoBehaviour:
   m_ObjectHideFlags: 1

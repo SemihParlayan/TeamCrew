@@ -15,6 +15,7 @@ public class FrogPrototype : MonoBehaviour
     float boostTimer;
 
     public string player;
+    public Emotions emotionsScript;
 
     public HandGrip leftGripScript;
     public HandGrip rightGripScript;
@@ -38,7 +39,7 @@ public class FrogPrototype : MonoBehaviour
     public GripMagnet rightHandMagnet;
 
     public float motorSpeed = 350;
-    public float versusMotorBoost = 250;
+    public float versusMotorBoost = 350;
     public bool versusGripped;
 
     void Start()

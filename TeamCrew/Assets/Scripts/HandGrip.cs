@@ -9,6 +9,8 @@ public class HandGrip : MonoBehaviour
     public bool isGripping;
     public bool isVersusGripping;
 
+    public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
+    public bool lastIsOngrip;
 
     //Axis of which to grip with
     public string axis;
@@ -35,9 +37,6 @@ public class HandGrip : MonoBehaviour
 
     //Versus frog reference
     private FrogPrototype versusFrog;
-
-    private float axisValue, lastAxisValue;
-
     public Vector3 GripPosition
     {
         get 
@@ -62,10 +61,7 @@ public class HandGrip : MonoBehaviour
 	
 	void Update ()
     {
-        lastAxisValue = axisValue;
-        axisValue = Input.GetAxis(axis);
-
-        if (Input.GetButton(axis) || axisValue > 0) //Grip button down is down
+        if (Input.GetButton(axis)) //Grip button down is down
         {
             //Set gripping to true
             isGripping = true;
@@ -74,7 +70,7 @@ public class HandGrip : MonoBehaviour
             if (!isOnGrip)
                 renderer.sprite = semiOpen;
         }
-        else if (Input.GetButtonUp(axis) || (lastAxisValue > 0 && axisValue == 0)) //Grip button goes up
+        else if (Input.GetButtonUp(axis)) //Grip button goes up
         {
             //Reset hand sprite
             renderer.sprite = open;
@@ -116,13 +112,16 @@ public class HandGrip : MonoBehaviour
             if (versusFrog)
                 versusFrog.versusGripped = false;
         }
+
+        lastIsOngrip = isOnGrip;
 	}
     bool AllowGrip(Grip g)
     {
         //Find name of the hand
         string holdername = axis.Substring(0, 2);
+
         //Check for grip input
-        if ((Input.GetButton(axis) || Input.GetAxis(axis) > 0) && !isOnGrip)
+        if (Input.GetButton(axis) && !isOnGrip)
         {
             //Aquire grip point
             gripPoint = g.GetClosestGrip(transform.position, holdername);
@@ -163,7 +162,6 @@ public class HandGrip : MonoBehaviour
                 }
             }
         }
-
         return false;
     }
     void OnTriggerStay2D(Collider2D c)

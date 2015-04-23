@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+    public static Transform playerOne, playerTwo;
     public static float LevelHeight;
 
     public LevelGeneration generatorScript;
@@ -62,9 +63,11 @@ public class GameManager : MonoBehaviour
     void StartGame()
     {
         gameStarted = true;
-        cameraFollowScript.ActivateScript();
+        cameraFollowScript.enabled = true;
         respawnScript.enabled = true;
         terrainScript.enabled = false;
+        playerOne = GameObject.FindWithTag("PlayerOne").transform;
+        playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
     }
 
     public void ActivateCameraPan()

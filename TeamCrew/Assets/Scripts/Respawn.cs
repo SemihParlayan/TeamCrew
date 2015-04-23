@@ -7,8 +7,6 @@ public class Respawn : MonoBehaviour
     public Transform playerOnePrefab;
     public Transform playerTwoPrefab;
 
-    private Transform playerOne;
-    private Transform playerTwo;
     private Camera cam;
     private CameraFollow follow;
 
@@ -18,20 +16,18 @@ public class Respawn : MonoBehaviour
     {
         cam = Camera.main;
         follow = cam.transform.GetComponent<CameraFollow>();
-        playerOne = GameObject.FindWithTag("PlayerOne").transform;
-        playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
 
         screamSource = GetComponent<AudioSource>();
 	}
 	
 	void Update () 
     {
-        if (playerOne == null || playerTwo == null)
+        if (GameManager.playerOne == null || GameManager.playerTwo == null)
             return;
 
         float minHeight = cam.transform.position.y - cam.orthographicSize;
 
-        if (playerOne.position.y < minHeight)
+        if (GameManager.playerOne.position.y < minHeight)
         {
             follow.SetAbsoluteZoom(true);
             if (!IsInvoking("RespawnPlayerOne"))
@@ -48,7 +44,7 @@ public class Respawn : MonoBehaviour
             CancelInvoke("RespawnPlayerOne");
         }
 
-        if (playerTwo.position.y < minHeight)
+        if (GameManager.playerTwo.position.y < minHeight)
         {
             follow.SetAbsoluteZoom(true);
             if (!IsInvoking("RespawnPlayerTwo"))
@@ -67,33 +63,31 @@ public class Respawn : MonoBehaviour
     void RespawnPlayerOne()
     {
         //Destroy player
-        Destroy(playerOne.parent.gameObject);
+        Destroy(GameManager.playerOne.parent.gameObject);
 
         //Instantiate a new player
         Transform t = Instantiate(playerOnePrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
 
         //Set new player start values
-        playerOne = t.FindChild("body");
-        playerOne.localPosition = GetRandomOffset();
+        GameManager.playerOne = t.FindChild("body");
+        GameManager.playerOne.localPosition = GetRandomOffset();
 
         //Set camera values
-        follow.playerOne = playerOne;
         follow.SetAbsoluteZoom(false);
     }
     void RespawnPlayerTwo()
     {
         //Destroy player
-        Destroy(playerTwo.parent.gameObject);
+        Destroy(GameManager.playerTwo.parent.gameObject);
 
         //Instantiate a new player
         Transform t = Instantiate(playerTwoPrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
 
         //Set new player start values
-        playerTwo = t.FindChild("body");
-        playerTwo.localPosition = GetRandomOffset();
+        GameManager.playerTwo = t.FindChild("body");
+        GameManager.playerTwo.localPosition = GetRandomOffset();
 
         //Set camera values
-        follow.playerTwo = playerTwo;
         follow.SetAbsoluteZoom(false);
     }
 
@@ -138,7 +132,7 @@ public class Respawn : MonoBehaviour
 
     public void RemoveFrogs()
     {
-        Destroy(playerOne.parent.gameObject);
-        Destroy(playerTwo.parent.gameObject);
+        Destroy(GameManager.playerOne.parent.gameObject);
+        Destroy(GameManager.playerTwo.parent.gameObject);
     }
 }

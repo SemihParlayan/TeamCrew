@@ -41,7 +41,7 @@ public class MainMenu : MonoBehaviour
 
 
         //Click buttons
-        if (Input.GetButtonDown("P1GL") || Input.GetButtonDown("P1GR") || Input.GetAxis("P1GL") > 0 || Input.GetAxis("P1GR") > 0)
+        if (Input.GetButtonDown("P1GL") || Input.GetButtonDown("P1GR"))
         {
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Default"))
             {

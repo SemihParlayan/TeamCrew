@@ -11,22 +11,18 @@ public class CameraFollow : MonoBehaviour
     public float absoluteZoomValue = 8;
 
     private Camera cam;
-    public Transform playerOne;
-    public Transform playerTwo;
 
     public bool absoluteZoom;
 
     void Start()
     {
         cam = GetComponent<Camera>();
-        playerOne = GameObject.FindWithTag("PlayerOne").transform;
-        playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
     }
 
 
     void Update()
     {
-        if (playerOne == null || playerTwo == null)
+        if (GameManager.playerOne == null || GameManager.playerTwo == null)
             return;
 
         FollowTopFrog();
@@ -35,19 +31,19 @@ public class CameraFollow : MonoBehaviour
     void FollowTopFrog()
     {
         //Aquire top frogs y position
-        float topFrogY = (playerOne.position.y > playerTwo.position.y) ? playerOne.position.y : playerTwo.position.y;
+        float topFrogY = (GameManager.playerOne.position.y > GameManager.playerTwo.position.y) ? GameManager.playerOne.position.y : GameManager.playerTwo.position.y;
 
         //Set target position to frogs feet
         Vector3 targetPosition = transform.position;
         targetPosition.y = topFrogY - 2;
-        targetPosition.x = (playerOne.position.x + playerTwo.position.x) / 2;
+        targetPosition.x = (GameManager.playerOne.position.x + GameManager.playerTwo.position.x) / 2;
 
 
         //Move towards target
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * movementSpeed);
 
         //Set target size
-        float targetSize = Mathf.Clamp(Mathf.Abs(playerOne.position.y - playerTwo.position.y), minZoom, maxZoom);
+        float targetSize = Mathf.Clamp(Mathf.Abs(GameManager.playerOne.position.y - GameManager.playerTwo.position.y), minZoom, maxZoom);
         if (absoluteZoom)
         {
             targetSize = absoluteZoomValue;
@@ -60,13 +56,6 @@ public class CameraFollow : MonoBehaviour
         pos.z = (cam.orthographicSize - minZoom) / (maxZoom - minZoom) * -20 - 10;
         pos.y = Mathf.Clamp(pos.y, GameManager.LevelHeight + 5, int.MaxValue);
         cam.transform.position = pos;
-    }
-
-    public void ActivateScript()
-    {
-        this.enabled = true;
-        playerOne = GameObject.FindWithTag("PlayerOne").transform;
-        playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
     }
     public void SetAbsoluteZoom(bool state)
     {
