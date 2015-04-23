@@ -624,7 +624,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.41726398, y: -2.60922813, z: 0}
+  m_LocalPosition: {x: 16.9564629, y: -15.7671204, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 448748}
@@ -1637,6 +1637,7 @@ MonoBehaviour:
   closed: {fileID: 21300008, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
   gripPoint: {fileID: 0}
   gripSoundSource: {fileID: 8249908}
+  released: 0
 --- !u!114 &11436362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1682,6 +1683,7 @@ MonoBehaviour:
   closed: {fileID: 21300008, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
   gripPoint: {fileID: 0}
   gripSoundSource: {fileID: 8226122}
+  released: 0
 --- !u!114 &11469778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1747,6 +1749,7 @@ MonoBehaviour:
   rightParticle: {fileID: 19841510}
   leftParticle: {fileID: 19879208}
   speed: 10
+  yVelocityClamp: 10
   speedBoost: 5
   BoostDuration: 1
   player: P2
@@ -4407,7 +4410,7 @@ HingeJoint2D:
   m_ConnectedAnchor: {x: .796000123, y: -.0129995346}
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: 250
+    m_MotorSpeed: 350
     m_MaximumMotorForce: 1000
   m_UseLimits: 1
   m_AngleLimits:
@@ -4483,7 +4486,7 @@ HingeJoint2D:
   m_ConnectedAnchor: {x: .796000242, y: -.0129995346}
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -250
+    m_MotorSpeed: -350
     m_MaximumMotorForce: 1000
   m_UseLimits: 1
   m_AngleLimits:

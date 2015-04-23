@@ -7,6 +7,7 @@ public class FrogPrototype : MonoBehaviour
     public ParticleSystem leftParticle;
 
     public float speed;
+    public float yVelocityClamp = 10;
 
     //Fly power up
     public float speedBoost;
@@ -36,6 +37,10 @@ public class FrogPrototype : MonoBehaviour
     public GripMagnet leftHandMagnet;
     public GripMagnet rightHandMagnet;
 
+    public float motorSpeed = 350;
+    public float versusMotorBoost = 250;
+    public bool versusGripped;
+
     void Start()
     {
         leftBody = leftHand.GetComponent<Rigidbody2D>();
@@ -64,6 +69,11 @@ public class FrogPrototype : MonoBehaviour
         //Control Hands
         ControlHand(leftGripScript, player + "HL", player + "VL", leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
         ControlHand(rightGripScript, player + "HR", player +"VR", rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
+
+        //Limit y velocity for body
+        Vector2 velocity = body.velocity;
+        velocity.y = Mathf.Clamp(velocity.y, -int.MaxValue, yVelocityClamp);
+        body.velocity = velocity;
     }
 
     void ControlScratch()
@@ -93,6 +103,14 @@ public class FrogPrototype : MonoBehaviour
         body.isKinematic = false;
 
         Vector3 input = new Vector3(Input.GetAxis(horizontalAxis), Input.GetAxis(verticalAxis));
+        if (!leftGripScript.isOnGrip && !rightGripScript.isOnGrip)
+        {
+            if (input.y < 0)
+            {
+                input.y = 0.001f;
+            }
+        }
+
         float angle = Mathf.Rad2Deg * (float)Mathf.Atan2(input.x, input.y);
         if (angle < 0)
         {
@@ -101,13 +119,27 @@ public class FrogPrototype : MonoBehaviour
         float i = (int)(angle / 45.0f);
         angle = (45 * i) * Mathf.Deg2Rad;
 
-        joint.useMotor = (grip && input.y < 0);
 
-        HingeJoint2D j = null;
+        HingeJoint2D otherJoint = null;
+        JointMotor2D motor = new JointMotor2D();
         if (joint == leftJoint)
-            j = rightJoint;
+        {
+            motor.motorSpeed = motorSpeed;
+            if (versusGripped)
+                motor.motorSpeed += versusMotorBoost;
+            motor.maxMotorTorque = 1000;
+            otherJoint = rightJoint;
+        }
         else
-            j = leftJoint;
+        {
+            motor.motorSpeed = -motorSpeed;
+            if (versusGripped)
+                motor.motorSpeed -= versusMotorBoost;
+            motor.maxMotorTorque = 1000;
+            otherJoint = leftJoint;
+        }
+        joint.motor = motor;
+        joint.useMotor = (grip && input.y < 0);
 
 
         if (!grip)
@@ -119,7 +151,7 @@ public class FrogPrototype : MonoBehaviour
                 Vector3 targetPosition = handOrigin.position + dir * 2.0f + magnet.magnetDir;
                 body.velocity = (targetPosition - hand.position) * speed;
             }
-            else if (otherGripScript.isOnGrip && j.useMotor && handScript.isGripping) // Move towards other hand when neutral
+            else if (otherGripScript.isOnGrip && otherJoint.useMotor && handScript.isGripping) // Move towards other hand when neutral
             {
                 Vector3 targetPosition = otherGripScript.gripPoint.transform.position;
                 body.velocity = (targetPosition - hand.position) * speed;
@@ -146,5 +178,6 @@ public class FrogPrototype : MonoBehaviour
     public void EnergyBoost()
     {
     }
+
 }
 
