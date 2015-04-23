@@ -21,8 +21,6 @@ public class CameraFollow : MonoBehaviour
         cam = GetComponent<Camera>();
         playerOne = GameObject.FindWithTag("PlayerOne").transform;
         playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
-
-        cam.orthographicSize = (maxZoom + minZoom) / 2;
     }
 
 
