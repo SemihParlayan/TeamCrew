@@ -199,11 +199,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3a9549581031b48b96cbd1e66848e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementMode: 2
+  motionState: 0
   soundSource: {fileID: 8258572}
   MinSittingTime: 0
   MaxSittingTime: 0
   speed: 2
+  spawnPosX: 5
   intenseForce: 0
   normalForce: 0
 --- !u!114 &11466394
@@ -242,7 +243,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -398591093
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 421719ea08c47e844a580cb232de06b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 712bf8b7cd8cfcb4ab6cd09cf6b5181a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
