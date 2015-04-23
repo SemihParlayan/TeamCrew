@@ -126,9 +126,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 407322, guid: c5a6a5a937a22ff41a9e3bb8b6467285, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1.34000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 407322, guid: c5a6a5a937a22ff41a9e3bb8b6467285, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 6.01999998
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5a6a5a937a22ff41a9e3bb8b6467285, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &31308468 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 454386, guid: c5a6a5a937a22ff41a9e3bb8b6467285, type: 2}
+  m_PrefabInternal: {fileID: 4535685}
 --- !u!1001 &177401213
 Prefab:
   m_ObjectHideFlags: 0
@@ -179,6 +191,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1887413404 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 465812, guid: c5a6a5a937a22ff41a9e3bb8b6467285, type: 2}
+  m_PrefabInternal: {fileID: 4535685}
 --- !u!1 &1956046976 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 148786, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
@@ -195,5 +211,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FlyPrefab: {fileID: 432452, guid: 9d6c1b19877602247985cc2cd0197966, type: 2}
-  playerOne: {fileID: 433058, guid: af13f8425c11a614bb7c956c3e3ca9ee, type: 2}
-  playerTwo: {fileID: 494670, guid: 32d81332af0c8b942a2207d9dbb2328d, type: 2}
+  playerOne: {fileID: 1887413404}
+  playerTwo: {fileID: 31308468}

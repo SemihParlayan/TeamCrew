@@ -1,70 +1,62 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum MovementType
+public enum MotionState
 {
-    NONE,
-    RANDOM,
-    SIN,
+    rip,
+    sit,
+    panicMode,
+    normal
 }
 
 public class Insect : MonoBehaviour
 {
-    public MovementType movementMode;
+    public MotionState motionState;
     public AudioSource soundSource;
     public float MinSittingTime;
     public float MaxSittingTime;
     public float speed;
+    public float spawnPosX = 5;
 
     public float intenseForce;
     public float normalForce;
 
     Rigidbody2D body;
-
-
-    float sittingTime; //timer
-    bool paralyzed;
-
     Transform hand;
 
-    //Sin curve variables
+    float sittingTime; //timer
+
+    float thing; // explain what this is
     float startY;
-    float swing;
-    int cycleStart;
-    float frequency;
-
-    //Movement types
-    //bool[] movementTypes;
-    bool curve;
-    bool jitter;
-
-    float thing;
-
     float targetY;
 
 	void Start ()
     {
-        paralyzed = false;
+        //flying forces
+        normalForce  = 500;  // For going down slowly.
+        intenseForce = 1500; // For lifting players.
 
-        intenseForce = 1500;
-        normalForce = 500;
-       targetY = startY = transform.position.y;
-        swing = 1.0f;
-        cycleStart = Random.Range(0, 360);
-        frequency = 1.0f;
+        targetY = startY = transform.position.y;
 
         //movement
-        curve = true;
-        jitter = true;
         targetY = 20;
 
         body = GetComponent<Rigidbody2D>();
+
+        if (Random.Range(0.0f, 1.0f) >.5f)
+        {
+            spawnPosX = -spawnPosX;
+            transform.localScale = new Vector3(-1,1,1);
+        }
+        Vector3 spawnPosition = transform.position;
+        spawnPosition.x = spawnPosX;
+        transform.position = spawnPosition;
 	}
 	
 	
 	void Update ()
     {
-        if(paralyzed)
+        if(false)//paralyzed)
         {
             CircleCollider2D c = hand.GetComponent<CircleCollider2D>();
             if (c)
@@ -80,7 +72,7 @@ public class Insect : MonoBehaviour
                 if(sittingTime  <= 0)
                 {
                     sittingTime = 0;
-                    movementMode = MovementType.SIN;
+                   // MotionState = MovementType.SIN;
                 }
             }
 
@@ -91,22 +83,72 @@ public class Insect : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (transform.position.y < targetY)
+        switch(motionState)
         {
-            body.AddForce(new Vector2(0, intenseForce));
-            //soundSource.pitch = intenseForce/normalForce;
-        }
-        else if (body.velocity.y < 0)
-        {
-            body.AddForce(new Vector2(0, normalForce));
-            //soundSource.pitch = 1;
+            case MotionState.panicMode:
+                if (transform.position.y < targetY)
+                {
+                    body.AddForce(new Vector2(0, intenseForce));
+                    //soundSource.pitch = intenseForce/normalForce;
+                }
+                else if (body.velocity.y < 0)
+                {
+                    body.AddForce(new Vector2(0, normalForce));
+                    //soundSource.pitch = 1;
 
+                }
+            break;
+            case MotionState.sit:
+
+            break;
+            case MotionState.normal:
+            break;
         }
+        
+    }
+
+    void ChangeState(MotionState state)
+    {
+        if(state == motionState) return;
+
+        //ending old behaviour
+        switch (motionState)
+        {
+            case MotionState.rip:
+                break;
+
+            case MotionState.sit:
+                break;
+
+            case MotionState.normal:
+                break;
+            
+            case MotionState.panicMode:
+                break;
+
+            
+        }
+        //getting new behaviour
+        switch (state)
+        {
+            case MotionState.rip:
+                //turn of sound
+            break;
+                //turn off sound
+            case MotionState.normal:
+
+            break;
+
+            case MotionState.panicMode:
+
+            break;
+        }
+
     }
 
     public void SetParalyze(bool state)
     {
-        paralyzed = state;
+        //paralyzed = state;
     }
     public void SetHand(Transform hand)
     {
@@ -120,7 +162,7 @@ public class Insect : MonoBehaviour
     {
         if (c.transform.tag == "Grip" && Random.Range(0,2) == 1)
         {
-            movementMode = MovementType.NONE;
+            //movementMode = MovementType.NONE;
             sittingTime = Random.Range(MinSittingTime, MaxSittingTime);
 
             //Todo: Change sprite to sitting!

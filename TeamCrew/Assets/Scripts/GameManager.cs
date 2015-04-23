@@ -80,5 +80,7 @@ public class GameManager : MonoBehaviour
         respawnScript.enabled = false;
         terrainScript.enabled = true;
         gameStarted = false;
+
+        respawnScript.RemoveFrogs();
     }
 }

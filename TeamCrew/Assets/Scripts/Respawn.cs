@@ -38,11 +38,8 @@ public class Respawn : MonoBehaviour
             {
                 Invoke("RespawnPlayerOne", respawnTime);
 
-                if (playerOne.position.y < minHeight - 2)
-                {
-                    if (!screamSource.isPlaying)
-                        screamSource.Play();
-                }
+                if (!screamSource.isPlaying)
+                    screamSource.Play();
             }
                 
         }
@@ -93,7 +90,7 @@ public class Respawn : MonoBehaviour
 
         //Set new player start values
         playerTwo = t.FindChild("body");
-        playerOne.localPosition = GetRandomOffset();
+        playerTwo.localPosition = GetRandomOffset();
 
         //Set camera values
         follow.playerTwo = playerTwo;
@@ -137,5 +134,11 @@ public class Respawn : MonoBehaviour
         int i = Random.Range(0, offsets.Length);
 
         return offsets[i];
+    }
+
+    public void RemoveFrogs()
+    {
+        Destroy(playerOne.parent.gameObject);
+        Destroy(playerTwo.parent.gameObject);
     }
 }
