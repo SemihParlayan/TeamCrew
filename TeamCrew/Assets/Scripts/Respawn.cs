@@ -36,7 +36,7 @@ public class Respawn : MonoBehaviour
 
                 if (!screamSource.isPlaying)
                 {
-                    screamSource.pitch = Random.Range(.8f, 1.f);
+                    screamSource.pitch = Random.Range(.8f, 1.0f);
                     screamSource.Play();
                 }
             }
