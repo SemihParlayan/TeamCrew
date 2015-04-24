@@ -35,7 +35,10 @@ public class Respawn : MonoBehaviour
                 Invoke("RespawnPlayerOne", respawnTime);
 
                 if (!screamSource.isPlaying)
+                {
+                    screamSource.pitch = Random.Range(.8f, 1.f);
                     screamSource.Play();
+                }
             }
                 
         }
@@ -50,8 +53,11 @@ public class Respawn : MonoBehaviour
             if (!IsInvoking("RespawnPlayerTwo"))
             {
                 Invoke("RespawnPlayerTwo", respawnTime);
-                if (!screamSource.isPlaying) 
+                if (!screamSource.isPlaying)
+                {
+                    screamSource.pitch = Random.Range(.4f, .7f);
                     screamSource.Play();
+                }
             }
         }
         else
