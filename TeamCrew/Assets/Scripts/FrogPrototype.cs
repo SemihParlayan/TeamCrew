@@ -109,7 +109,7 @@ public class FrogPrototype : MonoBehaviour
         {
             if (input.y < 0)
             {
-                input.y = 0.001f;
+                input.y = 0.5f;
             }
         }
 
