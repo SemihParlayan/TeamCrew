@@ -40,7 +40,8 @@ public class FrogPrototype : MonoBehaviour
 
     public float motorSpeed = 350;
     public float versusMotorBoost = 350;
-    public bool versusGripped;
+
+    public int versusHands;
 
     void Start()
     {
@@ -126,7 +127,7 @@ public class FrogPrototype : MonoBehaviour
         if (joint == leftJoint)
         {
             motor.motorSpeed = motorSpeed;
-            if (versusGripped)
+            if (versusHands > 0)
                 motor.motorSpeed += versusMotorBoost;
             motor.maxMotorTorque = 1000;
             otherJoint = rightJoint;
@@ -134,7 +135,7 @@ public class FrogPrototype : MonoBehaviour
         else
         {
             motor.motorSpeed = -motorSpeed;
-            if (versusGripped)
+            if (versusHands > 0)
                 motor.motorSpeed -= versusMotorBoost;
             motor.maxMotorTorque = 1000;
             otherJoint = leftJoint;

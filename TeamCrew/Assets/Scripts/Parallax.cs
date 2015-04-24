@@ -38,12 +38,13 @@ public class Parallax : MonoBehaviour
         //// Fixing y pos so that the parallax is at max parralax state at the top
         //relOrig.y = paralPosY;
         Vector2 targetPos = origin;
+        targetPos.x = camPos.x;
         targetPos.y = paralPosY;
 
         // The scalar based on distance
         float relDist = 1 / cameraToRockLenghts;
 
         //transform.position = relDist * relOrig + origin ;
-        transform.position = targetPos + new Vector2(0, -levelHeight);
+        transform.position = targetPos + new Vector2(0, -levelHeight + 16);
 	}
 }
