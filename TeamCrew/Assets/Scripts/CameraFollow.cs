@@ -54,7 +54,7 @@ public class CameraFollow : MonoBehaviour
         //Fix Z position
         Vector3 pos = cam.transform.position;
         pos.z = (cam.orthographicSize - minZoom) / (maxZoom - minZoom) * -20 - 10;
-        pos.y = Mathf.Clamp(pos.y, GameManager.LevelHeight + 5, int.MaxValue);
+        pos.y = Mathf.Clamp(pos.y, GameManager.LevelHeight + 8, int.MaxValue);
         cam.transform.position = pos;
     }
     public void SetAbsoluteZoom(bool state)

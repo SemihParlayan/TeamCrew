@@ -37,6 +37,7 @@ public class HandGrip : MonoBehaviour
 
     //Versus frog reference
     private FrogPrototype versusFrog;
+
     public Vector3 GripPosition
     {
         get 
@@ -110,7 +111,7 @@ public class HandGrip : MonoBehaviour
             isGripping = false;
             isVersusGripping = false;
             if (versusFrog)
-                versusFrog.versusGripped = false;
+                versusFrog.versusHands--;
         }
 
         lastIsOngrip = isOnGrip;
@@ -130,10 +131,26 @@ public class HandGrip : MonoBehaviour
             if (gripPoint != null)
             {
                 //Is the grip empty or is it already owned by the same player
-                if (gripPoint.holderName == string.Empty || gripPoint.holderName == holdername)
+                if (true)//if (gripPoint.holderName == string.Empty || gripPoint.holderName == holdername)
                 {
                     //Is there to much hand on the grip?
-                    if (gripPoint.numberOfHands < 3)
+                    if (g is MovingGrip)
+                    {
+                        if (holdername == gripPoint.holderName)
+                        {
+                            isOnGrip = true;
+                            gripPoint.holderName = holdername;
+                            gripPoint.numberOfHands++;
+
+                            renderer.sprite = closed;
+                            joint.enabled = true;
+
+                            randSoundGen.GenerateGrip();
+                            gripSoundSource.Play();
+                            return true;
+                        }
+                    }
+                    else if (true) //if (gripPoint.numberOfHands < 3)
                     {
                         //Hand is on a grip
                         isOnGrip = true;
@@ -195,7 +212,7 @@ public class HandGrip : MonoBehaviour
                     {
                         isVersusGripping = true;
                         versusFrog = FindVersusBody(c.transform).GetComponent<FrogPrototype>();
-                        versusFrog.versusGripped = true;
+                        versusFrog.versusHands++;
                     }
                 }
             }
