@@ -12,6 +12,8 @@ public class HandGrip : MonoBehaviour
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
     public bool lastIsOngrip;
 
+    public ParticleSystem stoneParticle;
+
     //Axis of which to grip with
     public string axis;
 
@@ -51,7 +53,7 @@ public class HandGrip : MonoBehaviour
         //Aquire spriterenderer and sound
         renderer = GetComponent<SpriteRenderer>();
         randSoundGen = gripSoundSource.GetComponent<RandomSoundFromList>();
-
+        
         //Aquire joint and disable it
         joint = transform.parent.GetComponent<HingeJoint2D>();
         joint.enabled = false;
@@ -64,6 +66,9 @@ public class HandGrip : MonoBehaviour
     {
         if (!gameManager.gameActive)
             return;
+
+        if (stoneParticle.particleCount > 20)
+            stoneParticle.enableEmission = false;
         if (Input.GetButton(axis)) //Grip button down is down
         {
             //Set gripping to true
@@ -156,6 +161,7 @@ public class HandGrip : MonoBehaviour
                     {
                         //Hand is on a grip
                         isOnGrip = true;
+                        stoneParticle.enableEmission = true;
 
                         //Set grips holder and number of hands
                         gripPoint.holderName = holdername;
