@@ -4,6 +4,7 @@ using System.Collections;
 public class CameraPan : MonoBehaviour 
 {
     public float movementSpeed = 10;
+    private bool halfway;
 
 	void Start () 
     {
@@ -18,6 +19,13 @@ public class CameraPan : MonoBehaviour
         transform.position += velocity;
 	}
 
+    public bool Halfway()
+    {
+        if (!halfway)
+            return halfway = ((transform.position.y <= GameManager.LevelHeight / 2) && !halfway);
+        else
+            return false;
+    }
     public bool Complete()
     {
         bool complete = (transform.position.y <= GameManager.LevelHeight + 8);
@@ -25,6 +33,7 @@ public class CameraPan : MonoBehaviour
         if (complete)
         {
             this.enabled = false;
+            halfway = false;
         }
         return complete;
     }

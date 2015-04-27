@@ -163,4 +163,14 @@ public class LevelGeneration : MonoBehaviour
         Debug.LogError("Error finding a " + difficulty.ToString() + " Block!");
         return null;
     }
+
+    public Vector3 GetPlayerOneSpawnPosition()
+    {
+        return level.Last().GetComponent<TutorialBlock>().playerOneStart.position;
+    }
+
+    public Vector3 GetPlayerTwoSpawnPosition()
+    {
+        return level.Last().GetComponent<TutorialBlock>().playerTwoStart.position;
+    }
 }

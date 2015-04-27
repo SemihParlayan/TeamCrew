@@ -66,6 +66,10 @@ public class MainMenu : MonoBehaviour
     }
     public void EnableUI()
     {
+        Invoke("EnableUIPrivate", 3f);
+    }
+    private void EnableUIPrivate()
+    {
         UIParent.gameObject.SetActive(true);
         anim.SetTrigger("SignsIn");
     }

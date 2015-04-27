@@ -62,6 +62,8 @@ public class HandGrip : MonoBehaviour
 	
 	void Update ()
     {
+        if (!gameManager.gameActive)
+            return;
         if (Input.GetButton(axis)) //Grip button down is down
         {
             //Set gripping to true
@@ -183,6 +185,8 @@ public class HandGrip : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D c)
     {
+        if (!gameManager.gameActive)
+            return;
         if (c.transform.tag == "Grip")
         {
             //Aquire grip script

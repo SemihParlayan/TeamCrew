@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     private Vector3 cameraDefaultPosition;
     private Transform cameraTransform;
-    private bool gameStarted;
+    public bool gameActive;
 
     public LayerMask mask;
 
@@ -48,12 +48,16 @@ public class GameManager : MonoBehaviour
         //Check for camera pan complete
         if (cameraPanScript.enabled)
         {
+            if (cameraPanScript.Halfway())
+            {
+                CreateNewFrogs();
+            }
             if (cameraPanScript.Complete())
             {
                 StartGame();
             }
         }
-        else if (!gameStarted)
+        else if (!gameActive)
         {
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
@@ -62,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     void StartGame()
     {
-        gameStarted = true;
+        gameActive = true;
         cameraFollowScript.enabled = true;
         respawnScript.enabled = true;
         terrainScript.enabled = false;
@@ -82,8 +86,19 @@ public class GameManager : MonoBehaviour
         cameraFollowScript.enabled = false;
         respawnScript.enabled = false;
         terrainScript.enabled = true;
-        gameStarted = false;
+        gameActive = false;
 
-        respawnScript.RemoveFrogs();
+        //respawnScript.RemoveFrogs();
+    }
+
+    private void CreateNewFrogs()
+    {
+        if (playerOne != null)
+            Destroy(playerOne.parent.gameObject);
+        if (playerTwo != null)
+            Destroy(playerTwo.parent.gameObject);
+
+        playerOne = (Instantiate(respawnScript.playerOnePrefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+        playerTwo = (Instantiate(respawnScript.playerTwoPrefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
     }
 }

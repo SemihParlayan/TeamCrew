@@ -135,10 +135,4 @@ public class Respawn : MonoBehaviour
 
         return offsets[i];
     }
-
-    public void RemoveFrogs()
-    {
-        Destroy(GameManager.playerOne.parent.gameObject);
-        Destroy(GameManager.playerTwo.parent.gameObject);
-    }
 }
