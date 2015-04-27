@@ -47,7 +47,7 @@ public class MainMenu : MonoBehaviour
             {
                 if (selectedButton == 1)
                 {
-
+                    multiplayerButton.onClick.Invoke();
                 }
                 else if (selectedButton == 2)
                 {
