@@ -16,6 +16,9 @@ public class FlySpawner : MonoBehaviour
 	void Update ()
     {
         //Semih should I check for new frogs every update??
+        if (!(GameManager.playerOne && GameManager.playerTwo))
+            return;
+
         Transform playerOne = GameManager.playerOne;
         Transform playerTwo = GameManager.playerTwo;
 
@@ -30,7 +33,7 @@ public class FlySpawner : MonoBehaviour
 
             if (playersDistanceY > 5 && Random.Range(0, 100) > 60)
             {
-                Debug.Log("right random and distance. Distance: " + );
+                Debug.Log("right random and distance. Distance: " + playersDistanceY);
                 Instantiate(FlyPrefab);
             }
 
