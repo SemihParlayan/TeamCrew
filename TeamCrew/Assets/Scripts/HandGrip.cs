@@ -5,14 +5,12 @@ public class HandGrip : MonoBehaviour
 {
     //Hand states
     public bool isOnGrip;
+    public bool lastIsOngrip;
     public bool isOnWall;
     public bool isGripping;
     public bool isVersusGripping;
 
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
-    public bool lastIsOngrip;
-
-    public ParticleSystem stoneParticle;
 
     //Axis of which to grip with
     public string axis;
@@ -61,14 +59,11 @@ public class HandGrip : MonoBehaviour
         //Aquire game manager
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 	}
-	
+
 	void Update ()
     {
         if (!gameManager.gameActive)
             return;
-
-        if (stoneParticle.particleCount > 20)
-            stoneParticle.enableEmission = false;
         if (Input.GetButton(axis)) //Grip button down is down
         {
             //Set gripping to true
@@ -80,45 +75,11 @@ public class HandGrip : MonoBehaviour
         }
         else if (Input.GetButtonUp(axis)) //Grip button goes up
         {
-            //Reset hand sprite
-            renderer.sprite = open;
-
-            //If hand is on a grip
-            if (isOnGrip)
-            {
-                //Reset on grip
-                isOnGrip = false;
-
-                //Decrease number of hands on grip point
-                gripPoint.numberOfHands--;
-
-                //if hand count is zero.... reset owner of the grip
-                if (gripPoint.numberOfHands <= 0 && !isVersusGripping)
-                {
-                    gripPoint.holderName = "";
-                }
-
-                //Disable connected hand joint
-                joint.enabled = false;
-                joint.connectedBody = null;
-
-                //Disable grip point
-                gripPoint = null;
-
-                //Play release sound
-                randSoundGen.GenerateRelease();
-                gripSoundSource.Play();
-            }
-            else if (insectScript != null)
+            ReleaseGrip();
+            if (insectScript != null)
             {
                 insectScript.SetParalyze(false);
             }
-
-            //Reset grip
-            isGripping = false;
-            isVersusGripping = false;
-            if (versusFrog)
-                versusFrog.versusHands--;
         }
 
         lastIsOngrip = isOnGrip;
@@ -137,53 +98,48 @@ public class HandGrip : MonoBehaviour
             //Do we have a grip point?
             if (gripPoint != null)
             {
-                //Is the grip empty or is it already owned by the same player
-                if (true)//if (gripPoint.holderName == string.Empty || gripPoint.holderName == holdername)
+                //Is there to much hand on the grip?
+                if (g is MovingGrip)
                 {
-                    //Is there to much hand on the grip?
-                    if (g is MovingGrip)
+                    if (holdername == gripPoint.holderName)
                     {
-                        if (holdername == gripPoint.holderName)
-                        {
-                            isOnGrip = true;
-                            gripPoint.holderName = holdername;
-                            gripPoint.numberOfHands++;
-
-                            renderer.sprite = closed;
-                            joint.enabled = true;
-
-                            randSoundGen.GenerateGrip();
-                            gripSoundSource.Play();
-                            return true;
-                        }
-                    }
-                    else if (true) //if (gripPoint.numberOfHands < 3)
-                    {
-                        //Hand is on a grip
                         isOnGrip = true;
-                        stoneParticle.enableEmission = true;
-
-                        //Set grips holder and number of hands
                         gripPoint.holderName = holdername;
                         gripPoint.numberOfHands++;
 
-                        //Change hand sprite
                         renderer.sprite = closed;
-
-                        //Enable hand joints
                         joint.enabled = true;
-                        joint.connectedAnchor = gripPoint.transform.position;
 
-                        //Playing a randomly chosen grip sound
                         randSoundGen.GenerateGrip();
                         gripSoundSource.Play();
-
-                        if (g.winningGrip)
-                        {
-                            gameManager.Win();
-                        }
                         return true;
                     }
+                }
+                else
+                {
+                    //Hand is on a grip
+                    isOnGrip = true;
+
+                    //Set grips holder and number of hands
+                    gripPoint.holderName = holdername;
+                    gripPoint.numberOfHands++;
+
+                    //Change hand sprite
+                    renderer.sprite = closed;
+
+                    //Enable hand joints
+                    joint.enabled = true;
+                    joint.connectedAnchor = gripPoint.transform.position;
+
+                    //Playing a randomly chosen grip sound
+                    randSoundGen.GenerateGrip();
+                    gripSoundSource.Play();
+
+                    if (g.winningGrip)
+                    {
+                        gameManager.Win();
+                    }
+                    return true;
                 }
             }
         }
@@ -248,6 +204,51 @@ public class HandGrip : MonoBehaviour
         {
             isOnWall = false;
         }
+    }
+
+    public void SetColorTint(Color c)
+    {
+        renderer.color = c;
+    }
+    public void ReleaseGrip()
+    {
+        //Reset hand sprite
+        renderer.color = Color.white;
+        renderer.sprite = open;
+
+        //If hand is on a grip
+        if (isOnGrip)
+        {
+            //Reset on grip
+            isOnGrip = false;
+
+            //Decrease number of hands on grip point
+            gripPoint.numberOfHands--;
+
+            //if hand count is zero.... reset owner of the grip
+            if (gripPoint.numberOfHands <= 0 && !isVersusGripping)
+            {
+                gripPoint.holderName = "";
+            }
+
+            //Disable connected hand joint
+            joint.enabled = false;
+            joint.connectedBody = null;
+
+            //Disable grip point
+            gripPoint = null;
+
+            //Play release sound
+            randSoundGen.GenerateRelease();
+            gripSoundSource.Play();
+        }
+
+        //Reset grip
+        isGripping = false;
+        isVersusGripping = false;
+
+        if (versusFrog)
+            versusFrog.versusHands--;
     }
 
     Transform FindVersusBody(Transform branch)

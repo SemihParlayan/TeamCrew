@@ -72,12 +72,62 @@ public class FrogPrototype : MonoBehaviour
         ControlHand(leftGripScript, player + "HL", player + "VL", leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
         ControlHand(rightGripScript, player + "HR", player +"VR", rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
 
+        //Shake loose body
+        //ShakeLooseBody();
+
         //Limit y velocity for body
         Vector2 velocity = body.velocity;
         velocity.y = Mathf.Clamp(velocity.y, -int.MaxValue, yVelocityClamp);
         body.velocity = velocity;
     }
 
+    private float maxVersusGripTime = 5.0f;
+    private float versusGripTimer = 5.0f;
+    void ShakeLooseBody()
+    {
+        if (leftGripScript.isVersusGripping || rightGripScript.isVersusGripping)
+        {
+            versusGripTimer -= Time.deltaTime;
+
+            float currentRedTime = versusGripTimer / maxVersusGripTime;
+
+            if (currentRedTime <= 0.5f)
+            {
+                leftGripScript.SetColorTint(Color.red);
+                rightGripScript.SetColorTint(Color.red);
+            }
+            else
+            {
+                leftGripScript.SetColorTint(Color.white);
+                rightGripScript.SetColorTint(Color.white);
+            }
+
+            if (versusGripTimer <= 0)
+            {
+                versusGripTimer = maxVersusGripTime;
+                leftGripScript.ReleaseGrip();
+                rightGripScript.ReleaseGrip();
+            }
+        }
+        //if (leftGripScript.isVersusGripping && leftGripScript.versusGripTimer > 1)
+        //{
+        //    float leftDist = Vector3.Distance(transform.position, leftHand.position);
+        //    Debug.Log(leftDist);
+        //    if (leftDist > 2.2f)
+        //    {
+        //        leftGripScript.ReleaseGrip();
+        //    }
+        //}
+        //if (rightGripScript.isVersusGripping && rightGripScript.versusGripTimer > 1)
+        //{
+        //    float rightDist = Vector3.Distance(transform.position, rightHand.position);
+        //    Debug.Log(rightDist);
+        //    if (rightDist > 2.2f)
+        //    {
+        //        rightGripScript.ReleaseGrip();
+        //    }
+        //}
+    }
     void ControlScratch()
     {
         if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
