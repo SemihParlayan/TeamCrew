@@ -27,6 +27,7 @@ public class Insect : MonoBehaviour
     float sittingTime; //timer
 
     float thing; // explain what this is
+
     float startY;
     float targetY;
 
@@ -56,29 +57,16 @@ public class Insect : MonoBehaviour
 	
 	void Update ()
     {
-        if(false)//paralyzed)
+        if (sittingTime > 0)
         {
-            CircleCollider2D c = hand.GetComponent<CircleCollider2D>();
-            if (c)
+            sittingTime -= Time.deltaTime;
+            if (sittingTime <= 0)
             {
-                transform.position = hand.position - hand.right * 0.5f;
+                sittingTime = 0;
+                // MotionState = MovementType.SIN;
             }
         }
-        else
-        {
-            if(sittingTime > 0)
-            {
-                sittingTime -= Time.deltaTime;
-                if(sittingTime  <= 0)
-                {
-                    sittingTime = 0;
-                   // MotionState = MovementType.SIN;
-                }
-            }
-
-            
-            thing += Time.deltaTime;
-        }
+        thing += Time.deltaTime;
 	}
 
     void FixedUpdate()
@@ -125,8 +113,6 @@ public class Insect : MonoBehaviour
             
             case MotionState.panicMode:
                 break;
-
-            
         }
         //getting new behaviour
         switch (state)
@@ -143,7 +129,6 @@ public class Insect : MonoBehaviour
 
             break;
         }
-
     }
 
     public void SetParalyze(bool state)
