@@ -13,14 +13,16 @@ public class Insect : MonoBehaviour
 {
     public MotionState motionState;
     public AudioSource soundSource;
+
     public float MinSittingTime;
     public float MaxSittingTime;
-    public float speed;
-    public float spawnPosX = 5;
+    public float offsetFromFrog = 5;
+    public float panicModeTop = 1;
 
-    public float intenseForce;
-    public float normalForce;
-
+    public float goSlowlyUpForce;
+    public float goSlowlyDownForce;
+    public float liftPlayerForce;
+    
     Rigidbody2D body;
     Transform hand;
 
@@ -28,30 +30,46 @@ public class Insect : MonoBehaviour
 
     float thing; // explain what this is
 
-    float startY;
+    Vector2 startPos;
     float targetY;
 
+    bool grabbed;
 	void Start ()
     {
-        //flying forces
-        normalForce  = 500;  // For going down slowly.
-        intenseForce = 1500; // For lifting players.
-
-        targetY = startY = transform.position.y;
-
-        //movement
-        targetY = 20;
-
         body = GetComponent<Rigidbody2D>();
 
-        if (Random.Range(0.0f, 1.0f) >.5f)
-        {
-            spawnPosX = -spawnPosX;
-            transform.localScale = new Vector3(-1,1,1);
-        }
-        Vector3 spawnPosition = transform.position;
-        spawnPosition.x = spawnPosX;
-        transform.position = spawnPosition;
+        //POSITION
+            startPos = new Vector2(0,0);
+
+            //Lowest frog
+            Transform lowFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
+                GameManager.playerOne : GameManager.playerTwo;
+
+            startPos = lowFrog.position;
+            
+            //Spawn to the right?
+            if (Random.Range(0.0f, 1.0f) > .5f)
+            {
+                startPos.x += offsetFromFrog;
+            }
+            else
+            {
+                startPos.x -= offsetFromFrog;
+                //flip sprite
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+
+            transform.position = startPos;
+
+            targetY = startPos.y + panicModeTop;
+
+        //Forces
+        goSlowlyDownForce = 500;
+        goSlowlyUpForce = 1000;
+        liftPlayerForce = 1500;
+
+        //Motionstate
+        motionState = MotionState.panicMode;
 	}
 	
 	
@@ -74,25 +92,26 @@ public class Insect : MonoBehaviour
         switch(motionState)
         {
             case MotionState.panicMode:
+            { 
                 if (transform.position.y < targetY)
                 {
-                    body.AddForce(new Vector2(0, intenseForce));
-                    //soundSource.pitch = intenseForce/normalForce;
+                    float force = grabbed ? liftPlayerForce : goSlowlyUpForce;
+                    body.AddForce(new Vector2(0, force));
                 }
                 else if (body.velocity.y < 0)
-                {
-                    body.AddForce(new Vector2(0, normalForce));
-                    //soundSource.pitch = 1;
+                    body.AddForce(new Vector2(0, goSlowlyDownForce));
+            }   break;
 
-                }
-            break;
             case MotionState.sit:
-
-            break;
+            {
+                
+            }   break;
+            
             case MotionState.normal:
-            break;
+            {
+                
+            }   break;
         }
-        
     }
 
     void ChangeState(MotionState state)
@@ -133,14 +152,11 @@ public class Insect : MonoBehaviour
 
     public void SetParalyze(bool state)
     {
-        //paralyzed = state;
+
     }
     public void SetHand(Transform hand)
     {
         this.hand = hand;
-       //transform.parent = hand;
-       //transform.localPosition = Vector3.zero;
-       //transform.localScale = Vector3.one;
     }
 
     void OnTriggerEnter2D(Collider2D c)
