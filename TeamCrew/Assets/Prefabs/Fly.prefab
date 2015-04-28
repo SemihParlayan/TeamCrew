@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10b4af78a9e43c64aa7be9e4b3ff83ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winningGrip: 0
   gripPoints:
   - {fileID: 11400244}
   connectedBody: {fileID: 5058460}
@@ -203,10 +204,11 @@ MonoBehaviour:
   soundSource: {fileID: 8258572}
   MinSittingTime: 0
   MaxSittingTime: 0
-  speed: 2
-  spawnPosX: 5
-  intenseForce: 0
-  normalForce: 0
+  offsetFromFrog: 5
+  panicModeTop: 12
+  goSlowlyUpForce: 0
+  goSlowlyDownForce: 0
+  liftPlayerForce: 0
 --- !u!114 &11466394
 MonoBehaviour:
   m_ObjectHideFlags: 1
