@@ -12,6 +12,10 @@ public class HandGrip : MonoBehaviour
 
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
 
+    private bool allowVersusGrab = true;
+    public float redBlinkTime;
+    private float redBlinkTimer;
+
     //Axis of which to grip with
     public string axis;
 
@@ -83,6 +87,20 @@ public class HandGrip : MonoBehaviour
         }
 
         lastIsOngrip = isOnGrip;
+
+        if (isVersusGripping)
+        {
+            redBlinkTimer += Time.deltaTime;
+            if (redBlinkTimer <= redBlinkTime / 2)
+                renderer.color = Color.white;
+            else
+                renderer.color = new Color(1, 0.5f, 0.5f);
+
+            if (redBlinkTimer >= redBlinkTime)
+            {
+                redBlinkTimer = 0;
+            }
+        }
 	}
     bool AllowGrip(Grip g)
     {
@@ -101,18 +119,21 @@ public class HandGrip : MonoBehaviour
                 //Is there to much hand on the grip?
                 if (g is MovingGrip)
                 {
-                    if (holdername == gripPoint.holderName)
+                    if (holdername == gripPoint.holderName )
                     {
-                        isOnGrip = true;
-                        gripPoint.holderName = holdername;
-                        gripPoint.numberOfHands++;
+                        if (allowVersusGrab)
+                        {
+                            isOnGrip = true;
+                            gripPoint.holderName = holdername;
+                            gripPoint.numberOfHands++;
 
-                        renderer.sprite = closed;
-                        joint.enabled = true;
+                            renderer.sprite = closed;
+                            joint.enabled = true;
 
-                        randSoundGen.GenerateGrip();
-                        gripSoundSource.Play();
-                        return true;
+                            randSoundGen.GenerateGrip();
+                            gripSoundSource.Play();
+                            return true;
+                        }
                     }
                 }
                 else
@@ -206,14 +227,11 @@ public class HandGrip : MonoBehaviour
         }
     }
 
-    public void SetColorTint(Color c)
-    {
-        renderer.color = c;
-    }
     public void ReleaseGrip()
     {
         //Reset hand sprite
-        renderer.color = Color.white;
+        if (isOnGrip)
+            renderer.color = Color.white;
         renderer.sprite = open;
 
         //If hand is on a grip
@@ -250,7 +268,22 @@ public class HandGrip : MonoBehaviour
         if (versusFrog)
             versusFrog.versusHands--;
     }
+    public void ReleaseVersusGrip(float grabDelay)
+    {
+        if (isVersusGripping)
+            ReleaseGrip();
 
+        if (!isOnGrip)
+            renderer.color = new Color(1, 0.5f, 0.5f);
+
+        allowVersusGrab = false;
+        Invoke("AllowVersusGrab", grabDelay);
+    }
+    private void AllowVersusGrab()
+    {
+        renderer.color = Color.white;
+        allowVersusGrab = true;
+    }
     Transform FindVersusBody(Transform branch)
     {
         while(branch.FindChild("body") == null)

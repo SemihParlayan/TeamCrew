@@ -7,7 +7,8 @@ public class LevelGeneration : MonoBehaviour
 {
     public Transform startTop;
     public List<Block> blockList = new List<Block>();
-
+    public LayerMask signMask;
+    public List<Sprite> signSprites = new List<Sprite>();
     private List<Transform> level = new List<Transform>();
 
     private float blockSize;
@@ -93,7 +94,7 @@ public class LevelGeneration : MonoBehaviour
                     }
                     else
                     {
-                        Destroy(block.transform.gameObject);
+                        DestroyImmediate(block.transform.gameObject);
                         block = GetBlock(level.Last().GetComponent<Block>(), BlockDifficulty.Easy);
                     }
                 }
@@ -104,6 +105,44 @@ public class LevelGeneration : MonoBehaviour
         //Spawn Tutorial
         block = GetBlock(block, BlockDifficulty.Tutorial);
         block.transform.name = "Tutorial"; block.transform.parent = transform; level.Add(block.transform);
+
+        FixSigns();
+    }
+
+    private void FixSigns()
+    {
+        GameObject[] signs = GameObject.FindGameObjectsWithTag("Sign");
+
+        if (signs.Length != signSprites.Count)
+        {
+            Debug.LogError("Number of signs found is not equal to sign sprites applied to LevelGeneration.cs" +
+                " \n Signs found: " + signs.Length + " \n Sprites applied: " + signSprites.Count
+                );
+        }
+        for (int j = 0; j < signSprites.Count; j++)
+        {
+            int maxY = int.MaxValue;
+            int index = -1;
+            for (int i = 0; i < signs.Length; i++)
+            {
+                float y = signs[i].transform.position.y;
+                if (y < maxY)
+                {
+                    index = i;
+                }
+            }
+
+            signs[j].GetComponent<SpriteRenderer>().sprite = signSprites[j];
+        }
+    }
+    void OnDrawGizmos()
+    {
+        //GameObject[] signs = GameObject.FindGameObjectsWithTag("Sign");
+        //for (int i = 0; i < signs.Length; i++)
+        //{
+        //    Gizmos.color = new Color(Random.Range(0.0f, 1f), Random.Range(0.0f, 1f), Random.Range(0.0f, 1f));
+        //    Gizmos.DrawSphere(signs[i].transform.position, 1f);
+        //}
     }
 
     Block GetBlock(Block previousBlock, BlockDifficulty difficulty)
@@ -168,7 +207,6 @@ public class LevelGeneration : MonoBehaviour
     {
         return level.Last().GetComponent<TutorialBlock>().playerOneStart.position;
     }
-
     public Vector3 GetPlayerTwoSpawnPosition()
     {
         return level.Last().GetComponent<TutorialBlock>().playerTwoStart.position;

@@ -73,7 +73,7 @@ public class FrogPrototype : MonoBehaviour
         ControlHand(rightGripScript, player + "HR", player +"VR", rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
 
         //Shake loose body
-        //ShakeLooseBody();
+        ShakeLooseBody();
 
         //Limit y velocity for body
         Vector2 velocity = body.velocity;
@@ -81,34 +81,40 @@ public class FrogPrototype : MonoBehaviour
         body.velocity = velocity;
     }
 
-    private float maxVersusGripTime = 5.0f;
-    private float versusGripTimer = 5.0f;
+    private float maxVersusGripTime = 10.0f;
+    private float versusGripTimer = 10.0f;
+    private float redblinkTimer;
+    private float resetVersusTimer;
+
     void ShakeLooseBody()
     {
         if (leftGripScript.isVersusGripping || rightGripScript.isVersusGripping)
         {
             versusGripTimer -= Time.deltaTime;
 
-            float currentRedTime = versusGripTimer / maxVersusGripTime;
-
-            if (currentRedTime <= 0.5f)
-            {
-                leftGripScript.SetColorTint(Color.red);
-                rightGripScript.SetColorTint(Color.red);
-            }
-            else
-            {
-                leftGripScript.SetColorTint(Color.white);
-                rightGripScript.SetColorTint(Color.white);
-            }
-
+            leftGripScript.redBlinkTime = versusGripTimer / maxVersusGripTime;
+            rightGripScript.redBlinkTime = versusGripTimer / maxVersusGripTime;
+            //Release versus grips
             if (versusGripTimer <= 0)
             {
                 versusGripTimer = maxVersusGripTime;
-                leftGripScript.ReleaseGrip();
-                rightGripScript.ReleaseGrip();
+
+                leftGripScript.ReleaseVersusGrip(1.0f);
+                rightGripScript.ReleaseVersusGrip(1.0f);
             }
         }
+        else
+        {
+            //Reset versus grip timer
+            resetVersusTimer += Time.deltaTime;
+            if (resetVersusTimer >= 5.0f)
+            {
+                versusGripTimer = maxVersusGripTime;
+                resetVersusTimer = 0;
+            }
+        }
+
+
         //if (leftGripScript.isVersusGripping && leftGripScript.versusGripTimer > 1)
         //{
         //    float leftDist = Vector3.Distance(transform.position, leftHand.position);

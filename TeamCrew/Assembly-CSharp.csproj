@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AUDIO.cs" />
-     <Compile Include="Assets\Scripts\Block.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\CameraFollowTerrain.cs" />
      <Compile Include="Assets\Scripts\CameraPan.cs" />
@@ -64,13 +63,14 @@
      <Compile Include="Assets\Scripts\GripPoint.cs" />
      <Compile Include="Assets\Scripts\HandGrip.cs" />
      <Compile Include="Assets\Scripts\Insect.cs" />
-     <Compile Include="Assets\Scripts\LevelGeneration.cs" />
+     <Compile Include="Assets\Scripts\LevelGeneration\Block.cs" />
+     <Compile Include="Assets\Scripts\LevelGeneration\LevelGeneration.cs" />
+     <Compile Include="Assets\Scripts\LevelGeneration\TutorialBlock.cs" />
      <Compile Include="Assets\Scripts\MovingGrip.cs" />
      <Compile Include="Assets\Scripts\Parallax.cs" />
      <Compile Include="Assets\Scripts\RandomSoundFromList.cs" />
      <Compile Include="Assets\Scripts\Respawn.cs" />
      <Compile Include="Assets\Scripts\SoundMaster.cs" />
-     <Compile Include="Assets\Scripts\TutorialBlock.cs" />
      <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
      <Compile Include="Assets\Scripts\VelocityPitch.cs" />
  <Reference Include="UnityEngine.UI">

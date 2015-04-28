@@ -30,7 +30,7 @@ public class FlySpawner : MonoBehaviour
 
             if (playersDistanceY > 5 && Random.Range(0, 100) > 60)
             {
-                Debug.Log("right random and distance. Distance: " + );
+                Debug.Log("right random and distance. Distance: ");
                 Instantiate(FlyPrefab);
             }
 
