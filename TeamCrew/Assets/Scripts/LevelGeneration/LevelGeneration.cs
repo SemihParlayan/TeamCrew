@@ -7,7 +7,6 @@ public class LevelGeneration : MonoBehaviour
 {
     public Transform startTop;
     public List<Block> blockList = new List<Block>();
-    public LayerMask signMask;
     public List<Sprite> signSprites = new List<Sprite>();
     private List<Transform> level = new List<Transform>();
 
@@ -41,7 +40,7 @@ public class LevelGeneration : MonoBehaviour
     {
         for (int i = 0; i < level.Count; i++)
         {
-            Destroy(level[i].gameObject);
+            DestroyImmediate(level[i].gameObject);
         }
         level.Clear();
 
@@ -62,7 +61,7 @@ public class LevelGeneration : MonoBehaviour
         if (previousTop)
         {
             previousTop.parent = null;
-            Destroy(previousTop.gameObject);
+            DestroyImmediate(previousTop.gameObject);
         }
 
         //Spawn Hard Blocks

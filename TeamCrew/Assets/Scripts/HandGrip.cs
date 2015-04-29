@@ -13,6 +13,7 @@ public class HandGrip : MonoBehaviour
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
 
     private bool allowVersusGrab = true;
+    [HideInInspector]
     public float redBlinkTime;
     private float redBlinkTimer;
 
@@ -26,12 +27,16 @@ public class HandGrip : MonoBehaviour
     public Sprite closed;
 
     //Current grip and joint
+    [HideInInspector]
     public GripPoint gripPoint;
     private HingeJoint2D joint;
 
     //Sound
     public AudioSource gripSoundSource;
     private RandomSoundFromList randSoundGen;
+
+    //Stone particles
+    public ParticleSystem stoneParticles;
 
     //Insect reference
     private Insect insectScript;
@@ -162,6 +167,9 @@ public class HandGrip : MonoBehaviour
                     //Playing a randomly chosen grip sound
                     randSoundGen.GenerateGrip();
                     gripSoundSource.Play();
+
+                    //Activate stone particles
+                    stoneParticles.Play();
 
                     if (g.winningGrip)
                     {

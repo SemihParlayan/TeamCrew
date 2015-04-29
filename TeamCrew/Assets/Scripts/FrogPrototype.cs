@@ -50,7 +50,7 @@ public class FrogPrototype : MonoBehaviour
         rightBody = rightHand.GetComponent<Rigidbody2D>();
         body = GetComponent<Rigidbody2D>();
 
-        body.isKinematic = true;
+        //body.isKinematic = true;
     }
 
     void Update()

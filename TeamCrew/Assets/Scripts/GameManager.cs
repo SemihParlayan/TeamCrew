@@ -111,10 +111,14 @@ public class GameManager : MonoBehaviour
     {
         if (playerOne != null)
             Destroy(playerOne.parent.gameObject);
+
         if (playerTwo != null)
             Destroy(playerTwo.parent.gameObject);
 
         playerOne = (Instantiate(respawnScript.playerOnePrefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
         playerTwo = (Instantiate(respawnScript.playerTwoPrefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+
+        playerOne.GetComponent<Rigidbody2D>().isKinematic = true;
+        playerTwo.GetComponent<Rigidbody2D>().isKinematic = true;
     }
 }
