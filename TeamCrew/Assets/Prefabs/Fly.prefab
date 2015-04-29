@@ -10,13 +10,29 @@ GameObject:
   - 4: {fileID: 432452}
   - 50: {fileID: 5058460}
   - 212: {fileID: 21282804}
-  - 58: {fileID: 5817528}
   - 82: {fileID: 8258572}
   - 114: {fileID: 11465268}
   - 114: {fileID: 11466394}
-  - 114: {fileID: 11413354}
+  - 58: {fileID: 5843404}
   m_Layer: 0
   m_Name: Fly
+  m_TagString: Insect
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &152796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 449712}
+  - 58: {fileID: 5877080}
+  - 114: {fileID: 11459912}
+  m_Layer: 0
+  m_Name: Gwu;
   m_TagString: VersusGrip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +40,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &183188
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -45,10 +61,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.0869999975, y: -.0710000023, z: 0}
+  m_LocalPosition: {x: -.0869998932, y: -.0709991455, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 432452}
+  m_Father: {fileID: 449712}
   m_RootOrder: 0
 --- !u!4 &432452
 Transform:
@@ -57,11 +73,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -25.1800003, z: 0}
+  m_LocalPosition: {x: 7.63999987, y: 4.94000006, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 449712}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &449712
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152796}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 428074}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 432452}
   m_RootOrder: 0
 --- !u!50 &5058460
 Rigidbody2D:
@@ -72,18 +101,31 @@ Rigidbody2D:
   m_Mass: 80
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!58 &5817528
+--- !u!58 &5843404
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149926}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -.0599999987, y: -.0700000003}
+  serializedVersion: 2
+  m_Radius: 1.30999994
+--- !u!58 &5877080
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152796}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -173,12 +215,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holderName: 
   numberOfHands: 0
---- !u!114 &11413354
+--- !u!114 &11459912
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149926}
+  m_GameObject: {fileID: 152796}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10b4af78a9e43c64aa7be9e4b3ff83ba, type: 3}
@@ -195,7 +237,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149926}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a3a9549581031b48b96cbd1e66848e8, type: 3}
   m_Name: 

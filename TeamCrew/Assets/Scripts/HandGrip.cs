@@ -119,7 +119,7 @@ public class HandGrip : MonoBehaviour
                 //Is there to much hand on the grip?
                 if (g is MovingGrip)
                 {
-                    if (holdername == gripPoint.holderName )
+                    if (holdername == gripPoint.holderName)
                     {
                         if (allowVersusGrab)
                         {
@@ -204,16 +204,19 @@ public class HandGrip : MonoBehaviour
                 }
             }
         }
-        /*else if (c.transform.tag == "Insect")
+        else if (c.transform.tag == "Insect")
         {
-            if (Input.GetButton(axis))
+            MovingGrip movingGrip = c.transform.GetComponent<MovingGrip>();
+
+            if (movingGrip)
             {
-                renderer.sprite = closed;
-                insectScript = c.transform.GetComponent<Insect>();
-                insectScript.SetParalyze(true);
-                insectScript.SetHand(transform);
+                if (AllowGrip(movingGrip))
+                {
+                    joint.connectedBody = movingGrip.connectedBody;
+                    joint.connectedAnchor = movingGrip.anchor;
+                }
             }
-        }*/
+        }
         else if (c.transform.tag == "Wall")
         {
             isOnWall = true;

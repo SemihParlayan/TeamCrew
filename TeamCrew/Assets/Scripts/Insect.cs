@@ -41,11 +41,19 @@ public class Insect : MonoBehaviour
         //POSITION
             startPos = new Vector2(0,0);
 
-            //Lowest frog
-            Transform lowFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
-                GameManager.playerOne : GameManager.playerTwo;
+            if(GameManager.playerOne && GameManager.playerTwo)
+            {
+                //Lowest frog
+                Transform lowFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
+                    GameManager.playerOne : GameManager.playerTwo;
 
-            startPos = lowFrog.position;
+                startPos = lowFrog.position;
+            }
+            else
+            {
+                startPos = transform.position;
+            }
+            
             
             //Spawn to the right?
             if (Random.Range(0.0f, 1.0f) > .5f)
@@ -96,10 +104,12 @@ public class Insect : MonoBehaviour
                 if (transform.position.y < targetY)
                 {
                     float force = grabbed ? liftPlayerForce : goSlowlyUpForce;
-                    body.AddForce(new Vector2(0, force));
+                    body.AddForce(new Vector2(0, 1500));
                 }
                 else if (body.velocity.y < 0)
+                {
                     body.AddForce(new Vector2(0, goSlowlyDownForce));
+                }
             }   break;
 
             case MotionState.sit:
