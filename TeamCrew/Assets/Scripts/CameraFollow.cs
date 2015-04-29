@@ -31,12 +31,16 @@ public class CameraFollow : MonoBehaviour
     void FollowTopFrog()
     {
         //Aquire top frogs y position
-        float topFrogY = (GameManager.playerOne.position.y > GameManager.playerTwo.position.y) ? GameManager.playerOne.position.y : GameManager.playerTwo.position.y;
+        Vector3 topFrogPosition = (GameManager.playerOne.position.y > GameManager.playerTwo.position.y) ? GameManager.playerOne.position : GameManager.playerTwo.position;
+        float topFrogY = topFrogPosition.y;
 
         //Set target position to frogs feet
         Vector3 targetPosition = transform.position;
         targetPosition.y = topFrogY - 2;
-        targetPosition.x = (GameManager.playerOne.position.x + GameManager.playerTwo.position.x) / 2;
+        if (!absoluteZoom)
+            targetPosition.x = (GameManager.playerOne.position.x + GameManager.playerTwo.position.x) / 2;
+        else
+            targetPosition.x = topFrogPosition.x;
 
 
         //Move towards target

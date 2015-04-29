@@ -30,7 +30,6 @@ public class Respawn : MonoBehaviour
 
         if (GameManager.playerOne.position.y < minHeight)
         {
-            follow.SetAbsoluteZoom(true);
             if (!IsInvoking("RespawnPlayerOne"))
             {
                 Invoke("RespawnPlayerOne", respawnTime);
@@ -50,7 +49,6 @@ public class Respawn : MonoBehaviour
 
         if (GameManager.playerTwo.position.y < minHeight)
         {
-            follow.SetAbsoluteZoom(true);
             if (!IsInvoking("RespawnPlayerTwo"))
             {
                 Invoke("RespawnPlayerTwo", respawnTime);
@@ -65,6 +63,15 @@ public class Respawn : MonoBehaviour
         {
             CancelInvoke("RespawnPlayerTwo");
         }
+
+        if (GameManager.playerOne.position.y < minHeight || GameManager.playerTwo.position.y < minHeight)
+        {
+            follow.SetAbsoluteZoom(true);
+        }
+        else
+        {
+            follow.SetAbsoluteZoom(false);
+        }
 	}
 
     void RespawnPlayerOne()
@@ -72,44 +79,24 @@ public class Respawn : MonoBehaviour
         //Destroy player
         Destroy(GameManager.playerOne.parent.gameObject);
 
-        ////Instantiate a new player
-        //Transform t = Instantiate(playerOnePrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
-
-        ////Set new player start values
-        //GameManager.playerOne = t.FindChild("body");
-        //GameManager.playerOne.localPosition = GetRandomOffset();
-
-        Transform t = Instantiate(playerOnePrefab, new Vector3(cam.transform.position.x, minHeight - 6, 0), Quaternion.identity) as Transform;
+        Transform t = Instantiate(playerOnePrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
 
         GameManager.playerOne = t.FindChild("body");
         Rigidbody2D b = GameManager.playerOne.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
-        b.AddForce(Vector2.up * 1000000);
-
-        //Set camera values
-        follow.SetAbsoluteZoom(false);
+        b.AddForce(Vector2.up * 750000);
     }
     void RespawnPlayerTwo()
     {
         //Destroy player
         Destroy(GameManager.playerTwo.parent.gameObject);
 
-        ////Instantiate a new player
-        //Transform t = Instantiate(playerTwoPrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
-
-        ////Set new player start values
-        //GameManager.playerTwo = t.FindChild("body");
-        //GameManager.playerTwo.localPosition = GetRandomOffset();
-
-        Transform t = Instantiate(playerTwoPrefab, new Vector3(cam.transform.position.x, minHeight - 6, 0), Quaternion.identity) as Transform;
+        Transform t = Instantiate(playerTwoPrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
 
         GameManager.playerTwo = t.FindChild("body");
         Rigidbody2D b = GameManager.playerTwo.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
-        b.AddForce(Vector2.up * 1000000);
-
-        //Set camera values
-        follow.SetAbsoluteZoom(false);
+        b.AddForce(Vector2.up * 750000);
     }
 
     Vector2 GetSpawnPosition()
@@ -134,7 +121,9 @@ public class Respawn : MonoBehaviour
             }
 
 
-            return grips[minIndex].transform.position;
+            Vector3 pos = grips[minIndex].transform.position;
+            pos.y = minHeight - 6;
+            return pos;
         }
 
         return cam.transform.position;
