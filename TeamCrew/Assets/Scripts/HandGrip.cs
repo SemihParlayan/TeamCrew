@@ -61,13 +61,20 @@ public class HandGrip : MonoBehaviour
         joint.enabled = false;
 
         //Aquire game manager
-        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        GameObject game = GameObject.FindWithTag("GameManager");
+        if (game)
+        {
+            gameManager = game.GetComponent<GameManager>();
+        }
 	}
 
 	void Update ()
     {
-        if (!gameManager.gameActive)
-            return;
+        if (gameManager)
+        {
+            if (!gameManager.gameActive)
+                return;
+        }
         if (Input.GetButton(axis)) //Grip button down is down
         {
             //Set gripping to true
@@ -158,7 +165,10 @@ public class HandGrip : MonoBehaviour
 
                     if (g.winningGrip)
                     {
-                        gameManager.Win();
+                        if (gameManager)
+                        {
+                            gameManager.Win();
+                        }
                     }
                     return true;
                 }
@@ -168,8 +178,11 @@ public class HandGrip : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D c)
     {
-        if (!gameManager.gameActive)
-            return;
+        if (gameManager)
+        {
+            if (!gameManager.gameActive)
+                return;
+        }
         if (c.transform.tag == "Grip")
         {
             //Aquire grip script
