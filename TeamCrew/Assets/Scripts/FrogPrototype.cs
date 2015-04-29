@@ -42,6 +42,7 @@ public class FrogPrototype : MonoBehaviour
     public float versusMotorBoost = 350;
 
     public int versusHands;
+    public bool ready;
 
     void Start()
     {
@@ -209,6 +210,7 @@ public class FrogPrototype : MonoBehaviour
             if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
             {
                 body.isKinematic = false;
+                ready = true;
             }
         }
     }
