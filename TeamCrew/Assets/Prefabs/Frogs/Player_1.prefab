@@ -1310,7 +1310,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .416860819, y: -4.80812407, z: 0}
+  m_LocalPosition: {x: 10.0935173, y: -57.5888557, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 458660}
@@ -1452,7 +1452,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191588}
-  m_Mass: 5
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 1
@@ -1512,7 +1512,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 171048}
-  m_Mass: 5
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 1
@@ -2473,7 +2473,7 @@ MonoBehaviour:
   rightHand: {fileID: 451152}
   leftHandMagnet: {fileID: 11414644}
   rightHandMagnet: {fileID: 11447854}
-  motorSpeed: 600
+  motorSpeed: 450
   versusMotorBoost: 600
   versusHands: 0
 --- !u!114 &11497488
@@ -5206,7 +5206,7 @@ HingeJoint2D:
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 350
-    m_MaximumMotorForce: 1000
+    m_MaximumMotorForce: 2000
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 6
@@ -5301,7 +5301,7 @@ HingeJoint2D:
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: -350
-    m_MaximumMotorForce: 1000
+    m_MaximumMotorForce: 2000
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: -6
