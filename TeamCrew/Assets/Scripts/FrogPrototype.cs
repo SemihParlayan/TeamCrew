@@ -236,6 +236,5 @@ public class FrogPrototype : MonoBehaviour
     public void EnergyBoost()
     {
     }
-
 }
 

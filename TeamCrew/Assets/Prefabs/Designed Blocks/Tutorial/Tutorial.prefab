@@ -365,7 +365,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 482002}
   - 212: {fileID: 21269616}
-  m_Layer: 0
+  - 61: {fileID: 6178266}
+  m_Layer: 10
   m_Name: tutorial_cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2207,7 +2208,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 138166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.25788975, y: -70.8623047, z: 0}
+  m_LocalPosition: {x: 7.32478094, y: -27.329052, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 435324}
@@ -3007,6 +3008,19 @@ PolygonCollider2D:
       - {x: -.337190628, y: .0519561768}
       - {x: .0864810944, y: -.0965633392}
       - {x: .334999084, y: .211171627}
+--- !u!61 &6178266
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126776}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -1.08000004}
+  serializedVersion: 2
+  m_Size: {x: 38.4000015, y: 2.5}
 --- !u!114 &11400990
 MonoBehaviour:
   m_ObjectHideFlags: 1
