@@ -26,7 +26,6 @@ public class FlySpawner : MonoBehaviour
         nextCheck -= Time.deltaTime;
         if(nextCheck <= 0)
         {
-            Debug.Log("2 seconds");
             nextCheck = RespawnCheckRate;
 
             float playersDistanceY = Mathf.Abs(playerOne.position.y - playerTwo.position.y);

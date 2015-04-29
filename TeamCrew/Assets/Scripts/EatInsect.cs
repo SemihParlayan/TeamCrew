@@ -14,10 +14,15 @@ public class EatInsect : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D c)
     {
+        /*
+         * 
         if(c.transform.tag == "Insect")
         {
             Destroy(c.gameObject);
             frogScript.EnergyBoost();
         }
+         * 
+         * */
+
     }
 }

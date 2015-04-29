@@ -59,7 +59,6 @@ public class MainMenu : MonoBehaviour
             }
         }
 	}
-
     public void DisableUI()
     {
         UIParent.gameObject.SetActive(false);
