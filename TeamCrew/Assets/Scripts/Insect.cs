@@ -11,73 +11,69 @@ public enum MotionState
 
 public class Insect : MonoBehaviour
 {
-    public MotionState motionState;
-    public AudioSource soundSource;
+    //State
+    public MotionState motionState = MotionState.normal;
 
+    //Timers
     public float MinSittingTime;
     public float MaxSittingTime;
-    public float offsetFromFrog = 5;
-    public float panicModeTop = 1;
+    float sittingTime;
 
-    public float goSlowlyUpForce;
-    public float goSlowlyDownForce;
-    public float liftPlayerForce;
+    //Positions
+    public float offsetFromFrog;
+    public float panicModeTop;
+    float targetY;
+    Vector2 startPos;
+
+    //Forces
+    public float goSlowlyDownForce = 500;
+    public float goSlowlyUpForce   = 1000;
+    public float liftPlayerForce   = 1500;
+
+    //Spped
+    public float flyHorizontalSpeed = 4;
     
+
+    public AudioSource soundSource;
     Rigidbody2D body;
     Transform hand;
+    int grabbed = 0;
+    bool direction;
 
-    float sittingTime; //timer
-
-    float thing; // explain what this is
-
-    Vector2 startPos;
-    float targetY;
-
-    bool grabbed;
 	void Start ()
     {
         body = GetComponent<Rigidbody2D>();
+        startPos = new Vector2(0,0);
 
-        //POSITION
-            startPos = new Vector2(0,0);
+        //Check if there are any missing frogs
+        if(!GameManager.playerOne || !GameManager.playerTwo)
+        {
+            startPos = transform.position;
+        }
+        else
+        { 
+            Transform lowestFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
+                GameManager.playerOne : GameManager.playerTwo;
 
-            if(GameManager.playerOne && GameManager.playerTwo)
-            {
-                //Lowest frog
-                Transform lowFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
-                    GameManager.playerOne : GameManager.playerTwo;
-
-                startPos = lowFrog.position;
-            }
-            else
-            {
-                startPos = transform.position;
-            }
+            startPos = lowestFrog.position;
+        }
             
+        //Spawn to the right?
+        if (Random.Range(0.0f, 1.0f) > .5f)
+        {
+            startPos.x += offsetFromFrog;
+            direction = false;
+            transform.localScale = new Vector3(-1, 1, 1); //Sprite flip
+        }
+        else
+        {
+            direction = true;
+            startPos.x -= offsetFromFrog;
             
-            //Spawn to the right?
-            if (Random.Range(0.0f, 1.0f) > .5f)
-            {
-                startPos.x += offsetFromFrog;
-            }
-            else
-            {
-                startPos.x -= offsetFromFrog;
-                //flip sprite
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
+        }
 
-            transform.position = startPos;
-
-            targetY = startPos.y + panicModeTop;
-
-        //Forces
-        goSlowlyDownForce = 500;
-        goSlowlyUpForce = 1000;
-        liftPlayerForce = 1500;
-
-        //Motionstate
-        motionState = MotionState.panicMode;
+        transform.position = startPos + new Vector2(0,1);
+        targetY = startPos.y + panicModeTop;
 	}
 	
 	
@@ -89,22 +85,44 @@ public class Insect : MonoBehaviour
             if (sittingTime <= 0)
             {
                 sittingTime = 0;
-                // MotionState = MovementType.SIN;
+                motionState = MotionState.normal;
             }
         }
-        thing += Time.deltaTime;
 	}
 
     void FixedUpdate()
     {
         switch(motionState)
         {
+            case MotionState.normal:
+                {
+                    
+                        if(direction)
+                        {
+                             body.velocity = new Vector2(flyHorizontalSpeed, body.velocity.y);
+                        }
+                        else
+                        {
+                            body.velocity = new Vector2(-flyHorizontalSpeed, body.velocity.y);
+                        }
+                       
+
+                    if (transform.position.y < startPos.y)
+                    {
+                        body.AddForce(new Vector2(0, goSlowlyUpForce));
+                    }
+                    else if (body.velocity.y < 0)
+                    {
+                        body.AddForce(new Vector2(0, goSlowlyDownForce));
+                    }
+                    
+                } break;
             case MotionState.panicMode:
             { 
                 if (transform.position.y < targetY)
                 {
-                    float force = grabbed ? liftPlayerForce : goSlowlyUpForce;
-                    body.AddForce(new Vector2(0, 1500));
+                    float force = grabbed > 0 ? liftPlayerForce : goSlowlyUpForce;
+                    body.AddForce(new Vector2(0, force));
                 }
                 else if (body.velocity.y < 0)
                 {
@@ -116,11 +134,25 @@ public class Insect : MonoBehaviour
             {
                 
             }   break;
-            
-            case MotionState.normal:
+
+            case MotionState.rip:
             {
-                
-            }   break;
+
+                if (GameManager.playerOne && GameManager.playerTwo)
+                {
+                    Transform lowestFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
+                        GameManager.playerOne : GameManager.playerTwo;
+
+                    if (Mathf.Abs(transform.position.y - lowestFrog.position.y) > 100)
+                    {
+                        Destroy(gameObject);
+                    }
+                }
+
+               
+            } break;
+            
+            
         }
     }
 
@@ -178,5 +210,18 @@ public class Insect : MonoBehaviour
 
             //Todo: Change sprite to sitting!
         }
+    }
+
+    public void AddHand()
+    {
+        if(grabbed == 0) motionState = MotionState.panicMode;
+        grabbed++;
+
+    }
+
+    public void RemoveHand()
+    {
+        grabbed--;
+        if (grabbed == 0) motionState = MotionState.rip;
     }
 }
