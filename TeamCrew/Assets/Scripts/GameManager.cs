@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
 
     public LayerMask mask;
 
+    private Animator tutorialAnimator;
+    private bool tutorialSwitched;
+
 	void Start ()
     {
         if (generatorScript == null)
@@ -62,8 +65,20 @@ public class GameManager : MonoBehaviour
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
         }
-    }
 
+        if (!tutorialSwitched && gameActive)
+        {
+            if (playerOne.GetComponent<FrogPrototype>().ready && playerTwo.GetComponent<FrogPrototype>().ready)
+            {
+                SwitchTutorial();
+            }
+        }
+    }
+    private void SwitchTutorial()
+    {
+        tutorialSwitched = true;
+        tutorialAnimator.SetBool("Switch", true);
+    }
     void StartGame()
     {
         gameActive = true;
@@ -72,6 +87,7 @@ public class GameManager : MonoBehaviour
         terrainScript.enabled = false;
         playerOne = GameObject.FindWithTag("PlayerOne").transform;
         playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
+        tutorialAnimator = GameObject.FindWithTag("TutorialAnimation").GetComponent<Animator>();
     }
 
     public void ActivateCameraPan()
@@ -95,10 +111,14 @@ public class GameManager : MonoBehaviour
     {
         if (playerOne != null)
             Destroy(playerOne.parent.gameObject);
+
         if (playerTwo != null)
             Destroy(playerTwo.parent.gameObject);
 
         playerOne = (Instantiate(respawnScript.playerOnePrefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
         playerTwo = (Instantiate(respawnScript.playerTwoPrefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+
+        playerOne.GetComponent<Rigidbody2D>().isKinematic = true;
+        playerTwo.GetComponent<Rigidbody2D>().isKinematic = true;
     }
 }

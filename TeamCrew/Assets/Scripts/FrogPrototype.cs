@@ -42,6 +42,7 @@ public class FrogPrototype : MonoBehaviour
     public float versusMotorBoost = 350;
 
     public int versusHands;
+    public bool ready;
 
     void Start()
     {
@@ -49,7 +50,7 @@ public class FrogPrototype : MonoBehaviour
         rightBody = rightHand.GetComponent<Rigidbody2D>();
         body = GetComponent<Rigidbody2D>();
 
-        body.isKinematic = true;
+        //body.isKinematic = true;
     }
 
     void Update()
@@ -113,26 +114,6 @@ public class FrogPrototype : MonoBehaviour
                 resetVersusTimer = 0;
             }
         }
-
-
-        //if (leftGripScript.isVersusGripping && leftGripScript.versusGripTimer > 1)
-        //{
-        //    float leftDist = Vector3.Distance(transform.position, leftHand.position);
-        //    Debug.Log(leftDist);
-        //    if (leftDist > 2.2f)
-        //    {
-        //        leftGripScript.ReleaseGrip();
-        //    }
-        //}
-        //if (rightGripScript.isVersusGripping && rightGripScript.versusGripTimer > 1)
-        //{
-        //    float rightDist = Vector3.Distance(transform.position, rightHand.position);
-        //    Debug.Log(rightDist);
-        //    if (rightDist > 2.2f)
-        //    {
-        //        rightGripScript.ReleaseGrip();
-        //    }
-        //}
     }
     void ControlScratch()
     {
@@ -185,7 +166,7 @@ public class FrogPrototype : MonoBehaviour
             motor.motorSpeed = motorSpeed;
             if (versusHands > 0)
                 motor.motorSpeed += versusMotorBoost;
-            motor.maxMotorTorque = 1000;
+            motor.maxMotorTorque = 1500;
             otherJoint = rightJoint;
         }
         else
@@ -193,7 +174,7 @@ public class FrogPrototype : MonoBehaviour
             motor.motorSpeed = -motorSpeed;
             if (versusHands > 0)
                 motor.motorSpeed -= versusMotorBoost;
-            motor.maxMotorTorque = 1000;
+            motor.maxMotorTorque = 1500;
             otherJoint = leftJoint;
         }
         joint.motor = motor;
@@ -229,6 +210,7 @@ public class FrogPrototype : MonoBehaviour
             if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
             {
                 body.isKinematic = false;
+                ready = true;
             }
         }
     }

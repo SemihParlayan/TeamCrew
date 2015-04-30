@@ -29,6 +29,7 @@ public class Parallax : MonoBehaviour
 	void Update ()
     {
 
+        Debug.Log(levelHeight);
         Vector2 camPos = cam.transform.position;
         float normClimbDist = (camPos.y + levelHeight) / levelHeight;
 
@@ -45,6 +46,6 @@ public class Parallax : MonoBehaviour
         float relDist = 1 / cameraToRockLenghts;
 
         //transform.position = relDist * relOrig + origin ;
-        transform.position = targetPos + new Vector2(0, -levelHeight + 16);
+        transform.position = targetPos + new Vector2(0, -levelHeight + 10);
 	}
 }
