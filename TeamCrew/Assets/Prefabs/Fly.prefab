@@ -1,5 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &121936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 427084}
+  - 114: {fileID: 11489520}
+  - 58: {fileID: 5828712}
+  m_Layer: 9
+  m_Name: Grip
+  m_TagString: Insect
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &149926
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,27 +30,9 @@ GameObject:
   - 82: {fileID: 8258572}
   - 114: {fileID: 11465268}
   - 114: {fileID: 11466394}
-  - 58: {fileID: 5843404}
   m_Layer: 0
   m_Name: Fly
   m_TagString: Insect
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &152796
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 449712}
-  - 58: {fileID: 5877080}
-  - 114: {fileID: 11459912}
-  m_Layer: 0
-  m_Name: Gwu;
-  m_TagString: VersusGrip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,6 +53,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &427084
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0989999995, y: -.216999993, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 428074}
+  m_Father: {fileID: 432452}
+  m_RootOrder: 0
 --- !u!4 &428074
 Transform:
   m_ObjectHideFlags: 1
@@ -61,10 +73,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.0869998932, y: -.0709991455, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 449712}
+  m_Father: {fileID: 427084}
   m_RootOrder: 0
 --- !u!4 &432452
 Transform:
@@ -73,24 +85,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.63999987, y: 4.94000006, z: 0}
+  m_LocalPosition: {x: 12.7587929, y: -56.9011002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 449712}
+  - {fileID: 427084}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
---- !u!4 &449712
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 152796}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 428074}
-  m_Father: {fileID: 432452}
   m_RootOrder: 0
 --- !u!50 &5058460
 Rigidbody2D:
@@ -101,38 +100,25 @@ Rigidbody2D:
   m_Mass: 80
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
-  m_GravityScale: 0
-  m_FixedAngle: 0
+  m_GravityScale: 1
+  m_FixedAngle: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!58 &5843404
+--- !u!58 &5828712
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149926}
+  m_GameObject: {fileID: 121936}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -.0599999987, y: -.0700000003}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.30999994
---- !u!58 &5877080
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 152796}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: -.0599999987, y: -.0700000003}
-  serializedVersion: 2
-  m_Radius: .370000005
+  m_Radius: .349999994
 --- !u!82 &8258572
 AudioSource:
   m_ObjectHideFlags: 1
@@ -213,44 +199,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
+  holderName: P1
   numberOfHands: 0
---- !u!114 &11459912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 152796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10b4af78a9e43c64aa7be9e4b3ff83ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winningGrip: 0
-  gripPoints:
-  - {fileID: 11400244}
-  connectedBody: {fileID: 5058460}
-  anchor: {x: 0, y: 0}
 --- !u!114 &11465268
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149926}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a3a9549581031b48b96cbd1e66848e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motionState: 0
+  motionState: 3
+  MinSittingTime: 2
+  MaxSittingTime: 3
+  offsetFromFrog: 40
+  panicModeTop: 10
+  goSlowlyDownForce: 200
+  goSlowlyUpForce: 5000
+  liftPlayerForce: 3000
+  flyHorizontalSpeed: 5
   soundSource: {fileID: 8258572}
-  MinSittingTime: 0
-  MaxSittingTime: 0
-  offsetFromFrog: 5
-  panicModeTop: 12
-  goSlowlyUpForce: 0
-  goSlowlyDownForce: 0
-  liftPlayerForce: 0
 --- !u!114 &11466394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -263,6 +234,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundSource: {fileID: 8258572}
+--- !u!114 &11489520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b4af78a9e43c64aa7be9e4b3ff83ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winningGrip: 0
+  gripPoints:
+  - {fileID: 11400244}
+  connectedBody: {fileID: 5058460}
+  anchor: {x: 0, y: 0}
 --- !u!212 &21282804
 SpriteRenderer:
   m_ObjectHideFlags: 1

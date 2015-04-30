@@ -1,41 +1,34 @@
 ﻿using UnityEngine; 
 using System.Collections;
+using System.Collections.Generic;
 
-public class FlySpawner : MonoBehaviour 
+public class FlySpawner : MonoBehaviour
 {
     public Transform FlyPrefab;
+    public float RespawnCheckRate = 2; //Seconds
+    Transform fly;
 
-    public float RespawnCheckRate;
-           float nextCheck;
 
-	void Start () 
+    void Start()
     {
-        RespawnCheckRate = 2;
-	}
-	
-	void Update ()
+        Invoke("TestFlySpawn", RespawnCheckRate);
+    }
+
+    void TestFlySpawn()
     {
-        //Semih should I check for new frogs every update??
-        if (!(GameManager.playerOne && GameManager.playerTwo))
+        Invoke("TestFlySpawn", RespawnCheckRate);
+
+        if (!(GameManager.playerOne && GameManager.playerTwo) || fly != null)
             return;
 
         Transform playerOne = GameManager.playerOne;
         Transform playerTwo = GameManager.playerTwo;
 
+        float playersDistanceY = Mathf.Abs(playerOne.position.y - playerTwo.position.y);
 
-        nextCheck -= Time.deltaTime;
-        if(nextCheck <= 0)
+        if (playersDistanceY > 5 && Random.Range(0, 100) > 60)
         {
-            nextCheck = RespawnCheckRate;
-
-            float playersDistanceY = Mathf.Abs(playerOne.position.y - playerTwo.position.y);
-
-            if (playersDistanceY > 5 && Random.Range(0, 100) > 60)
-            {
-                Debug.Log("right random and distance. Distance: " + playersDistanceY);
-                Instantiate(FlyPrefab);
-            }
-
+            fly = Instantiate(FlyPrefab) as Transform;
         }
-	}
+    }
 }

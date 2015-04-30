@@ -94,7 +94,8 @@ public class HandGrip : MonoBehaviour
             ReleaseGrip();
             if (insectScript != null)
             {
-                insectScript.SetParalyze(false);
+                insectScript.RemoveHand();
+                insectScript = null;
             }
         }
 
@@ -235,6 +236,13 @@ public class HandGrip : MonoBehaviour
                 {
                     joint.connectedBody = movingGrip.connectedBody;
                     joint.connectedAnchor = movingGrip.anchor;
+
+                    insectScript = c.transform.parent.GetComponent<Insect>();
+
+                    if (insectScript != null)
+                    {
+                        insectScript.AddHand();
+                    }
                 }
             }
         }
