@@ -43,7 +43,9 @@ public class Emotions : MonoBehaviour
         if (currentEmotion != emotion)
         {
             currentEmotion = emotion;
-            renderer.sprite = FindEmotion(emotion);
+            Sprite s = FindEmotion(emotion);
+            if (s)
+                renderer.sprite = s;
         }
     }
     public void SetSituationalEmotion(string emotion, float time)

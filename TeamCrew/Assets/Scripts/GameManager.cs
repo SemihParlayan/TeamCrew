@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
         }
 
-        if (!tutorialSwitched && gameActive)
+        if (!tutorialSwitched && gameActive && playerOne && playerTwo)
         {
             if (playerOne.GetComponent<FrogPrototype>().ready && playerTwo.GetComponent<FrogPrototype>().ready)
             {

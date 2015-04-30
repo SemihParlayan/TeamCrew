@@ -28,8 +28,6 @@ public class Parallax : MonoBehaviour
 
 	void Update ()
     {
-
-        Debug.Log(levelHeight);
         Vector2 camPos = cam.transform.position;
         float normClimbDist = (camPos.y + levelHeight) / levelHeight;
 

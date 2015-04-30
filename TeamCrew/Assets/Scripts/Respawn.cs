@@ -82,6 +82,7 @@ public class Respawn : MonoBehaviour
         Transform t = Instantiate(playerOnePrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
 
         GameManager.playerOne = t.FindChild("body");
+        GameManager.playerOne.GetComponent<Line>().Remove();
         Rigidbody2D b = GameManager.playerOne.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
         b.AddForce(Vector2.up * 750000);
@@ -94,6 +95,7 @@ public class Respawn : MonoBehaviour
         Transform t = Instantiate(playerTwoPrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
 
         GameManager.playerTwo = t.FindChild("body");
+        GameManager.playerTwo.GetComponent<Line>().Remove();
         Rigidbody2D b = GameManager.playerTwo.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
         b.AddForce(Vector2.up * 750000);

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Rawr : MonoBehaviour 
+public class CenterOfMass : MonoBehaviour 
 {
     private Rigidbody2D body;
 
@@ -9,11 +9,6 @@ public class Rawr : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         body.centerOfMass = Vector2.zero;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 
     void OnDrawGizmos()
