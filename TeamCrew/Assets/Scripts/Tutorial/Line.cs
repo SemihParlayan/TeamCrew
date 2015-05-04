@@ -5,6 +5,7 @@ public class Line : MonoBehaviour
 {
     public Transform rope;
     public Transform hinge;
+    public Transform hook;
 
     SpringJoint2D joint;
     Rigidbody2D body;
@@ -23,6 +24,7 @@ public class Line : MonoBehaviour
 
         startPosition = hinge.position;
         rope.position = joint.connectedAnchor;
+        hook.position = rope.position;
 	}
 
 	void Update ()

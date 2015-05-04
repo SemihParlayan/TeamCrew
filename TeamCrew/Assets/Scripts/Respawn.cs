@@ -1,110 +1,105 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
 
 public class Respawn : MonoBehaviour 
 {
-    public float respawnTime = 2f;
-    public Transform playerOnePrefab;
-    public Transform playerTwoPrefab;
+    //Respawn scripts
+    public PlayerRespawn playerOne;
+    public PlayerRespawn playerTwo;
 
+    //Components
     private Camera cam;
     private CameraFollow follow;
-
     private AudioSource screamSource;
+
+    //Camera minHeight
     float minHeight;
+
+    //Data
+    public float respawnTime = 3f;
 
 	void Start () 
     {
+        //Get componenets
         cam = Camera.main;
         follow = cam.transform.GetComponent<CameraFollow>();
-
         screamSource = GetComponent<AudioSource>();
+
+        playerOne.timer = respawnTime;
+        playerTwo.timer = respawnTime;
 	}
 	
 	void Update () 
     {
-        if (GameManager.playerOne == null || GameManager.playerTwo == null)
-            return;
+        //Update timers and move arrows
+        playerOne.UpdateRespawn(GetSpawnPosition(playerOne).x);
+        playerTwo.UpdateRespawn(GetSpawnPosition(playerTwo).x);
+        
 
+        //Respawn player if possible
+        if (playerOne.AllowRespawn(respawnTime))
+        {
+            GameManager.playerOne = RespawnPlayer(playerOne);
+        }
+        if (playerTwo.AllowRespawn(respawnTime))
+        {
+            GameManager.playerTwo = RespawnPlayer(playerTwo);
+        }
+
+        //Check if player one and player two exists
         minHeight = cam.transform.position.y - cam.orthographicSize;
 
-        if (GameManager.playerOne.position.y < minHeight)
-        {
-            if (!IsInvoking("RespawnPlayerOne"))
-            {
-                Invoke("RespawnPlayerOne", respawnTime);
 
-                if (!screamSource.isPlaying)
-                {
-                    screamSource.pitch = Random.Range(.8f, 1.0f);
-                    screamSource.Play();
-                }
-            }
-                
-        }
-        else
+        //Check player under screen, remove and start respawn
+        if (GameManager.playerOne != null)
         {
-            CancelInvoke("RespawnPlayerOne");
-        }
-
-        if (GameManager.playerTwo.position.y < minHeight)
-        {
-            if (!IsInvoking("RespawnPlayerTwo"))
+            if (GameManager.playerOne.position.y < minHeight - 6)
             {
-                Invoke("RespawnPlayerTwo", respawnTime);
-                if (!screamSource.isPlaying)
-                {
-                    screamSource.pitch = Random.Range(.4f, .7f);
-                    screamSource.Play();
-                }
+                playerOne.Respawning = true;
+                playerOne.deathPositionX = GameManager.playerOne.position.x;
+                Destroy(GameManager.playerOne.parent.gameObject);
             }
         }
-        else
+
+        if (GameManager.playerTwo != null)
         {
-            CancelInvoke("RespawnPlayerTwo");
+            if (GameManager.playerTwo.position.y < minHeight - 6)
+            {
+                playerTwo.Respawning = true;
+                playerTwo.deathPositionX = GameManager.playerTwo.position.x;
+                Destroy(GameManager.playerTwo.parent.gameObject);
+            }
         }
 
-        if (GameManager.playerOne.position.y < minHeight || GameManager.playerTwo.position.y < minHeight)
-        {
-            follow.SetAbsoluteZoom(true);
-        }
-        else
-        {
-            follow.SetAbsoluteZoom(false);
-        }
+
+
+
+        //if (!screamSource.isPlaying)
+        //{
+        //    screamSource.pitch = Random.Range(.8f, 1.0f);
+        //    screamSource.Play();
+        //}
 	}
 
-    void RespawnPlayerOne()
+    Transform RespawnPlayer(PlayerRespawn player)
     {
-        //Destroy player
-        Destroy(GameManager.playerOne.parent.gameObject);
-
-        Transform t = Instantiate(playerOnePrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
-
-        GameManager.playerOne = t.FindChild("body");
-        GameManager.playerOne.GetComponent<Line>().Remove();
-        Rigidbody2D b = GameManager.playerOne.GetComponent<Rigidbody2D>();
+        Vector3 pos = cam.ScreenToWorldPoint(player.arrow.rectTransform.position);
+        pos.z = 0;
+        pos.y -= 3;
+        Transform t = Instantiate(player.prefab, pos, Quaternion.identity) as Transform;
+        Transform body = t.FindChild("body");
+        body.GetComponent<Line>().Remove();
+        Rigidbody2D b = body.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
         b.AddForce(Vector2.up * 750000);
-    }
-    void RespawnPlayerTwo()
-    {
-        //Destroy player
-        Destroy(GameManager.playerTwo.parent.gameObject);
 
-        Transform t = Instantiate(playerTwoPrefab, GetSpawnPosition(), Quaternion.identity) as Transform;
-
-        GameManager.playerTwo = t.FindChild("body");
-        GameManager.playerTwo.GetComponent<Line>().Remove();
-        Rigidbody2D b = GameManager.playerTwo.GetComponent<Rigidbody2D>();
-        b.isKinematic = false;
-        b.AddForce(Vector2.up * 750000);
+        return body;
     }
 
-    Vector2 GetSpawnPosition()
+    Vector2 GetSpawnPosition(PlayerRespawn player)
     {
-        //Vector2 spawnPosition = cam.transform.position;
-
         GameObject[] grips = GameObject.FindGameObjectsWithTag("Grip");
 
         if (grips.Length > 0)
@@ -113,8 +108,11 @@ public class Respawn : MonoBehaviour
 
             for (int i = 1; i < grips.Length; i++)
             {
-                float minDistance = Vector2.Distance(grips[minIndex].transform.position, cam.transform.position + new Vector3(0, -2.5f));
-                float distance = Vector2.Distance(grips[i].transform.position, cam.transform.position + new Vector3(0, -2.5f));
+                Vector3 targetSpawnPosition = cam.transform.position + new Vector3(0, -2.5f);
+                targetSpawnPosition.x = player.deathPositionX;
+
+                float minDistance = Vector2.Distance(grips[minIndex].transform.position, targetSpawnPosition);
+                float distance = Vector2.Distance(grips[i].transform.position, targetSpawnPosition);
 
                 if (distance < minDistance)
                 {
@@ -129,16 +127,5 @@ public class Respawn : MonoBehaviour
         }
 
         return cam.transform.position;
-    }
-    Vector2 GetRandomOffset()
-    {
-        Vector2[] offsets = new Vector2[3];
-        offsets[0] = new Vector2(1.58f, -1.4f);
-        offsets[1] = new Vector2(-1.58f, -1.4f);
-        offsets[2] = new Vector2(0, -1.8f);
-
-        int i = Random.Range(0, offsets.Length);
-
-        return offsets[i];
     }
 }
