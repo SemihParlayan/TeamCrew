@@ -46,7 +46,6 @@ public class PlayerRespawn : MonoBehaviour
 
     public void UpdateRespawn(float targetX)
     {
-        Debug.Log(targetX);
         if (Respawning)
         {
             timer -= Time.deltaTime;
