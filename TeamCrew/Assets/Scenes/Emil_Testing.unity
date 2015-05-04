@@ -175,14 +175,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   motionState: 0
-  soundSource: {fileID: 627215728}
   MinSittingTime: 0
   MaxSittingTime: 0
   offsetFromFrog: 0
   panicModeTop: 12
-  goSlowlyUpForce: 0
   goSlowlyDownForce: 0
+  goSlowlyUpForce: 0
   liftPlayerForce: 0
+  flyHorizontalSpeed: 4
+  soundSource: {fileID: 627215728}
 --- !u!82 &627215728
 AudioSource:
   m_ObjectHideFlags: 0
