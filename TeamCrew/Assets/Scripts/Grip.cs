@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Grip : MonoBehaviour 
 {
     public bool winningGrip;
+    public bool tutorialStart;
     public List<GripPoint> gripPoints = new List<GripPoint>();
 
     void Start()

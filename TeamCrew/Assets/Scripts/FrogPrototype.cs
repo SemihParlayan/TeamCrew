@@ -42,7 +42,7 @@ public class FrogPrototype : MonoBehaviour
     public float versusMotorBoost = 350;
 
     public int versusHands;
-    public bool ready;
+    public bool Ready { get { return (leftGripScript.isGrippingTutorial || rightGripScript.isGrippingTutorial);} }
 
     void Start()
     {
@@ -161,22 +161,26 @@ public class FrogPrototype : MonoBehaviour
 
         HingeJoint2D otherJoint = null;
         JointMotor2D motor = new JointMotor2D();
+        motor.motorSpeed = motorSpeed;
+
+        if (versusHands > 0)
+            motor.motorSpeed += versusMotorBoost;
+        else if (rightGripScript.isOnGrip && leftGripScript.isOnGrip)
+        {
+            motor.motorSpeed /= 1.2f;
+        }
+
         if (joint == leftJoint)
         {
-            motor.motorSpeed = motorSpeed;
-            if (versusHands > 0)
-                motor.motorSpeed += versusMotorBoost;
-            motor.maxMotorTorque = 1500;
             otherJoint = rightJoint;
         }
         else
         {
-            motor.motorSpeed = -motorSpeed;
-            if (versusHands > 0)
-                motor.motorSpeed -= versusMotorBoost;
-            motor.maxMotorTorque = 1500;
+            motor.motorSpeed *= -1;
             otherJoint = leftJoint;
         }
+
+        motor.maxMotorTorque = 1500;
         joint.motor = motor;
         joint.useMotor = (grip && input.y < 0);
 
@@ -210,7 +214,6 @@ public class FrogPrototype : MonoBehaviour
             if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
             {
                 body.isKinematic = false;
-                ready = true;
             }
         }
     }

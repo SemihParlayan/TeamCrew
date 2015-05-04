@@ -8,6 +8,10 @@ public class MainMenu : MonoBehaviour
     public Transform UIParent;
     public Button singleplayerButton;
     public Button multiplayerButton;
+    public Image playerOneReady;
+    public Image playerTwoReady;
+    public Image goImage;
+    public Sprite goImage2, goImage3;
 
     private Animator anim;
     private int selectedButton = 1;
@@ -58,7 +62,35 @@ public class MainMenu : MonoBehaviour
                 anim.SetTrigger("SignsOut");
             }
         }
+
+
+        if (goImage.gameObject.activeInHierarchy)
+        {
+            goTimer += Time.deltaTime;
+
+            if (goTimer >= 3)
+            {
+                goReady = true;
+                goImage.gameObject.SetActive(false);
+                
+            }
+            else if (goTimer >= 2)
+            {
+                goImage.sprite = goImage3;
+            }
+            else if (goTimer >= 1)
+            {
+                goImage.sprite = goImage2;
+            }
+        }
 	}
+    private float goTimer;
+    public bool goReady;
+
+    public void StartGoImage()
+    {
+        goImage.gameObject.SetActive(true);
+    }
     public void DisableUI()
     {
         UIParent.gameObject.SetActive(false);
