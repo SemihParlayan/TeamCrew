@@ -200,6 +200,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &112416
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 417022}
+  - 212: {fileID: 21269060}
+  m_Layer: 0
+  m_Name: vine_knut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &113098
 GameObject:
   m_ObjectHideFlags: 1
@@ -2362,6 +2378,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 452698}
   m_RootOrder: 3
+--- !u!4 &417022
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112416}
+  m_LocalRotation: {x: 0, y: 0, z: .121754587, w: .992560267}
+  m_LocalPosition: {x: .821210384, y: -7.81581974, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 457532}
+  m_RootOrder: 21
 --- !u!4 &418632
 Transform:
   m_ObjectHideFlags: 1
@@ -2918,7 +2946,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 140.316788, y: -54.7067566, z: 0}
+  m_LocalPosition: {x: 40.0292854, y: -1.25874984, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 457532}
@@ -2969,6 +2997,7 @@ Transform:
   - {fileID: 489270}
   - {fileID: 427098}
   - {fileID: 409182}
+  - {fileID: 417022}
   m_Father: {fileID: 453284}
   m_RootOrder: 0
 --- !u!4 &457670
@@ -4412,6 +4441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11421040}
   - {fileID: 11479898}
@@ -4457,6 +4487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11498030}
 --- !u!114 &11405224
@@ -4523,6 +4554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11494236}
   - {fileID: 11417092}
@@ -4555,6 +4587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11448338}
 --- !u!114 &11415170
@@ -4569,6 +4602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11482110}
 --- !u!114 &11415212
@@ -4609,6 +4643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11446472}
 --- !u!114 &11417092
@@ -4636,6 +4671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11437882}
   - {fileID: 11494262}
@@ -4655,6 +4691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11492932}
 --- !u!114 &11420130
@@ -4825,6 +4862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11422142}
 --- !u!114 &11435178
@@ -4839,6 +4877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11450664}
 --- !u!114 &11436078
@@ -4957,6 +4996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11499150}
 --- !u!114 &11441458
@@ -4997,6 +5037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11461654}
 --- !u!114 &11444286
@@ -5037,6 +5078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11484714}
 --- !u!114 &11448338
@@ -5077,6 +5119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11497860}
 --- !u!114 &11455984
@@ -5091,6 +5134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11436184}
 --- !u!114 &11456008
@@ -5118,6 +5162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11467972}
 --- !u!114 &11461654
@@ -5197,6 +5242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11405224}
 --- !u!114 &11467310
@@ -5224,6 +5270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11415212}
 --- !u!114 &11467972
@@ -5277,6 +5324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11407972}
 --- !u!114 &11471108
@@ -5317,6 +5365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11497370}
 --- !u!114 &11472652
@@ -5357,6 +5406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11422472}
 --- !u!114 &11475154
@@ -5371,6 +5421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11423700}
 --- !u!114 &11475956
@@ -5398,6 +5449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11464702}
 --- !u!114 &11476918
@@ -5425,6 +5477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11475956}
 --- !u!114 &11479898
@@ -5452,6 +5505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11497172}
 --- !u!114 &11482110
@@ -5505,6 +5559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11441652}
 --- !u!114 &11487214
@@ -5519,6 +5574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11420130}
 --- !u!114 &11488486
@@ -5533,6 +5589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11407892}
 --- !u!114 &11489166
@@ -5573,6 +5630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11444286}
   - {fileID: 11464936}
@@ -5618,6 +5676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11467310}
   - {fileID: 11401762}
@@ -5636,6 +5695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11468134}
 --- !u!114 &11495656
@@ -5689,6 +5749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11430948}
   - {fileID: 11498098}
@@ -5723,6 +5784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winningGrip: 0
+  tutorialStart: 0
   gripPoints:
   - {fileID: 11441458}
   - {fileID: 11426296}
@@ -6743,6 +6805,32 @@ SpriteRenderer:
   m_SortingLayerID: -398591093
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300014, guid: dd49e10538c86674498fc955a261a49a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!212 &21269060
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112416}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 162863743
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 506a6476cc4c2d04ea235fe892cb4e7a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21270506
 SpriteRenderer:

@@ -8,6 +8,7 @@ public class HandGrip : MonoBehaviour
     public bool lastIsOngrip;
     public bool isOnWall;
     public bool isGripping;
+    public bool isGrippingTutorial;
     public bool isVersusGripping;
 
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
@@ -41,6 +42,8 @@ public class HandGrip : MonoBehaviour
 
     //Versus frog reference
     private FrogPrototype versusFrog;
+
+    public ParticleSystem stoneParticles;
 
     public Vector3 GripPosition
     {
@@ -146,6 +149,7 @@ public class HandGrip : MonoBehaviour
                 }
                 else
                 {
+                    stoneParticles.Play();
                     //Hand is on a grip
                     isOnGrip = true;
 
@@ -170,6 +174,10 @@ public class HandGrip : MonoBehaviour
                         {
                             gameManager.Win();
                         }
+                    }
+                    else if (g.tutorialStart)
+                    {
+                        isGrippingTutorial = true;
                     }
                     return true;
                 }
@@ -288,6 +296,7 @@ public class HandGrip : MonoBehaviour
         //Reset grip
         isGripping = false;
         isVersusGripping = false;
+        isGrippingTutorial = false;
 
         if (versusFrog)
             versusFrog.versusHands--;

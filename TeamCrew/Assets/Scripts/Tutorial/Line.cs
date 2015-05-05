@@ -5,6 +5,7 @@ public class Line : MonoBehaviour
 {
     public Transform rope;
     public Transform hinge;
+    public Transform hook;
 
     SpringJoint2D joint;
     Rigidbody2D body;
@@ -23,6 +24,7 @@ public class Line : MonoBehaviour
 
         startPosition = hinge.position;
         rope.position = joint.connectedAnchor;
+        hook.position = rope.position;
 	}
 
 	void Update ()
@@ -31,7 +33,7 @@ public class Line : MonoBehaviour
         float distance = Vector2.Distance(hinge.position, joint.connectedAnchor);
         float startDistance = Vector2.Distance(startPosition, joint.connectedAnchor);
 
-        if (distance < maxY)
+        if (distance + 1f < maxY)
         {
             maxY = distance;
             joint.distance = maxY;
@@ -40,7 +42,7 @@ public class Line : MonoBehaviour
         //Scale rope
         Vector3 scale = rope.localScale;
         scale.y = distance / startDistance;
-        scale.y -= 0.23f * scale.y;
+        scale.y -= 0.29f * scale.y;
         rope.localScale = scale;
 
         //Rotate rope
@@ -49,7 +51,7 @@ public class Line : MonoBehaviour
         rope.rotation = Quaternion.Euler(angle);
 
         //Remove rope;
-        if (joint.distance < 2.5f)
+        if (joint.distance < 2f)
         {
             Remove();
         }

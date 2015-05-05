@@ -43,8 +43,34 @@ public class GameManager : MonoBehaviour
         cameraDefaultPosition = cameraTransform.transform.position;
 	}
 
+    private FrogPrototype playerOneScript, playerTwoScript;
     void Update()
     {
+        if (!cameraFollowScript.enabled)
+        {
+            if (playerOneScript != null || playerTwoScript != null)
+            {
+                mainMenuScript.playerOneReady.gameObject.SetActive(false);
+                mainMenuScript.playerTwoReady.gameObject.SetActive(false);
+                if (playerOneScript.Ready)
+                {
+                    mainMenuScript.playerOneReady.gameObject.SetActive(true);
+                }
+                if (playerTwoScript.Ready)
+                {
+                    mainMenuScript.playerTwoReady.gameObject.SetActive(true);
+                }
+
+                if (playerOneScript.Ready && playerTwoScript.Ready)
+                {
+                    mainMenuScript.StartGoImage();
+                }
+            }
+            if (mainMenuScript.goReady)
+            {
+                cameraFollowScript.enabled = true;
+            }
+        }
         //Check for camera pan complete
         if (cameraPanScript.enabled)
         {
@@ -67,11 +93,13 @@ public class GameManager : MonoBehaviour
     void StartGame()
     {
         gameActive = true;
-        cameraFollowScript.enabled = true;
-        respawnScript.enabled = true;
         terrainScript.enabled = false;
+        respawnScript.enabled = true;
         playerOne = GameObject.FindWithTag("PlayerOne").transform;
         playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
+
+        playerOneScript = playerOne.GetComponent<FrogPrototype>();
+        playerTwoScript = playerTwo.GetComponent<FrogPrototype>();
     }
 
     public void ActivateCameraPan()
@@ -87,8 +115,6 @@ public class GameManager : MonoBehaviour
         respawnScript.enabled = false;
         terrainScript.enabled = true;
         gameActive = false;
-
-        //respawnScript.RemoveFrogs();
     }
 
     private void CreateNewFrogs()
@@ -98,7 +124,7 @@ public class GameManager : MonoBehaviour
         if (playerTwo != null)
             Destroy(playerTwo.parent.gameObject);
 
-        playerOne = (Instantiate(respawnScript.playerOnePrefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
-        playerTwo = (Instantiate(respawnScript.playerTwoPrefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+        playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+        playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
     }
 }

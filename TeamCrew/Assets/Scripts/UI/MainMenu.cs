@@ -2,12 +2,19 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class MainMenu : MonoBehaviour 
 {
     public Transform UIParent;
     public Button singleplayerButton;
     public Button multiplayerButton;
+    public Image playerOneReady;
+    public Image playerTwoReady;
+    public Image goImage;
+
+    public List<Sprite> go_sprites = new List<Sprite>();
+    private int goIndex;
 
     private Animator anim;
     private int selectedButton = 1;
@@ -58,7 +65,40 @@ public class MainMenu : MonoBehaviour
                 anim.SetTrigger("SignsOut");
             }
         }
+
+        if (goImage.gameObject.activeInHierarchy)
+        {
+            goImage.rectTransform.localScale += new Vector3(0.02f, 0.02f, 0.02f);
+            goTimer += Time.deltaTime;
+
+            if (goTimer >= 1)
+            {
+                goTimer = 0;
+                goIndex++;
+
+                if (goIndex < go_sprites.Count)
+                {
+                    goImage.rectTransform.localScale = Vector3.zero;
+                    goImage.sprite = go_sprites[goIndex];
+                    
+                }
+                else
+                {
+                    goReady = true;
+                    goImage.gameObject.SetActive(false);
+                }
+            }
+        }
 	}
+    private float goTimer;
+    public bool goReady;
+
+    public void StartGoImage()
+    {
+        goIndex = 0;
+        goImage.sprite = go_sprites[0];
+        goImage.gameObject.SetActive(true);
+    }
     public void DisableUI()
     {
         UIParent.gameObject.SetActive(false);
