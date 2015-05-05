@@ -96,30 +96,33 @@ public class Insect : MonoBehaviour
         {
             case MotionState.normal:
                 {
-                    Transform lowestFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
-                       GameManager.playerOne : GameManager.playerTwo;
-                    if (Mathf.Abs(transform.position.x - lowestFrog.position.x) > 75)
+                    if (GameManager.playerOne != null && GameManager.playerTwo != null)
                     {
-                        Destroy(gameObject);
-                    }
-                    
-                        if(direction)
+                        Transform lowestFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
+                           GameManager.playerOne : GameManager.playerTwo;
+                        if (Mathf.Abs(transform.position.x - lowestFrog.position.x) > 75)
                         {
-                             body.velocity = new Vector2(flyHorizontalSpeed, body.velocity.y);
+                            Destroy(gameObject);
+                        }
+
+                        if (direction)
+                        {
+                            body.velocity = new Vector2(flyHorizontalSpeed, body.velocity.y);
                         }
                         else
                         {
                             body.velocity = new Vector2(-flyHorizontalSpeed, body.velocity.y);
                         }
-                       
 
-                    if (transform.position.y < startPos.y)
-                    {
-                        body.AddForce(new Vector2(0, goSlowlyUpForce));
-                    }
-                    else if (body.velocity.y < 0)
-                    {
-                        body.AddForce(new Vector2(0, goSlowlyDownForce));
+
+                        if (transform.position.y < startPos.y)
+                        {
+                            body.AddForce(new Vector2(0, goSlowlyUpForce));
+                        }
+                        else if (body.velocity.y < 0)
+                        {
+                            body.AddForce(new Vector2(0, goSlowlyDownForce));
+                        }
                     }
                     
                 } break;

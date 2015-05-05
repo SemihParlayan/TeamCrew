@@ -47,11 +47,14 @@ public class FrogPrototype : MonoBehaviour
     public bool hacks = true;
     public bool Ready { get { return (leftGripScript.isGrippingTutorial || rightGripScript.isGrippingTutorial);} }
 
+    private GameManager gameManager;
+
     void Start()
     {
         leftBody = leftHand.GetComponent<Rigidbody2D>();
         rightBody = rightHand.GetComponent<Rigidbody2D>();
         body = GetComponent<Rigidbody2D>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         //body.isKinematic = true;
         hacks = true;
@@ -169,6 +172,11 @@ public class FrogPrototype : MonoBehaviour
         body.isKinematic = false;
 
         Vector3 input = new Vector3(Input.GetAxis(horizontalAxis), Input.GetAxis(verticalAxis));
+
+        if (input != Vector3.zero)
+        {
+            gameManager.DeactivateInactivityCounter(transform.parent.name);
+        }
         if (!leftGripScript.isOnGrip && !rightGripScript.isOnGrip)
         {
             if (input.y < 0)
