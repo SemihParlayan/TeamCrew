@@ -28,6 +28,7 @@ public class RandomSoundFromList : MonoBehaviour
 
     public void GenerateRockImpact()
     {
+        speaker = transform.GetComponent<AudioSource>();
         speaker.pitch = 1;
         speaker.volume = 1;
         int coolInt = Random.Range(0, SoundList.Length - 1);
