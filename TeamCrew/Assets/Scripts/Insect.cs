@@ -96,11 +96,19 @@ public class Insect : MonoBehaviour
         {
             case MotionState.normal:
                 {
-                    if (GameManager.playerOne != null && GameManager.playerTwo != null)
+                    if (GameManager.playerOne && GameManager.playerTwo)
                     {
                         Transform lowestFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
                            GameManager.playerOne : GameManager.playerTwo;
+
                         if (Mathf.Abs(transform.position.x - lowestFrog.position.x) > 75)
+                        {
+                            Destroy(gameObject);
+                        }
+                    }
+                    
+                    
+                        if(direction)
                         {
                             Destroy(gameObject);
                         }
