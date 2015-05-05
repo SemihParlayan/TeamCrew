@@ -8,7 +8,7 @@ public class RandomSoundFromList : MonoBehaviour
 
 	void Start ()
     {
-        speaker = GetComponent<AudioSource>();
+        speaker = transform.GetComponent<AudioSource>();
 	}
 
     public void GenerateGrip()
@@ -25,4 +25,14 @@ public class RandomSoundFromList : MonoBehaviour
         speaker.clip = SoundList[9];
     }
 
+
+    public void GenerateRockImpact()
+    {
+        speaker.pitch = 1;
+        speaker.volume = 1;
+        int coolInt = Random.Range(0, SoundList.Length - 1);
+        Debug.Log(coolInt);
+        speaker.clip = SoundList[coolInt];
+
+    }
 }

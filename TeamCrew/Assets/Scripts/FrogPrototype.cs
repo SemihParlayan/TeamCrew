@@ -43,6 +43,7 @@ public class FrogPrototype : MonoBehaviour
 
     public int versusHands;
     public bool ready;
+    public bool hacks = true;
 
     void Start()
     {
@@ -51,6 +52,7 @@ public class FrogPrototype : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
 
         //body.isKinematic = true;
+        hacks = true;
     }
 
     void Update()
@@ -80,6 +82,29 @@ public class FrogPrototype : MonoBehaviour
         Vector2 velocity = body.velocity;
         velocity.y = Mathf.Clamp(velocity.y, -int.MaxValue, yVelocityClamp);
         body.velocity = velocity;
+
+        if(hacks)
+        {
+            if (Input.GetButtonDown("Select"))
+            {
+                body.gravityScale = -2;
+                //body.
+            }
+            else if (Input.GetButtonUp("Select"))
+            {
+                body.gravityScale = 1;
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                ActivateBody();
+            }
+            if (Input.GetMouseButton(0))
+            {
+                body.velocity = new Vector2(0, 0);
+                transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
+        }
+        
     }
 
     private float maxVersusGripTime = 10.0f;
@@ -217,6 +242,7 @@ public class FrogPrototype : MonoBehaviour
 
     public void EnergyBoost()
     {
+
     }
 }
 
