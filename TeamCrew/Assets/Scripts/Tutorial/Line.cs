@@ -62,6 +62,7 @@ public class Line : MonoBehaviour
         GetComponent<SpringJoint2D>().enabled = false;
         Destroy(hinge.gameObject);
         Destroy(rope.gameObject);
+        Destroy(hook.gameObject);
         Destroy(this);
     }
 }

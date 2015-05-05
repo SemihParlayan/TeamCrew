@@ -108,29 +108,28 @@ public class Insect : MonoBehaviour
                     }
                     
                     
-                        if(direction)
-                        {
-                            Destroy(gameObject);
-                        }
+                    if(direction)
+                    {
+                        Destroy(gameObject);
+                    }
 
-                        if (direction)
-                        {
-                            body.velocity = new Vector2(flyHorizontalSpeed, body.velocity.y);
-                        }
-                        else
-                        {
-                            body.velocity = new Vector2(-flyHorizontalSpeed, body.velocity.y);
-                        }
+                    if (direction)
+                    {
+                        body.velocity = new Vector2(flyHorizontalSpeed, body.velocity.y);
+                    }
+                    else
+                    {
+                        body.velocity = new Vector2(-flyHorizontalSpeed, body.velocity.y);
+                    }
 
 
-                        if (transform.position.y < startPos.y)
-                        {
-                            body.AddForce(new Vector2(0, goSlowlyUpForce));
-                        }
-                        else if (body.velocity.y < 0)
-                        {
-                            body.AddForce(new Vector2(0, goSlowlyDownForce));
-                        }
+                    if (transform.position.y < startPos.y)
+                    {
+                        body.AddForce(new Vector2(0, goSlowlyUpForce));
+                    }
+                    else if (body.velocity.y < 0)
+                    {
+                        body.AddForce(new Vector2(0, goSlowlyDownForce));
                     }
                     
                 } break;

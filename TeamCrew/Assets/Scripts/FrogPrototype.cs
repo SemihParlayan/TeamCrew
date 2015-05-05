@@ -114,7 +114,6 @@ public class FrogPrototype : MonoBehaviour
 
     private float maxVersusGripTime = 10.0f;
     private float versusGripTimer = 10.0f;
-    private float redblinkTimer;
     private float resetVersusTimer;
 
     void ShakeLooseBody()
@@ -123,8 +122,8 @@ public class FrogPrototype : MonoBehaviour
         {
             versusGripTimer -= Time.deltaTime;
 
-            leftGripScript.redBlinkTime = versusGripTimer / maxVersusGripTime;
-            rightGripScript.redBlinkTime = versusGripTimer / maxVersusGripTime;
+            leftGripScript.versusGripController.blinkTime = versusGripTimer / maxVersusGripTime;
+            rightGripScript.versusGripController.blinkTime = versusGripTimer / maxVersusGripTime;
             //Release versus grips
             if (versusGripTimer <= 0)
             {

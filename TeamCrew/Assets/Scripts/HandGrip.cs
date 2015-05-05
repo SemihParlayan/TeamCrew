@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(VersusGripController))]
 public class HandGrip : MonoBehaviour
 {
     //Hand states
@@ -14,8 +15,6 @@ public class HandGrip : MonoBehaviour
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
 
     private bool allowVersusGrab = true;
-    public float redBlinkTime;
-    private float redBlinkTimer;
 
     //Axis of which to grip with
     public string axis;
@@ -45,6 +44,13 @@ public class HandGrip : MonoBehaviour
 
     public ParticleSystem stoneParticles;
 
+    //Grip animations
+    public GripAnimation gripAnimation;
+
+    //VersusGripController
+    [HideInInspector]
+    public VersusGripController versusGripController;
+
     public Vector3 GripPosition
     {
         get 
@@ -69,6 +75,8 @@ public class HandGrip : MonoBehaviour
         {
             gameManager = game.GetComponent<GameManager>();
         }
+
+        versusGripController = GetComponent<VersusGripController>();
 	}
 
 	void Update ()
@@ -98,20 +106,6 @@ public class HandGrip : MonoBehaviour
         }
 
         lastIsOngrip = isOnGrip;
-
-        if (isVersusGripping)
-        {
-            redBlinkTimer += Time.deltaTime;
-            if (redBlinkTimer <= redBlinkTime / 2)
-                renderer.color = Color.white;
-            else
-                renderer.color = new Color(1, 0.5f, 0.5f);
-
-            if (redBlinkTimer >= redBlinkTime)
-            {
-                redBlinkTimer = 0;
-            }
-        }
 	}
     bool AllowGrip(Grip g)
     {
@@ -150,6 +144,7 @@ public class HandGrip : MonoBehaviour
                 else
                 {
                     stoneParticles.Play();
+                    gripAnimation.Activate();
                     //Hand is on a grip
                     isOnGrip = true;
 
@@ -220,6 +215,7 @@ public class HandGrip : MonoBehaviour
                     if (c.transform.tag == "VersusGrip")
                     {
                         isVersusGripping = true;
+                        versusGripController.ActivateBlink();
                         versusFrog = FindVersusBody(c.transform).GetComponent<FrogPrototype>();
                         versusFrog.versusHands++;
                     }
@@ -297,6 +293,7 @@ public class HandGrip : MonoBehaviour
         isGripping = false;
         isVersusGripping = false;
         isGrippingTutorial = false;
+        versusGripController.DeActivateBlink();
 
         if (versusFrog)
             versusFrog.versusHands--;
