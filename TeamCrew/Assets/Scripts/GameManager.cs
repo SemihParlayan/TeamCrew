@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     public LayerMask mask;
 
+    public bool tutorialComplete;
 	void Start ()
     {
         if (generatorScript == null)
@@ -53,23 +54,28 @@ public class GameManager : MonoBehaviour
             {
                 mainMenuScript.playerOneReady.gameObject.SetActive(false);
                 mainMenuScript.playerTwoReady.gameObject.SetActive(false);
-                if (playerOneScript.Ready)
-                {
-                    mainMenuScript.playerOneReady.gameObject.SetActive(true);
-                }
-                if (playerTwoScript.Ready)
-                {
-                    mainMenuScript.playerTwoReady.gameObject.SetActive(true);
-                }
 
-                if (playerOneScript.Ready && playerTwoScript.Ready)
+                if (!mainMenuScript.goReady)
                 {
-                    mainMenuScript.StartGoImage();
+                    if (playerOneScript.Ready)
+                    {
+                        mainMenuScript.playerOneReady.gameObject.SetActive(true);
+                    }
+                    if (playerTwoScript.Ready)
+                    {
+                        mainMenuScript.playerTwoReady.gameObject.SetActive(true);
+                    }
+
+                    if (playerOneScript.Ready && playerTwoScript.Ready)
+                    {
+                        mainMenuScript.StartGoImage();
+                    }
                 }
             }
             if (mainMenuScript.goReady)
             {
                 cameraFollowScript.enabled = true;
+                tutorialComplete = true;
             }
         }
         //Check for camera pan complete
@@ -161,7 +167,7 @@ public class GameManager : MonoBehaviour
     public Image fadeToBlackImage;
     public float inactivityTime = 5;
     public float playerOneInactivityTimer;
-    private float playerTwoInactivityTimer;
+    public float playerTwoInactivityTimer;
     public void DeactivateInactivityCounter(string frogname)
     {
         if (frogname.Contains("1"))

@@ -86,6 +86,8 @@ public class MainMenu : MonoBehaviour
                 {
                     goReady = true;
                     goImage.gameObject.SetActive(false);
+                    playerOneReady.gameObject.SetActive(false);
+                    playerTwoReady.gameObject.SetActive(false);
                 }
             }
         }
@@ -95,6 +97,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartGoImage()
     {
+        if (goImage.gameObject.activeInHierarchy || goReady)
+            return;
         goIndex = 0;
         goImage.sprite = go_sprites[0];
         goImage.gameObject.SetActive(true);

@@ -342,6 +342,7 @@ GameObject:
   - 212: {fileID: 21297928}
   - 114: {fileID: 11447718}
   - 58: {fileID: 5820610}
+  - 114: {fileID: 11457902}
   m_Layer: 12
   m_Name: right_hand
   m_TagString: Untagged
@@ -595,6 +596,7 @@ GameObject:
   - 212: {fileID: 21232618}
   - 114: {fileID: 11478756}
   - 58: {fileID: 5891076}
+  - 114: {fileID: 11455694}
   m_Layer: 12
   m_Name: left_hand
   m_TagString: Untagged
@@ -2515,6 +2517,7 @@ MonoBehaviour:
   isGripping: 0
   isGrippingTutorial: 0
   isVersusGripping: 0
+  allowNewGrip: 1
   axis: P2GR
   open: {fileID: 21300006, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
   semiOpen: {fileID: 21300016, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
@@ -2548,6 +2551,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6550c904c68ba6940b4b71874113e41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11455694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1987f5290de29e4ead5182da101ef80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkTime: 0
+--- !u!114 &11457902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1987f5290de29e4ead5182da101ef80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkTime: 0
 --- !u!114 &11466006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2670,7 +2697,6 @@ MonoBehaviour:
   motorSpeed: 450
   versusMotorBoost: 600
   versusHands: 0
-  ready: 0
   hacks: 0
 --- !u!114 &11474640
 MonoBehaviour:
@@ -2728,6 +2754,7 @@ MonoBehaviour:
   isGripping: 0
   isGrippingTutorial: 0
   isVersusGripping: 0
+  allowNewGrip: 1
   axis: P2GL
   open: {fileID: 21300006, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
   semiOpen: {fileID: 21300016, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}

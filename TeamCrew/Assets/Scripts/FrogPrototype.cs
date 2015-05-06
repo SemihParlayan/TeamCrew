@@ -43,7 +43,6 @@ public class FrogPrototype : MonoBehaviour
 
     public int versusHands;
 
-    public bool ready;
     public bool hacks = true;
     public bool Ready { get { return (leftGripScript.isGrippingTutorial || rightGripScript.isGrippingTutorial);} }
 
@@ -67,6 +66,10 @@ public class FrogPrototype : MonoBehaviour
         {
             Application.LoadLevel(Application.loadedLevel);
         }
+
+        //Disable new grips on tutorial block
+        leftGripScript.allowNewGrip = !Ready;
+        rightGripScript.allowNewGrip = !Ready;
 
         //Keeps body still until a grip is made
         ActivateBody();

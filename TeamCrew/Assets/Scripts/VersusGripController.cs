@@ -37,12 +37,12 @@ public class VersusGripController : MonoBehaviour
             transform.localPosition = originalStartPosition;
             Vector3 dir = Random.insideUnitSphere;
             dir.z = 0;
-            transform.localPosition += dir * shakeDir * Time.deltaTime * 3.5f;
+            transform.localPosition += dir * shakeDir * Time.deltaTime * 4.5f;
         }
 
         if (blink)
         {
-            if (blinkTime < 0.5f && !shake)
+            if (blinkTime < 0.15 && !shake)
             {
                 ActivateShake();
             }

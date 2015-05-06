@@ -14,6 +14,7 @@ public class HandGrip : MonoBehaviour
 
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
 
+    public bool allowNewGrip = true;
     private bool allowVersusGrab = true;
 
     //Axis of which to grip with
@@ -90,6 +91,7 @@ public class HandGrip : MonoBehaviour
         {
             //Set gripping to true
             isGripping = true;
+            gameManager.DeactivateInactivityCounter(axis);
 
             //Change hand sprite to semi-open
             if (!isOnGrip)
@@ -121,7 +123,6 @@ public class HandGrip : MonoBehaviour
             //Do we have a grip point?
             if (gripPoint != null)
             {
-                //Is there to much hand on the grip?
                 if (g is MovingGrip)
                 {
                     if (holdername == gripPoint.holderName)
@@ -143,8 +144,26 @@ public class HandGrip : MonoBehaviour
                 }
                 else
                 {
+                    if (!gameManager.tutorialComplete)
+                    {
+                        bool allow = true;
+                        if (!allowNewGrip)
+                        {
+                            allow = false;
+                            if (g.tutorialStart)
+                            {
+                                allow = true;
+                            }
+                        }
+                        if (!allow)
+                        {
+                            return false;
+                        }
+                    }
+                    //Play animation and stone particles
                     stoneParticles.Play();
                     gripAnimation.Activate();
+
                     //Hand is on a grip
                     isOnGrip = true;
 
