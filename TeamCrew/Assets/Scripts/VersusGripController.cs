@@ -50,7 +50,7 @@ public class VersusGripController : MonoBehaviour
 
             if (blinkTimer > blinkTime / 2)
             {
-                renderer.color = Color.red;
+                renderer.color = new Color(1, 0.7f, 0.7f);
             }
             else
             {

@@ -54,11 +54,6 @@ public class MainMenu : MonoBehaviour
                 }
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            EnableUI();
-        }
 	}
 
     public void StartGoImage()

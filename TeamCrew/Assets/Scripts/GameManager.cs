@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public bool tutorialComplete;
 	void Start ()
     {
+        Application.targetFrameRate = 60;
         if (generatorScript == null)
             Debug.LogError("Attach a generator script to GameManager.cs!");
 
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
     private FrogPrototype playerOneScript, playerTwoScript;
     void Update()
     {
+        //Start GAME!
         if (!cameraFollowScript.enabled)
         {
             if (playerOneScript != null || playerTwoScript != null)
@@ -68,16 +70,24 @@ public class GameManager : MonoBehaviour
 
                     if (playerOneScript.Ready && playerTwoScript.Ready)
                     {
-                        mainMenuScript.StartGoImage();
+                        mainMenuScript.StartGoImage();  
                     }
                 }
             }
-            if (mainMenuScript.goReady)
+            if (mainMenuScript.goReady && !tutorialComplete)
             {
                 cameraFollowScript.enabled = true;
                 tutorialComplete = true;
+                playerOne.GetComponent<Line>().Remove();
+                playerTwo.GetComponent<Line>().Remove();
             }
         }
+
+
+
+
+
+
         //Check for camera pan complete
         if (cameraPanScript.enabled)
         {
@@ -95,7 +105,7 @@ public class GameManager : MonoBehaviour
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
 
-            if (mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready)
+            if ((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B))
             {
                 ActivateCameraPan();
                 generatorScript.Generate();
@@ -103,6 +113,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
+
+
+
+
+
+
+
+        //Inactivity
         if (gameActive)
         {
             playerOneInactivityTimer += Time.deltaTime;
