@@ -6,66 +6,29 @@ using System.Collections.Generic;
 
 public class MainMenu : MonoBehaviour 
 {
+    //Components
     public Transform UIParent;
-    public Button singleplayerButton;
-    public Button multiplayerButton;
+    public PlayerReadyInput playerOneReadyInput;
+    public PlayerReadyInput playerTwoReadyInput;
     public Image playerOneReady;
     public Image playerTwoReady;
-    public Image goImage;
-
-    public List<Sprite> go_sprites = new List<Sprite>();
-    private int goIndex;
 
     private Animator anim;
-    private int selectedButton = 1;
 
-	void Start () 
+    //Countdown 3-2-1-GO! variables
+    [HideInInspector]public bool goReady;
+    public List<Sprite> go_sprites = new List<Sprite>();
+    public Image goImage;
+    private int goIndex;
+    private float goTimer;
+
+    void Start()
     {
-        if (singleplayerButton == null || multiplayerButton == null)
-            Debug.LogError("Attach both singleplayer and multiplayer button to MainMenu.cs!");
-
         anim = GetComponent<Animator>();
-
-        selectedButton = 2;
-        multiplayerButton.Select();
-	}
-
+    }
 	void Update () 
     {
-        //Select buttons
-        float horizontal = Mathf.RoundToInt(Input.GetAxis("P1HL") + Input.GetAxis("P1HR"));
-
-        if (horizontal > 0)
-        {
-            selectedButton = 2;
-            multiplayerButton.Select();
-        }
-        else if (horizontal < 0)
-        {
-            selectedButton = 1;
-            singleplayerButton.Select();
-        }
-
-
-        //Click buttons
-        if (Input.GetButtonDown("P1GL") || Input.GetButtonDown("P1GR"))
-        {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Default"))
-            {
-                if (selectedButton == 1)
-                {
-                    multiplayerButton.onClick.Invoke();
-                }
-                else if (selectedButton == 2)
-                {
-                    multiplayerButton.onClick.Invoke();
-                    //gameObject.SetActive(false);
-                }
-
-                anim.SetTrigger("SignsOut");
-            }
-        }
-
+        ///Countdown 3-2-1-GO!
         if (goImage.gameObject.activeInHierarchy)
         {
             goImage.rectTransform.localScale += new Vector3(0.02f, 0.02f, 0.02f);
@@ -91,9 +54,12 @@ public class MainMenu : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            EnableUI();
+        }
 	}
-    private float goTimer;
-    public bool goReady;
 
     public void StartGoImage()
     {
@@ -103,17 +69,19 @@ public class MainMenu : MonoBehaviour
         goImage.sprite = go_sprites[0];
         goImage.gameObject.SetActive(true);
     }
+
     public void DisableUI()
     {
-        UIParent.gameObject.SetActive(false);
+        anim.SetTrigger("DisableUI");
     }
     public void EnableUI()
     {
-        Invoke("EnableUIPrivate", 3f);
-    }
-    private void EnableUIPrivate()
-    {
         UIParent.gameObject.SetActive(true);
-        anim.SetTrigger("SignsIn");
+        anim.SetTrigger("EnableUI");
+    }
+
+    public void DisableUIGameObject()
+    {
+        UIParent.gameObject.SetActive(false);
     }
 }

@@ -94,6 +94,13 @@ public class GameManager : MonoBehaviour
         {
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
+
+            if (mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready)
+            {
+                ActivateCameraPan();
+                generatorScript.Generate();
+                mainMenuScript.DisableUI();
+            }
         }
 
         if (gameActive)
@@ -140,7 +147,6 @@ public class GameManager : MonoBehaviour
     {
         cameraPanScript.enabled = true;
     }
-
     public void Win()
     {
         mainMenuScript.EnableUI();
@@ -150,8 +156,8 @@ public class GameManager : MonoBehaviour
         respawnScript.enabled = false;
         terrainScript.enabled = true;
         gameActive = false;
+        respawnScript.ResetRespawns();
     }
-
     private void CreateNewFrogs()
     {
         if (playerOne != null)
@@ -164,7 +170,6 @@ public class GameManager : MonoBehaviour
     }
 
     public Text inactivityText;
-    public Image fadeToBlackImage;
     public float inactivityTime = 5;
     public float playerOneInactivityTimer;
     public float playerTwoInactivityTimer;
