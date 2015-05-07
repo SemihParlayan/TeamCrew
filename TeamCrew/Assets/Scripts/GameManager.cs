@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
 	void Start ()
     {
+        Application.targetFrameRate = 60; // Fixes some lag issues! /Emil
+
         if (generatorScript == null)
             Debug.LogError("Attach a generator script to GameManager.cs!");
 
