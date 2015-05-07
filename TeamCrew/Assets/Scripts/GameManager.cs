@@ -24,9 +24,11 @@ public class GameManager : MonoBehaviour
     private bool tutorilBubblesSpawned;
 
     public bool tutorialComplete;
+    public bool hacks = true;
 	void Start ()
     {
         Application.targetFrameRate = 60;
+
         if (generatorScript == null)
             Debug.LogError("Attach a generator script to GameManager.cs!");
 
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
     private FrogPrototype playerOneScript, playerTwoScript;
     void Update()
     {
+        
         //Start GAME!
         if (!cameraFollowScript.enabled)
         {
@@ -77,7 +80,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            if (mainMenuScript.goReady && !tutorialComplete && gameActive)
+            if (mainMenuScript.goReady && !tutorialComplete && gameActive || (playerOne && playerTwo && hacks ? Input.GetButtonDown("Select") : false))
             {
                 cameraFollowScript.enabled = true;
                 tutorialComplete = true;
@@ -86,11 +89,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
-
-
-
-
+            
         //Check for camera pan complete
         if (cameraPanScript.enabled)
         {
@@ -108,7 +107,11 @@ public class GameManager : MonoBehaviour
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
 
+<<<<<<< HEAD
             if (((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B)) && CANPRESSMENU)
+=======
+            if ((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Select"))
+>>>>>>> 2eeae337cbeb5677da8dc7175185cd48f3f08e05
             {
                 CANPRESSMENU = false;
                 ActivateCameraPan();

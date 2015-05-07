@@ -2656,6 +2656,24 @@ MonoBehaviour:
   yVelocityClamp: 10
   player: P2
   emotionsScript: {fileID: 11471142}
+  gripScript:
+  - {fileID: 11478756}
+  - {fileID: 11447718}
+  joints:
+  - {fileID: 23361572}
+  - {fileID: 23313948}
+  handOrigin:
+  - {fileID: 447922}
+  - {fileID: 433972}
+  handNeutral:
+  - {fileID: 491864}
+  - {fileID: 477516}
+  hand:
+  - {fileID: 461166}
+  - {fileID: 405462}
+  handMagnet:
+  - {fileID: 11494440}
+  - {fileID: 0}
   leftGripScript: {fileID: 11478756}
   rightGripScript: {fileID: 11447718}
   leftJoint: {fileID: 23391422}
@@ -2671,7 +2689,8 @@ MonoBehaviour:
   motorSpeed: 450
   versusMotorBoost: 600
   versusHands: 0
-  hacks: 0
+  ready: 0
+  hacks: 1
 --- !u!114 &11474640
 MonoBehaviour:
   m_ObjectHideFlags: 1

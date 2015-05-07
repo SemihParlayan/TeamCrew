@@ -20,10 +20,11 @@ public class Insect : MonoBehaviour
     float sittingTime;
 
     //Positions
-    public float offsetFromFrog;
+    public Vector2 relativeSpawnPosToFrog;
     public float panicModeTop;
+    public float startLowestFly;
     float targetY;
-    Vector2 startPos;
+    private Vector2 startPos;
 
     //Forces
     public float goSlowlyDownForce = 500;
@@ -32,8 +33,8 @@ public class Insect : MonoBehaviour
 
     //Spped
     public float flyHorizontalSpeed = 4;
-    
 
+    private Animator animator;
     public AudioSource soundSource;
     Rigidbody2D body;
     Transform hand;
@@ -43,37 +44,42 @@ public class Insect : MonoBehaviour
 	void Start ()
     {
         body = GetComponent<Rigidbody2D>();
-        startPos = new Vector2(0,0);
+        startPos = new Vector2();
 
-        //Check if there are any missing frogs
-        if(!GameManager.playerOne || !GameManager.playerTwo)
+        //Check if the frogs are present
+        if(GameManager.playerOne && GameManager.playerTwo)
         {
-            startPos = transform.position;
-        }
-        else
-        { 
             Transform lowestFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
                 GameManager.playerOne : GameManager.playerTwo;
 
             startPos = lowestFrog.position;
         }
+        else/*if( frog is missing)*/
+        { 
+            startPos = transform.position;
+        }
             
         //Spawn to the right?
         if (Random.Range(0.0f, 1.0f) > .5f)
         {
-            startPos.x += offsetFromFrog;
+            startPos.x += relativeSpawnPosToFrog.x;
             direction = false;
-            transform.localScale = new Vector3(-1, 1, 1); //Sprite flip
+            //transform.localScale = new Vector3(-1, 1, 1); //Sprite flip
+            transform.RotateAround(new Vector3(0,1,0), Mathf.PI);
         }
         else
         {
             direction = true;
-            startPos.x -= offsetFromFrog;
+            startPos.x -= relativeSpawnPosToFrog.x;
             
         }
 
-        transform.position = startPos + new Vector2(0,1);
+        startPos.y += relativeSpawnPosToFrog.y;
+
+        transform.position = startPos;
         targetY = startPos.y + panicModeTop;
+
+        animator = transform.GetComponent<Animator>();
 	}
 	
 	
@@ -107,21 +113,18 @@ public class Insect : MonoBehaviour
                         }
                     }
                     
-                    
-                    if(direction)
-                    {
-                        Destroy(gameObject);
-                    }
+                        if(direction)
+                        {
+                             //body.velocity = new Vector2(flyHorizontalSpeed, body.velocity.y);
+                            body.AddForce(new Vector2(100.0f,0));
+                        }
+                        else
+                        {
+                           // body.velocity = new Vector2(-flyHorizontalSpeed, body.velocity.y);
+                            body.AddForce(new Vector2(-100.0f, 0));
 
-                    if (direction)
-                    {
-                        body.velocity = new Vector2(flyHorizontalSpeed, body.velocity.y);
-                    }
-                    else
-                    {
-                        body.velocity = new Vector2(-flyHorizontalSpeed, body.velocity.y);
-                    }
-
+                        }
+                       
 
                     if (transform.position.y < startPos.y)
                     {
@@ -191,8 +194,10 @@ public class Insect : MonoBehaviour
             case MotionState.panicMode:
                 break;
         }
+
+        motionState = state;
         //getting new behaviour
-        switch (state)
+        switch (motionState)
         {
             case MotionState.rip:
                 //turn of sound
@@ -203,7 +208,11 @@ public class Insect : MonoBehaviour
             break;
 
             case MotionState.panicMode:
-
+            {
+                animator.SetTrigger("goNaked");
+                body.fixedAngle = false;
+            }
+            
             break;
         }
     }
@@ -212,6 +221,7 @@ public class Insect : MonoBehaviour
     {
 
     }
+
     public void SetHand(Transform hand)
     {
         this.hand = hand;
@@ -219,8 +229,10 @@ public class Insect : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D c)
     {
+        Debug.Log("fly is colliding with something");
         if (c.transform.tag == "Grip" && Random.Range(0,2) == 1)
         {
+            Debug.Log("fly decides to sit on grip");
             //movementMode = MovementType.NONE;
             sittingTime = Random.Range(MinSittingTime, MaxSittingTime);
 
@@ -230,14 +242,13 @@ public class Insect : MonoBehaviour
 
     public void AddHand()
     {
-        if(grabbed == 0) motionState = MotionState.panicMode;
+        if(grabbed == 0) ChangeState(MotionState.panicMode);
         grabbed++;
-
     }
 
     public void RemoveHand()
     {
         grabbed--;
-        if (grabbed == 0) motionState = MotionState.rip;
+        if (grabbed == 0) ChangeState(MotionState.rip);
     }
 }

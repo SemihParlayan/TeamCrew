@@ -12,6 +12,17 @@ public class FrogPrototype : MonoBehaviour
     public string player;
     public Emotions emotionsScript;
 
+
+    public HandGrip[] gripScript;
+
+    public HingeJoint2D[] joints;
+
+    public Transform[] handOrigin;
+    public Transform[] handNeutral;
+    public Transform[] hand;
+    private Rigidbody2D[] handBody = new Rigidbody2D[2];
+    public GripMagnet[] handMagnet;
+
     public HandGrip leftGripScript;
     public HandGrip rightGripScript;
 
@@ -45,16 +56,20 @@ public class FrogPrototype : MonoBehaviour
 
     void Start()
     {
-        leftBody = leftHand.GetComponent<Rigidbody2D>();
-        rightBody = rightHand.GetComponent<Rigidbody2D>();
+        leftBody  = handBody[0] = leftHand.GetComponent<Rigidbody2D>();
+        rightBody = handBody[1] = rightHand.GetComponent<Rigidbody2D>();
         body = GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         //body.isKinematic = true;
         hacks = true;
+
+    }
+    void Update()
+    {
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         //TEMPORARY RESTART
         if (Input.GetButtonDown("Start"))
@@ -75,8 +90,10 @@ public class FrogPrototype : MonoBehaviour
         ControlScratch();
 
         //Control Hands
-        ControlHand(leftGripScript, GetInput(player + "HLX", player + "VLX"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
+         ControlHand(leftGripScript, GetInput(player + "HLX", player + "VLX"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
         ControlHand(rightGripScript, GetInput(player + "HRX", player +"VRX"), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
+        //ControlHand2(0);
+        //ControlHand2(1);
 
         //Shake loose body
         ShakeLooseBody();
@@ -93,7 +110,7 @@ public class FrogPrototype : MonoBehaviour
                 body.gravityScale = -2;
                 //body.
             }
-            else if (Input.GetButtonUp("Select"))
+            else
             {
                 body.gravityScale = 1;
             }
@@ -161,10 +178,88 @@ public class FrogPrototype : MonoBehaviour
             rightParticle.enableEmission = true;
         }
     }
+	
+    void ControlHand2(int a)
+    {
+        //leftGripScript, player + "HL", player + "VL", leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript
+        //rightGripScript, player + "HR", player + "VR", rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
+        string horizontalAxis = player + (a == 0 ? "HL" : "HR");
+        string verticalAxis   = player + (a == 0 ? "VL" : "VR");
+        int motorDir = (a == 0 ? 1 : -1);
+
+        joints[a].useMotor = gripScript[a].isOnGrip;
+        bool grip = gripScript[a].isOnGrip;
+        handBody[a].isKinematic = false;
+
+        Vector3 input = new Vector3(Input.GetAxis(horizontalAxis), Input.GetAxis(verticalAxis));
+        if (!leftGripScript.isOnGrip && !rightGripScript.isOnGrip)
+        {
+            if (input.y < 0)
+            {
+                input.y = 0.5f;
+            }
+        }
+
+        float angle = Mathf.Rad2Deg * (float)Mathf.Atan2(input.x, input.y);
+        if (angle < 0)
+        {
+            angle = 180 + (180 - Mathf.Abs(angle));
+        }
+        float i = (int)(angle / 45.0f);
+        angle = (45 * i) * Mathf.Deg2Rad;
+
+
+        HingeJoint2D otherJoint = null;
+        JointMotor2D motor = new JointMotor2D();
+        motor.motorSpeed = motorSpeed;
+
+        if (versusHands > 0)
+            motor.motorSpeed += versusMotorBoost;
+        else if (rightGripScript.isOnGrip && leftGripScript.isOnGrip)
+        {
+            motor.motorSpeed /= 1.2f;
+        }
+
+        if (joints[a] == leftJoint)
+        {
+            otherJoint = rightJoint;
+        }
+        else
+        {
+            motor.motorSpeed *= -1;
+            otherJoint = leftJoint;
+        }
+
+        motor.maxMotorTorque = 1500;
+        joints[a].motor = motor;
+        joints[a].useMotor = (grip && input.y < 0);
+
+
+        if (!grip)
+        {
+            if ((input.x != 0 || input.y != 0)) //If hand is moving and not on a grip
+            {
+                //Move towards joystick Direction
+                Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
+                Vector3 targetPosition = handOrigin[a].position + dir * 2.0f + handMagnet[a].magnetDir;
+                handBody[a].velocity = (targetPosition - hand[a].position) * speed;
+            }
+            else if (gripScript[1-a].isOnGrip && otherJoint.useMotor && gripScript[a].isGripping) // Move towards other hand when neutral
+            {
+                Vector3 targetPosition = gripScript[1-a].gripPoint.transform.position;
+                handBody[a].velocity = (targetPosition - hand[a].position) * speed;
+            }
+            else //If hand is not moving and not on grip
+            {
+                //Move towards neutral position
+                Vector3 targetPosition = handNeutral[a].position;
+                handBody[a].velocity = (targetPosition - hand[a].position) * speed;
+            }
+        }
+    }
     void ControlHand(HandGrip handScript, Vector3 input, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin, HandGrip otherGripScript)
     {
-        bool grip = joint.useMotor = body.isKinematic = handScript.isOnGrip;
-
+        bool grip = joint.useMotor = handScript.isOnGrip;
         body.isKinematic = false;
 
         if (input != Vector3.zero)

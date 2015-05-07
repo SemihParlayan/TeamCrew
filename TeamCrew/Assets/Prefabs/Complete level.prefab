@@ -666,6 +666,7 @@ GameObject:
   - 114: {fileID: 11462638}
   - 114: {fileID: 11407100}
   - 114: {fileID: 11439478}
+  - 114: {fileID: 11467616}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: GameManager
@@ -1299,6 +1300,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 463300}
+  - 95: {fileID: 9526734}
   m_Layer: 0
   m_Name: Complete level
   m_TagString: Untagged
@@ -2901,6 +2903,23 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188938}
   m_Enabled: 1
+--- !u!95 &9526734
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191422}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9562164
 Animator:
   serializedVersion: 3
@@ -3092,6 +3111,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   tutorialComplete: 0
+  hacks: 1
   inactivityText: {fileID: 11443984}
   inactivityTime: 10
   playerOneInactivityTimer: 0
@@ -3804,6 +3824,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11467616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d43d8251c32d7944bb3a2dca0c4f655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FlyPrefab: {fileID: 432452, guid: 9d6c1b19877602247985cc2cd0197966, type: 2}
+  RespawnCheckRate: 0
 --- !u!114 &11468184
 MonoBehaviour:
   m_ObjectHideFlags: 1

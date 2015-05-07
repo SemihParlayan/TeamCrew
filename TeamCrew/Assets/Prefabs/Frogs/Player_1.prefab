@@ -120,6 +120,7 @@ GameObject:
   - 114: {fileID: 11418262}
   - 231: {fileID: 23105632}
   - 114: {fileID: 11418102}
+  - 114: {fileID: 11493300}
   m_Layer: 0
   m_Name: body
   m_TagString: PlayerOne
@@ -2810,6 +2811,24 @@ MonoBehaviour:
   yVelocityClamp: 10
   player: P1
   emotionsScript: {fileID: 11476200}
+  gripScript:
+  - {fileID: 11410830}
+  - {fileID: 11434262}
+  joints:
+  - {fileID: 23390742}
+  - {fileID: 23366052}
+  handOrigin:
+  - {fileID: 418308}
+  - {fileID: 427946}
+  handNeutral:
+  - {fileID: 497302}
+  - {fileID: 480646}
+  hand:
+  - {fileID: 495822}
+  - {fileID: 451152}
+  handMagnet:
+  - {fileID: 11414644}
+  - {fileID: 11447854}
   leftGripScript: {fileID: 11410830}
   rightGripScript: {fileID: 11434262}
   leftJoint: {fileID: 23355068}
@@ -2825,7 +2844,19 @@ MonoBehaviour:
   motorSpeed: 450
   versusMotorBoost: 600
   versusHands: 0
-  hacks: 0
+  ready: 0
+  hacks: 1
+--- !u!114 &11493300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30714c6dd8827ae43982d88756062fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11497488
 MonoBehaviour:
   m_ObjectHideFlags: 1

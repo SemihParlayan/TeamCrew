@@ -34,6 +34,8 @@ public class HandGrip : MonoBehaviour
     public AudioSource gripSoundSource;
     private RandomSoundFromList randSoundGen;
 
+    private AudioSource wallScratchSource;
+
     //Insect reference
     private Insect insectScript;
 
@@ -77,7 +79,12 @@ public class HandGrip : MonoBehaviour
             gameManager = game.GetComponent<GameManager>();
         }
 
+        //Set Scratch sound Source
+        wallScratchSource = transform.GetComponent<AudioSource>();
+
+
         versusGripController = GetComponent<VersusGripController>();
+
 	}
 
 	void Update ()
