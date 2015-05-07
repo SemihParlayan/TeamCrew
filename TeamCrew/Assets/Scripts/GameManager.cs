@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,9 +20,10 @@ public class GameManager : MonoBehaviour
 
     public LayerMask mask;
 
+    public bool tutorialComplete;
 	void Start ()
     {
-        Application.targetFrameRate = 60; // Fixes some lag issues! /Emil
+        Application.targetFrameRate = 60;
 
         if (generatorScript == null)
             Debug.LogError("Attach a generator script to GameManager.cs!");
@@ -48,31 +50,45 @@ public class GameManager : MonoBehaviour
     private FrogPrototype playerOneScript, playerTwoScript;
     void Update()
     {
+        //Start GAME!
         if (!cameraFollowScript.enabled)
         {
             if (playerOneScript != null || playerTwoScript != null)
             {
                 mainMenuScript.playerOneReady.gameObject.SetActive(false);
                 mainMenuScript.playerTwoReady.gameObject.SetActive(false);
-                if (playerOneScript.Ready)
-                {
-                    mainMenuScript.playerOneReady.gameObject.SetActive(true);
-                }
-                if (playerTwoScript.Ready)
-                {
-                    mainMenuScript.playerTwoReady.gameObject.SetActive(true);
-                }
 
-                if (playerOneScript.Ready && playerTwoScript.Ready)
+                if (!mainMenuScript.goReady)
                 {
-                    mainMenuScript.StartGoImage();
+                    if (playerOneScript.Ready)
+                    {
+                        mainMenuScript.playerOneReady.gameObject.SetActive(true);
+                    }
+                    if (playerTwoScript.Ready)
+                    {
+                        mainMenuScript.playerTwoReady.gameObject.SetActive(true);
+                    }
+
+                    if (playerOneScript.Ready && playerTwoScript.Ready)
+                    {
+                        mainMenuScript.StartGoImage();  
+                    }
                 }
             }
-            if (mainMenuScript.goReady)
+            if (mainMenuScript.goReady && !tutorialComplete)
             {
                 cameraFollowScript.enabled = true;
+                tutorialComplete = true;
+                playerOne.GetComponent<Line>().Remove();
+                playerTwo.GetComponent<Line>().Remove();
             }
         }
+
+
+
+
+
+
         //Check for camera pan complete
         if (cameraPanScript.enabled)
         {
@@ -89,9 +105,51 @@ public class GameManager : MonoBehaviour
         {
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
+
+            if ((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B))
+            {
+                ActivateCameraPan();
+                generatorScript.Generate();
+                mainMenuScript.DisableUI();
+            }
+        }
+
+
+
+
+
+
+
+
+        //Inactivity
+        if (gameActive)
+        {
+            playerOneInactivityTimer += Time.deltaTime;
+            playerTwoInactivityTimer += Time.deltaTime;
+
+            if (playerOneInactivityTimer >= 5 && playerTwoInactivityTimer >= 5)
+            {
+                inactivityText.transform.parent.gameObject.SetActive(true);
+                fadeTimer -= Time.deltaTime;
+
+                inactivityText.text = "Inactivity! \n Returning to main menu in " + Mathf.RoundToInt(fadeTimer) + "...";
+
+                if (fadeTimer <= 0)
+                {
+                    Win();
+                    playerOneInactivityTimer = 0;
+                    playerTwoInactivityTimer = 0;
+                }
+            }
+            else
+            {
+                inactivityText.transform.parent.gameObject.SetActive(false);
+                fadeTimer = 10;
+            }
         }
     }
 
+    float fadeTimer = 10;
     void StartGame()
     {
         gameActive = true;
@@ -108,17 +166,17 @@ public class GameManager : MonoBehaviour
     {
         cameraPanScript.enabled = true;
     }
-
     public void Win()
     {
         mainMenuScript.EnableUI();
 
+        inactivityText.transform.parent.gameObject.SetActive(false);
         cameraFollowScript.enabled = false;
         respawnScript.enabled = false;
         terrainScript.enabled = true;
         gameActive = false;
+        respawnScript.ResetRespawns();
     }
-
     private void CreateNewFrogs()
     {
         if (playerOne != null)
@@ -128,5 +186,21 @@ public class GameManager : MonoBehaviour
 
         playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
         playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+    }
+
+    public Text inactivityText;
+    public float inactivityTime = 5;
+    public float playerOneInactivityTimer;
+    public float playerTwoInactivityTimer;
+    public void DeactivateInactivityCounter(string frogname)
+    {
+        if (frogname.Contains("1"))
+        {
+            playerOneInactivityTimer = 0;
+        }
+        else if (frogname.Contains("2"))
+        {
+            playerTwoInactivityTimer = 0;
+        }
     }
 }

@@ -7,7 +7,9 @@ public class PlayerRespawn : MonoBehaviour
     public Transform prefab;
     public Image arrow;
     public Text text;
+    [HideInInspector]
     public float timer;
+    [HideInInspector]
     public float deathPositionX;
     public bool Respawning
     {
@@ -49,7 +51,7 @@ public class PlayerRespawn : MonoBehaviour
         if (Respawning)
         {
             timer -= Time.deltaTime;
-            text.text = timer.ToString("F1");
+            text.text = Mathf.RoundToInt(timer).ToString();
 
             Vector3 worldpos = Camera.main.ScreenToWorldPoint(arrow.rectTransform.position);
             worldpos.x = Mathf.Lerp(worldpos.x, targetX, Time.deltaTime);

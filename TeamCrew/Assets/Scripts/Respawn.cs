@@ -82,15 +82,25 @@ public class Respawn : MonoBehaviour
         //    screamSource.Play();
         //}
 	}
+    public void ResetRespawns()
+    {
+        playerOne.timer = respawnTime;
+        playerTwo.timer = respawnTime;
 
+        playerOne.Respawning = false;
+        playerTwo.Respawning = false;
+    }
     Transform RespawnPlayer(PlayerRespawn player)
     {
         Vector3 pos = cam.ScreenToWorldPoint(player.arrow.rectTransform.position);
         pos.z = 0;
         pos.y -= 3;
         Transform t = Instantiate(player.prefab, pos, Quaternion.identity) as Transform;
+
+
         Transform body = t.FindChild("body");
         body.GetComponent<Line>().Remove();
+
         Rigidbody2D b = body.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
         b.AddForce(Vector2.up * 750000);

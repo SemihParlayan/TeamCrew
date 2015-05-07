@@ -9,11 +9,6 @@ public class FrogPrototype : MonoBehaviour
     public float speed;
     public float yVelocityClamp = 10;
 
-    //Fly power up
-    public float speedBoost;
-    public float BoostDuration;
-    float boostTimer;
-
     public string player;
     public Emotions emotionsScript;
 
@@ -54,15 +49,17 @@ public class FrogPrototype : MonoBehaviour
 
     public int versusHands;
 
-    public bool ready;
     public bool hacks = true;
     public bool Ready { get { return (leftGripScript.isGrippingTutorial || rightGripScript.isGrippingTutorial);} }
+
+    private GameManager gameManager;
 
     void Start()
     {
         leftBody  = handBody[0] = leftHand.GetComponent<Rigidbody2D>();
         rightBody = handBody[1] = rightHand.GetComponent<Rigidbody2D>();
         body = GetComponent<Rigidbody2D>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         //body.isKinematic = true;
         hacks = true;
@@ -70,7 +67,41 @@ public class FrogPrototype : MonoBehaviour
     }
     void Update()
     {
-       
+    }
+
+    private void FixedUpdate()
+    {
+        //TEMPORARY RESTART
+        if (Input.GetButtonDown("Start"))
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
+        //Disable new grips on tutorial block
+        leftGripScript.allowNewGrip = !Ready;
+        rightGripScript.allowNewGrip = !Ready;
+
+        //Keeps body still until a grip is made
+        ActivateBody();
+
+        //Activate scratch
+        rightParticle.enableEmission = false;
+        leftParticle.enableEmission = false;
+        ControlScratch();
+
+        //Control Hands
+         ControlHand(leftGripScript, GetInput(player + "HLX", player + "VLX"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
+        ControlHand(rightGripScript, GetInput(player + "HRX", player +"VRX"), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
+        //ControlHand2(0);
+        //ControlHand2(1);
+
+        //Shake loose body
+        ShakeLooseBody();
+
+        //Limit y velocity for body
+        Vector2 velocity = body.velocity;
+        velocity.y = Mathf.Clamp(velocity.y, -int.MaxValue, yVelocityClamp);
+        body.velocity = velocity;
 
         if(hacks)
         {
@@ -90,46 +121,13 @@ public class FrogPrototype : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 body.velocity = new Vector2(0, 0);
-                transform.position = new Vector3( Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, transform.position.z);
+                transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             }
         }
-        
-    }
-
-    private void FixedUpdate()
-    {
-        //TEMPORARY RESTART
-        if (Input.GetButtonDown("Start"))
-        {
-            Application.LoadLevel(Application.loadedLevel);
-        }
-
-        //Keeps body still until a grip is made
-        ActivateBody();
-
-        //Activate scratch
-        rightParticle.enableEmission = false;
-        leftParticle.enableEmission = false;
-        ControlScratch();
-
-        //Control Hands
-        ControlHand(leftGripScript, player + "HL", player + "VL", leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
-        ControlHand(rightGripScript, player + "HR", player + "VR", rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
-        //ControlHand2(0);
-        //ControlHand2(1);
-
-        //Shake loose body
-        ShakeLooseBody();
-
-        //Limit y velocity for body
-        Vector2 velocity = body.velocity;
-        velocity.y = Mathf.Clamp(velocity.y, -int.MaxValue, yVelocityClamp);
-        body.velocity = velocity;
     }
 
     private float maxVersusGripTime = 10.0f;
     private float versusGripTimer = 10.0f;
-    private float redblinkTimer;
     private float resetVersusTimer;
 
     void ShakeLooseBody()
@@ -138,8 +136,8 @@ public class FrogPrototype : MonoBehaviour
         {
             versusGripTimer -= Time.deltaTime;
 
-            leftGripScript.redBlinkTime = versusGripTimer / maxVersusGripTime;
-            rightGripScript.redBlinkTime = versusGripTimer / maxVersusGripTime;
+            leftGripScript.versusGripController.blinkTime = versusGripTimer / maxVersusGripTime;
+            rightGripScript.versusGripController.blinkTime = versusGripTimer / maxVersusGripTime;
             //Release versus grips
             if (versusGripTimer <= 0)
             {
@@ -180,7 +178,7 @@ public class FrogPrototype : MonoBehaviour
             rightParticle.enableEmission = true;
         }
     }
-
+	
     void ControlHand2(int a)
     {
         //leftGripScript, player + "HL", player + "VL", leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript
@@ -259,13 +257,15 @@ public class FrogPrototype : MonoBehaviour
             }
         }
     }
-    void ControlHand(HandGrip handScript, string horizontalAxis, string verticalAxis, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin, HandGrip otherGripScript)
+    void ControlHand(HandGrip handScript, Vector3 input, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin, HandGrip otherGripScript)
     {
-        bool grip = joint.useMotor = body.isKinematic = handScript.isOnGrip;
-        //Yo Semih. body.isKinematic on the line above is canceled out by the line bellow
+        bool grip = joint.useMotor = handScript.isOnGrip;
         body.isKinematic = false;
 
-        Vector3 input = new Vector3(Input.GetAxis(horizontalAxis), Input.GetAxis(verticalAxis));
+        if (input != Vector3.zero)
+        {
+            gameManager.DeactivateInactivityCounter(transform.parent.name);
+        }
         if (!leftGripScript.isOnGrip && !rightGripScript.isOnGrip)
         {
             if (input.y < 0)
@@ -342,9 +342,9 @@ public class FrogPrototype : MonoBehaviour
         }
     }
 
-    public void EnergyBoost()
+    Vector3 GetInput(string horizontalInput, string verticalInput)
     {
-
+        return new Vector3(Input.GetAxis(horizontalInput), Input.GetAxis(verticalInput));
     }
 }
 

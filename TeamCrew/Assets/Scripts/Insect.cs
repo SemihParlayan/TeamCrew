@@ -113,7 +113,6 @@ public class Insect : MonoBehaviour
                         }
                     }
                     
-                    
                         if(direction)
                         {
                              //body.velocity = new Vector2(flyHorizontalSpeed, body.velocity.y);
