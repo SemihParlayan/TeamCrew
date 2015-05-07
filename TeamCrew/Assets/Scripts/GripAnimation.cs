@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GripAnimation : MonoBehaviour 
 {
+    //Component
     private Animator anim;
 
     private Vector3 spawnRotation;
@@ -17,11 +18,11 @@ public class GripAnimation : MonoBehaviour
         transform.eulerAngles = spawnRotation;
     }
 
-    public void Activate()
+    public void Activate(string animationName)
     {
         gameObject.SetActive(true);
         spawnRotation = transform.parent.eulerAngles;
-        anim.SetTrigger("play");
+        anim.SetTrigger(animationName);
     }
     public void DeActivate()
     {

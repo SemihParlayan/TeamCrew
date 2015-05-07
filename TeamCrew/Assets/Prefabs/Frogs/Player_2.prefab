@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 454276}
   - 198: {fileID: 19814696}
   - 199: {fileID: 19938452}
-  - 114: {fileID: 11422520}
   m_Layer: 0
   m_Name: stone_particle
   m_TagString: Untagged
@@ -697,7 +696,6 @@ GameObject:
   - 4: {fileID: 466396}
   - 198: {fileID: 19864076}
   - 199: {fileID: 19964838}
-  - 114: {fileID: 11471488}
   m_Layer: 0
   m_Name: stone_particle
   m_TagString: Untagged
@@ -1149,8 +1147,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.21399999, y: .0370000005, z: 0}
-  m_LocalScale: {x: .600000024, y: .600000024, z: .600000024}
+  m_LocalPosition: {x: .887000024, y: .0160000008, z: 0}
+  m_LocalScale: {x: .400000006, y: .400000006, z: .400000006}
   m_Children: []
   m_Father: {fileID: 400336}
   m_RootOrder: 0
@@ -1340,8 +1338,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 152204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.21399999, y: .0370000005, z: 0}
-  m_LocalScale: {x: .600000024, y: .600000024, z: .600000024}
+  m_LocalPosition: {x: .887000024, y: .0160000008, z: 0}
+  m_LocalScale: {x: .400000006, y: .400000006, z: .400000006}
   m_Children: []
   m_Father: {fileID: 448062}
   m_RootOrder: 0
@@ -2381,18 +2379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de0ece074c0a604b8fc427747c6c5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11422520
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 102872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f229fc0ea791cb48b25404ef6540eb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  p: {fileID: 0}
 --- !u!114 &11424542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2563,6 +2549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blinkTime: 0
+  gripAnimation: {fileID: 11409042}
 --- !u!114 &11457902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2575,6 +2562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blinkTime: 0
+  gripAnimation: {fileID: 11454264}
 --- !u!114 &11466006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2635,23 +2623,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head_emotions:
-  - {fileID: 21300024, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
-  - {fileID: 21300030, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
-  - {fileID: 21300022, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
-  - {fileID: 21300028, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
-  - {fileID: 21300026, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
---- !u!114 &11471488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 181066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f229fc0ea791cb48b25404ef6540eb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  p: {fileID: 0}
+  - {fileID: 21300002, guid: 845688bed4606c54f8eb15387df2c063, type: 3}
+  - {fileID: 21300008, guid: 845688bed4606c54f8eb15387df2c063, type: 3}
+  - {fileID: 21300000, guid: 845688bed4606c54f8eb15387df2c063, type: 3}
+  - {fileID: 21300006, guid: 845688bed4606c54f8eb15387df2c063, type: 3}
+  - {fileID: 21300004, guid: 845688bed4606c54f8eb15387df2c063, type: 3}
 --- !u!114 &11473830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2678,8 +2654,6 @@ MonoBehaviour:
   leftParticle: {fileID: 19818612}
   speed: 10
   yVelocityClamp: 10
-  speedBoost: 5
-  BoostDuration: 1
   player: P2
   emotionsScript: {fileID: 11471142}
   leftGripScript: {fileID: 11478756}
@@ -7678,7 +7652,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1825891293
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300022, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 845688bed4606c54f8eb15387df2c063, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21296476
 SpriteRenderer:

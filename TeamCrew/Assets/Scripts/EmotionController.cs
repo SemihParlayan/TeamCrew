@@ -50,11 +50,11 @@ public class EmotionController : MonoBehaviour
 
         if (playerOneScript.leftGripScript.JustGripped || playerOneScript.rightGripScript.JustGripped)
         {
-            playerOneScript.emotionsScript.SetSituationalEmotion("glad", 0.5f);
+            playerOneScript.emotionsScript.SetSituationalEmotion("satisfied", 0.5f);
         }
         if (playerTwoScript.leftGripScript.JustGripped || playerTwoScript.rightGripScript.JustGripped)
         {
-            playerTwoScript.emotionsScript.SetSituationalEmotion("glad", 0.5f);
+            playerTwoScript.emotionsScript.SetSituationalEmotion("satisfied", 0.5f);
         }
 	}
 }

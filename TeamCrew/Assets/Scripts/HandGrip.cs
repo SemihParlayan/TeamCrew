@@ -95,7 +95,10 @@ public class HandGrip : MonoBehaviour
 
             //Change hand sprite to semi-open
             if (!isOnGrip)
+            {
                 renderer.sprite = semiOpen;
+                gripAnimation.Activate("air");
+            }
         }
         else if (Input.GetButtonUp(axis)) //Grip button goes up
         {
@@ -118,7 +121,7 @@ public class HandGrip : MonoBehaviour
         if (Input.GetButton(axis) && !isOnGrip)
         {
             //Aquire grip point
-            gripPoint = g.GetClosestGrip(transform.position, holdername);
+            gripPoint = g.GetClosestGrip(transform.position);
 
             //Do we have a grip point?
             if (gripPoint != null)
@@ -162,7 +165,7 @@ public class HandGrip : MonoBehaviour
                     }
                     //Play animation and stone particles
                     stoneParticles.Play();
-                    gripAnimation.Activate();
+                    gripAnimation.Activate("normal");
 
                     //Hand is on a grip
                     isOnGrip = true;

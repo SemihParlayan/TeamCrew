@@ -695,7 +695,6 @@ GameObject:
   - 4: {fileID: 473608}
   - 198: {fileID: 19898414}
   - 199: {fileID: 19907314}
-  - 114: {fileID: 11416678}
   m_Layer: 0
   m_Name: stone_particle
   m_TagString: Untagged
@@ -833,7 +832,6 @@ GameObject:
   - 4: {fileID: 483250}
   - 198: {fileID: 19869404}
   - 199: {fileID: 19961518}
-  - 114: {fileID: 11479280}
   m_Layer: 0
   m_Name: stone_particle
   m_TagString: Untagged
@@ -1336,8 +1334,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.21399999, y: .0370000005, z: 0}
-  m_LocalScale: {x: .600000024, y: .600000024, z: .600000024}
+  m_LocalPosition: {x: .887000024, y: .0160000008, z: 0}
+  m_LocalScale: {x: .400000006, y: .400000006, z: .400000006}
   m_Children: []
   m_Father: {fileID: 435780}
   m_RootOrder: 0
@@ -1431,8 +1429,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.21399999, y: .0370000005, z: 0}
-  m_LocalScale: {x: .600000024, y: .600000024, z: .600000024}
+  m_LocalPosition: {x: .850000024, y: .0160000008, z: 0}
+  m_LocalScale: {x: .400000006, y: .400000006, z: .400000006}
   m_Children: []
   m_Father: {fileID: 432596}
   m_RootOrder: 0
@@ -2465,18 +2463,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnetDir: {x: 0, y: 0, z: 0}
   gripScript: {fileID: 11410830}
---- !u!114 &11416678
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 163078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f229fc0ea791cb48b25404ef6540eb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  p: {fileID: 0}
 --- !u!114 &11418102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2663,6 +2649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blinkTime: 0
+  gripAnimation: {fileID: 11478958}
 --- !u!114 &11467064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2740,11 +2727,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head_emotions:
-  - {fileID: 21300024, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
-  - {fileID: 21300030, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
-  - {fileID: 21300022, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
-  - {fileID: 21300028, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
-  - {fileID: 21300026, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
+  - {fileID: 21300002, guid: f1751877ff694984b8fa969c253914ae, type: 3}
+  - {fileID: 21300008, guid: f1751877ff694984b8fa969c253914ae, type: 3}
+  - {fileID: 21300000, guid: f1751877ff694984b8fa969c253914ae, type: 3}
+  - {fileID: 21300006, guid: f1751877ff694984b8fa969c253914ae, type: 3}
+  - {fileID: 21300004, guid: f1751877ff694984b8fa969c253914ae, type: 3}
 --- !u!114 &11477340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2767,18 +2754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6550c904c68ba6940b4b71874113e41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11479280
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 186744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f229fc0ea791cb48b25404ef6540eb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  p: {fileID: 0}
 --- !u!114 &11482290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2791,6 +2766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blinkTime: 0
+  gripAnimation: {fileID: 11433546}
 --- !u!114 &11485084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7208,7 +7184,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1825891293
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300022, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1751877ff694984b8fa969c253914ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21219834
 SpriteRenderer:

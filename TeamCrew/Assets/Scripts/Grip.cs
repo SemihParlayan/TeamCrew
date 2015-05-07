@@ -21,7 +21,7 @@ public class Grip : MonoBehaviour
         }
     }
 
-    public GripPoint GetClosestGrip(Vector3 handPosition, string holderName)
+    public GripPoint GetClosestGrip(Vector3 handPosition)
     {
         int minIndex = 0;
 

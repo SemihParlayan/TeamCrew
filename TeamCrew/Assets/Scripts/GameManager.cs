@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject fireWorks;
     public static Transform playerOne, playerTwo;
     public static float LevelHeight;
 
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
     public bool gameActive;
 
     public LayerMask mask;
+    public bool CANPRESSMENU = true;
+    private bool tutorilBubblesSpawned;
 
     public bool tutorialComplete;
 	void Start ()
@@ -52,7 +55,7 @@ public class GameManager : MonoBehaviour
         //Start GAME!
         if (!cameraFollowScript.enabled)
         {
-            if (playerOneScript != null || playerTwoScript != null)
+            if (playerOneScript != null && playerTwoScript != null)
             {
                 mainMenuScript.playerOneReady.gameObject.SetActive(false);
                 mainMenuScript.playerTwoReady.gameObject.SetActive(false);
@@ -74,7 +77,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            if (mainMenuScript.goReady && !tutorialComplete)
+            if (mainMenuScript.goReady && !tutorialComplete && gameActive)
             {
                 cameraFollowScript.enabled = true;
                 tutorialComplete = true;
@@ -105,8 +108,9 @@ public class GameManager : MonoBehaviour
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
 
-            if ((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B))
+            if (((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B)) && CANPRESSMENU)
             {
+                CANPRESSMENU = false;
                 ActivateCameraPan();
                 generatorScript.Generate();
                 mainMenuScript.DisableUI();
@@ -123,8 +127,8 @@ public class GameManager : MonoBehaviour
         //Inactivity
         if (gameActive)
         {
-            playerOneInactivityTimer += Time.deltaTime;
-            playerTwoInactivityTimer += Time.deltaTime;
+            //playerOneInactivityTimer += Time.deltaTime;
+            //playerTwoInactivityTimer += Time.deltaTime;
 
             if (playerOneInactivityTimer >= 5 && playerTwoInactivityTimer >= 5)
             {
@@ -154,11 +158,15 @@ public class GameManager : MonoBehaviour
         gameActive = true;
         terrainScript.enabled = false;
         respawnScript.enabled = true;
+        mainMenuScript.goReady = false;
+
         playerOne = GameObject.FindWithTag("PlayerOne").transform;
         playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
 
         playerOneScript = playerOne.GetComponent<FrogPrototype>();
         playerTwoScript = playerTwo.GetComponent<FrogPrototype>();
+
+        fireWorks.SetActive(false);
     }
 
     public void ActivateCameraPan()
@@ -173,8 +181,16 @@ public class GameManager : MonoBehaviour
         cameraFollowScript.enabled = false;
         respawnScript.enabled = false;
         terrainScript.enabled = true;
+        tutorialComplete = false;
         gameActive = false;
         respawnScript.ResetRespawns();
+        fireWorks.SetActive(true);
+
+        Invoke("ENABLEMENU", 6f);
+    }
+    private void ENABLEMENU()
+    {
+        CANPRESSMENU = true;
     }
     private void CreateNewFrogs()
     {
@@ -185,6 +201,11 @@ public class GameManager : MonoBehaviour
 
         playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
         playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+
+        if (!tutorilBubblesSpawned)
+        {
+            tutorilBubblesSpawned = true;
+        }
     }
 
     public Text inactivityText;
