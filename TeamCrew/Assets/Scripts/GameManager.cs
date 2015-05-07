@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public LayerMask mask;
 
     public bool tutorialComplete;
+    public bool hacks = true;
 	void Start ()
     {
         Application.targetFrameRate = 60;
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
     private FrogPrototype playerOneScript, playerTwoScript;
     void Update()
     {
+        
         //Start GAME!
         if (!cameraFollowScript.enabled)
         {
@@ -75,7 +77,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            if (mainMenuScript.goReady && !tutorialComplete)
+            if (mainMenuScript.goReady && !tutorialComplete || (playerOne && playerTwo && hacks ? Input.GetButtonDown("Select") : false))
             {
                 cameraFollowScript.enabled = true;
                 tutorialComplete = true;
@@ -84,11 +86,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
-
-
-
-
+            
         //Check for camera pan complete
         if (cameraPanScript.enabled)
         {
@@ -106,7 +104,7 @@ public class GameManager : MonoBehaviour
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
 
-            if ((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B))
+            if ((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Select"))
             {
                 ActivateCameraPan();
                 generatorScript.Generate();

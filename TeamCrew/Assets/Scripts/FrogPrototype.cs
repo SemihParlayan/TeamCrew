@@ -110,7 +110,7 @@ public class FrogPrototype : MonoBehaviour
                 body.gravityScale = -2;
                 //body.
             }
-            else if (Input.GetButtonUp("Select"))
+            else
             {
                 body.gravityScale = 1;
             }
