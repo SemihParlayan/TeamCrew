@@ -119,8 +119,8 @@ public class GameManager : MonoBehaviour
         //Inactivity
         if (gameActive)
         {
-            //playerOneInactivityTimer += Time.deltaTime;
-            //playerTwoInactivityTimer += Time.deltaTime;
+            playerOneInactivityTimer += Time.deltaTime;
+            playerTwoInactivityTimer += Time.deltaTime;
 
             if (playerOneInactivityTimer >= 5 && playerTwoInactivityTimer >= 5)
             {
