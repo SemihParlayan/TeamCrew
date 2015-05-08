@@ -133,8 +133,9 @@ public class HandGrip : MonoBehaviour
             //Do we have a grip point?
             if (gripPoint != null)
             {
-                if (g is MovingGrip)
+                if (g is MovingGrip && gripPoint.holderName != string.Empty)
                 {
+                    //VERSUS GRIP
                     if (holdername == gripPoint.holderName)
                     {
                         if (allowVersusGrab)
@@ -154,6 +155,7 @@ public class HandGrip : MonoBehaviour
                 }
                 else
                 {
+                    //NORMAL AND MOVING GRIP
                     if (!gameManager.tutorialComplete)
                     {
                         bool allow = true;

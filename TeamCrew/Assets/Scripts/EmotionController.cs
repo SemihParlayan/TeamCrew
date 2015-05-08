@@ -34,13 +34,13 @@ public class EmotionController : MonoBehaviour
 
         if (distance >= gladDistance)
         {
-            playerOneScript.emotionsScript.SetGeneralEmotion("glad");
+            playerOneScript.emotionsScript.SetGeneralEmotion("satisfied");
             playerTwoScript.emotionsScript.SetGeneralEmotion("irritated");
         }
         else if (distance <= -gladDistance)
         {
             playerOneScript.emotionsScript.SetGeneralEmotion("irritated");
-            playerTwoScript.emotionsScript.SetGeneralEmotion("glad");
+            playerTwoScript.emotionsScript.SetGeneralEmotion("satisfied");
         }
         else
         {
