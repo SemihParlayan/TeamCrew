@@ -11,18 +11,21 @@ public class FlySpawner : MonoBehaviour
 
     void Start()
     {
-        Invoke("TestFlySpawn", RespawnCheckRate);
+        InvokeRepeating("TestFlySpawn", RespawnCheckRate, RespawnCheckRate);
     }
 
     void TestFlySpawn()
     {
-        Invoke("TestFlySpawn", RespawnCheckRate);
-
-        if (!(GameManager.playerOne && GameManager.playerTwo) || fly != null)
-            return;
+        //Invoke("TestFlySpawn", RespawnCheckRate);
 
         Transform playerOne = GameManager.playerOne;
         Transform playerTwo = GameManager.playerTwo;
+
+        if (!(GameManager.playerOne && GameManager.playerTwo && fly == null))
+        {
+            return;
+        }
+        
 
         float playersDistanceY = Mathf.Abs(playerOne.position.y - playerTwo.position.y);
 
@@ -30,5 +33,7 @@ public class FlySpawner : MonoBehaviour
         {
             fly = Instantiate(FlyPrefab) as Transform;
         }
+
+        
     }
 }

@@ -13,7 +13,7 @@ public class VersusGripController : MonoBehaviour
     //Blink
     private bool blink = false;
     public float blinkTime = 0;
-    private float blinkTimer = 0;
+    public float blinkTimer = 0;
     private float lastBlinkTimer;
     private SpriteRenderer renderer;
 
@@ -46,16 +46,32 @@ public class VersusGripController : MonoBehaviour
 
         if (blink)
         {
-            if (blinkTime < 0.15 && !shake)
+            if (blinkTime < 0.15f && !shake)
             {
                 ActivateShake();
             }
+            else
+            {
+                DeActivateShake();
+            }
             blinkTimer += Time.deltaTime;
 
-            if (blinkTimer >= blinkTime / 2 && lastBlinkTimer < blinkTime / 2)
+            if (blinkTimer >= blinkTime / 2)
             {
-                gripAnimation.Activate("red");
+                if (lastBlinkTimer < blinkTime / 2)
+                    gripAnimation.Activate("red");
+
+                if (blinkTime <= 0.6f)
+                    renderer.color = Color.red;
             }
+            else
+            {
+                if (blinkTime <= 0.6f)
+                    renderer.color = Color.white;
+            }
+
+            if (blinkTime > 0.6f)
+                renderer.color = Color.white;
 
             if (blinkTimer >= blinkTime)
             {
@@ -68,6 +84,7 @@ public class VersusGripController : MonoBehaviour
     public void ActivateBlink()
     {
         blink = true;
+        DeActivateShake();
     }
     public void DeActivateBlink()
     {

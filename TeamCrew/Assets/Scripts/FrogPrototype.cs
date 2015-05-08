@@ -90,7 +90,7 @@ public class FrogPrototype : MonoBehaviour
         ControlScratch();
 
         //Control Hands
-         ControlHand(leftGripScript, GetInput(player + "HLX", player + "VLX"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
+        ControlHand(leftGripScript, GetInput(player + "HLX", player + "VLX"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
         ControlHand(rightGripScript, GetInput(player + "HRX", player +"VRX"), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
         //ControlHand2(0);
         //ControlHand2(1);
@@ -126,9 +126,8 @@ public class FrogPrototype : MonoBehaviour
         }
     }
 
-    private float maxVersusGripTime = 10.0f;
-    private float versusGripTimer = 10.0f;
-    private float resetVersusTimer;
+    private float maxVersusGripTime = 6.0f;
+    public float versusGripTimer = 6.0f;
 
     void ShakeLooseBody()
     {
@@ -149,12 +148,9 @@ public class FrogPrototype : MonoBehaviour
         }
         else
         {
-            //Reset versus grip timer
-            resetVersusTimer += Time.deltaTime;
-            if (resetVersusTimer >= 5.0f)
+            if (versusGripTimer < maxVersusGripTime)
             {
-                versusGripTimer = maxVersusGripTime;
-                resetVersusTimer = 0;
+                versusGripTimer += Time.deltaTime * 1.5f;
             }
         }
     }

@@ -342,6 +342,7 @@ GameObject:
   - 114: {fileID: 11447718}
   - 58: {fileID: 5820610}
   - 114: {fileID: 11457902}
+  - 82: {fileID: 8217530}
   m_Layer: 12
   m_Name: right_hand
   m_TagString: Untagged
@@ -596,6 +597,7 @@ GameObject:
   - 114: {fileID: 11478756}
   - 58: {fileID: 5891076}
   - 114: {fileID: 11455694}
+  - 82: {fileID: 8237554}
   m_Layer: 12
   m_Name: left_hand
   m_TagString: Untagged
@@ -1098,7 +1100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.74000001, y: -6.98000002, z: 0}
+  m_LocalPosition: {x: 3.34145784, y: -1.09603405, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 406596}
@@ -2174,6 +2176,144 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!82 &8217530
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125062}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 786de32c4e8b0fa4b924ec1f57b76442, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!82 &8237554
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163112}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 786de32c4e8b0fa4b924ec1f57b76442, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!82 &8245890
 AudioSource:
   m_ObjectHideFlags: 1
@@ -2510,6 +2650,7 @@ MonoBehaviour:
   closed: {fileID: 21300008, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
   gripPoint: {fileID: 0}
   gripSoundSource: {fileID: 8296468}
+  scream: {fileID: 0}
   stoneParticles: {fileID: 19864076}
   gripAnimation: {fileID: 11454264}
   versusGripController: {fileID: 0}
@@ -2656,24 +2797,12 @@ MonoBehaviour:
   yVelocityClamp: 10
   player: P2
   emotionsScript: {fileID: 11471142}
-  gripScript:
-  - {fileID: 11478756}
-  - {fileID: 11447718}
-  joints:
-  - {fileID: 23361572}
-  - {fileID: 23313948}
-  handOrigin:
-  - {fileID: 447922}
-  - {fileID: 433972}
-  handNeutral:
-  - {fileID: 491864}
-  - {fileID: 477516}
-  hand:
-  - {fileID: 461166}
-  - {fileID: 405462}
-  handMagnet:
-  - {fileID: 11494440}
-  - {fileID: 0}
+  gripScript: []
+  joints: []
+  handOrigin: []
+  handNeutral: []
+  hand: []
+  handMagnet: []
   leftGripScript: {fileID: 11478756}
   rightGripScript: {fileID: 11447718}
   leftJoint: {fileID: 23391422}
@@ -2689,8 +2818,8 @@ MonoBehaviour:
   motorSpeed: 450
   versusMotorBoost: 600
   versusHands: 0
-  ready: 0
   hacks: 1
+  versusGripTimer: 6
 --- !u!114 &11474640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2754,6 +2883,7 @@ MonoBehaviour:
   closed: {fileID: 21300008, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
   gripPoint: {fileID: 0}
   gripSoundSource: {fileID: 8204232}
+  scream: {fileID: 0}
   stoneParticles: {fileID: 19814696}
   gripAnimation: {fileID: 11409042}
   versusGripController: {fileID: 0}

@@ -32,6 +32,7 @@ public class HandGrip : MonoBehaviour
 
     //Sound
     public AudioSource gripSoundSource;
+    public AudioSource scream;
     private RandomSoundFromList randSoundGen;
 
     private AudioSource wallScratchSource;
@@ -81,6 +82,8 @@ public class HandGrip : MonoBehaviour
 
         //Set Scratch sound Source
         wallScratchSource = transform.GetComponent<AudioSource>();
+        //scream sound
+        scream = transform.GetComponent<AudioSource>();
 
 
         versusGripController = GetComponent<VersusGripController>();
@@ -133,8 +136,9 @@ public class HandGrip : MonoBehaviour
             //Do we have a grip point?
             if (gripPoint != null)
             {
-                if (g is MovingGrip)
+                if (g is MovingGrip && gripPoint.holderName != string.Empty)
                 {
+                    //VERSUS GRIP
                     if (holdername == gripPoint.holderName)
                     {
                         if (allowVersusGrab)
@@ -154,6 +158,7 @@ public class HandGrip : MonoBehaviour
                 }
                 else
                 {
+                    //NORMAL AND MOVING GRIP
                     if (!gameManager.tutorialComplete)
                     {
                         bool allow = true;
@@ -247,6 +252,18 @@ public class HandGrip : MonoBehaviour
                         versusGripController.ActivateBlink();
                         versusFrog = FindVersusBody(c.transform).GetComponent<FrogPrototype>();
                         versusFrog.versusHands++;
+
+                        //HERE IS CODE:
+                        if (scream)
+                        {
+                            scream.volume = 0.35f;
+                            scream.pitch = Random.Range(1.1f, 1.4f);
+                            scream.Play();
+                        }
+                        else
+                        {
+                            Debug.Log("ERROR: Scream sound is missing!");
+                        }
                     }
                 }
             }
@@ -333,7 +350,7 @@ public class HandGrip : MonoBehaviour
             ReleaseGrip();
 
         if (!isOnGrip)
-            renderer.color = new Color(1, 0.5f, 0.5f);
+            renderer.color = Color.red;
 
         allowVersusGrab = false;
         Invoke("AllowVersusGrab", grabDelay);
