@@ -185,6 +185,9 @@ public class Insect : MonoBehaviour
         switch (motionState)
         {
             case MotionState.rip:
+            {
+                return;
+            }
                 break;
 
             case MotionState.sit:
