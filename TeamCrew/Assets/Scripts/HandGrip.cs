@@ -349,7 +349,7 @@ public class HandGrip : MonoBehaviour
             ReleaseGrip();
 
         if (!isOnGrip)
-            renderer.color = new Color(1, 0.5f, 0.5f);
+            renderer.color = Color.red;
 
         allowVersusGrab = false;
         Invoke("AllowVersusGrab", grabDelay);

@@ -90,7 +90,7 @@ public class FrogPrototype : MonoBehaviour
         ControlScratch();
 
         //Control Hands
-         ControlHand(leftGripScript, GetInput(player + "HLX", player + "VLX"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
+        ControlHand(leftGripScript, GetInput(player + "HLX", player + "VLX"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
         ControlHand(rightGripScript, GetInput(player + "HRX", player +"VRX"), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
         //ControlHand2(0);
         //ControlHand2(1);

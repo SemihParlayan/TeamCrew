@@ -55,32 +55,35 @@ public class Respawn : MonoBehaviour
         //Check player under screen, remove and start respawn
         if (GameManager.playerOne != null)
         {
-            if (GameManager.playerOne.position.y < minHeight - 6)
+            if (GameManager.playerOne.position.y < minHeight - 2.5f)
             {
                 playerOne.Respawning = true;
                 playerOne.deathPositionX = GameManager.playerOne.position.x;
                 Destroy(GameManager.playerOne.parent.gameObject);
+
+                if (!screamSource.isPlaying)
+                {
+                    screamSource.pitch = Random.Range(.8f, 1.0f);
+                    screamSource.Play();
+                }
             }
         }
 
         if (GameManager.playerTwo != null)
         {
-            if (GameManager.playerTwo.position.y < minHeight - 6)
+            if (GameManager.playerTwo.position.y < minHeight - 2.5f)
             {
                 playerTwo.Respawning = true;
                 playerTwo.deathPositionX = GameManager.playerTwo.position.x;
                 Destroy(GameManager.playerTwo.parent.gameObject);
+
+                if (!screamSource.isPlaying)
+                {
+                    screamSource.pitch = Random.Range(.8f, 1.0f);
+                    screamSource.Play();
+                }
             }
         }
-
-
-
-
-        //if (!screamSource.isPlaying)
-        //{
-        //    screamSource.pitch = Random.Range(.8f, 1.0f);
-        //    screamSource.Play();
-        //}
 	}
     public void ResetRespawns()
     {
