@@ -178,6 +178,7 @@ public class GameManager : MonoBehaviour
         gameActive = false;
         respawnScript.ResetRespawns();
         fireWorks.SetActive(true);
+        GetComponent<FlySpawner>().RemoveFly();
 
         Invoke("ENABLEMENU", 6f);
     }

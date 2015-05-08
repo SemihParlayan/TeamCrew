@@ -36,4 +36,12 @@ public class FlySpawner : MonoBehaviour
 
         
     }
+
+    public void RemoveFly()
+    {
+        if (fly)
+        {
+            Destroy(fly.gameObject);
+        }
+    }
 }
