@@ -31,7 +31,6 @@ public class FlySpawner : MonoBehaviour
 
         if (playersDistanceY > 5 && Random.Range(0, 100) > 60)
         {
-            Debug.Log("There is no fly? " + (fly == null));
             fly = Instantiate(FlyPrefab) as Transform;
         }
 

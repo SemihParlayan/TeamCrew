@@ -32,6 +32,7 @@ public class HandGrip : MonoBehaviour
 
     //Sound
     public AudioSource gripSoundSource;
+    public AudioSource scream;
     private RandomSoundFromList randSoundGen;
 
     private AudioSource wallScratchSource;
@@ -81,6 +82,8 @@ public class HandGrip : MonoBehaviour
 
         //Set Scratch sound Source
         wallScratchSource = transform.GetComponent<AudioSource>();
+        //scream sound
+        scream = transform.GetComponent<AudioSource>();
 
 
         versusGripController = GetComponent<VersusGripController>();
@@ -249,6 +252,17 @@ public class HandGrip : MonoBehaviour
                         versusGripController.ActivateBlink();
                         versusFrog = FindVersusBody(c.transform).GetComponent<FrogPrototype>();
                         versusFrog.versusHands++;
+
+                        //HERE IS CODE:
+                        if (scream)
+                        {
+                            scream.pitch = Random.Range(1.1f, 1.4f);
+                            scream.Play();
+                        }
+                        else
+                        {
+                            Debug.Log("ERROR: Scream sound is missing!");
+                        }
                     }
                 }
             }
