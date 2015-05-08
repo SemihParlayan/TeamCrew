@@ -87,6 +87,13 @@ public class Insect : MonoBehaviour
 	
 	void Update ()
     {
+        if (GameManager.playerOne && GameManager.playerTwo)
+        {
+            Transform lowestFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
+                    GameManager.playerOne : GameManager.playerTwo;
+            startPos.y = lowestFrog.position.y;
+        }
+        
         if (sittingTime > 0)
         {
             sittingTime -= Time.deltaTime;

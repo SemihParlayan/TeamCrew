@@ -270,7 +270,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 432452}
-  m_RootOrder: 3
+  m_RootOrder: 0
 --- !u!4 &427084
 Transform:
   m_ObjectHideFlags: 1
@@ -283,7 +283,7 @@ Transform:
   m_Children:
   - {fileID: 428074}
   m_Father: {fileID: 432452}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &428074
 Transform:
   m_ObjectHideFlags: 1
@@ -306,10 +306,10 @@ Transform:
   m_LocalPosition: {x: .00999999978, y: 2.25, z: 0}
   m_LocalScale: {x: .699999988, y: .699999988, z: 1}
   m_Children:
+  - {fileID: 419590}
   - {fileID: 451596}
   - {fileID: 494378}
   - {fileID: 427084}
-  - {fileID: 419590}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &439132
@@ -338,7 +338,7 @@ Transform:
   - {fileID: 405582}
   - {fileID: 400238}
   m_Father: {fileID: 432452}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &459228
 Transform:
   m_ObjectHideFlags: 1
@@ -365,7 +365,7 @@ Transform:
   - {fileID: 416612}
   - {fileID: 459228}
   m_Father: {fileID: 432452}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!50 &5001662
 Rigidbody2D:
   m_ObjectHideFlags: 1
@@ -481,9 +481,9 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -.180000007, y: -.560000002}
+  m_Offset: {x: .0900000036, y: -.560000002}
   serializedVersion: 2
-  m_Radius: .639999986
+  m_Radius: 1.02999997
 --- !u!82 &8258572
 AudioSource:
   m_ObjectHideFlags: 1
