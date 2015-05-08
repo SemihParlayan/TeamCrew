@@ -126,9 +126,8 @@ public class FrogPrototype : MonoBehaviour
         }
     }
 
-    private float maxVersusGripTime = 10.0f;
-    private float versusGripTimer = 10.0f;
-    private float resetVersusTimer;
+    private float maxVersusGripTime = 6.0f;
+    public float versusGripTimer = 6.0f;
 
     void ShakeLooseBody()
     {
@@ -149,12 +148,9 @@ public class FrogPrototype : MonoBehaviour
         }
         else
         {
-            //Reset versus grip timer
-            resetVersusTimer += Time.deltaTime;
-            if (resetVersusTimer >= 5.0f)
+            if (versusGripTimer < maxVersusGripTime)
             {
-                versusGripTimer = maxVersusGripTime;
-                resetVersusTimer = 0;
+                versusGripTimer += Time.deltaTime * 1.5f;
             }
         }
     }

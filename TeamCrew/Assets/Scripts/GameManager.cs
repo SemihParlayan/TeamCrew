@@ -107,11 +107,7 @@ public class GameManager : MonoBehaviour
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
 
-<<<<<<< HEAD
-            if (((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B)) && CANPRESSMENU)
-=======
-            if ((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Select"))
->>>>>>> 2eeae337cbeb5677da8dc7175185cd48f3f08e05
+            if (((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Select")) && CANPRESSMENU)
             {
                 CANPRESSMENU = false;
                 ActivateCameraPan();
@@ -119,13 +115,6 @@ public class GameManager : MonoBehaviour
                 mainMenuScript.DisableUI();
             }
         }
-
-
-
-
-
-
-
 
         //Inactivity
         if (gameActive)
@@ -175,6 +164,7 @@ public class GameManager : MonoBehaviour
     public void ActivateCameraPan()
     {
         cameraPanScript.enabled = true;
+        Camera.main.orthographicSize = 8;
     }
     public void Win()
     {

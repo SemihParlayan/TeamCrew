@@ -52,9 +52,16 @@ public class VersusGripController : MonoBehaviour
             }
             blinkTimer += Time.deltaTime;
 
-            if (blinkTimer >= blinkTime / 2 && lastBlinkTimer < blinkTime / 2)
+            if (blinkTimer >= blinkTime / 2)
             {
-                gripAnimation.Activate("red");
+                if (lastBlinkTimer < blinkTime / 2)
+                    gripAnimation.Activate("red");
+
+                renderer.color = Color.red;
+            }
+            else
+            {
+                renderer.color = Color.white;
             }
 
             if (blinkTimer >= blinkTime)
