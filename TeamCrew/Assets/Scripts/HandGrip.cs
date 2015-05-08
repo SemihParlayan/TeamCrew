@@ -256,6 +256,7 @@ public class HandGrip : MonoBehaviour
                         //HERE IS CODE:
                         if (scream)
                         {
+                            scream.volume = 0.35f;
                             scream.pitch = Random.Range(1.1f, 1.4f);
                             scream.Play();
                         }
