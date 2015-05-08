@@ -16,9 +16,11 @@ public class FallSoundCam : MonoBehaviour
 	
 	void Update ()
     {
-        if (body.velocity.magnitude > 0)
+        Vector2 thing = new Vector2(body.velocity.x, body.velocity.y); // do not want z
+
+        if (thing.magnitude > .5f)
         {
-            sound.volume = body.velocity.magnitude / 70;
+            sound.volume = thing.magnitude / 70;
             if (!sound.isPlaying)
             {
                 sound.time = 1;

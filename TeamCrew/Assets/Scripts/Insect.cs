@@ -21,6 +21,7 @@ public class Insect : MonoBehaviour
 
     //Positions
     public Vector2 relativeSpawnPosToFrog;
+    public Vector2 relativeDeSpawnPosToFrog;
     public float panicModeTop;
     public float startLowestFly;
     float targetY;
@@ -53,6 +54,7 @@ public class Insect : MonoBehaviour
                 GameManager.playerOne : GameManager.playerTwo;
 
             startPos = lowestFrog.position;
+            startPos.x = (GameManager.playerOne.position.x + GameManager.playerTwo.position.x) * .5f;
         }
         else/*if( frog is missing)*/
         { 
@@ -107,7 +109,7 @@ public class Insect : MonoBehaviour
                         Transform lowestFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
                            GameManager.playerOne : GameManager.playerTwo;
 
-                        if (Mathf.Abs(transform.position.x - lowestFrog.position.x) > 75)
+                        if (Mathf.Abs(transform.position.x - lowestFrog.position.x) > relativeDeSpawnPosToFrog.x)
                         {
                             Destroy(gameObject);
                         }
@@ -162,7 +164,7 @@ public class Insect : MonoBehaviour
                     Transform lowestFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
                         GameManager.playerOne : GameManager.playerTwo;
 
-                    if (Mathf.Abs(transform.position.y - lowestFrog.position.y) > 100)
+                    if (Mathf.Abs(transform.position.y - lowestFrog.position.y) > relativeDeSpawnPosToFrog.y)
                     {
                         Destroy(gameObject);
                     }
@@ -210,6 +212,8 @@ public class Insect : MonoBehaviour
             case MotionState.panicMode:
             {
                 animator.SetTrigger("goNaked");
+                ParticleSystem particles = transform.GetComponent<ParticleSystem>();
+                particles.Play();
                 body.fixedAngle = false;
             }
             
