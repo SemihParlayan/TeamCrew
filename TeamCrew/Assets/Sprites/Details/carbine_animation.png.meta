@@ -1,14 +1,11 @@
 fileFormatVersion: 2
-guid: a3cc2572aae14ae48b5a413225fe1f28
-timeCreated: 1431354102
+guid: 589fa659dbb7df24ca326e3bb9a4e9a7
+timeCreated: 1431355131
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: kvist1
-    21300002: kvist2
-    21300004: vine
-    21300006: carbine
-    21300008: skeleton
+    21300000: carbine_animation_0
+    21300002: carbine_animation_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -32,7 +29,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
-  maxTextureSize: 2048
+  maxTextureSize: 512
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -54,53 +51,23 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: kvist1
+    - name: carbine_animation_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 946
-        width: 179
-        height: 135
-      alignment: 9
-      pivot: {x: .972116053, y: .96949327}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: kvist2
-      rect:
-        serializedVersion: 2
-        x: 179
-        y: 988
-        width: 197
-        height: 93
-      alignment: 9
-      pivot: {x: .981459856, y: .93501395}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vine
-      rect:
-        serializedVersion: 2
-        x: 376
-        y: 674
-        width: 53
-        height: 407
-      alignment: 9
-      pivot: {x: .771034122, y: .980395854}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: carbine
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 595
-        width: 55
-        height: 317
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: skeleton
-      rect:
-        serializedVersion: 2
-        x: 55
         y: 0
-        width: 235
-        height: 912
+        width: 26
+        height: 300
+      alignment: 9
+      pivot: {x: .62267077, y: .99360919}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: carbine_animation_1
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 48
+        height: 18
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -1,14 +1,11 @@
 fileFormatVersion: 2
-guid: a3cc2572aae14ae48b5a413225fe1f28
-timeCreated: 1431354102
+guid: 852a936b62c9914488a991273c9c4cd0
+timeCreated: 1431351855
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: kvist1
-    21300002: kvist2
-    21300004: vine
-    21300006: carbine
-    21300008: skeleton
+    21300000: birdhouse1
+    21300002: birdhouse2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -32,9 +29,9 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
-  maxTextureSize: 2048
+  maxTextureSize: 512
   textureSettings:
-    filterMode: -1
+    filterMode: 1
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -54,53 +51,23 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: kvist1
+    - name: birdhouse1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 946
-        width: 179
-        height: 135
-      alignment: 9
-      pivot: {x: .972116053, y: .96949327}
+        x: 1
+        y: 1
+        width: 112
+        height: 470
+      alignment: 2
+      pivot: {x: .5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: kvist2
+    - name: birdhouse2
       rect:
         serializedVersion: 2
-        x: 179
-        y: 988
-        width: 197
-        height: 93
-      alignment: 9
-      pivot: {x: .981459856, y: .93501395}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vine
-      rect:
-        serializedVersion: 2
-        x: 376
-        y: 674
-        width: 53
-        height: 407
-      alignment: 9
-      pivot: {x: .771034122, y: .980395854}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: carbine
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 595
-        width: 55
-        height: 317
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: skeleton
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 0
-        width: 235
-        height: 912
+        x: 115
+        y: 60
+        width: 49
+        height: 18
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
