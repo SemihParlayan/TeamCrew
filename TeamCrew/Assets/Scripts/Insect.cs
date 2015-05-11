@@ -4,6 +4,7 @@ using System.Collections;
 public enum MotionState
 {
     rip,
+    chasing,
     sit,
     panicMode,
     normal
@@ -41,6 +42,9 @@ public class Insect : MonoBehaviour
     Transform hand;
     int grabbed = 0;
     bool direction;
+
+    //Timer
+
 
 	void Start ()
     {
@@ -122,17 +126,17 @@ public class Insect : MonoBehaviour
                         }
                     }
                     
-                        if(direction)
-                        {
-                             //body.velocity = new Vector2(flyHorizontalSpeed, body.velocity.y);
-                            body.AddForce(new Vector2(100.0f,0));
-                        }
-                        else
-                        {
-                           // body.velocity = new Vector2(-flyHorizontalSpeed, body.velocity.y);
-                            body.AddForce(new Vector2(-100.0f, 0));
+                    if(direction)
+                    {
+                            //body.velocity = new Vector2(flyHorizontalSpeed, body.velocity.y);
+                        body.AddForce(new Vector2(100.0f,0));
+                    }
+                    else
+                    {
+                        // body.velocity = new Vector2(-flyHorizontalSpeed, body.velocity.y);
+                        body.AddForce(new Vector2(-100.0f, 0));
 
-                        }
+                    }
                        
 
                     if (transform.position.y < startPos.y)
@@ -145,6 +149,37 @@ public class Insect : MonoBehaviour
                     }
                     
                 } break;
+              
+            case MotionState.chasing:
+            {
+                if (GameManager.playerOne && GameManager.playerTwo)
+                {
+                    Transform lowestFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ?
+                       GameManager.playerOne : GameManager.playerTwo;
+               
+
+
+                    if (lowestFrog.position.x > transform.position.x)
+                    {
+                        body.AddForce(new Vector2(100.0f, 0));
+                    }
+                    else
+                    {
+                        body.AddForce(new Vector2(-100.0f, 0));
+
+                    }
+                }
+
+                if (transform.position.y < startPos.y)
+                {
+                    body.AddForce(new Vector2(0, goSlowlyUpForce));
+                }
+                else if (body.velocity.y < 0)
+                {
+                    body.AddForce(new Vector2(0, goSlowlyDownForce));
+                }
+                
+            } break;
             case MotionState.panicMode:
             { 
                 if (transform.position.y < targetY)
