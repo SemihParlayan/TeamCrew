@@ -215,7 +215,8 @@ public class HandGrip : MonoBehaviour
                     {
                         if (gameManager)
                         {
-                            gameManager.Win();
+                            int frogNumber = int.Parse(axis[1].ToString());
+                            gameManager.Win(frogNumber);
                         }
                     }
                     else if (g.tutorialStart)
@@ -321,7 +322,6 @@ public class HandGrip : MonoBehaviour
         handIsLocked = false;
         if (!isGripping)
         {
-            Debug.Log("Release");
             ReleaseGrip();
         }
     }
