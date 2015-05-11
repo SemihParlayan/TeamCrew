@@ -82,10 +82,7 @@ public class GameManager : MonoBehaviour
             }
             if (mainMenuScript.goReady && !tutorialComplete && gameActive || (playerOne && playerTwo && hacks ? Input.GetButtonDown("Select") : false))
             {
-                cameraFollowScript.enabled = true;
-                tutorialComplete = true;
-                playerOne.GetComponent<Line>().Remove();
-                playerTwo.GetComponent<Line>().Remove();
+                TutorialComplete();
             }
         }
 
@@ -100,6 +97,7 @@ public class GameManager : MonoBehaviour
             if (cameraPanScript.Complete())
             {
                 StartGame();
+                generatorScript.DeactivateEasyBlock();
             }
         }
         else if (!gameActive)
@@ -161,10 +159,19 @@ public class GameManager : MonoBehaviour
         fireWorks.SetActive(false);
     }
 
+    private void TutorialComplete()
+    {
+        cameraFollowScript.enabled = true;
+        tutorialComplete = true;
+        playerOne.GetComponent<Line>().Remove();
+        playerTwo.GetComponent<Line>().Remove();
+
+        generatorScript.ActivateEasyBlock();
+    }
     public void ActivateCameraPan()
     {
         cameraPanScript.enabled = true;
-        Camera.main.orthographicSize = 8;
+        Camera.main.orthographicSize = 7.5f;
     }
     public void Win()
     {
