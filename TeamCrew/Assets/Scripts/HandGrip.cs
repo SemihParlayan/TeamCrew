@@ -30,6 +30,10 @@ public class HandGrip : MonoBehaviour
     public GripPoint gripPoint;
     private HingeJoint2D joint;
 
+    //Locked
+    private bool handIsLocked;
+    private float handLockTimer;
+
     //Sound
     public AudioSource gripSoundSource;
     public AudioSource scream;
@@ -97,6 +101,7 @@ public class HandGrip : MonoBehaviour
             if (!gameManager.gameActive)
                 return;
         }
+        isGripping = false;
         if (Input.GetButton(axis)) //Grip button down is down
         {
             //Set gripping to true
@@ -112,15 +117,24 @@ public class HandGrip : MonoBehaviour
         }
         else if (Input.GetButtonUp(axis)) //Grip button goes up
         {
-            ReleaseGrip();
-            if (insectScript != null)
+            if (!handIsLocked)
             {
-                insectScript.RemoveHand();
-                insectScript = null;
+                ReleaseGrip();
             }
         }
 
         lastIsOngrip = isOnGrip;
+
+        if (handLockTimer > 0)
+        {
+            handLockTimer -= Time.deltaTime;
+
+            if (handLockTimer <= 0)
+            {
+                handLockTimer = 0;
+                DeLockHand();
+            }
+        }
 	}
     bool AllowGrip(Grip g)
     {
@@ -262,9 +276,9 @@ public class HandGrip : MonoBehaviour
                         }
                         else
                         {
-                            Debug.Log("ERROR: Scream sound is missing!");
+                            Debug.LogError("ERROR: Scream sound is missing!");
                         }
-                    }
+                    }   
                 }
             }
         }
@@ -284,6 +298,7 @@ public class HandGrip : MonoBehaviour
                     if (insectScript != null)
                     {
                         insectScript.AddHand();
+                        LockHand(1.5f);
                     }
                 }
             }
@@ -301,6 +316,20 @@ public class HandGrip : MonoBehaviour
         }
     }
 
+    void DeLockHand()
+    {
+        handIsLocked = false;
+        if (!isGripping)
+        {
+            Debug.Log("Release");
+            ReleaseGrip();
+        }
+    }
+    void LockHand(float time)
+    {
+        handIsLocked = true;
+        handLockTimer = time;
+    }
     public void ReleaseGrip()
     {
         //Reset hand sprite
@@ -343,6 +372,12 @@ public class HandGrip : MonoBehaviour
 
         if (versusFrog)
             versusFrog.versusHands--;
+
+        if (insectScript != null)
+        {
+            insectScript.RemoveHand();
+            insectScript = null;
+        }
     }
     public void ReleaseVersusGrip(float grabDelay)
     {

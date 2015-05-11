@@ -15,7 +15,6 @@ public class TutorialBubbles : MonoBehaviour
             {
                 startY = GameManager.playerOne.position.y;
                 frog = GameManager.playerOne.GetComponent<FrogPrototype>();
-                Debug.DrawRay(new Vector3(GameManager.playerOne.position.x, startY + 5), Vector3.right);
             }
         }
 
@@ -55,6 +54,7 @@ public class TutorialBubbles : MonoBehaviour
     public void Remove()
     {
         Destroy(bubble);
+        Destroy(bubbleTwo);
         Destroy(this);
     }
 }
