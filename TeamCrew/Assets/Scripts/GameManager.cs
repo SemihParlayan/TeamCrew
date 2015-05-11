@@ -4,10 +4,24 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public bool joysticks = false;
+    public static bool UsingJoysticks;
+    public static Vector3 GetInput(string horizontalInput, string verticalInput)
+    {
+        if (!UsingJoysticks)
+        {
+            horizontalInput += "X";
+            verticalInput += "X";
+        }
+        Vector3 input = new Vector3(Input.GetAxis(horizontalInput), Input.GetAxis(verticalInput));
+        return input;
+    }
+
     public GameObject fireWorks;
     public static Transform playerOne, playerTwo;
     public static float LevelHeight;
 
+    private TopFrogSpawner topfrogSpawnerScript;
     public LevelGeneration generatorScript;
     public Respawn respawnScript;
     public CameraFollow cameraFollowScript;
@@ -25,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     public bool tutorialComplete;
     public bool hacks = true;
+
 	void Start ()
     {
         Application.targetFrameRate = 60;
@@ -47,14 +62,17 @@ public class GameManager : MonoBehaviour
         if (mainMenuScript == null)
             Debug.LogError("Attach a main menu script to GameManager.cs!");
 
+        topfrogSpawnerScript = GetComponent<TopFrogSpawner>();
+        topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
+
         cameraTransform = Camera.main.transform;
         cameraDefaultPosition = cameraTransform.transform.position;
+        UsingJoysticks = joysticks;
 	}
 
     private FrogPrototype playerOneScript, playerTwoScript;
     void Update()
     {
-        
         //Start GAME!
         if (!cameraFollowScript.enabled)
         {
@@ -123,13 +141,13 @@ public class GameManager : MonoBehaviour
             if (playerOneInactivityTimer >= 5 && playerTwoInactivityTimer >= 5)
             {
                 inactivityText.transform.parent.gameObject.SetActive(true);
-                fadeTimer -= Time.deltaTime;
+                inactivityTimer -= Time.deltaTime;
 
-                inactivityText.text = "Inactivity! \n Returning to main menu in " + Mathf.RoundToInt(fadeTimer) + "...";
+                inactivityText.text = "Inactivity! \n Returning to main menu in " + Mathf.RoundToInt(inactivityTimer) + "...";
 
-                if (fadeTimer <= 0)
+                if (inactivityTimer <= 0)
                 {
-                    Win();
+                    Win(Random.Range(1, 3));
                     playerOneInactivityTimer = 0;
                     playerTwoInactivityTimer = 0;
                 }
@@ -137,12 +155,12 @@ public class GameManager : MonoBehaviour
             else
             {
                 inactivityText.transform.parent.gameObject.SetActive(false);
-                fadeTimer = 10;
+                inactivityTimer = 10;
             }
         }
     }
 
-    float fadeTimer = 10;
+    float inactivityTimer = 10;
     void StartGame()
     {
         gameActive = true;
@@ -180,7 +198,7 @@ public class GameManager : MonoBehaviour
         cameraPanScript.enabled = true;
         Camera.main.orthographicSize = 7.5f;
     }
-    public void Win()
+    public void Win(int frogNumber)
     {
         mainMenuScript.EnableUI();
 
@@ -195,6 +213,9 @@ public class GameManager : MonoBehaviour
         GetComponent<FlySpawner>().RemoveFly();
 
         Invoke("ENABLEMENU", 6f);
+
+        Invoke("DestroyFrogs", 2f);
+        topfrogSpawnerScript.SpawnFrog(frogNumber, 2f);
     }
     private void ENABLEMENU()
     {
@@ -202,18 +223,24 @@ public class GameManager : MonoBehaviour
     }
     private void CreateNewFrogs()
     {
-        if (playerOne != null)
-            Destroy(playerOne.parent.gameObject);
-        if (playerTwo != null)
-            Destroy(playerTwo.parent.gameObject);
+        DestroyFrogs();
 
         playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
         playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+
+        topfrogSpawnerScript.RemoveFrog();
 
         if (!tutorilBubblesSpawned)
         {
             tutorilBubblesSpawned = true;
         }
+    }
+    private void DestroyFrogs()
+    {
+        if (playerOne != null)
+            Destroy(playerOne.parent.gameObject);
+        if (playerTwo != null)
+            Destroy(playerTwo.parent.gameObject);
     }
 
     public Text inactivityText;

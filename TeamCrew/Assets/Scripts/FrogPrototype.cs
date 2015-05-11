@@ -65,10 +65,6 @@ public class FrogPrototype : MonoBehaviour
         hacks = true;
 
     }
-    void Update()
-    {
-    }
-
     private void FixedUpdate()
     {
         //TEMPORARY RESTART
@@ -90,8 +86,8 @@ public class FrogPrototype : MonoBehaviour
         ControlScratch();
 
         //Control Hands
-        ControlHand(leftGripScript, GetInput(player + "HLX", player + "VLX"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
-        ControlHand(rightGripScript, GetInput(player + "HRX", player +"VRX"), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
+        ControlHand(leftGripScript, GameManager.GetInput(player + "HL", player + "VL"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
+        ControlHand(rightGripScript, GameManager.GetInput(player + "HR", player +"VR"), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
         //ControlHand2(0);
         //ControlHand2(1);
 
@@ -162,13 +158,13 @@ public class FrogPrototype : MonoBehaviour
         if (body.velocity.y > -1)
             return;
 
-        float vertical = Input.GetAxis(player + "VL");
+        float vertical = GameManager.GetInput("P1HL", player + "VL").y;
         if (leftGripScript.isOnWall && vertical > 0)
         {
             leftParticle.enableEmission = true;
         }
 
-        vertical = Input.GetAxis(player + "VR");
+        vertical = GameManager.GetInput("P1HL", player + "VR").y;
         if (rightGripScript.isOnWall && vertical > 0) 
         {
             rightParticle.enableEmission = true;
@@ -336,11 +332,6 @@ public class FrogPrototype : MonoBehaviour
                 body.isKinematic = false;
             }
         }
-    }
-
-    Vector3 GetInput(string horizontalInput, string verticalInput)
-    {
-        return new Vector3(Input.GetAxis(horizontalInput), Input.GetAxis(verticalInput));
     }
 }
 
