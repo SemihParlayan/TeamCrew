@@ -13,6 +13,7 @@ public class Respawn : MonoBehaviour
     private Camera cam;
     private CameraFollow follow;
     private AudioSource screamSource;
+    private GameManager gameManager;
 
     //Camera minHeight
     float minHeight;
@@ -26,6 +27,7 @@ public class Respawn : MonoBehaviour
         cam = Camera.main;
         follow = cam.transform.GetComponent<CameraFollow>();
         screamSource = GetComponent<AudioSource>();
+        gameManager = GetComponent<GameManager>();
 
         playerOne.timer = respawnTime;
         playerTwo.timer = respawnTime;
@@ -39,11 +41,11 @@ public class Respawn : MonoBehaviour
         
 
         //Respawn player if possible
-        if (playerOne.AllowRespawn(respawnTime))
+        if (playerOne.AllowRespawn(respawnTime) && !gameManager.PlayerOneInactive())
         {
             GameManager.playerOne = RespawnPlayer(playerOne);
         }
-        if (playerTwo.AllowRespawn(respawnTime))
+        if (playerTwo.AllowRespawn(respawnTime) && !gameManager.PlayerTwoInactive())
         {
             GameManager.playerTwo = RespawnPlayer(playerTwo);
         }
@@ -59,6 +61,7 @@ public class Respawn : MonoBehaviour
             {
                 playerOne.Respawning = true;
                 playerOne.deathPositionX = GameManager.playerOne.position.x;
+                playerOne.deathCount++;
                 Destroy(GameManager.playerOne.parent.gameObject);
 
                 if (!screamSource.isPlaying)
@@ -75,6 +78,7 @@ public class Respawn : MonoBehaviour
             {
                 playerTwo.Respawning = true;
                 playerTwo.deathPositionX = GameManager.playerTwo.position.x;
+                playerTwo.deathCount++;
                 Destroy(GameManager.playerTwo.parent.gameObject);
 
                 if (!screamSource.isPlaying)

@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
     public bool gameActive;
 
     public LayerMask mask;
-    public bool CANPRESSMENU = true;
     private bool tutorilBubblesSpawned;
 
     public bool tutorialComplete;
@@ -63,7 +62,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Attach a main menu script to GameManager.cs!");
 
         topfrogSpawnerScript = GetComponent<TopFrogSpawner>();
-        topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
+        //topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
 
         cameraTransform = Camera.main.transform;
         cameraDefaultPosition = cameraTransform.transform.position;
@@ -123,9 +122,8 @@ public class GameManager : MonoBehaviour
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
 
-            if (((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Select")) && CANPRESSMENU)
+            if (((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Select")))
             {
-                CANPRESSMENU = false;
                 ActivateCameraPan();
                 generatorScript.Generate();
                 mainMenuScript.DisableUI();
@@ -135,8 +133,8 @@ public class GameManager : MonoBehaviour
         //Inactivity
         if (gameActive)
         {
-            //playerOneInactivityTimer += Time.deltaTime;
-            //playerTwoInactivityTimer += Time.deltaTime;
+            playerOneInactivityTimer += Time.deltaTime;
+            playerTwoInactivityTimer += Time.deltaTime;
 
             if (playerOneInactivityTimer >= 5 && playerTwoInactivityTimer >= 5)
             {
@@ -147,7 +145,7 @@ public class GameManager : MonoBehaviour
 
                 if (inactivityTimer <= 0)
                 {
-                    Win(Random.Range(1, 3));
+                    GoBackToMenu();
                     playerOneInactivityTimer = 0;
                     playerTwoInactivityTimer = 0;
                 }
@@ -173,6 +171,9 @@ public class GameManager : MonoBehaviour
 
         playerOneScript = playerOne.GetComponent<FrogPrototype>();
         playerTwoScript = playerTwo.GetComponent<FrogPrototype>();
+
+        respawnScript.playerOne.deathCount = 0;
+        respawnScript.playerTwo.deathCount = 0;
 
         fireWorks.SetActive(false);
     }
@@ -200,6 +201,23 @@ public class GameManager : MonoBehaviour
     }
     public void Win(int frogNumber)
     {
+        mainMenuScript.StartMenuCycle(frogNumber);
+
+        inactivityText.transform.parent.gameObject.SetActive(false);
+        cameraFollowScript.enabled = false;
+        respawnScript.enabled = false;
+        terrainScript.enabled = true;
+        tutorialComplete = false;
+        gameActive = false;
+        respawnScript.ResetRespawns();
+        GetComponent<FlySpawner>().RemoveFly();
+        fireWorks.SetActive(true);
+
+        Invoke("DestroyFrogs", 3f);
+        topfrogSpawnerScript.SpawnFrog(frogNumber, 3f);
+    }
+    private void GoBackToMenu()
+    {
         mainMenuScript.EnableUI();
 
         inactivityText.transform.parent.gameObject.SetActive(false);
@@ -209,17 +227,10 @@ public class GameManager : MonoBehaviour
         tutorialComplete = false;
         gameActive = false;
         respawnScript.ResetRespawns();
-        fireWorks.SetActive(true);
         GetComponent<FlySpawner>().RemoveFly();
 
-        Invoke("ENABLEMENU", 6f);
-
-        Invoke("DestroyFrogs", 2f);
-        topfrogSpawnerScript.SpawnFrog(frogNumber, 2f);
-    }
-    private void ENABLEMENU()
-    {
-        CANPRESSMENU = true;
+        Invoke("DestroyFrogs", 3f);
+        topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
     }
     private void CreateNewFrogs()
     {
@@ -243,6 +254,10 @@ public class GameManager : MonoBehaviour
             Destroy(playerTwo.parent.gameObject);
     }
 
+    public Vector2 GetFrogDeathCount()
+    {
+        return new Vector2(respawnScript.playerOne.deathCount, respawnScript.playerTwo.deathCount);
+    }
     public Text inactivityText;
     public float inactivityTime = 5;
     public float playerOneInactivityTimer;
@@ -257,5 +272,13 @@ public class GameManager : MonoBehaviour
         {
             playerTwoInactivityTimer = 0;
         }
+    }
+    public bool PlayerOneInactive()
+    {
+        return playerOneInactivityTimer >= 7.5f;
+    }
+    public bool PlayerTwoInactive()
+    {
+        return playerTwoInactivityTimer >= 7.5f;
     }
 }
