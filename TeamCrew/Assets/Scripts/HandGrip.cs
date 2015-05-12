@@ -106,7 +106,6 @@ public class HandGrip : MonoBehaviour
         {
             //Set gripping to true
             isGripping = true;
-            gameManager.DeactivateInactivityCounter(axis);
 
             //Change hand sprite to semi-open
             if (!isOnGrip)
@@ -236,7 +235,33 @@ public class HandGrip : MonoBehaviour
             if (!gameManager.gameActive)
                 return;
         }
-        if (c.transform.tag == "Grip")
+
+        if (c.transform.tag == "Insect")
+        {
+            insectScript = c.transform.parent.GetComponent<Insect>();
+
+            if (insectScript != null)
+            {
+                if (insectScript.motionState != MotionState.rip)
+                {
+                    MovingGrip movingGrip = c.transform.GetComponent<MovingGrip>();
+                    if (movingGrip)
+                    {
+                        if (AllowGrip(movingGrip))
+                        {
+
+
+                            joint.connectedBody = movingGrip.connectedBody;
+                            joint.connectedAnchor = movingGrip.anchor;
+                            insectScript.AddHand();
+                            LockHand(1.5f);
+                        }
+                    }
+                }
+            }
+            
+        }
+        else if (c.transform.tag == "Grip")
         {
             //Aquire grip script
             Grip grip = c.transform.GetComponent<Grip>();
@@ -280,27 +305,6 @@ public class HandGrip : MonoBehaviour
                             Debug.LogError("ERROR: Scream sound is missing!");
                         }
                     }   
-                }
-            }
-        }
-        else if (c.transform.tag == "Insect")
-        {
-            MovingGrip movingGrip = c.transform.GetComponent<MovingGrip>();
-
-            if (movingGrip)
-            {
-                if (AllowGrip(movingGrip))
-                {
-                    joint.connectedBody = movingGrip.connectedBody;
-                    joint.connectedAnchor = movingGrip.anchor;
-
-                    insectScript = c.transform.parent.GetComponent<Insect>();
-
-                    if (insectScript != null)
-                    {
-                        insectScript.AddHand();
-                        LockHand(1.5f);
-                    }
                 }
             }
         }

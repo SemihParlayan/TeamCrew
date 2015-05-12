@@ -228,7 +228,6 @@ public class FrogPrototype : MonoBehaviour
     }
     void ControlScratch()
     {
-
         if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
             return;
 
@@ -238,7 +237,7 @@ public class FrogPrototype : MonoBehaviour
 
         float vertical = GameManager.GetInput("P1HL", player + "VL").y;
 
-        if (leftGripScript.isOnWall && vertical > 0)
+        if (leftGripScript.isOnWall && vertical != 0)
         {
             leftParticle.enableEmission = true;
         }
@@ -246,7 +245,7 @@ public class FrogPrototype : MonoBehaviour
 
         vertical = GameManager.GetInput("P1HL", player + "VR").y;
 
-        if (rightGripScript.isOnWall && vertical > 0) 
+        if (rightGripScript.isOnWall && vertical != 0) 
         {
             rightParticle.enableEmission = true;
         }
@@ -335,11 +334,7 @@ public class FrogPrototype : MonoBehaviour
         bool grip = joint.useMotor = handScript.isOnGrip;
         body.isKinematic = false;
 
-        if (input != Vector3.zero)
-        {
-            gameManager.DeactivateInactivityCounter(transform.parent.name);
-        }
-        if (!leftGripScript.isOnGrip && !rightGripScript.isOnGrip)
+        if (!leftGripScript.isOnGrip && !rightGripScript.isOnGrip && gameManager.tutorialComplete)
         {
             if (input.y < 0)
             {

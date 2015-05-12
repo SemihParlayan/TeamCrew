@@ -153,12 +153,15 @@ public class GameManager : MonoBehaviour
             else
             {
                 inactivityText.transform.parent.gameObject.SetActive(false);
-                inactivityTimer = 10;
+                inactivityTimer = 5;
             }
         }
+
+
+        DeactivateInactivityCounter();
     }
 
-    float inactivityTimer = 10;
+    float inactivityTimer = 5;
     void StartGame()
     {
         gameActive = true;
@@ -219,6 +222,7 @@ public class GameManager : MonoBehaviour
     private void GoBackToMenu()
     {
         mainMenuScript.EnableUI();
+        generatorScript.ActivateEasyBlock();
 
         inactivityText.transform.parent.gameObject.SetActive(false);
         cameraFollowScript.enabled = false;
@@ -262,13 +266,24 @@ public class GameManager : MonoBehaviour
     public float inactivityTime = 5;
     public float playerOneInactivityTimer;
     public float playerTwoInactivityTimer;
-    public void DeactivateInactivityCounter(string frogname)
+    private void DeactivateInactivityCounter()
     {
-        if (frogname.Contains("1"))
+        Vector3 input = GetInput("P1HL", "P1VL");
+        Vector3 input2 = GetInput("P1HR", "P1VR");
+        bool button = Input.GetButton("P1GL");
+        bool button2 = Input.GetButton("P1GR");
+
+        if (input != Vector3.zero || input2 != Vector3.zero || button || button2)
         {
             playerOneInactivityTimer = 0;
         }
-        else if (frogname.Contains("2"))
+
+
+        input = GetInput("P2HL", "P2VL");
+        input2 = GetInput("P2HR", "P2VR");
+        button = Input.GetButton("P2GL");
+        button2 = Input.GetButton("P2GR");
+        if (input != Vector3.zero || input2 != Vector3.zero || button || button2)
         {
             playerTwoInactivityTimer = 0;
         }

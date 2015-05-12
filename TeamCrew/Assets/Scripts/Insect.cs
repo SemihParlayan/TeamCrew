@@ -234,7 +234,6 @@ public class Insect : MonoBehaviour
 
                 targetY = bottomFrog.position.y + panicModeTop;
             }
-            
             break;
         }
     }
