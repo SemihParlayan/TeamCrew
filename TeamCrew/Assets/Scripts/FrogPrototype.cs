@@ -132,6 +132,10 @@ public class FrogPrototype : MonoBehaviour
         velocity.y = Mathf.Clamp(velocity.y, -int.MaxValue, yVelocityClamp);
         body.velocity = velocity;
 
+        //scratch rotation
+        leftHandMagnet.transform.rotation = leftHandMagnet.transform.parent.rotation;
+        rightHandMagnet.transform.rotation = leftHandMagnet.transform.parent.rotation;
+
         //left Scratch sound
          if(leftParticle.enableEmission == true)
         {
@@ -175,7 +179,9 @@ public class FrogPrototype : MonoBehaviour
         {
             if (Input.GetButtonDown("Select"))
             {
-                body.gravityScale = -2;
+                //body.gravityScale = -10;
+                body.AddForce(new Vector2(0, 100000));
+                //Debug.Log("negative gravity "+body.mass);
                 //body.
             }
             else
