@@ -54,16 +54,49 @@ public class FrogPrototype : MonoBehaviour
 
     private GameManager gameManager;
 
+    private RandomSoundFromList leftHandSoundChooser;
+    private RandomSoundFromList rightHandSoundChooser;
+
+    private bool leftScratchSounding;
+    private bool rightScratchSounding;
+
+    private VelocityVolume velVolLeft;
+    private VelocityVolume velVolRight;
+
     void Start()
     {
         leftBody  = handBody[0] = leftHand.GetComponent<Rigidbody2D>();
+        if (leftBody == null) { Debug.Log("leftBody is null"); }
+
+        
         rightBody = handBody[1] = rightHand.GetComponent<Rigidbody2D>();
+        if (rightBody == null) { Debug.Log("rightBody is null");}
+
+
         body = GetComponent<Rigidbody2D>();
+        if (body == null) { Debug.Log("body is null");}
+        
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        if (gameManager == null) { Debug.Log("GameManager is null"); Debug.Break(); }
+
+
 
         //body.isKinematic = true;
         hacks = true;
 
+        leftHandSoundChooser = leftGripScript.GetComponentInChildren<RandomSoundFromList>();
+        if (leftHandSoundChooser == null) { Debug.Log("leftHandSoundChooser is null"); }
+
+        velVolLeft = leftGripScript.GetComponentInChildren<VelocityVolume>();
+        if (velVolLeft == null) { Debug.Log("velVolLeft is null"); }
+
+
+        rightHandSoundChooser = rightGripScript.GetComponentInChildren<RandomSoundFromList>();
+        if (rightHandSoundChooser == null) { Debug.Log("rightHandSoundChooser is null"); }
+
+        velVolRight = rightGripScript.GetComponentInChildren<VelocityVolume>();
+        if (velVolRight == null) { UnityEditor.EditorApplication.isPlaying = false; Debug.Log("velVolRight is null");}
+        
     }
     void Update()
     {
@@ -103,6 +136,45 @@ public class FrogPrototype : MonoBehaviour
         velocity.y = Mathf.Clamp(velocity.y, -int.MaxValue, yVelocityClamp);
         body.velocity = velocity;
 
+        //left Scratch sound
+         if(leftParticle.enableEmission == true)
+        {
+            if (!leftScratchSounding)
+            {
+                leftHandSoundChooser.GenerateScratch();
+                leftScratchSounding = true;
+                velVolLeft.enabled = true;
+            }
+
+            leftHandSoundChooser.GetComponent<VelocityVolume>();
+
+
+        }
+        else
+        {
+            leftHandSoundChooser.Stop();
+            leftScratchSounding = false;
+            velVolLeft.enabled = false;
+        }
+
+        //right scratch sound
+        if (rightParticle.enableEmission == true)
+        {
+            if (!rightScratchSounding)
+            {
+                rightHandSoundChooser.GenerateScratch();
+                rightScratchSounding = true;
+                velVolRight.enabled = true;
+            }
+            
+        }
+        else
+        {
+            rightHandSoundChooser.Stop();
+            rightScratchSounding = false;
+            velVolRight.enabled = false;
+        }
+
         if(hacks)
         {
             if (Input.GetButtonDown("Select"))
@@ -116,12 +188,12 @@ public class FrogPrototype : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0))
             {
-                ActivateBody();
+                //ActivateBody();
             }
             if (Input.GetMouseButton(0))
             {
-                body.velocity = new Vector2(0, 0);
-                transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                //body.velocity = new Vector2(0, 0);
+                //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             }
         }
     }
@@ -156,19 +228,20 @@ public class FrogPrototype : MonoBehaviour
     }
     void ControlScratch()
     {
+
         if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
             return;
 
         if (body.velocity.y > -1)
             return;
 
-        float vertical = Input.GetAxis(player + "VL");
+        float vertical = Input.GetAxis(player + "VLX");
         if (leftGripScript.isOnWall && vertical > 0)
         {
             leftParticle.enableEmission = true;
         }
 
-        vertical = Input.GetAxis(player + "VR");
+        vertical = Input.GetAxis(player + "VRX");
         if (rightGripScript.isOnWall && vertical > 0) 
         {
             rightParticle.enableEmission = true;
@@ -179,8 +252,8 @@ public class FrogPrototype : MonoBehaviour
     {
         //leftGripScript, player + "HL", player + "VL", leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript
         //rightGripScript, player + "HR", player + "VR", rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
-        string horizontalAxis = player + (a == 0 ? "HL" : "HR");
-        string verticalAxis   = player + (a == 0 ? "VL" : "VR");
+        string horizontalAxis = player + (a == 0 ? "HLX" : "HRX");
+        string verticalAxis   = player + (a == 0 ? "VLX" : "VRX");
         int motorDir = (a == 0 ? 1 : -1);
 
         joints[a].useMotor = gripScript[a].isOnGrip;

@@ -28,6 +28,7 @@ public class RandomSoundFromList : MonoBehaviour
 
     public void GenerateRockImpact()
     {
+        //TODO: Check if this sounds the way it should
         speaker = transform.GetComponent<AudioSource>();
         speaker.pitch = 1;
         speaker.volume = 1;
@@ -35,5 +36,23 @@ public class RandomSoundFromList : MonoBehaviour
         Debug.Log(coolInt);
         speaker.clip = SoundList[coolInt];
 
+    }
+
+    public void GenerateScratch()
+    {
+        Debug.Log("scratch is sound");
+        if(SoundList.Length > 10)
+        {
+            speaker.volume = 0;
+            speaker.pitch = 1;
+            speaker.clip = SoundList[10];
+            speaker.Play();
+            Debug.Log("actuall playing a sound");
+        }
+    }
+
+    public void Stop()
+    {
+        speaker.Stop();
     }
 }

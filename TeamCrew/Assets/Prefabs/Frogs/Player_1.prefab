@@ -431,6 +431,7 @@ GameObject:
   - 4: {fileID: 446652}
   - 82: {fileID: 8202056}
   - 114: {fileID: 11405750}
+  - 114: {fileID: 11459994}
   m_Layer: 0
   m_Name: Grip Sounder
   m_TagString: Untagged
@@ -852,6 +853,7 @@ GameObject:
   - 4: {fileID: 421136}
   - 82: {fileID: 8260146}
   - 114: {fileID: 11427294}
+  - 114: {fileID: 11448998}
   m_Layer: 0
   m_Name: Grip Sounder
   m_TagString: Untagged
@@ -1529,7 +1531,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.17885828, y: -.489980698, z: 0}
+  m_LocalPosition: {x: 39.5088806, y: 3.46669888, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 458660}
@@ -2531,6 +2533,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e716a726fb22f7b4988c52d6c3f95555, type: 3}
   - {fileID: 8300000, guid: 681034f8f5aa8c840ae0463f28c553ad, type: 3}
   - {fileID: 8300000, guid: 458044745883a1941addd4a0afde97b4, type: 3}
+  - {fileID: 8300000, guid: 8d30a5d72e04ceb40a87fc35239c7cfb, type: 3}
 --- !u!114 &11407044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2683,6 +2686,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e716a726fb22f7b4988c52d6c3f95555, type: 3}
   - {fileID: 8300000, guid: 681034f8f5aa8c840ae0463f28c553ad, type: 3}
   - {fileID: 8300000, guid: 458044745883a1941addd4a0afde97b4, type: 3}
+  - {fileID: 8300000, guid: 8d30a5d72e04ceb40a87fc35239c7cfb, type: 3}
 --- !u!114 &11431462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2763,6 +2767,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de0ece074c0a604b8fc427747c6c5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11448998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46eeee19f87b55c428236396b38cf804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundSource: {fileID: 0}
 --- !u!114 &11451920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2792,7 +2808,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blinkTime: 0
+  blinkTimer: 0
   gripAnimation: {fileID: 11478958}
+--- !u!114 &11459994
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139852}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46eeee19f87b55c428236396b38cf804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundSource: {fileID: 8202056}
 --- !u!114 &11467064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2909,6 +2938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blinkTime: 0
+  blinkTimer: 0
   gripAnimation: {fileID: 11433546}
 --- !u!114 &11485084
 MonoBehaviour:
