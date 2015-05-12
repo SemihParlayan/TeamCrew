@@ -95,8 +95,6 @@ public class FrogPrototype : MonoBehaviour
         if (rightHandSoundChooser == null) { Debug.Log("rightHandSoundChooser is null"); }
 
         velVolRight = rightGripScript.GetComponentInChildren<VelocityVolume>();
-        if (velVolRight == null) { UnityEditor.EditorApplication.isPlaying = false; Debug.Log("velVolRight is null");}
-        
     }
     private void FixedUpdate()
     {

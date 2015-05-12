@@ -803,6 +803,10 @@ Prefab:
       propertyPath: m_Name
       value: Tutorial 1
       objectReference: {fileID: 0}
+    - target: {fileID: 138166, guid: c5a6a5a937a22ff41a9e3bb8b6467285, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5a6a5a937a22ff41a9e3bb8b6467285, type: 2}
   m_IsPrefabParent: 0
@@ -1945,7 +1949,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1001 &1015056482
 Prefab:
   m_ObjectHideFlags: 0
@@ -2289,6 +2293,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 178554, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11412448, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: joysticks
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
