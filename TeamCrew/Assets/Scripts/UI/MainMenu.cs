@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
     public Image playerTwoReady;
 
     private Animator anim;
+    private GameManager gameManager;
 
     //Countdown 3-2-1-GO! variables
     [HideInInspector]public bool goReady;
@@ -25,6 +26,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 	void Update () 
     {
@@ -78,5 +80,48 @@ public class MainMenu : MonoBehaviour
     public void DisableUIGameObject()
     {
         UIParent.gameObject.SetActive(false);
+    }
+
+
+    public Animator p1Win;
+    public Animator p2Win;
+    public Animator p1DeathCounter;
+    public Animator p2DeathCounter;
+    private int winFrog;
+
+    public void StartMenuCycle(int frogNumber)
+    {
+        winFrog = frogNumber;
+        Invoke("EnableWinSign", 1.5f);
+    }
+
+    void EnableWinSign()
+    {
+        if (winFrog == 1)
+        {
+            p1Win.SetTrigger("Activate");
+        }
+        else
+        {
+            p2Win.SetTrigger("Activate");
+        }
+    }
+    public void WinSignComplete()
+    {
+        EnableDeathCounter();
+    }
+
+    void EnableDeathCounter()
+    {
+        p1DeathCounter.SetTrigger("Activate");
+        p2DeathCounter.SetTrigger("Activate");
+
+        Vector2 deathCount = gameManager.GetFrogDeathCount();
+        p1DeathCounter.transform.GetChild(0).GetComponent<Text>().text = deathCount.x.ToString();
+        p2DeathCounter.transform.GetChild(0).GetComponent<Text>().text = deathCount.y.ToString();
+    }
+    public void DeathCounterComplete()
+    {
+        EnableUI();
     }
 }

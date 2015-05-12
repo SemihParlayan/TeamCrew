@@ -22,12 +22,41 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.playerOne == null || GameManager.playerTwo == null)
-            return;
-
-        FollowTopFrog();
+        if (GameManager.playerOne && GameManager.playerTwo)
+        {
+            FollowTopFrog();
+        }
+        else if (GameManager.playerOne == null && GameManager.playerTwo)
+        {
+            FollowFrog(GameManager.playerTwo);
+        }
+        else if (GameManager.playerOne && GameManager.playerTwo == null)
+        {
+            FollowFrog(GameManager.playerOne);
+        }
     }
 
+    void FollowFrog(Transform frog)
+    {
+        //Set target position to frogs feet
+        Vector3 targetPosition = transform.position;
+        targetPosition.y = frog.position.y - 2;
+        targetPosition.x = frog.position.x;
+
+        //Move towards target
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * movementSpeed);
+
+        //Set target size
+        float targetSize = absoluteZoomValue;
+
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetSize, Time.deltaTime * zoomSpeed);
+
+        //Fix Z position
+        Vector3 pos = cam.transform.position;
+        pos.z = (cam.orthographicSize - minZoom) / (maxZoom - minZoom) * -5 - 10;
+        pos.y = Mathf.Clamp(pos.y, GameManager.LevelHeight + 7, int.MaxValue);
+        cam.transform.position = pos;
+    }
     void FollowTopFrog()
     {
         //Aquire top frogs y position

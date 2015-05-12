@@ -11,6 +11,7 @@ public class PlayerRespawn : MonoBehaviour
     public float timer;
     [HideInInspector]
     public float deathPositionX;
+    public float deathCount;
     public bool Respawning
     {
         get

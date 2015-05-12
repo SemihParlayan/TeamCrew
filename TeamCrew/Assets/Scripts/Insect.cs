@@ -229,6 +229,9 @@ public class Insect : MonoBehaviour
         {
             case MotionState.panicMode:
             {
+                if (bottomFrog == null)
+                    break;
+
                 targetY = bottomFrog.position.y + panicModeTop;
             }
             
