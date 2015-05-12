@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Attach a main menu script to GameManager.cs!");
 
         topfrogSpawnerScript = GetComponent<TopFrogSpawner>();
-        topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
+        //topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
 
         cameraTransform = Camera.main.transform;
         cameraDefaultPosition = cameraTransform.transform.position;
