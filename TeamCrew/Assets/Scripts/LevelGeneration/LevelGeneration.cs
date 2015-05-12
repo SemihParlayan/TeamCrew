@@ -14,6 +14,7 @@ public class LevelGeneration : MonoBehaviour
 
     private Transform currentTop;
     private Transform previousTop;
+    private GameObject easyBlock;
     private float movementWidth;
 
     public int numberOfHardBlocks = 1;
@@ -100,6 +101,7 @@ public class LevelGeneration : MonoBehaviour
             }
             block.transform.name = "Easy"; block.transform.parent = transform; level.Add(block.transform);
         }
+        easyBlock = block.gameObject;
 
         //Spawn Tutorial
         block = GetBlock(block, BlockDifficulty.Tutorial);
@@ -107,7 +109,6 @@ public class LevelGeneration : MonoBehaviour
 
         FixSigns();
     }
-
     private void FixSigns()
     {
         GameObject[] signs = GameObject.FindGameObjectsWithTag("Sign");
@@ -133,15 +134,6 @@ public class LevelGeneration : MonoBehaviour
 
             signs[j].GetComponent<SpriteRenderer>().sprite = signSprites[j];
         }
-    }
-    void OnDrawGizmos()
-    {
-        //GameObject[] signs = GameObject.FindGameObjectsWithTag("Sign");
-        //for (int i = 0; i < signs.Length; i++)
-        //{
-        //    Gizmos.color = new Color(Random.Range(0.0f, 1f), Random.Range(0.0f, 1f), Random.Range(0.0f, 1f));
-        //    Gizmos.DrawSphere(signs[i].transform.position, 1f);
-        //}
     }
 
     Block GetBlock(Block previousBlock, BlockDifficulty difficulty)
@@ -209,5 +201,13 @@ public class LevelGeneration : MonoBehaviour
     public Vector3 GetPlayerTwoSpawnPosition()
     {
         return level.Last().GetComponent<TutorialBlock>().playerTwoStart.position;
+    }
+    public void ActivateEasyBlock()
+    {
+        easyBlock.SetActive(true);
+    }
+    public void DeactivateEasyBlock()
+    {
+        easyBlock.SetActive(false);
     }
 }

@@ -717,8 +717,8 @@ GameObject:
   - 114: {fileID: 11462638}
   - 114: {fileID: 11407100}
   - 114: {fileID: 11439478}
-  - 114: {fileID: 11467616}
   - 114: {fileID: 11452178}
+  - 114: {fileID: 11442946}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: GameManager
@@ -1418,7 +1418,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 463300}
-  - 95: {fileID: 9526734}
   m_Layer: 0
   m_Name: Complete level
   m_TagString: Untagged
@@ -1574,7 +1573,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 463300}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &405344
 Transform:
   m_ObjectHideFlags: 1
@@ -1824,7 +1823,7 @@ Transform:
   m_Children:
   - {fileID: 494476}
   m_Father: {fileID: 463300}
-  m_RootOrder: 3
+  m_RootOrder: 0
 --- !u!4 &433682
 Transform:
   m_ObjectHideFlags: 1
@@ -2008,7 +2007,7 @@ Transform:
   - {fileID: 462398}
   - {fileID: 445002}
   m_Father: {fileID: 463300}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &451826
 Transform:
   m_ObjectHideFlags: 1
@@ -2116,10 +2115,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 433224}
   - {fileID: 451648}
   - {fileID: 404626}
   - {fileID: 499706}
-  - {fileID: 433224}
   - {fileID: 430022}
   - {fileID: 443394}
   - {fileID: 22494392}
@@ -2545,11 +2544,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.92000008, z: 0}
+  m_LocalPosition: {x: 0, y: 5.51000023, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 463300}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!20 &2088314
 Camera:
   m_ObjectHideFlags: 1
@@ -3129,23 +3128,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &9526734
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 191422}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9545656
 Animator:
   serializedVersion: 3
@@ -3343,6 +3325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a518fd21e0cbd25488cb7f6ecaac0d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joysticks: 0
   fireWorks: {fileID: 176880}
   generatorScript: {fileID: 11494612}
   respawnScript: {fileID: 11457272}
@@ -3751,6 +3734,20 @@ MonoBehaviour:
   tutorialStart: 0
   gripPoints:
   - {fileID: 11445066}
+--- !u!114 &11442946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a633d296773c24098c1084fe1c90b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPosition: {x: 0, y: 2.75, z: 0}
+  playerOneTopPrefab: {fileID: 478934, guid: c7c4254f227d6964ab57a62a30e7eaa5, type: 2}
+  playerTwoTopPrefab: {fileID: 469740, guid: 11a861e70315d2a479544788da91e370, type: 2}
 --- !u!114 &11443984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4082,19 +4079,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11467616
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 148786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d43d8251c32d7944bb3a2dca0c4f655, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FlyPrefab: {fileID: 432452, guid: 9d6c1b19877602247985cc2cd0197966, type: 2}
-  RespawnCheckRate: 0
 --- !u!114 &11468184
 MonoBehaviour:
   m_ObjectHideFlags: 1

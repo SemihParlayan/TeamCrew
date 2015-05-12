@@ -8,24 +8,32 @@ public class FlySpawner : MonoBehaviour
     public float RespawnCheckRate = 2; //Seconds
     Transform fly;
 
+    private float spawnTimer = 0;
+    private GameManager gameManager;
 
     void Start()
     {
-        InvokeRepeating("TestFlySpawn", RespawnCheckRate, RespawnCheckRate);
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 
-    void TestFlySpawn()
+    void Update()
     {
-        //Invoke("TestFlySpawn", RespawnCheckRate);
+        spawnTimer += Time.deltaTime;
 
+        if (spawnTimer >= RespawnCheckRate)
+        {
+            spawnTimer -= RespawnCheckRate;
+
+            SpawnFly();
+        }
+    }
+    void SpawnFly()
+    {
         Transform playerOne = GameManager.playerOne;
         Transform playerTwo = GameManager.playerTwo;
 
-        if (!(GameManager.playerOne && GameManager.playerTwo && fly == null))
-        {
+        if (GameManager.playerOne == null || GameManager.playerTwo == null || fly != null || !gameManager.tutorialComplete)// || !gameManager.tutorialComplete)
             return;
-        }
-        
 
         float playersDistanceY = Mathf.Abs(playerOne.position.y - playerTwo.position.y);
 
@@ -33,8 +41,6 @@ public class FlySpawner : MonoBehaviour
         {
             fly = Instantiate(FlyPrefab) as Transform;
         }
-
-        
     }
 
     public void RemoveFly()
