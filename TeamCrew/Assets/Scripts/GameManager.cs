@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
         if (!UsingJoysticks)
         {
             horizontalInput += "X";
-            verticalInput += "X";
+            verticalInput   += "X";
         }
         Vector3 input = new Vector3(Input.GetAxis(horizontalInput), Input.GetAxis(verticalInput));
         return input;
@@ -21,27 +21,27 @@ public class GameManager : MonoBehaviour
     public static Transform playerOne, playerTwo;
     public static float LevelHeight;
 
-    private TopFrogSpawner topfrogSpawnerScript;
-    public LevelGeneration generatorScript;
-    public Respawn respawnScript;
-    public CameraFollow cameraFollowScript;
-    public CameraFollowTerrain terrainScript;
-    public CameraPan cameraPanScript;
-    public MainMenu mainMenuScript;
+    private TopFrogSpawner      topfrogSpawnerScript;
+    public LevelGeneration      generatorScript;
+    public Respawn              respawnScript;
+    public CameraFollow         cameraFollowScript;
+    public CameraFollowTerrain  terrainScript;
+    public CameraPan            cameraPanScript;
+    public MainMenu             mainMenuScript;
 
-    private Vector3 cameraDefaultPosition;
-    private Transform cameraTransform;
-    public bool gameActive;
+    private Vector3             cameraDefaultPosition;
+    private Transform           cameraTransform;
+    public bool                 gameActive;
 
-    public LayerMask mask;
-    private bool tutorilBubblesSpawned;
+    public LayerMask            mask;
+    private bool                tutorilBubblesSpawned;
 
     public bool tutorialComplete;
     public bool hacks = true;
 
 	void Start ()
     {
-        Application.targetFrameRate = 200;
+        Application.targetFrameRate = 60;
 
         if (generatorScript == null)
             Debug.LogError("Attach a generator script to GameManager.cs!");
