@@ -10,6 +10,7 @@ public class HandGrip : MonoBehaviour
     public bool isOnWall;
     public bool isGripping;
     public bool isGrippingTutorial;
+    public bool isGrippingInsect;
     public bool isVersusGripping;
 
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
@@ -42,7 +43,7 @@ public class HandGrip : MonoBehaviour
     private AudioSource wallScratchSource;
 
     //Insect reference
-    private Insect insectScript;
+    public Insect insectScript;
 
     //Game manager reference
     private GameManager gameManager;
@@ -225,7 +226,6 @@ public class HandGrip : MonoBehaviour
         if (c.transform.tag == "Insect")
         {
             insectScript = c.transform.parent.GetComponent<Insect>();
-
             if (insectScript != null)
             {
                 if (insectScript.motionState != MotionState.rip)
@@ -235,12 +235,11 @@ public class HandGrip : MonoBehaviour
                     {
                         if (AllowGrip(movingGrip))
                         {
-
-
                             joint.connectedBody = movingGrip.connectedBody;
                             joint.connectedAnchor = movingGrip.anchor;
                             insectScript.AddHand();
                             LockHand(1.5f);
+                            isGrippingInsect = true;
                         }
                     }
                 }
@@ -282,7 +281,7 @@ public class HandGrip : MonoBehaviour
                         //HERE IS CODE:
                         if (scream)
                         {
-                            scream.volume = 0.35f;
+                            scream.volume = 0.15f;
                             scream.pitch = Random.Range(1.1f, 1.4f);
                             scream.Play();
                         }
@@ -297,6 +296,11 @@ public class HandGrip : MonoBehaviour
         else if (c.transform.tag == "Wall")
         {
             isOnWall = true;
+        }
+
+        if (!isGrippingInsect)
+        {
+            insectScript = null;
         }
     }
     void OnTriggerExit2D(Collider2D c)
@@ -363,11 +367,12 @@ public class HandGrip : MonoBehaviour
         if (versusFrog)
             versusFrog.versusHands--;
 
-        if (insectScript != null)
+        if (isGrippingInsect)
         {
             insectScript.RemoveHand();
             insectScript = null;
         }
+        isGrippingInsect = false;
     }
     public void ReleaseVersusGrip(float grabDelay)
     {

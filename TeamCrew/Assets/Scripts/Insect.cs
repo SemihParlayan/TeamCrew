@@ -36,7 +36,7 @@ public class Insect : MonoBehaviour
     public AudioSource soundSource;
     Rigidbody2D body;
     Transform hand;
-    int grabbed = 0;
+    private int grabbed = 0;
     int direction = -1;
 
     public Transform bottomFrog;
@@ -207,32 +207,13 @@ public class Insect : MonoBehaviour
     {
         if(state == motionState) return;
 
-        //ending old behaviour
-        switch (motionState)
-        {
-            case MotionState.rip:
-                return;
-
-            case MotionState.sit:
-                break;
-
-            case MotionState.normal:
-                break;
-            
-            case MotionState.panicMode:
-                break;
-        }
-
         motionState = state;
         //getting new behaviour
         switch (motionState)
         {
             case MotionState.panicMode:
             {
-                if (bottomFrog == null)
-                    break;
-
-                targetY = bottomFrog.position.y + panicModeTop;
+                targetY = transform.position.y + panicModeTop;
             }
             break;
         }
@@ -248,7 +229,7 @@ public class Insect : MonoBehaviour
     public void RemoveHand()
     {
         grabbed--;
-        if (grabbed == 0)
+        if (grabbed <= 0)
         {
             ChangeState(MotionState.rip);
         }
