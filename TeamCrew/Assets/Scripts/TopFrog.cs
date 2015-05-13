@@ -15,6 +15,16 @@ public class TopFrog : MonoBehaviour
 
     private Rigidbody2D leftBody, rightBody;
 
+    void OnBecameVisible()
+    {
+        enabled = true;
+    }
+
+    void OnBecameInvisible()
+    {
+        enabled = false;
+    }
+
     void Start()
     {
         leftBody = leftHand.GetComponent<Rigidbody2D>();

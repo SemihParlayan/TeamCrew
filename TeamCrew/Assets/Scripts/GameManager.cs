@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
 	void Start ()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 200;
 
         if (generatorScript == null)
             Debug.LogError("Attach a generator script to GameManager.cs!");

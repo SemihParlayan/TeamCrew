@@ -9,6 +9,17 @@ public class Grip : MonoBehaviour
     public bool tutorialStart;
     public List<GripPoint> gripPoints = new List<GripPoint>();
 
+    void OnBecameVisible()
+    {
+        enabled = true;
+
+    }
+
+    void OnBecameInvisible()
+    {
+        enabled = false;
+    }
+
     void Start()
     {
         gripPoints.Clear();

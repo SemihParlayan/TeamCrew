@@ -5,6 +5,19 @@ public class ImpactSound : MonoBehaviour
 {
     AudioSource aSource;
     RandomSoundFromList randScript;
+
+    void OnBecameVisible()
+    {
+        enabled = true;
+
+    }
+
+    void OnBecameInvisible()
+    {
+        enabled = false;
+    }
+
+
 	void Start ()
     {
         aSource = transform.GetComponent<AudioSource>();

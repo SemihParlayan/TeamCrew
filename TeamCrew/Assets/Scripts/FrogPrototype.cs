@@ -63,6 +63,16 @@ public class FrogPrototype : MonoBehaviour
     private VelocityVolume velVolLeft;
     private VelocityVolume velVolRight;
 
+    void OnBecameVisible()
+    {
+        enabled = true;
+    }
+    
+    void OnBecameInvisible()
+    {
+        enabled = false;
+    }
+    
     void Start()
     {
         leftBody  = handBody[0] = leftHand.GetComponent<Rigidbody2D>();

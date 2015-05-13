@@ -40,14 +40,13 @@ public class RandomSoundFromList : MonoBehaviour
 
     public void GenerateScratch()
     {
-        Debug.Log("scratch is sound");
         if(SoundList.Length > 10)
         {
             speaker.volume = 0;
             speaker.pitch = 1;
             speaker.clip = SoundList[10];
             speaker.Play();
-            Debug.Log("actuall playing a sound");
+            
         }
     }
 

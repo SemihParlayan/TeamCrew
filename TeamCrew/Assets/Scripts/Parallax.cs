@@ -5,6 +5,7 @@ public class Parallax : MonoBehaviour
 {
     public float cameraToRockLenghts;
     public float maxParallax;
+    public float maxX;
 
     private Vector2 origin;
     private Camera cam;
@@ -14,6 +15,17 @@ public class Parallax : MonoBehaviour
     /* For when it was not in the camera
      * public float distance;
      */
+
+    void OnBecameVisible()
+    {
+        enabled = true;
+
+    }
+
+    void OnBecameInvisible()
+    {
+        enabled = false;
+    }
 
 	void Start ()
     {
@@ -37,7 +49,7 @@ public class Parallax : MonoBehaviour
         //// Fixing y pos so that the parallax is at max parralax state at the top
         //relOrig.y = paralPosY;
         Vector2 targetPos = origin;
-        targetPos.x = camPos.x;
+        targetPos.x = maxX * (camPos.x / levelHeight);
         targetPos.y = paralPosY;
 
         // The scalar based on distance

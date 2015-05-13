@@ -7,10 +7,24 @@ public class GripMagnet : MonoBehaviour
     public HandGrip gripScript;
     private Transform grip;
 
+
+
 	void Start () 
     {
 	
 	}
+
+    void OnBecameVisible()
+    {
+        enabled = true;
+
+    }
+
+    void OnBecameInvisible()
+    {
+        enabled = false;
+    }
+
 
 	void Update () 
     {

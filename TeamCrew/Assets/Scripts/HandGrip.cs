@@ -59,6 +59,17 @@ public class HandGrip : MonoBehaviour
     [HideInInspector]
     public VersusGripController versusGripController;
 
+    void OnBecameVisible()
+    {
+        enabled = true;
+
+    }
+
+    void OnBecameInvisible()
+    {
+        enabled = false;
+    }
+
     public Vector3 GripPosition
     {
         get 

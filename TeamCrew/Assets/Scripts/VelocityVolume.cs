@@ -18,7 +18,5 @@ public class VelocityVolume : MonoBehaviour {
     void FixedUpdate()
     {
         soundSource.volume = body.velocity.magnitude / 30 *.5f ;
-        Debug.Log("my velocity is: " + body.velocity.magnitude);
-        Debug.Log("volume is: " + soundSource.volume);
     }
 }
