@@ -172,22 +172,8 @@ public class HandGrip : MonoBehaviour
                 else
                 {
                     //NORMAL AND MOVING GRIP
-                    if (!gameManager.tutorialComplete)
-                    {
-                        bool allow = true;
-                        if (!allowNewGrip)
-                        {
-                            allow = false;
-                            if (g.tutorialStart)
-                            {
-                                allow = true;
-                            }
-                        }
-                        if (!allow)
-                        {
-                            return false;
-                        }
-                    }
+
+
                     //Play animation and stone particles
                     stoneParticles.Play();
                     gripAnimation.Activate("normal");
