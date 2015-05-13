@@ -66,9 +66,10 @@ public class FrogPrototype : MonoBehaviour
         
         
     //Sound Stuff
-    private AudioSource sounder;
-    private AudioClip boilSound;
-    private AudioClip shhSound;
+    private AudioSource boilSounder;
+    private AudioSource shhSounder;
+    //private AudioClip boilSound;
+    //private AudioClip shhSound;
 
     void Start()
     {
@@ -105,13 +106,16 @@ public class FrogPrototype : MonoBehaviour
 
 
         //Sound Stuff
-        sounder = gameObject.AddComponent<AudioSource>();
+        boilSounder = gameObject.AddComponent<AudioSource>();
+        shhSounder = gameObject.AddComponent<AudioSource>();
 
-        boilSound = Resources.Load("kettle") as AudioClip;
-        shhSound = Resources.Load("shh") as AudioClip;
-        if (boilSound == null) Debug.Log("boil sound is null");
 
-        sounder.clip = boilSound;
+
+        boilSounder.clip = Resources.Load("kettle") as AudioClip;
+        shhSounder.clip = Resources.Load("shh") as AudioClip;
+        //if (boilSound == null) Debug.Log("boil sound is null");
+
+        //sounder.clip = boilSound;
 
 
 
@@ -230,12 +234,11 @@ public class FrogPrototype : MonoBehaviour
             versusGripTimer -= Time.deltaTime;
 
 
-            if (!sounder.isPlaying)
+            if (!boilSounder.isPlaying)
             {
-                sounder.clip = boilSound;
-                sounder.time = 6 - versusGripTimer;
-                sounder.volume = 1;
-                sounder.Play();
+                boilSounder.time = Mathf.Clamp(6 - versusGripTimer, 0, 6);
+                boilSounder.volume = 1;
+                boilSounder.Play();
             }
 
             
@@ -252,9 +255,8 @@ public class FrogPrototype : MonoBehaviour
 
                 //Release sound
                 Debug.Log("sounding release");
-                sounder.clip = shhSound;
-                sounder.volume = .1f;
-                sounder.Play();
+                shhSounder.volume = .1f;
+                shhSounder.Play();
             }
         }
         else
@@ -263,9 +265,9 @@ public class FrogPrototype : MonoBehaviour
             {
                 versusGripTimer += Time.deltaTime * 1.5f;
             }
-            if (sounder.isPlaying && sounder.clip != shhSound)
+            if (boilSounder.isPlaying)
             {
-                sounder.Stop();
+                boilSounder.Stop();
             }
            
         }
