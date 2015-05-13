@@ -63,16 +63,13 @@ public class FrogPrototype : MonoBehaviour
     private VelocityVolume velVolLeft;
     private VelocityVolume velVolRight;
 
-    void OnBecameVisible()
-    {
-        enabled = true;
-    }
-    
-    void OnBecameInvisible()
-    {
-        enabled = false;
-    }
-    
+        
+        
+    //Sound Stuff
+    private AudioSource sounder;
+    private AudioClip boilSound;
+    private AudioClip shhSound;
+
     void Start()
     {
         leftBody  = handBody[0] = leftHand.GetComponent<Rigidbody2D>();
@@ -105,6 +102,21 @@ public class FrogPrototype : MonoBehaviour
         if (rightHandSoundChooser == null) { Debug.Log("rightHandSoundChooser is null"); }
 
         velVolRight = rightGripScript.GetComponentInChildren<VelocityVolume>();
+
+
+        //Sound Stuff
+        sounder = gameObject.AddComponent<AudioSource>();
+
+        boilSound = Resources.Load("kettle") as AudioClip;
+        shhSound = Resources.Load("shh") as AudioClip;
+        if (boilSound == null) Debug.Log("boil sound is null");
+
+        sounder.clip = boilSound;
+
+
+
+        
+
     }
     private void FixedUpdate()
     {
@@ -217,6 +229,17 @@ public class FrogPrototype : MonoBehaviour
         {
             versusGripTimer -= Time.deltaTime;
 
+
+            if (!sounder.isPlaying)
+            {
+                sounder.clip = boilSound;
+                sounder.time = 6 - versusGripTimer;
+                sounder.volume = 1;
+                sounder.Play();
+            }
+
+            
+
             leftGripScript.versusGripController.blinkTime = versusGripTimer / maxVersusGripTime;
             rightGripScript.versusGripController.blinkTime = versusGripTimer / maxVersusGripTime;
             //Release versus grips
@@ -226,6 +249,12 @@ public class FrogPrototype : MonoBehaviour
 
                 leftGripScript.ReleaseVersusGrip(1.0f);
                 rightGripScript.ReleaseVersusGrip(1.0f);
+
+                //Release sound
+                Debug.Log("sounding release");
+                sounder.clip = shhSound;
+                sounder.volume = .1f;
+                sounder.Play();
             }
         }
         else
@@ -234,6 +263,11 @@ public class FrogPrototype : MonoBehaviour
             {
                 versusGripTimer += Time.deltaTime * 1.5f;
             }
+            if (sounder.isPlaying && sounder.clip != shhSound)
+            {
+                sounder.Stop();
+            }
+           
         }
     }
     void ControlScratch()

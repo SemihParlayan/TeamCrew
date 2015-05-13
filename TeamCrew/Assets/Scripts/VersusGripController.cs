@@ -17,25 +17,18 @@ public class VersusGripController : MonoBehaviour
     private float lastBlinkTimer;
     private SpriteRenderer renderer;
 
-    //Sound Stuff
-    private AudioSource sounder;
-    private AudioClip boilSound;
+    
 
     //Components
     public GripAnimation gripAnimation;
 
     void Start()
     {
-        gameObject.AddComponent<AudioSource>();
-        sounder  = GetComponent<AudioSource>();
+        
 
         renderer = GetComponent<SpriteRenderer>();
         originalStartPosition = transform.localPosition;
 
-        boilSound = Resources.Load("kettle") as AudioClip;
-        if (boilSound == null) Debug.Log("boil sound is null");
-
-        sounder.clip = boilSound;
         
     }
 
@@ -59,13 +52,6 @@ public class VersusGripController : MonoBehaviour
 
         if (blink)
         {
-            if (!sounder.isPlaying)
-            {
-                sounder.time = blinkTimer;
-                sounder.Play();
-            }
-
-
             if (blinkTime < 0.15f && !shake)
             {
                 ActivateShake();
@@ -98,13 +84,7 @@ public class VersusGripController : MonoBehaviour
                 blinkTimer = 0;
             }
         }
-        else
-        {
-            if(sounder.isPlaying)
-            {
-                sounder.Stop();
-            }
-        }
+        
 
         lastBlinkTimer = blinkTimer;
     }
