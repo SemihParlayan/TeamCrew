@@ -10,7 +10,6 @@ GameObject:
   - 224: {fileID: 22445744}
   - 222: {fileID: 22276430}
   - 114: {fileID: 11482930}
-  - 114: {fileID: 11485610}
   - 95: {fileID: 9580328}
   - 114: {fileID: 11422602}
   m_Layer: 5
@@ -276,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &121120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,7 +1308,6 @@ GameObject:
   - 224: {fileID: 22404024}
   - 222: {fileID: 22260558}
   - 114: {fileID: 11440264}
-  - 114: {fileID: 11459404}
   - 95: {fileID: 9528334}
   - 114: {fileID: 11430844}
   m_Layer: 5
@@ -3669,7 +3667,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: '20
+
+'
 --- !u!114 &11407100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3735,7 +3735,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 125418}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -3833,6 +3833,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 8
   maxParallax: 40
+  maxX: 0
 --- !u!114 &11413712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3901,13 +3902,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 12
   maxParallax: 40.7999992
+  maxX: 0
 --- !u!114 &11419024
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103142}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -3981,13 +3983,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 5
   maxParallax: 36
+  maxX: 0
 --- !u!114 &11428854
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 110564}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -4076,7 +4079,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155920}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -4240,7 +4243,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 160102}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -4377,6 +4380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 15
   maxParallax: 45
+  maxX: 0
 --- !u!114 &11454276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4420,13 +4424,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 3
   maxParallax: 11.1000004
+  maxX: 0
 --- !u!114 &11455464
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 158256}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -4470,19 +4475,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11459404
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d3d9832c3f8aa34aa12882ac81aae24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  functionHolder: {fileID: 121120}
-  methodName: DeathCounterComplete
 --- !u!114 &11460848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4613,7 +4605,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 142916}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -4840,7 +4832,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: '20
+
+'
 --- !u!114 &11485292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4854,19 +4848,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holderName: 
   numberOfHands: 0
---- !u!114 &11485610
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 101030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d3d9832c3f8aa34aa12882ac81aae24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  functionHolder: {fileID: 121120}
-  methodName: DeathCounterComplete
 --- !u!114 &11489172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5056,7 +5037,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191414}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -14763,10 +14744,10 @@ RectTransform:
   - {fileID: 22425966}
   m_Father: {fileID: 22494392}
   m_RootOrder: 1
-  m_AnchorMin: {x: .0530000031, y: .179000005}
-  m_AnchorMax: {x: .267403334, y: .425000012}
-  m_AnchoredPosition: {x: -600, y: 0}
-  m_SizeDelta: {x: 0, y: -.5}
+  m_AnchorMin: {x: 0, y: .178000003}
+  m_AnchorMax: {x: .266537815, y: .426000029}
+  m_AnchoredPosition: {x: -20, y: .75}
+  m_SizeDelta: {x: 40, y: -1.5}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22404784
 RectTransform:
@@ -14814,10 +14795,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22445744}
   m_RootOrder: 0
-  m_AnchorMin: {x: .660000026, y: .0720000044}
-  m_AnchorMax: {x: .905000031, y: 1}
-  m_AnchoredPosition: {x: -3.05175781e-05, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: .463311732, y: .308813691}
+  m_AnchorMax: {x: .66187036, y: .738674581}
+  m_AnchoredPosition: {x: 0, y: 2}
+  m_SizeDelta: {x: 0, y: 60}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22414598
 RectTransform:
@@ -14882,10 +14863,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22404024}
   m_RootOrder: 0
-  m_AnchorMin: {x: .660000026, y: .0720000044}
-  m_AnchorMax: {x: .905000031, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: .762607872, y: .311000019}
+  m_AnchorMax: {x: .974696159, y: .752689779}
+  m_AnchoredPosition: {x: 1.5, y: 1}
+  m_SizeDelta: {x: -3, y: 58}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22427954
 RectTransform:
@@ -14918,10 +14899,10 @@ RectTransform:
   - {fileID: 22406432}
   m_Father: {fileID: 22494392}
   m_RootOrder: 2
-  m_AnchorMin: {x: .732260585, y: .179000005}
-  m_AnchorMax: {x: .946798325, y: .425000012}
-  m_AnchoredPosition: {x: 600, y: 0}
-  m_SizeDelta: {x: 0, y: -.5}
+  m_AnchorMin: {x: .732798338, y: .178000003}
+  m_AnchorMax: {x: 1, y: .426000029}
+  m_AnchoredPosition: {x: 20, y: .25}
+  m_SizeDelta: {x: 40, y: -.5}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22446474
 RectTransform:
