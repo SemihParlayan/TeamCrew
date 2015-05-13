@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class MainMenu : MonoBehaviour 
 {
     //Components
-    public Transform UIParent;
+    public GameObject UIParent;
     public PlayerReadyInput playerOneReadyInput;
     public PlayerReadyInput playerTwoReadyInput;
     public Image playerOneReady;
@@ -27,6 +27,7 @@ public class MainMenu : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        EnableUI();
     }
 	void Update () 
     {
@@ -71,17 +72,19 @@ public class MainMenu : MonoBehaviour
     {
         anim.SetTrigger("DisableUI");
     }
+    public void DisableUIParent()
+    {
+        UIParent.SetActive(false);
+    }
     public void EnableUI()
     {
-        UIParent.gameObject.SetActive(true);
+        Invoke("EnableUIParent", 0.1f);
         anim.SetTrigger("EnableUI");
     }
-
-    public void DisableUIGameObject()
+    private void EnableUIParent()
     {
-        UIParent.gameObject.SetActive(false);
+        UIParent.SetActive(true);
     }
-
 
     public Animator p1Win;
     public Animator p2Win;
