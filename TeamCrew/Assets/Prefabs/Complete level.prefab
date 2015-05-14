@@ -933,6 +933,7 @@ GameObject:
   - 114: {fileID: 11439478}
   - 114: {fileID: 11452178}
   - 114: {fileID: 11442946}
+  - 114: {fileID: 11463538}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: GameManager
@@ -5020,7 +5021,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 160102}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -5206,7 +5207,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 158256}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -5302,6 +5303,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlyPrefab: {fileID: 432452, guid: 9d6c1b19877602247985cc2cd0197966, type: 2}
   RespawnCheckRate: 2
+--- !u!114 &11463538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b11f02d9ca2714aa72ef746759f2ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerOne: {fileID: 11438470, guid: af13f8425c11a614bb7c956c3e3ca9ee, type: 2}
+  playerTwo: {fileID: 11412412, guid: 32d81332af0c8b942a2207d9dbb2328d, type: 2}
 --- !u!114 &11463706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5786,6 +5800,11 @@ MonoBehaviour:
   - {fileID: 11494336, guid: 6d9028b634f51be449837ec831f9e8d9, type: 2}
   - {fileID: 11488064, guid: 9f540db28e692874982905189fe3434d, type: 2}
   - {fileID: 11412056, guid: a453e7dcbbab34c4dae15319a220fe72, type: 2}
+  - {fileID: 11419354, guid: dd0720cb7f853f245adb2b6739e09bca, type: 2}
+  - {fileID: 11499606, guid: 9bbfd38b460e51e41963261442e72ba2, type: 2}
+  - {fileID: 11422568, guid: fadd28863364db14fa783dc0bb7c0721, type: 2}
+  - {fileID: 11414970, guid: e40cd9f7db6a614488e4c047ff2e1252, type: 2}
+  - {fileID: 11496546, guid: 5c8cf2d718a187b46b12ef7ea5231559, type: 2}
   signSprites:
   - {fileID: 21300008, guid: 4552613524365fe4280db39a19ce6ee8, type: 3}
   - {fileID: 21300002, guid: 4552613524365fe4280db39a19ce6ee8, type: 3}
