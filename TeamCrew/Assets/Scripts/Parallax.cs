@@ -5,6 +5,8 @@ public class Parallax : MonoBehaviour
 {
     public float cameraToRockLenghts;
     public float maxParallax;
+    //public bool transparentParallax = true;
+
 
     private Vector2 origin;
     private Camera cam;
@@ -31,9 +33,15 @@ public class Parallax : MonoBehaviour
         //maxParallax = 235;
         levelHeight = Mathf.Abs(GameManager.LevelHeight);
         origin = transform.position;
-        origin -= new Vector2(0, levelHeight);
+        //origin -= new Vector2(0, levelHeight);
         
         cam = Camera.main;
+
+        SpriteRenderer render = transform.GetComponent<SpriteRenderer>();
+        //if(transparentParallax)
+        //render.color = new Color(1f, 1f, 1f, .5f);
+        Debug.Log(render.color.a);
+
         
 	}
 
@@ -48,8 +56,8 @@ public class Parallax : MonoBehaviour
         //// Fixing y pos so that the parallax is at max parralax state at the top
         //relOrig.y = paralPosY;
         Vector2 targetPos = origin;
-        targetPos.x = maxParallax * (camPos.x / levelHeight);
-        targetPos.y = paralPosY;
+        targetPos.x += maxParallax * (camPos.x / levelHeight);
+        targetPos.y += paralPosY;
 
         // The scalar based on distance
         float relDist = 1 / cameraToRockLenghts;
