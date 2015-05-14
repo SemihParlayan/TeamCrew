@@ -4618,7 +4618,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103142}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -4698,7 +4698,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 110564}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -4786,7 +4786,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155920}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -4950,7 +4950,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 160102}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -5593,6 +5593,7 @@ MonoBehaviour:
   end: 3
   start: 2
   difficulty: 3
+  blockIndex: 0
 --- !u!114 &11490128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5714,11 +5715,14 @@ MonoBehaviour:
   - {fileID: 11442546, guid: 69998067e3323644aab41a7530b19ecf, type: 2}
   - {fileID: 11494336, guid: 6d9028b634f51be449837ec831f9e8d9, type: 2}
   - {fileID: 11488064, guid: 9f540db28e692874982905189fe3434d, type: 2}
+  - {fileID: 11412056, guid: a453e7dcbbab34c4dae15319a220fe72, type: 2}
   signSprites:
   - {fileID: 21300008, guid: 4552613524365fe4280db39a19ce6ee8, type: 3}
   - {fileID: 21300002, guid: 4552613524365fe4280db39a19ce6ee8, type: 3}
   - {fileID: 21300004, guid: 4552613524365fe4280db39a19ce6ee8, type: 3}
   - {fileID: 21300006, guid: 4552613524365fe4280db39a19ce6ee8, type: 3}
+  level: []
+  lastLevel: []
   numberOfHardBlocks: 0
   numberOfMediumBlocks: 1
   numberOfEasyBlocks: 1
@@ -5768,7 +5772,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191414}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 

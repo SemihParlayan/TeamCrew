@@ -33,7 +33,6 @@ public class RandomSoundFromList : MonoBehaviour
         speaker.pitch = 1;
         speaker.volume = 1;
         int coolInt = Random.Range(0, SoundList.Length - 1);
-        Debug.Log(coolInt);
         speaker.clip = SoundList[coolInt];
 
     }

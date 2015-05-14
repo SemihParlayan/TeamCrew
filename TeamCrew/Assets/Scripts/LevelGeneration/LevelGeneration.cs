@@ -8,7 +8,8 @@ public class LevelGeneration : MonoBehaviour
     public Transform startTop;
     public List<Block> blockList = new List<Block>();
     public List<Sprite> signSprites = new List<Sprite>();
-    private List<Transform> level = new List<Transform>();
+    public List<Block> level = new List<Block>();
+    public List<Block> lastLevel = new List<Block>();
 
     private float blockSize;
 
@@ -32,9 +33,15 @@ public class LevelGeneration : MonoBehaviour
 	void Start () 
     {
         if (startTop)
-            level.Add(startTop);
+            level.Add(startTop.GetComponent<Block>());
         else
             Debug.LogError("Assign a START-TOP on GameMaster!");
+
+
+        for (int i = 0; i < blockList.Count; i++)
+        {
+            blockList[i].blockIndex = i;
+        }
 	}
 
     public void Generate()
@@ -45,10 +52,9 @@ public class LevelGeneration : MonoBehaviour
         }
         level.Clear();
 
-
         //Spawn top block
         Block block = GetBlock(null, BlockDifficulty.Top);
-        block.transform.name = "Top"; block.transform.parent = transform;
+        block.transform.parent = transform;
         previousTop = currentTop;
         currentTop = block.transform;
 
@@ -69,14 +75,14 @@ public class LevelGeneration : MonoBehaviour
         for (int i = 0; i < numberOfHardBlocks; i++)
         {
             block = GetBlock(block, BlockDifficulty.Hard);                
-            block.transform.name = "Hard"; block.transform.parent = transform; level.Add(block.transform);
+            block.transform.parent = transform; level.Add(block);
         }
 
         //Spawn Medium Blocks
         for (int i = 0; i < numberOfMediumBlocks; i++)
         {
             block = GetBlock(block, BlockDifficulty.Medium);
-            block.transform.name = "Medium"; block.transform.parent = transform; level.Add(block.transform);
+            block.transform.parent = transform; level.Add(block);
         }
 
         //Spawn Easy Blocks
@@ -99,15 +105,23 @@ public class LevelGeneration : MonoBehaviour
                     }
                 }
             }
-            block.transform.name = "Easy"; block.transform.parent = transform; level.Add(block.transform);
+            block.transform.parent = transform; level.Add(block);
         }
         easyBlock = block.gameObject;
 
         //Spawn Tutorial
         block = GetBlock(block, BlockDifficulty.Tutorial);
-        block.transform.name = "Tutorial"; block.transform.parent = transform; level.Add(block.transform);
+        block.transform.parent = transform; level.Add(block);
 
         FixSigns();
+
+        lastLevel.Clear();
+
+        for (int i = 0; i < level.Count; i++)
+        {
+            lastLevel.Add(level[i]);
+        }
+        
     }
     private void FixSigns()
     {
@@ -166,8 +180,23 @@ public class LevelGeneration : MonoBehaviour
             }
         }
 
+        Debug.Log("New GETBLOCK with difficulty: " + difficulty);
         if (foundBlocks.Count > 0)
         {
+            for (int j = 0; j < foundBlocks.Count; j++)
+            {
+                for (int i = 0; i < lastLevel.Count; i++)
+                {
+                    if (foundBlocks[j].blockIndex == lastLevel[i].blockIndex)
+                    {
+                        Debug.Log("Removing found block.. COUNT is: " + foundBlocks.Count);
+                        foundBlocks.Remove(foundBlocks[j]);
+                        break;
+                    }
+                }
+                Debug.Log("Found block count is: " + foundBlocks.Count);
+            }
+
             if (previousBlock == null)
             {
                 Transform top = Instantiate(foundBlocks[Random.Range(0, foundBlocks.Count)].transform, Vector3.zero, Quaternion.identity) as Transform;

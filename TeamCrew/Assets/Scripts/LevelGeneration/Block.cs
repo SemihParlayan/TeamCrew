@@ -21,6 +21,10 @@ public class Block : MonoBehaviour
     public BlockEnding end;
     public BlockEnding start;
     public BlockDifficulty difficulty;
+
+    //[HideInInspector]
+    public int blockIndex;
+
     void OnBecameVisible()
     {
         enabled = true;
