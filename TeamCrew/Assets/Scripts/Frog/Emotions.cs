@@ -16,6 +16,11 @@ public class Emotions : MonoBehaviour
 	
     void Start()
     {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            headTransforms.Add(transform.GetChild(i));
+        }
+
         currentEmotion = FindEmotion("neutral");
         currentEmotion.gameObject.SetActive(true);
     }

@@ -36,7 +36,7 @@ public class EmotionController : MonoBehaviour
             {
                 playerOneScript.emotionsScript.SetGeneralEmotion("taunt");
                 playerTwoScript.emotionsScript.SetGeneralEmotion("angry");
-                playerTwoScript.emotionsScript.SetSituationalEmotion("surprise", 0.5f);
+                playerTwoScript.emotionsScript.SetSituationalEmotion("panic", 0.5f);
                 playerTwoScript.emotionsScript.isAngry = true;
             }
             else
@@ -48,7 +48,7 @@ public class EmotionController : MonoBehaviour
             {
                 playerTwoScript.emotionsScript.SetGeneralEmotion("taunt");
                 playerOneScript.emotionsScript.SetGeneralEmotion("angry");
-                playerOneScript.emotionsScript.SetSituationalEmotion("surprise", 0.5f);
+                playerOneScript.emotionsScript.SetSituationalEmotion("panic", 0.5f);
                 playerOneScript.emotionsScript.isAngry = true;
             }
             else
