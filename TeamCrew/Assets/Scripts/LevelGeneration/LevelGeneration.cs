@@ -180,7 +180,6 @@ public class LevelGeneration : MonoBehaviour
             }
         }
 
-        Debug.Log("New GETBLOCK with difficulty: " + difficulty);
         if (foundBlocks.Count > 0)
         {
             for (int j = 0; j < foundBlocks.Count; j++)
@@ -189,12 +188,10 @@ public class LevelGeneration : MonoBehaviour
                 {
                     if (foundBlocks[j].blockIndex == lastLevel[i].blockIndex)
                     {
-                        Debug.Log("Removing found block.. COUNT is: " + foundBlocks.Count);
                         foundBlocks.Remove(foundBlocks[j]);
                         break;
                     }
                 }
-                Debug.Log("Found block count is: " + foundBlocks.Count);
             }
 
             if (previousBlock == null)
