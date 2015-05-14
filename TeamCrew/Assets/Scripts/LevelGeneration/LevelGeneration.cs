@@ -129,9 +129,10 @@ public class LevelGeneration : MonoBehaviour
 
         if (signs.Length != signSprites.Count)
         {
-            Debug.LogError("Number of signs found is not equal to sign sprites applied to LevelGeneration.cs" +
+            Debug.LogWarning("Number of signs found is not equal to sign sprites applied to LevelGeneration.cs" +
                 " \n Signs found: " + signs.Length + " \n Sprites applied: " + signSprites.Count
                 );
+            return;
         }
         for (int j = 0; j < signSprites.Count; j++)
         {

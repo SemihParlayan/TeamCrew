@@ -21,13 +21,13 @@ public class GameManager : MonoBehaviour
     public static Transform playerOne, playerTwo;
     public static float LevelHeight;
 
-    private TopFrogSpawner      topfrogSpawnerScript;
-    public LevelGeneration      generatorScript;
-    public Respawn              respawnScript;
-    public CameraFollow         cameraFollowScript;
+    private TopFrogSpawner  topfrogSpawnerScript;
+    public LevelGeneration  generatorScript;
+    public Respawn  respawnScript;
+    public CameraFollow cameraFollowScript;
     public CameraFollowTerrain  terrainScript;
-    public CameraPan            cameraPanScript;
-    public MainMenu             mainMenuScript;
+    public CameraPan cameraPanScript;
+    public MainMenu mainMenuScript;
 
     private Vector3             cameraDefaultPosition;
     private Transform           cameraTransform;
