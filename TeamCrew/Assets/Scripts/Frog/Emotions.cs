@@ -4,22 +4,21 @@ using System.Collections.Generic;
 
 public class Emotions : MonoBehaviour 
 {
-    public List<Sprite> head_emotions = new List<Sprite>();
+    public List<Transform> headTransforms = new List<Transform>();
 
-    new private SpriteRenderer renderer;
-
+    public bool isAngry;
     private float timerDelay;
     private float situationalTimer;
     private bool inSituational;
-    private Sprite generalEmotion;
+    private Transform generalEmotion;
 
-    private string currentEmotion;
-
-	void Start () 
-    {
-        renderer = GetComponent<SpriteRenderer>();
-	}
+    private Transform currentEmotion;
 	
+    void Start()
+    {
+        currentEmotion = FindEmotion("neutral");
+        currentEmotion.gameObject.SetActive(true);
+    }
 	void Update () 
     {
         if (inSituational)
@@ -32,7 +31,9 @@ public class Emotions : MonoBehaviour
                 situationalTimer = 0;
                 inSituational = false;
 
-                renderer.sprite = generalEmotion;
+                currentEmotion.gameObject.SetActive(false);
+                currentEmotion = generalEmotion;
+                currentEmotion.gameObject.SetActive(true);
                 generalEmotion = null;
             }
         }
@@ -40,15 +41,15 @@ public class Emotions : MonoBehaviour
 
     public void SetGeneralEmotion(string emotion)
     {
-        if (currentEmotion != emotion)
+        Transform head = FindEmotion(emotion);
+        if (head == null)
+            return;
+
+        if (currentEmotion.name != head.name)
         {
-            currentEmotion = emotion;
-            Sprite s = FindEmotion(emotion);
-            if (renderer)
-            {
-                if (s)
-                    renderer.sprite = s;
-            }
+            currentEmotion.gameObject.SetActive(false);
+            currentEmotion = head;
+            currentEmotion.gameObject.SetActive(true);
         }
     }
     public void SetSituationalEmotion(string emotion, float time)
@@ -56,18 +57,26 @@ public class Emotions : MonoBehaviour
         if (inSituational)
             return;
 
-        inSituational = true;
-        timerDelay = time;
-        generalEmotion = renderer.sprite;
-        renderer.sprite = FindEmotion(emotion);
-    }
-    Sprite FindEmotion(string emotion)
-    {
-        for (int i = 0; i < head_emotions.Count; i++)
+        Transform head = FindEmotion(emotion);
+
+        if (head)
         {
-            if (head_emotions[i].name.Contains(emotion))
+            inSituational = true;
+            timerDelay = time;
+            generalEmotion = currentEmotion;
+            generalEmotion.gameObject.SetActive(false);
+
+            currentEmotion = head;
+            currentEmotion.gameObject.SetActive(true);
+        }
+    }
+    Transform FindEmotion(string emotion)
+    {
+        for (int i = 0; i < headTransforms.Count; i++)
+        {
+            if (headTransforms[i].name.Contains(emotion))
             {
-                return head_emotions[i];
+                return headTransforms[i];
             }
         }
 

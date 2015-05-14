@@ -18,6 +18,7 @@ public class EmotionController : MonoBehaviour
         if (GameManager.playerOne == null || GameManager.playerTwo == null)
             return;
 
+        //Aquire playerScripts
         if (playerOneScript == null)
         {
             playerOneScript = GameManager.playerOne.GetComponent<FrogPrototype>();
@@ -27,34 +28,50 @@ public class EmotionController : MonoBehaviour
             playerTwoScript = GameManager.playerTwo.GetComponent<FrogPrototype>();
         }
 
-        float p1Y = GameManager.playerOne.position.y;
-        float p2Y = GameManager.playerTwo.position.y;
 
-        float distance = p1Y - p2Y;
-
-        if (distance >= gladDistance)
-        {
-            playerOneScript.emotionsScript.SetGeneralEmotion("satisfied");
-            playerTwoScript.emotionsScript.SetGeneralEmotion("irritated");
-        }
-        else if (distance <= -gladDistance)
-        {
-            playerOneScript.emotionsScript.SetGeneralEmotion("irritated");
-            playerTwoScript.emotionsScript.SetGeneralEmotion("satisfied");
-        }
-        else
-        {
-            playerOneScript.emotionsScript.SetGeneralEmotion("neutral");
-            playerTwoScript.emotionsScript.SetGeneralEmotion("neutral");
-        }
-
+        //Change emotions
         if (playerOneScript.leftGripScript.JustGripped || playerOneScript.rightGripScript.JustGripped)
         {
-            playerOneScript.emotionsScript.SetSituationalEmotion("satisfied", 0.5f);
+            if (playerOneScript.leftGripScript.isVersusGripping || playerOneScript.rightGripScript.isVersusGripping) //Grab an oponent
+            {
+                playerOneScript.emotionsScript.SetGeneralEmotion("taunt");
+                playerTwoScript.emotionsScript.SetGeneralEmotion("angry");
+                playerTwoScript.emotionsScript.SetSituationalEmotion("surprise", 0.5f);
+                playerTwoScript.emotionsScript.isAngry = true;
+            }
+            else
+                playerOneScript.emotionsScript.SetSituationalEmotion("satisfied", 0.5f); // Grab a stone grip
         }
         if (playerTwoScript.leftGripScript.JustGripped || playerTwoScript.rightGripScript.JustGripped)
         {
-            playerTwoScript.emotionsScript.SetSituationalEmotion("satisfied", 0.5f);
+            if (playerTwoScript.leftGripScript.isVersusGripping || playerTwoScript.rightGripScript.isVersusGripping)//Grab an oponent
+            {
+                playerTwoScript.emotionsScript.SetGeneralEmotion("taunt");
+                playerOneScript.emotionsScript.SetGeneralEmotion("angry");
+                playerOneScript.emotionsScript.SetSituationalEmotion("surprise", 0.5f);
+                playerOneScript.emotionsScript.isAngry = true;
+            }
+            else
+                playerTwoScript.emotionsScript.SetSituationalEmotion("satisfied", 0.5f);// Grab a stone grip
+        }
+
+        if (playerOneScript.emotionsScript.isAngry)
+        {
+            if (!playerTwoScript.leftGripScript.isVersusGripping && !playerTwoScript.rightGripScript.isVersusGripping)
+            {
+                playerOneScript.emotionsScript.isAngry = false;
+                playerOneScript.emotionsScript.SetGeneralEmotion("neutral");
+                playerTwoScript.emotionsScript.SetGeneralEmotion("neutral");
+            }
+        }
+        if (playerTwoScript.emotionsScript.isAngry)
+        {
+            if (!playerOneScript.leftGripScript.isVersusGripping && !playerOneScript.rightGripScript.isVersusGripping)
+            {
+                playerTwoScript.emotionsScript.isAngry = false;
+                playerTwoScript.emotionsScript.SetGeneralEmotion("neutral");
+                playerOneScript.emotionsScript.SetGeneralEmotion("neutral");
+            }
         }
 	}
 }
