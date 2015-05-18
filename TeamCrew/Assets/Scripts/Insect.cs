@@ -41,6 +41,9 @@ public class Insect : MonoBehaviour
 
     public Transform bottomFrog;
 
+    public float playerDifference;
+    public float chaseForce;
+
 	void Start ()
     {
         body = GetComponent<Rigidbody2D>();
@@ -75,6 +78,7 @@ public class Insect : MonoBehaviour
         transform.position = startPos;
         targetY = startPos.y + panicModeTop;
 
+        chaseForce = 500f;
         ChangeState(MotionState.chasing);
 	}
 	
@@ -84,6 +88,12 @@ public class Insect : MonoBehaviour
         if (GameManager.playerOne && GameManager.playerTwo)
         {
             bottomFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ? GameManager.playerOne : GameManager.playerTwo;
+
+            playerDifference = Mathf.Abs(GameManager.playerOne.position.y - GameManager.playerTwo.position.y);
+        }
+        else
+        {
+            playerDifference = -1;
         }
         if (bottomFrog == null)
         {
@@ -121,7 +131,6 @@ public class Insect : MonoBehaviour
                 //Move in X Direction;
                 body.AddForce(new Vector2(150f * direction, 0));
                        
-
                 if (transform.position.y < startPos.y)
                 {
                     //Go upwards
@@ -147,11 +156,15 @@ public class Insect : MonoBehaviour
                 else
                     direction = -1;
 
-                body.AddForce(new Vector2(direction * 150f, 0));
+                if (chaseForce > 150)
+                {
+                    chaseForce -= 1f;
+                }
+                body.AddForce(new Vector2(direction * chaseForce, 0));
 
                 //Clamp velocity
                 Vector2 vel = body.velocity;
-                vel.x = Mathf.Clamp(vel.x, -4, 4);
+                vel.x = Mathf.Clamp(vel.x, -6, 6);
                 body.velocity = vel;
 
                 if (transform.position.y < startPos.y)
@@ -163,6 +176,15 @@ public class Insect : MonoBehaviour
                 {
                     //Go upwards slowly
                     body.AddForce(new Vector2(0, goSlowlyDownForce));
+                }
+
+
+                if (playerDifference != -1)
+                {
+                    if (playerDifference < 2)
+                    {
+                        ChangeState(MotionState.normal);
+                    }
                 }
                 
             }
@@ -216,6 +238,16 @@ public class Insect : MonoBehaviour
                 targetY = transform.position.y + panicModeTop;
             }
             break;
+            case MotionState.chasing:
+            {
+                chaseForce = 500f;
+            }
+            break;
+            case MotionState.normal:
+            {
+                Destroy(GetComponent<HingeJoint2D>());
+            }
+            break;
         }
     }
 
@@ -231,7 +263,7 @@ public class Insect : MonoBehaviour
         grabbed--;
         if (grabbed <= 0)
         {
-            ChangeState(MotionState.rip);
+            ChangeState(MotionState.normal);
         }
     }
 }

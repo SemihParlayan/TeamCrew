@@ -114,6 +114,7 @@ public class MainMenu : MonoBehaviour
         EnableDeathCounter();
     }
 
+    public Animator victoryTextSign;
     void EnableDeathCounter()
     {
         p1DeathCounter.SetTrigger("Activate");
@@ -122,6 +123,39 @@ public class MainMenu : MonoBehaviour
         Vector2 deathCount = gameManager.GetFrogDeathCount();
         p1DeathCounter.transform.GetChild(0).GetComponent<Text>().text = deathCount.x.ToString();
         p2DeathCounter.transform.GetChild(0).GetComponent<Text>().text = deathCount.y.ToString();
+
+        int v = 0;
+
+        if (winFrog == 1)
+        {
+            v = (int)deathCount.y - (int)deathCount.x;
+        }
+        else
+        {
+            v = (int)deathCount.x - (int)deathCount.y;
+        }
+
+        string t = "";
+
+        if (v <= -3)
+            t = "Disgusting victory!";
+        else if (v == -2)
+            t = "Douchefrog victory";
+        else if (v == -1)
+            t = "Bandaged victory";
+        else if (v == 0)
+            t = "Fair victory";
+        else if (v == 1)
+            t = "Beautiful victory";
+        else if (v == 2)
+            t = "Crushingly dominant victory";
+        else if (v >= 3)
+            t = "You-won-even-though-your-friend-is-a-butt victory";
+        else
+            t = "Victory";
+
+        victoryTextSign.SetTrigger("Activate");
+        victoryTextSign.transform.GetChild(0).GetComponent<Text>().text = t;
     }
     public void DeathCounterComplete()
     {

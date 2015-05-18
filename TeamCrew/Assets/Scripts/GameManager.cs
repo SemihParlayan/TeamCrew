@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject fireWorks;
+    public Animator finalStretch;
     public static Transform playerOne, playerTwo;
     public static float LevelHeight;
 
@@ -159,11 +160,34 @@ public class GameManager : MonoBehaviour
 
 
         DeactivateInactivityCounter();
+
+
+
+
+
+
+
+
+
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Final stretch
+        ///////////////////////////////////////////////////////////////////////////
+        float height = Mathf.Abs(LevelHeight);
+        float climbedNormalDistance = (Camera.main.transform.position.y + height) / height;
+
+        if (climbedNormalDistance >= 0.8f && !playedFinalStretch)
+        {
+            playedFinalStretch = true;
+            finalStretch.SetTrigger("Play");
+        }
     }
+    private bool playedFinalStretch = true;
 
     float inactivityTimer = 5;
     void StartGame()
     {
+        playedFinalStretch = false;
         gameActive = true;
         terrainScript.enabled = false;
         respawnScript.enabled = true;
@@ -239,6 +263,8 @@ public class GameManager : MonoBehaviour
     private void CreateNewFrogs()
     {
         DestroyFrogs();
+
+        GetComponent<BandageManager>().ResetBandages();
 
         playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
         playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");

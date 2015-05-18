@@ -5,7 +5,6 @@ public class TutorialBubbles : MonoBehaviour
 {
     public GameObject bubble, bubbleTwo;
     private FrogPrototype frog, frogTwo;
-    private float startY;
 	void Update ()
     {
         //Aquire first frog
@@ -13,7 +12,6 @@ public class TutorialBubbles : MonoBehaviour
         {
             if (GameManager.playerOne)
             {
-                startY = GameManager.playerOne.position.y;
                 frog = GameManager.playerOne.GetComponent<FrogPrototype>();
             }
         }
@@ -24,26 +22,22 @@ public class TutorialBubbles : MonoBehaviour
         {
             if (GameManager.playerTwo)
             {
-                startY = GameManager.playerTwo.position.y;
                 frogTwo = GameManager.playerTwo.GetComponent<FrogPrototype>();
             }
         }
 
         if (frog != null)
-            ActivateBubble(bubble, frog, 2);
+            ActivateBubble(bubble, frog, -2);
         if (frogTwo != null)
-            ActivateBubble(bubbleTwo, frogTwo, -2);
+            ActivateBubble(bubbleTwo, frogTwo, 2);
 	}
 
     void ActivateBubble(GameObject b, FrogPrototype f, float xOffset)
     {
         if (f.leftGripScript.isOnGrip || f.rightGripScript.isOnGrip)
         {
-            if (f.transform.position.y < startY + 5)
-            {
-                b.SetActive(true);
-                b.transform.position = f.transform.position - new Vector3(xOffset, 1.7f);
-            }
+            b.SetActive(true);
+            b.transform.position = f.transform.position + new Vector3(0, 5.5f);
         }
         else
         {

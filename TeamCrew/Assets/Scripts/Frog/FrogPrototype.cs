@@ -122,6 +122,17 @@ public class FrogPrototype : MonoBehaviour
         
 
     }
+
+    private void Update()
+    {
+        if (hacks)
+        {
+            if (Input.GetButtonDown("Select"))
+            {
+                body.AddForce(new Vector2(0, 100000));
+            }
+        }
+    }
     private void FixedUpdate()
     {
         //TEMPORARY RESTART
@@ -197,30 +208,6 @@ public class FrogPrototype : MonoBehaviour
             rightHandSoundChooser.Stop();
             rightScratchSounding = false;
             velVolRight.enabled = false;
-        }
-
-        if(hacks)
-        {
-            if (Input.GetButtonDown("Select"))
-            {
-                //body.gravityScale = -10;
-                body.AddForce(new Vector2(0, 100000));
-                //Debug.Log("negative gravity "+body.mass);
-                //body.
-            }
-            else
-            {
-                body.gravityScale = 1;
-            }
-            if (Input.GetMouseButtonDown(0))
-            {
-                //ActivateBody();
-            }
-            if (Input.GetMouseButton(0))
-            {
-                //body.velocity = new Vector2(0, 0);
-                //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            }
         }
     }
 
