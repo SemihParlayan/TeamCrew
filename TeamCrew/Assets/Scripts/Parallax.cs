@@ -40,9 +40,6 @@ public class Parallax : MonoBehaviour
         SpriteRenderer render = transform.GetComponent<SpriteRenderer>();
         //if(transparentParallax)
         //render.color = new Color(1f, 1f, 1f, .5f);
-        Debug.Log(render.color.a);
-
-        
 	}
 
 	void Update ()

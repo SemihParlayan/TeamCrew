@@ -13,7 +13,6 @@ public class Respawn : MonoBehaviour
     private Camera cam;
     private CameraFollow follow;
     private AudioSource screamSource;
-    private GameManager gameManager;
     private BandageManager bandageManager;
 
     //Camera minHeight
@@ -28,7 +27,6 @@ public class Respawn : MonoBehaviour
         cam = Camera.main;
         follow = cam.transform.GetComponent<CameraFollow>();
         screamSource = GetComponent<AudioSource>();
-        gameManager = GetComponent<GameManager>();
         bandageManager = GetComponent<BandageManager>();
 
         playerOne.timer = respawnTime;
@@ -43,11 +41,11 @@ public class Respawn : MonoBehaviour
         
 
         //Respawn player if possible
-        if (playerOne.AllowRespawn(respawnTime) && !gameManager.PlayerOneInactive())
+        if (playerOne.AllowRespawn(respawnTime))
         {
             GameManager.playerOne = RespawnPlayer(playerOne);
         }
-        if (playerTwo.AllowRespawn(respawnTime) && !gameManager.PlayerTwoInactive())
+        if (playerTwo.AllowRespawn(respawnTime))
         {
             GameManager.playerTwo = RespawnPlayer(playerTwo);
         }
@@ -74,6 +72,10 @@ public class Respawn : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            playerOne.Respawning = true;
+        }
 
         if (GameManager.playerTwo != null)
         {
@@ -91,6 +93,10 @@ public class Respawn : MonoBehaviour
                     screamSource.Play();
                 }
             }
+        }
+        else
+        {
+            playerTwo.Respawning = true;
         }
 	}
     public void ResetRespawns()
@@ -114,7 +120,7 @@ public class Respawn : MonoBehaviour
 
         Rigidbody2D b = body.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
-        b.AddForce(Vector2.up * 750000);
+        b.AddForce(Vector2.up * 650000);
 
         return body;
     }

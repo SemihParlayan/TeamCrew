@@ -18,10 +18,11 @@ public class MainMenu : MonoBehaviour
 
     //Countdown 3-2-1-GO! variables
     [HideInInspector]public bool goReady;
-    public List<Sprite> go_sprites = new List<Sprite>();
-    public Image goImage;
+    public Sprite[] goSprites;
+    public SpriteRenderer[] goRenderers;
     private int goIndex;
     private float goTimer;
+    private bool startGo;
 
     void Start()
     {
@@ -32,9 +33,8 @@ public class MainMenu : MonoBehaviour
 	void Update () 
     {
         ///Countdown 3-2-1-GO!
-        if (goImage.gameObject.activeInHierarchy)
+        if (startGo)
         {
-            goImage.rectTransform.localScale += new Vector3(0.02f, 0.02f, 0.02f);
             goTimer += Time.deltaTime;
 
             if (goTimer >= 1)
@@ -42,16 +42,12 @@ public class MainMenu : MonoBehaviour
                 goTimer = 0;
                 goIndex++;
 
-                if (goIndex < go_sprites.Count)
-                {
-                    goImage.rectTransform.localScale = Vector3.zero;
-                    goImage.sprite = go_sprites[goIndex];
-                    
-                }
-                else
+                goRenderers[goIndex].sprite = goSprites[goIndex];
+
+                if (goIndex >= 2)
                 {
                     goReady = true;
-                    goImage.gameObject.SetActive(false);
+                    startGo = false;
                     playerOneReady.gameObject.SetActive(false);
                     playerTwoReady.gameObject.SetActive(false);
                 }
@@ -59,13 +55,14 @@ public class MainMenu : MonoBehaviour
         }
 	}
 
-    public void StartGoImage()
+    public void StartGoImage(SpriteRenderer[] renderers)
     {
-        if (goImage.gameObject.activeInHierarchy || goReady)
+        if (startGo || goReady)
             return;
-        goIndex = 0;
-        goImage.sprite = go_sprites[0];
-        goImage.gameObject.SetActive(true);
+
+        goRenderers = renderers;
+        startGo = true;
+        goIndex = -1;
     }
 
     public void DisableUI()

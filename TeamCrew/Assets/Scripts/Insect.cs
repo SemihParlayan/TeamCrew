@@ -181,7 +181,7 @@ public class Insect : MonoBehaviour
 
                 if (playerDifference != -1)
                 {
-                    if (playerDifference < 2)
+                    if (playerDifference < 3)
                     {
                         ChangeState(MotionState.normal);
                     }

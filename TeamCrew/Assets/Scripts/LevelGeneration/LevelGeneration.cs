@@ -63,6 +63,7 @@ public class LevelGeneration : MonoBehaviour
             x = 3;
         else if (block.start == BlockEnding.B)
             x = -3;
+
         //transform.position = new Vector3(x, transform.position.y);
         block.transform.position = new Vector3(x, block.transform.position.y);
         if (previousTop)
@@ -228,6 +229,17 @@ public class LevelGeneration : MonoBehaviour
     public Vector3 GetPlayerTwoSpawnPosition()
     {
         return level.Last().GetComponent<TutorialBlock>().playerTwoStart.position;
+    }
+    public SpriteRenderer[] GetReadySetGoSpriteRenderes()
+    {
+        SpriteRenderer[] renderers = new SpriteRenderer[3];
+        TutorialBlock tut = level.Last().GetComponent<TutorialBlock>();
+
+        renderers[0] = tut.red;
+        renderers[1] = tut.yellow;
+        renderers[2] = tut.green;
+
+        return renderers;
     }
     public void ActivateEasyBlock()
     {

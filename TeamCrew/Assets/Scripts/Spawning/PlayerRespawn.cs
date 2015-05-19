@@ -20,31 +20,45 @@ public class PlayerRespawn : MonoBehaviour
         }
         set
         {
-            respawning = value;
             if (value == true)
             {
-                arrow.gameObject.SetActive(true);
-                text.text = Mathf.RoundToInt(timer).ToString();
+                if (!inactive)
+                {
+                    arrow.gameObject.SetActive(true);
+                    text.text = Mathf.RoundToInt(timer).ToString();
+                    respawning = value;
+                }
+                else
+                {
+                    respawning = !value;
+                }
             }
             else
             {
+                respawning = value;
                 arrow.gameObject.SetActive(false);
             }
         }
     }
     private bool respawning;
+    public bool inactive;
 
     public bool AllowRespawn(float newRespawnTime)
     {
-        bool allow = (timer <= 0 && Respawning);
-
-        if (allow)
+        if (inactive)
         {
             timer = newRespawnTime;
             Respawning = false;
+            return false;
         }
 
-        return allow;
+        if (timer <= 0)
+        {
+            timer = newRespawnTime;
+            Respawning = false;
+            return true;
+        }
+        return false;
     }
 
     public void UpdateRespawn(float targetX)

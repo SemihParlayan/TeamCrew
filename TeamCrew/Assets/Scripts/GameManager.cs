@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
 
                     if (playerOneScript.Ready && playerTwoScript.Ready)
                     {
-                        mainMenuScript.StartGoImage();  
+                        mainMenuScript.StartGoImage(generatorScript.GetReadySetGoSpriteRenderes());  
                     }
                 }
             }
@@ -131,7 +131,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        //Inactivity
+
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Inactivity
+        ///////////////////////////////////////////////////////////////////////////
         if (gameActive)
         {
             playerOneInactivityTimer += Time.deltaTime;
@@ -160,14 +164,8 @@ public class GameManager : MonoBehaviour
 
 
         DeactivateInactivityCounter();
-
-
-
-
-
-
-
-
+        respawnScript.playerOne.inactive = PlayerOneInactive();
+        respawnScript.playerTwo.inactive = PlayerTwoInactive();
 
 
         ///////////////////////////////////////////////////////////////////////////
@@ -176,7 +174,7 @@ public class GameManager : MonoBehaviour
         float height = Mathf.Abs(LevelHeight);
         float climbedNormalDistance = (Camera.main.transform.position.y + height) / height;
 
-        if (climbedNormalDistance >= 0.8f && !playedFinalStretch)
+        if (climbedNormalDistance >= 0.8f && !playedFinalStretch && gameActive)
         {
             playedFinalStretch = true;
             finalStretch.SetTrigger("Play");
