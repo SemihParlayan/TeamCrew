@@ -68,8 +68,6 @@ public class FrogPrototype : MonoBehaviour
     //Sound Stuff
     private AudioSource boilSounder;
     private AudioSource shhSounder;
-    //private AudioClip boilSound;
-    //private AudioClip shhSound;
 
     void Start()
     {
