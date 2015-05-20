@@ -12,12 +12,7 @@ public enum MotionState
 public class Insect : MonoBehaviour
 {
     //State
-    public MotionState motionState = MotionState.normal;
-
-    //Timers
-    public float MinSittingTime;
-    public float MaxSittingTime;
-    float sittingTime;
+    public MotionState motionState;
 
     //Positions
     public Vector2 relativeSpawnPosToFrog;
@@ -95,6 +90,7 @@ public class Insect : MonoBehaviour
         {
             playerDifference = -1;
         }
+
         if (bottomFrog == null)
         {
             ChangeState(MotionState.normal);
@@ -103,17 +99,6 @@ public class Insect : MonoBehaviour
         {
 
             startPos.y = Mathf.MoveTowards(startPos.y, bottomFrog.position.y + playerOffsetY, Time.deltaTime);
-        }
-
-        //Return to normal state after sitting
-        if (sittingTime > 0)
-        {
-            sittingTime -= Time.deltaTime;
-            if (sittingTime <= 0)
-            {
-                sittingTime = 0;
-                ChangeState(MotionState.normal);
-            }
         }
 	}
     void FixedUpdate()
