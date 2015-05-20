@@ -29,17 +29,16 @@ public class Fireworks : MonoBehaviour
                 applaudes.volume = duration;
             }
         }
-        else
-        {
-            //this.enabled = false;
-            enabled = false;
-        }
 	}
     int GetRandSoundIndex()
     { 
         int coolNum = Random.Range(0, fireworks.Length - 1);
-        Debug.Log(coolNum);
         return coolNum;
+    }
+
+    public void Reset()
+    {
+        duration = 10;
     }
         
 }

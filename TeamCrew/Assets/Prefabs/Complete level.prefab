@@ -375,6 +375,7 @@ GameObject:
   - 114: {fileID: 11471284}
   - 114: {fileID: 11431896}
   - 95: {fileID: 9562164}
+  - 114: {fileID: 11472178}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2046,6 +2047,7 @@ GameObject:
   - 224: {fileID: 22477496}
   - 222: {fileID: 22238764}
   - 114: {fileID: 11496500}
+  - 114: {fileID: 11437174}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -4124,7 +4126,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .699999988
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4586,6 +4588,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: P2
   ready: 0
+  singlePlayerReady: 0
+  timer: 0
 --- !u!114 &11403068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4831,6 +4835,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 256
+  singlePlayerStarted: 
   tutorialComplete: 0
   hacks: 1
   inactivityText: {fileID: 11443984}
@@ -5256,6 +5261,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aboveLayer: {fileID: 426718}
+--- !u!114 &11437174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: .10980393, g: .0941176564, b: .0901960805, a: .5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11437236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5956,6 +5975,27 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &11472178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
 --- !u!114 &11474874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6041,6 +6081,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: P1
   ready: 0
+  singlePlayerReady: 0
+  timer: 0
 --- !u!114 &11478894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6440,7 +6482,7 @@ MonoBehaviour:
   m_Color: {r: .894117713, g: .890196145, b: .890196145, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3a5932c265ce84144b0527c7a9237a12, type: 3}
-    m_FontSize: 50
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -19390,10 +19432,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22495236}
   m_RootOrder: 0
-  m_AnchorMin: {x: .0320000015, y: .202876672}
-  m_AnchorMax: {x: .969000041, y: .85144937}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -1.50499964, y: -1.65499842}
+  m_SizeDelta: {x: -21.1900024, y: 18.9100037}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22478466
 RectTransform:
