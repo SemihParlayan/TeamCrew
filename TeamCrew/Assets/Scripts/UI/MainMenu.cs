@@ -71,6 +71,11 @@ public class MainMenu : MonoBehaviour
     }
     public void DisableUIParent()
     {
+        playerOneReadyInput.ready = false;
+        playerOneReadyInput.singlePlayerReady = false;
+
+        playerTwoReadyInput.ready = false;
+        playerTwoReadyInput.singlePlayerReady = false;
         UIParent.SetActive(false);
     }
     public void EnableUI()

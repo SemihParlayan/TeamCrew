@@ -45,10 +45,14 @@ public class TutorialBubbles : MonoBehaviour
         }
     }
 
-    public void Remove()
+    public void EnableScript()
     {
-        Destroy(bubble);
-        Destroy(bubbleTwo);
-        Destroy(this);
+        this.enabled = true;
+    }
+    public void DisableScript()
+    {
+        this.enabled = false;
+        bubble.SetActive(false);
+        bubbleTwo.SetActive(false);
     }
 }

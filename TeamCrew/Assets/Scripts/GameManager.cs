@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public static Transform playerOne, playerTwo;
     public static float LevelHeight;
 
+    private TutorialBubbles tutorialBubbles;
     private TopFrogSpawner  topfrogSpawnerScript;
     public LevelGeneration  generatorScript;
     public Respawn  respawnScript;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     public LayerMask            mask;
     private bool                tutorilBubblesSpawned;
+    public string singlePlayerStarted;
 
     private bool fadeOutMusicOr = false;
 
@@ -69,6 +71,8 @@ public class GameManager : MonoBehaviour
         topfrogSpawnerScript = GetComponent<TopFrogSpawner>();
         topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
 
+        tutorialBubbles = GetComponent<TutorialBubbles>();
+
         cameraTransform = Camera.main.transform;
         cameraDefaultPosition = cameraTransform.transform.position;
         UsingJoysticks = joysticks;
@@ -80,28 +84,54 @@ public class GameManager : MonoBehaviour
         //Start GAME!
         if (!cameraFollowScript.enabled)
         {
-            if (playerOneScript != null && playerTwoScript != null)
-            {
-                mainMenuScript.playerOneReady.gameObject.SetActive(false);
-                mainMenuScript.playerTwoReady.gameObject.SetActive(false);
+            mainMenuScript.playerOneReady.gameObject.SetActive(false);
+            mainMenuScript.playerTwoReady.gameObject.SetActive(false);
 
-                if (!mainMenuScript.goReady)
+            if (!mainMenuScript.goReady)
+            {
+                bool playerOneReady = false;
+                bool playerTwoReady = false;
+
+                //Check for player one ready
+                if (playerOneScript)
                 {
                     if (playerOneScript.Ready)
                     {
-                        mainMenuScript.playerOneReady.gameObject.SetActive(true);
+                        if (singlePlayerStarted == string.Empty)
+                            mainMenuScript.playerOneReady.gameObject.SetActive(true);
+                        playerOneReady = true;
                     }
+                }
+
+                //Check for player two ready
+                if (playerTwoScript)
+                {
                     if (playerTwoScript.Ready)
                     {
-                        mainMenuScript.playerTwoReady.gameObject.SetActive(true);
+                        if (singlePlayerStarted == string.Empty)
+                            mainMenuScript.playerTwoReady.gameObject.SetActive(true);
+                        playerTwoReady = true;
                     }
+                }
+                
 
-                    if (playerOneScript.Ready && playerTwoScript.Ready)
+                //Start in multiplayer
+                if (singlePlayerStarted == string.Empty)
+                {
+                    if (playerOneReady && playerTwoReady)
                     {
                         mainMenuScript.StartGoImage(generatorScript.GetReadySetGoSpriteRenderes());  
                     }
                 }
+                else // Start singleplayer
+                {
+                    if (playerOneReady || playerTwoReady)
+                    {
+                        mainMenuScript.StartGoImage(generatorScript.GetReadySetGoSpriteRenderes());
+                    }
+                }
             }
+
             if (mainMenuScript.goReady && !tutorialComplete && gameActive || (playerOne && playerTwo && hacks ? Input.GetButtonDown("Select") : false))
             {
                 TutorialComplete();
@@ -127,15 +157,34 @@ public class GameManager : MonoBehaviour
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
 
-            if (((mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready) || Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Select")))
+            bool started = false;
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Select"))
+            {
+                started = true;
+            }
+            else if (mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready)
+            {
+                started = true;
+                singlePlayerStarted = string.Empty;
+            }
+            else if (mainMenuScript.playerOneReadyInput.singlePlayerReady)
+            {
+                started = true;
+                singlePlayerStarted = "P1";
+            }
+            else if (mainMenuScript.playerTwoReadyInput.singlePlayerReady)
+            {
+                started = true;
+                singlePlayerStarted = "P2";
+            }
+
+            if (started)
             {
                 ActivateCameraPan();
                 generatorScript.Generate();
                 mainMenuScript.DisableUI();
             }
         }
-
-
 
         ///////////////////////////////////////////////////////////////////////////
         //                      Inactivity
@@ -187,6 +236,19 @@ public class GameManager : MonoBehaviour
         if(fadeOutMusicOr)
         {
             musicSpeaker.volume *= .9f;
+	}
+
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Singleplayer
+        ///////////////////////////////////////////////////////////////////////////
+        if (singlePlayerStarted == "P1")
+        {
+            playerTwoInactivityTimer = 10;
+        }
+        else if (singlePlayerStarted == "P2")
+        {
+            playerOneInactivityTimer = 10;
         }
     }
     private bool playedFinalStretch = true;
@@ -200,31 +262,40 @@ public class GameManager : MonoBehaviour
         respawnScript.enabled = true;
         mainMenuScript.goReady = false;
 
-        playerOne = GameObject.FindWithTag("PlayerOne").transform;
-        playerTwo = GameObject.FindWithTag("PlayerTwo").transform;
+        GameObject player = GameObject.FindWithTag("PlayerOne");
+        if (player)
+        {
+            playerOne = player.transform;
+            playerOneScript = playerOne.GetComponent<FrogPrototype>();
+        }
 
-        playerOneScript = playerOne.GetComponent<FrogPrototype>();
-        playerTwoScript = playerTwo.GetComponent<FrogPrototype>();
+        player = GameObject.FindWithTag("PlayerTwo");
+        if (player)
+        {
+            playerTwo = player.transform;
+            playerTwoScript = playerTwo.GetComponent<FrogPrototype>();
+        }
 
         respawnScript.playerOne.deathCount = 0;
         respawnScript.playerTwo.deathCount = 0;
 
         fireWorks.SetActive(false);
+
+        tutorialBubbles.EnableScript();
     }
 
     private void TutorialComplete()
     {
         cameraFollowScript.enabled = true;
         tutorialComplete = true;
-        playerOne.GetComponent<Line>().Remove();
-        playerTwo.GetComponent<Line>().Remove();
 
-        TutorialBubbles bubbles = GetComponent<TutorialBubbles>();
+        if (playerOne != null)
+            playerOne.GetComponent<Line>().Remove();
 
-        if (bubbles)
-        {
-            bubbles.Remove();
-        }
+        if (playerTwo != null)
+            playerTwo.GetComponent<Line>().Remove();
+
+        tutorialBubbles.DisableScript();
 
         generatorScript.ActivateEasyBlock();
     }
@@ -248,6 +319,7 @@ public class GameManager : MonoBehaviour
         respawnScript.ResetRespawns();
         GetComponent<FlySpawner>().RemoveFly();
         fireWorks.SetActive(true);
+        fireWorks.GetComponent<Fireworks>().Reset();
 
         Invoke("DestroyFrogs", 3f);
         topfrogSpawnerScript.SpawnFrog(frogNumber, 3f);
@@ -276,14 +348,26 @@ public class GameManager : MonoBehaviour
     private void CreateNewFrogs()
     {
         DestroyFrogs();
-
         GetComponent<BandageManager>().ResetBandages();
 
-        playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
-        playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+
+
+        if (singlePlayerStarted == string.Empty)
+        {
+            playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+            playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+        }
+        else if (singlePlayerStarted == "P1")
+        {
+            playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+        }
+        else if (singlePlayerStarted == "P2")
+        {
+            playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+        }
+
 
         topfrogSpawnerScript.RemoveFrog();
-
         if (!tutorilBubblesSpawned)
         {
             tutorilBubblesSpawned = true;
@@ -313,10 +397,15 @@ public class GameManager : MonoBehaviour
         bool button2 = Input.GetButton("P1GR");
 
         if (input != Vector3.zero || input2 != Vector3.zero || button || button2)
-        {
-            playerOneInactivityTimer = 0;
+        {   
+            if (singlePlayerStarted == string.Empty || singlePlayerStarted == "P1")
+                playerOneInactivityTimer = 0;
+            else if (tutorialComplete)
+            {
+                playerOneInactivityTimer = 0;
+                singlePlayerStarted = string.Empty;
+            }
         }
-
 
         input = GetInput("P2HL", "P2VL");
         input2 = GetInput("P2HR", "P2VR");
@@ -324,7 +413,13 @@ public class GameManager : MonoBehaviour
         button2 = Input.GetButton("P2GR");
         if (input != Vector3.zero || input2 != Vector3.zero || button || button2)
         {
-            playerTwoInactivityTimer = 0;
+            if (singlePlayerStarted == string.Empty || singlePlayerStarted == "P2")
+                playerTwoInactivityTimer = 0;
+            else if (tutorialComplete)
+            {
+                playerTwoInactivityTimer = 0;
+                singlePlayerStarted = string.Empty;
+            }
         }
     }
     public bool PlayerOneInactive()
