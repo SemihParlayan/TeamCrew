@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioSource musicSpeaker;
     public bool joysticks = false;
     public static bool UsingJoysticks;
     public static Vector3 GetInput(string horizontalInput, string verticalInput)
@@ -36,6 +37,9 @@ public class GameManager : MonoBehaviour
 
     public LayerMask            mask;
     private bool                tutorilBubblesSpawned;
+
+    private bool fadeOutMusicOr = false;
+
 
     public bool tutorialComplete;
     public bool hacks = true;
@@ -179,6 +183,11 @@ public class GameManager : MonoBehaviour
             playedFinalStretch = true;
             finalStretch.SetTrigger("Play");
         }
+
+        if(fadeOutMusicOr)
+        {
+            musicSpeaker.volume *= .9f;
+        }
     }
     private bool playedFinalStretch = true;
 
@@ -223,6 +232,8 @@ public class GameManager : MonoBehaviour
     {
         cameraPanScript.enabled = true;
         Camera.main.orthographicSize = 7.5f;
+        fadeOutMusicOr = true;
+
     }
     public void Win(int frogNumber)
     {
@@ -257,6 +268,10 @@ public class GameManager : MonoBehaviour
 
         Invoke("DestroyFrogs", 3f);
         topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
+        fadeOutMusicOr = false;
+        musicSpeaker.volume = 1;
+        Debug.Log("back to the menus!");
+        
     }
     private void CreateNewFrogs()
     {
