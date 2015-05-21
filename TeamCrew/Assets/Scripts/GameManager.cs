@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioSource musicSpeaker;
     public bool joysticks = false;
     public static bool UsingJoysticks;
-    public MenuMusicController menuMusicController;
     public static Vector3 GetInput(string horizontalInput, string verticalInput)
     {
         if (!UsingJoysticks)
@@ -31,13 +31,16 @@ public class GameManager : MonoBehaviour
     public CameraFollowTerrain  terrainScript;
     public CameraPan cameraPanScript;
     public MainMenu mainMenuScript;
-    private Vector3 cameraDefaultPosition;
-    private Transform cameraTransform;
-    public bool gameActive;
+    private Vector3             cameraDefaultPosition;
+    private Transform           cameraTransform;
+    public bool                 gameActive;
 
-    public LayerMask mask;
-    private bool tutorilBubblesSpawned;
+    public LayerMask            mask;
+    private bool                tutorilBubblesSpawned;
     public string singlePlayerStarted;
+
+    private bool fadeOutMusicOr = false;
+
 
     public bool tutorialComplete;
     public bool hacks = true;
@@ -234,6 +237,11 @@ public class GameManager : MonoBehaviour
         if (gameActive)
             cameraFollowScript.absoluteMaxZoom = playedFinalStretch;
 
+        if(fadeOutMusicOr)
+        {
+            musicSpeaker.volume *= .9f;
+	    }
+
 
         ///////////////////////////////////////////////////////////////////////////
         //                      Singleplayer
@@ -297,10 +305,10 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateCameraPan()
     {
-        //MAKE COOL THING WITH MUSIC START FADE OUT
-        menuMusicController.ChangeFadeState(Fade.outs);
         cameraPanScript.enabled = true;
         Camera.main.orthographicSize = 7.5f;
+        fadeOutMusicOr = true;
+
     }
     public void Win(int frogNumber)
     {
@@ -317,7 +325,7 @@ public class GameManager : MonoBehaviour
         fireWorks.SetActive(true);
         fireWorks.GetComponent<Fireworks>().Reset();
 
-        Invoke("DestroyFrogs", 3f);
+        Invoke("DestroyFrogs", 3f); 
         topfrogSpawnerScript.SpawnFrog(frogNumber, 3f);
     }
     private void GoBackToMenu()
@@ -336,6 +344,10 @@ public class GameManager : MonoBehaviour
 
         Invoke("DestroyFrogs", 3f);
         topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
+        fadeOutMusicOr = false;
+        musicSpeaker.volume = 1;
+        Debug.Log("back to the menus!");
+        
     }
     private void CreateNewFrogs()
     {
