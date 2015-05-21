@@ -25,10 +25,14 @@ public class MainMenu : MonoBehaviour
     private float goTimer;
     private bool startGo;
 
+    private MenuMusicController menuMusicController;
+
     void Start()
     {
+
         anim = GetComponent<Animator>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        menuMusicController = transform.GetComponentInChildren<MenuMusicController>();
         EnableUI();
     }
 	void Update () 
@@ -100,6 +104,7 @@ public class MainMenu : MonoBehaviour
     }
     public void EnableUI()
     {
+        menuMusicController.ChangeFadeState(Fade.ins);
         Invoke("EnableUIParent", 0.1f);
         anim.SetTrigger("EnableUI");
     }
