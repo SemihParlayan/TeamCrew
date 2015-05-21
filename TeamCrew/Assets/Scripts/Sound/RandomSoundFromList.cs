@@ -9,14 +9,10 @@ public class RandomSoundFromList : MonoBehaviour
 	void Start ()
     {
         speaker = transform.GetComponent<AudioSource>();
-        Gen();
+        
 	}
 
-    public void Gen()
-    {
-        speaker.clip = SoundList[Random.Range(0, SoundList.Length)];
-        Debug.Log("did gen");
-    }
+   
 
     public void GenerateGrip()
     {

@@ -156,6 +156,9 @@ public class GameManager : MonoBehaviour
             //Move camera to default
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
 
+            //Zoom to default
+            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 7.5f, Time.deltaTime / 2);
+
             bool started = false;
             if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Select"))
             {
@@ -322,10 +325,7 @@ public class GameManager : MonoBehaviour
         fireWorks.SetActive(true);
         fireWorks.GetComponent<Fireworks>().Reset();
 
-        Camera.main.orthographicSize = 7.5f;
-
-
-        Invoke("DestroyFrogs", 3f);
+        Invoke("DestroyFrogs", 3f); 
         topfrogSpawnerScript.SpawnFrog(frogNumber, 3f);
     }
     private void GoBackToMenu()
