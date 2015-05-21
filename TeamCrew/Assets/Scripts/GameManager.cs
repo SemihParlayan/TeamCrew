@@ -231,11 +231,13 @@ public class GameManager : MonoBehaviour
             playedFinalStretch = true;
             finalStretch.SetTrigger("Play");
         }
+        if (gameActive)
+            cameraFollowScript.absoluteMaxZoom = playedFinalStretch;
 
         if(fadeOutMusicOr)
         {
             musicSpeaker.volume *= .9f;
-	}
+	    }
 
 
         ///////////////////////////////////////////////////////////////////////////
@@ -319,6 +321,9 @@ public class GameManager : MonoBehaviour
         GetComponent<FlySpawner>().RemoveFly();
         fireWorks.SetActive(true);
         fireWorks.GetComponent<Fireworks>().Reset();
+
+        Camera.main.orthographicSize = 7.5f;
+
 
         Invoke("DestroyFrogs", 3f);
         topfrogSpawnerScript.SpawnFrog(frogNumber, 3f);
