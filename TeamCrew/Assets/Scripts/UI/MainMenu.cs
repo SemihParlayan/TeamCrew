@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     public Image playerOneReady;
     public Image playerTwoReady;
     public Animator singleplayerSign;
+    public Text singleplayerText;
 
     private Animator anim;
     private GameManager gameManager;
@@ -24,6 +25,7 @@ public class MainMenu : MonoBehaviour
     private int goIndex;
     private float goTimer;
     private bool startGo;
+    private bool uiEnabled;
 
     private MenuMusicController menuMusicController;
 
@@ -61,17 +63,27 @@ public class MainMenu : MonoBehaviour
 
 
         ////Single player
-        if (playerOneReadyInput.timer < 10)
+        float moveSpeed = 5f;
+        if (uiEnabled)
         {
-            singleplayerSign.SetBool("Ready", true);
-            string t = "Singleplayer starts in " +  Mathf.RoundToInt(playerOneReadyInput.timer).ToString() + "...";
-            singleplayerSign.transform.GetChild(0).GetComponent<Text>().text = t;
-        }
-        else if (playerTwoReadyInput.timer < 10)
-        {
-            singleplayerSign.SetBool("Ready", true);
-            string t = "Singleplayer starts in " + Mathf.RoundToInt(playerTwoReadyInput.timer).ToString() + "...";
-            singleplayerSign.transform.GetChild(0).GetComponent<Text>().text = t;
+            if (playerOneReadyInput.timer < 10)
+            {
+                singleplayerSign.SetBool("Ready", true);
+
+                string t = "Singleplayer starts in " + Mathf.RoundToInt(playerOneReadyInput.timer).ToString() + "...";
+                singleplayerText.text = t;
+            }
+            else if (playerTwoReadyInput.timer < 10)
+            {
+                singleplayerSign.SetBool("Ready", true);
+
+                string t = "Singleplayer starts in " + Mathf.RoundToInt(playerTwoReadyInput.timer).ToString() + "...";
+                singleplayerText.text = t;
+            }
+            else
+            {
+                singleplayerSign.SetBool("Ready", false);
+            }
         }
         else
         {
@@ -91,6 +103,7 @@ public class MainMenu : MonoBehaviour
 
     public void DisableUI()
     {
+        uiEnabled = false;
         anim.SetTrigger("DisableUI");
     }
     public void DisableUIParent()
@@ -105,6 +118,7 @@ public class MainMenu : MonoBehaviour
     public void EnableUI()
     {
         menuMusicController.ChangeFadeState(Fade.ins);
+        uiEnabled = true;
         Invoke("EnableUIParent", 0.1f);
         anim.SetTrigger("EnableUI");
     }

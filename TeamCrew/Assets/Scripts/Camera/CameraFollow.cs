@@ -13,6 +13,7 @@ public class CameraFollow : MonoBehaviour
     private Camera cam;
 
     public bool absoluteZoom;
+    public bool absoluteMaxZoom;
 
     void Start()
     {
@@ -77,7 +78,11 @@ public class CameraFollow : MonoBehaviour
 
         //Set target size
         float targetSize = Mathf.Clamp(Mathf.Abs(GameManager.playerOne.position.y - GameManager.playerTwo.position.y), minZoom, maxZoom);
-        if (absoluteZoom)
+        if (absoluteMaxZoom) // ZOOM FOR LAST STRETCH
+        {
+            targetSize = 11;
+        }
+        else if (absoluteZoom)
         {
             targetSize = absoluteZoomValue;
         }

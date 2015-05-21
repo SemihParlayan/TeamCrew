@@ -93,7 +93,8 @@ public class Insect : MonoBehaviour
 
         if (bottomFrog == null)
         {
-            ChangeState(MotionState.normal);
+            if (motionState == MotionState.chasing)
+                ChangeState(MotionState.normal);
         }
         else
         {
@@ -176,7 +177,29 @@ public class Insect : MonoBehaviour
             break;
 
             case MotionState.panicMode:
-            { 
+            {
+                Transform topFrog = null;
+                if (GameManager.playerOne && GameManager.playerTwo)
+                {
+                    topFrog = (GameManager.playerOne.position.y > GameManager.playerTwo.position.y) ? GameManager.playerOne : GameManager.playerTwo;
+                }
+
+                if (topFrog != null)
+                {
+                    //Follow targetFrog in X
+                    if (bottomFrog.position.x < topFrog.position.x)
+                        direction = 1;
+                    else
+                        direction = -1;
+
+                    body.AddForce(new Vector2(direction * 300, 0));
+
+                    //Clamp velocity
+                    Vector2 vel = body.velocity;
+                    vel.x = Mathf.Clamp(vel.x, -6, 6);
+                    body.velocity = vel;
+                }
+
                 if (transform.position.y < targetY)
                 {
                     float force = grabbed > 0 ? liftPlayerForce : goSlowlyUpForce;
