@@ -15,6 +15,7 @@ public class PlayerReadyInput : MonoBehaviour
     void Start()
     {
         button = GetComponent<Button>();
+        timer = 10f;
     }
 
     void Update()
@@ -23,16 +24,16 @@ public class PlayerReadyInput : MonoBehaviour
         if (ready)
         {
             button.image.sprite = button.spriteState.pressedSprite;
-            timer += Time.deltaTime;
+            timer -= Time.deltaTime;
 
-            if (timer >= 5)
+            if (timer <= 0)
             {
                 singlePlayerReady = true;
             }
         }
         else
         {
-            timer = 0;
+            timer = 10f;
             button.image.sprite = button.spriteState.disabledSprite;
         }
     }

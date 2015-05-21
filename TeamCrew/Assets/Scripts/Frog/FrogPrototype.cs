@@ -11,8 +11,6 @@ public class FrogPrototype : MonoBehaviour
 
     public string player;
     public Emotions emotionsScript;
-
-
     public HandGrip[] gripScript;
 
     public HingeJoint2D[] joints;
@@ -62,8 +60,6 @@ public class FrogPrototype : MonoBehaviour
 
     private VelocityVolume velVolLeft;
     private VelocityVolume velVolRight;
-
-        
         
     //Sound Stuff
     private AudioSource boilSounder;
@@ -209,8 +205,8 @@ public class FrogPrototype : MonoBehaviour
         }
     }
 
-    private float maxVersusGripTime = 6.0f;
-    public float versusGripTimer = 6.0f;
+    private float maxVersusGripTime = 8.0f;
+    public float versusGripTimer = 8.0f;
 
     void ShakeLooseBody()
     {
@@ -221,7 +217,7 @@ public class FrogPrototype : MonoBehaviour
 
             if (!boilSounder.isPlaying)
             {
-                boilSounder.time = Mathf.Clamp(6 - versusGripTimer, 0, 6);
+                boilSounder.time = Mathf.Clamp(8.0f - versusGripTimer, 0, 8.0f);
                 boilSounder.volume = 1;
                 boilSounder.Play();
             }

@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
     public CameraFollowTerrain  terrainScript;
     public CameraPan cameraPanScript;
     public MainMenu mainMenuScript;
-
     private Vector3             cameraDefaultPosition;
     private Transform           cameraTransform;
     public bool                 gameActive;

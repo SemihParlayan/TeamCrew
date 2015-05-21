@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     public PlayerReadyInput playerTwoReadyInput;
     public Image playerOneReady;
     public Image playerTwoReady;
+    public Animator singleplayerSign;
 
     private Animator anim;
     private GameManager gameManager;
@@ -52,6 +53,25 @@ public class MainMenu : MonoBehaviour
                     playerTwoReady.gameObject.SetActive(false);
                 }
             }
+        }
+
+
+        ////Single player
+        if (playerOneReadyInput.timer < 10)
+        {
+            singleplayerSign.SetBool("Ready", true);
+            string t = "Singleplayer starts in " +  Mathf.RoundToInt(playerOneReadyInput.timer).ToString() + "...";
+            singleplayerSign.transform.GetChild(0).GetComponent<Text>().text = t;
+        }
+        else if (playerTwoReadyInput.timer < 10)
+        {
+            singleplayerSign.SetBool("Ready", true);
+            string t = "Singleplayer starts in " + Mathf.RoundToInt(playerTwoReadyInput.timer).ToString() + "...";
+            singleplayerSign.transform.GetChild(0).GetComponent<Text>().text = t;
+        }
+        else
+        {
+            singleplayerSign.SetBool("Ready", false);
         }
 	}
 
