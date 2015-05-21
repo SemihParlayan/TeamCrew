@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SoundPlay : MonoBehaviour
 {
-    enum Fade
+    public enum Fade
     {
         ins,
         outs,
@@ -36,9 +36,5 @@ public class SoundPlay : MonoBehaviour
 
     public void ChangeFadeState(Fade state)
     {
-        switch(state)
-        {
-
-        }
     }
 }
