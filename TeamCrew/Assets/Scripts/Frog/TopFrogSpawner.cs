@@ -9,6 +9,7 @@ public class TopFrogSpawner : MonoBehaviour
 
     private Transform currentTopFrog;
     private int frogNumberToSpawn;
+    private bool champagne;
 
     private Respawn respawnScript;
 
@@ -42,10 +43,16 @@ public class TopFrogSpawner : MonoBehaviour
             {
                 b.AddBandage(2);
             }
+
+            if (!champagne)
+            {
+                currentTopFrog.FindChild("body").GetComponent<TopFrog>().RemoveChampagne();
+            }
         }
     }
-    public void SpawnFrog(int frogNumber, float timeUntilSpawn)
+    public void SpawnFrog(int frogNumber, float timeUntilSpawn, bool champagne = false)
     {
+        this.champagne = champagne;
         frogNumberToSpawn = frogNumber;
         Invoke("CreateFrog", timeUntilSpawn);
     }

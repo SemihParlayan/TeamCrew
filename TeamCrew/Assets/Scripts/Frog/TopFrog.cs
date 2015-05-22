@@ -5,6 +5,11 @@ public class TopFrog : MonoBehaviour
 {
     public string player;
 
+    public GameObject taunt;
+    public GameObject neutral;
+    public ParticleSystem champagne;
+    private float timer = 0;
+
     public Transform leftHand;
     public Transform leftHandNeutral;
     public Transform leftHandOrigin;
@@ -33,6 +38,14 @@ public class TopFrog : MonoBehaviour
 
 	void Update () 
     {
+        if (!champagne.gameObject.activeInHierarchy)
+        {
+            timer += Time.deltaTime;
+            if (timer >= 4)
+            {
+                champagne.gameObject.SetActive(true);
+            }
+        }
         ControlHand(GameManager.GetInput(player + "HL", player + "VL"), leftBody, leftHand, leftHandNeutral, leftHandOrigin);
         ControlHand(GameManager.GetInput(player + "HR", player + "VR"), rightBody, rightHand, rightHandNeutral, rightHandOrigin);
 	}
@@ -60,5 +73,13 @@ public class TopFrog : MonoBehaviour
             Vector3 targetPosition = handNeutral.position;
             body.velocity = (targetPosition - hand.position) * 10f;
         }
+    }
+
+    public void RemoveChampagne()
+    {
+        Debug.Log("Remove champ");
+        champagne.transform.parent.gameObject.SetActive(false);
+        taunt.SetActive(false);
+        neutral.SetActive(true);
     }
 }

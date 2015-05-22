@@ -11,6 +11,7 @@ public enum Fade
 public class MenuMusicController : MonoBehaviour
 {
     public AudioClip[] SoundList;
+    public int songNum = 4;
 
     private Fade fade = Fade.ins;
 
@@ -27,7 +28,8 @@ public class MenuMusicController : MonoBehaviour
 
         speaker.volume = 0;
 
-        Gen();
+        //Gen();
+        SetA(songNum);
         ChangeFadeState(fade);
         Play();
     }
@@ -35,6 +37,11 @@ public class MenuMusicController : MonoBehaviour
     public void Gen()
     {
         speaker.clip = SoundList[Random.Range(0, SoundList.Length)];
+    }
+    public void SetA(int songNum)
+    {
+        speaker.clip = SoundList[songNum];
+
     }
 
     public void Play()
