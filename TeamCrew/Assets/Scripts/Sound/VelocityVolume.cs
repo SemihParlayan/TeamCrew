@@ -3,7 +3,7 @@ using System.Collections;
 
 public class VelocityVolume : MonoBehaviour {
 
-    public AudioSource soundSource;
+    private AudioSource soundSource;
 
     Rigidbody2D body;
 	void Start () {
@@ -17,6 +17,7 @@ public class VelocityVolume : MonoBehaviour {
 
     void FixedUpdate()
     {
-        soundSource.volume = body.velocity.magnitude / 30 *.5f ;
+        soundSource.volume = body.velocity.magnitude / 30 * 1.5f;
+        Debug.Log("sound volume " + soundSource.volume);
     }
 }
