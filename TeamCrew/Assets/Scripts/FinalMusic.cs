@@ -81,6 +81,7 @@ public class FinalMusic : MonoBehaviour
                             Stop();
                             finalsound.volume = 0;
                             ChangeFadeState(Fade.nones);
+                            enabled = false;
                         }
                         else finalsound.volume = 1 - (timer / fadeOutDuration);
 

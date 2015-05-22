@@ -14,7 +14,6 @@ public class RandomSoundFromList : MonoBehaviour
 
     public void Stop()
     {
-        Debug.Log("stop sound");
         speaker.Stop();
     }
 

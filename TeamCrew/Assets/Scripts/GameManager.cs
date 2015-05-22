@@ -308,8 +308,8 @@ public class GameManager : MonoBehaviour
     }
     public void Win(int frogNumber)
     {
-        finalMusicCotroller.Stop();
-        finalMusicCotroller.enabled = false;
+        finalMusicCotroller.ChangeFadeState(Fade.outs);
+        //finalMusicCotroller.enabled = false;
         
         mainMenuScript.StartMenuCycle(frogNumber);
 
