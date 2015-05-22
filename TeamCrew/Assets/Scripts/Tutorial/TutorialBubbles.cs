@@ -34,20 +34,6 @@ public class TutorialBubbles : MonoBehaviour
 
     void ActivateBubble(Animator b, FrogPrototype f, float xOffset)
     {
-        if (f.leftGripScript.isOnGrip)
-        {
-            b.SetBool("left", true);
-        }
-        else
-            b.SetBool("left", false);
-
-        if (f.rightGripScript.isOnGrip)
-        {
-            b.SetBool("right", true);
-        }
-        else
-            b.SetBool("right", false);
-
         if (f.leftGripScript.isOnGrip || f.rightGripScript.isOnGrip)
         {
             b.gameObject.SetActive(true);
@@ -56,6 +42,23 @@ public class TutorialBubbles : MonoBehaviour
         else
         {
             b.gameObject.SetActive(false);
+        }
+
+        if (b.gameObject.activeInHierarchy)
+        {
+            if (f.leftGripScript.isOnGrip)
+            {
+                b.SetBool("left", true);
+            }
+            else
+                b.SetBool("left", false);
+
+            if (f.rightGripScript.isOnGrip)
+            {
+                b.SetBool("right", true);
+            }
+            else
+                b.SetBool("right", false);
         }
     }
 

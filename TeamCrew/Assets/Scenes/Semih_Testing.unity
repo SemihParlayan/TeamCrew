@@ -1235,7 +1235,6 @@ GameObject:
   - 4: {fileID: 31601841}
   - 212: {fileID: 31601844}
   - 114: {fileID: 31601843}
-  - 114: {fileID: 31601842}
   m_Layer: 0
   m_Name: parallax1_4
   m_TagString: Untagged
@@ -1255,19 +1254,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 916428472}
   m_RootOrder: 4
---- !u!114 &31601842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11473894, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 31601840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 0}
 --- !u!114 &31601843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3152,7 +3138,6 @@ GameObject:
   - 4: {fileID: 101342853}
   - 212: {fileID: 101342856}
   - 114: {fileID: 101342855}
-  - 114: {fileID: 101342854}
   m_Layer: 0
   m_Name: parallax7
   m_TagString: Untagged
@@ -3172,19 +3157,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 868693700}
   m_RootOrder: 1
---- !u!114 &101342854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493796, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 101342852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &101342855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3346,6 +3318,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e72a7991dc321f44a9819faae49b75d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundList:
+  - {fileID: 8300000, guid: b0858fb14e5fa7a41860beeb8ca5318d, type: 3}
+  - {fileID: 8300000, guid: 5647f47b8d9f85d409ee35604beed172, type: 3}
+  - {fileID: 8300000, guid: dd0e12e09455f0d41b822df093d9f9ed, type: 3}
+  - {fileID: 8300000, guid: 4500fd1db5caac143a18de111fbd6e0d, type: 3}
+  - {fileID: 8300000, guid: 3c4d290c6fa0fd34192337524ca194a2, type: 3}
+  - {fileID: 8300000, guid: 27d49bf00b9af0640b2cc62e4edf95f3, type: 3}
+  - {fileID: 8300000, guid: e6af0c9b2e05a4e4da306c16e7dbd7de, type: 3}
 --- !u!114 &138689976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5192,7 +5172,6 @@ GameObject:
   - 4: {fileID: 249018169}
   - 212: {fileID: 249018172}
   - 114: {fileID: 249018171}
-  - 114: {fileID: 249018170}
   m_Layer: 0
   m_Name: parallax3_0
   m_TagString: Untagged
@@ -5212,19 +5191,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 144547491}
   m_RootOrder: 0
---- !u!114 &249018170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11418716, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 249018168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &249018171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5598,7 +5564,6 @@ GameObject:
   - 4: {fileID: 319523473}
   - 212: {fileID: 319523476}
   - 114: {fileID: 319523475}
-  - 114: {fileID: 319523474}
   m_Layer: 0
   m_Name: parallax3_1
   m_TagString: Untagged
@@ -5618,19 +5583,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 816407969}
   m_RootOrder: 1
---- !u!114 &319523474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11480966, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 319523472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &319523475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7278,7 +7230,6 @@ GameObject:
   - 4: {fileID: 391392259}
   - 212: {fileID: 391392262}
   - 114: {fileID: 391392261}
-  - 114: {fileID: 391392260}
   m_Layer: 0
   m_Name: parallax1_0
   m_TagString: Untagged
@@ -7298,19 +7249,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 916428472}
   m_RootOrder: 0
---- !u!114 &391392260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11432110, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 391392258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 0}
 --- !u!114 &391392261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7625,7 +7563,6 @@ GameObject:
   - 4: {fileID: 464334453}
   - 212: {fileID: 464334456}
   - 114: {fileID: 464334455}
-  - 114: {fileID: 464334454}
   m_Layer: 0
   m_Name: parallax3_0
   m_TagString: Untagged
@@ -7645,19 +7582,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 816407969}
   m_RootOrder: 0
---- !u!114 &464334454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11406216, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 464334452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &464334455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9496,7 +9420,6 @@ GameObject:
   - 4: {fileID: 642282337}
   - 212: {fileID: 642282340}
   - 114: {fileID: 642282339}
-  - 114: {fileID: 642282338}
   m_Layer: 0
   m_Name: parallax2_1
   m_TagString: Untagged
@@ -9516,19 +9439,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 633527479}
   m_RootOrder: 1
---- !u!114 &642282338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11405360, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 642282336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &642282339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11949,7 +11859,6 @@ GameObject:
   - 4: {fileID: 816659983}
   - 212: {fileID: 816659986}
   - 114: {fileID: 816659985}
-  - 114: {fileID: 816659984}
   m_Layer: 0
   m_Name: parallax3_0
   m_TagString: Untagged
@@ -11969,19 +11878,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1751625789}
   m_RootOrder: 0
---- !u!114 &816659984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11438206, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 816659982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &816659985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12187,7 +12083,6 @@ GameObject:
   - 4: {fileID: 873829648}
   - 212: {fileID: 873829651}
   - 114: {fileID: 873829650}
-  - 114: {fileID: 873829649}
   m_Layer: 0
   m_Name: parallax3_1
   m_TagString: Untagged
@@ -12207,19 +12102,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 144547491}
   m_RootOrder: 1
---- !u!114 &873829649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11447998, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 873829647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &873829650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12657,7 +12539,6 @@ GameObject:
   - 4: {fileID: 1027861817}
   - 212: {fileID: 1027861820}
   - 114: {fileID: 1027861819}
-  - 114: {fileID: 1027861818}
   m_Layer: 0
   m_Name: parallax2_0
   m_TagString: Untagged
@@ -12677,19 +12558,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 447335585}
   m_RootOrder: 0
---- !u!114 &1027861818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11447798, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1027861816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &1027861819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12824,7 +12692,6 @@ GameObject:
   - 4: {fileID: 1123595298}
   - 212: {fileID: 1123595301}
   - 114: {fileID: 1123595300}
-  - 114: {fileID: 1123595299}
   m_Layer: 0
   m_Name: parallax1_3
   m_TagString: Untagged
@@ -12844,19 +12711,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 916428472}
   m_RootOrder: 3
---- !u!114 &1123595299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11435906, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1123595297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 0}
 --- !u!114 &1123595300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14072,7 +13926,6 @@ GameObject:
   - 4: {fileID: 1141337620}
   - 212: {fileID: 1141337623}
   - 114: {fileID: 1141337622}
-  - 114: {fileID: 1141337621}
   m_Layer: 0
   m_Name: parallax1_2
   m_TagString: Untagged
@@ -14092,19 +13945,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 916428472}
   m_RootOrder: 2
---- !u!114 &1141337621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11467372, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1141337619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 0}
 --- !u!114 &1141337622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14155,7 +13995,6 @@ GameObject:
   - 4: {fileID: 1153020905}
   - 212: {fileID: 1153020908}
   - 114: {fileID: 1153020907}
-  - 114: {fileID: 1153020906}
   m_Layer: 0
   m_Name: parallax2_1
   m_TagString: Untagged
@@ -14175,19 +14014,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 735266962}
   m_RootOrder: 1
---- !u!114 &1153020906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11429774, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1153020904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &1153020907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14365,7 +14191,6 @@ GameObject:
   - 4: {fileID: 1189719255}
   - 212: {fileID: 1189719258}
   - 114: {fileID: 1189719257}
-  - 114: {fileID: 1189719256}
   m_Layer: 0
   m_Name: parallax6
   m_TagString: Untagged
@@ -14385,19 +14210,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 868693700}
   m_RootOrder: 0
---- !u!114 &1189719256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11463066, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1189719254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &1189719257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16813,7 +16625,6 @@ GameObject:
   - 4: {fileID: 1686839853}
   - 212: {fileID: 1686839856}
   - 114: {fileID: 1686839855}
-  - 114: {fileID: 1686839854}
   m_Layer: 0
   m_Name: parallax2_0
   m_TagString: Untagged
@@ -16833,19 +16644,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 633527479}
   m_RootOrder: 0
---- !u!114 &1686839854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11409994, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1686839852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &1686839855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16896,7 +16694,6 @@ GameObject:
   - 4: {fileID: 1729434695}
   - 212: {fileID: 1729434698}
   - 114: {fileID: 1729434697}
-  - 114: {fileID: 1729434696}
   m_Layer: 0
   m_Name: parallax2_1
   m_TagString: Untagged
@@ -16916,19 +16713,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 447335585}
   m_RootOrder: 1
---- !u!114 &1729434696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11492132, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1729434694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &1729434697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17036,7 +16820,6 @@ GameObject:
   - 4: {fileID: 1760927700}
   - 212: {fileID: 1760927703}
   - 114: {fileID: 1760927702}
-  - 114: {fileID: 1760927701}
   m_Layer: 0
   m_Name: parallax3_1
   m_TagString: Untagged
@@ -17056,19 +16839,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1751625789}
   m_RootOrder: 1
---- !u!114 &1760927701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11463668, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1760927699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &1760927702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17202,7 +16972,6 @@ GameObject:
   - 4: {fileID: 1781971157}
   - 212: {fileID: 1781971160}
   - 114: {fileID: 1781971159}
-  - 114: {fileID: 1781971158}
   m_Layer: 0
   m_Name: parallax1_1
   m_TagString: Untagged
@@ -17222,19 +16991,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 916428472}
   m_RootOrder: 1
---- !u!114 &1781971158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11404066, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1781971156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 0}
 --- !u!114 &1781971159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19021,7 +18777,6 @@ GameObject:
   - 4: {fileID: 2046189534}
   - 212: {fileID: 2046189537}
   - 114: {fileID: 2046189536}
-  - 114: {fileID: 2046189535}
   m_Layer: 0
   m_Name: parallax2_0
   m_TagString: Untagged
@@ -19041,19 +18796,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 735266962}
   m_RootOrder: 0
---- !u!114 &2046189535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11468398, guid: b7edf2a46c703d342a491a1c05069853,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2046189533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81476bd1291415c489ed4d4369171680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aboveLayer: {fileID: 1781971157}
 --- !u!114 &2046189536
 MonoBehaviour:
   m_ObjectHideFlags: 0
