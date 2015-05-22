@@ -325,7 +325,7 @@ public class GameManager : MonoBehaviour
         fireWorks.GetComponent<Fireworks>().Reset();
 
         Invoke("DestroyFrogs", 3f); 
-        topfrogSpawnerScript.SpawnFrog(frogNumber, 3f);
+        topfrogSpawnerScript.SpawnFrog(frogNumber, 3f, true);
     }
     private void GoBackToMenu()
     {
