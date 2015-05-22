@@ -189,9 +189,9 @@ public class MainMenu : MonoBehaviour
         else if (v == 1)
             t = "Beautiful victory";
         else if (v == 2)
-            t = "Crushingly dominant victory";
+            t = "Dominant victory";
         else if (v >= 3)
-            t = "You-won-even-though-your-friend-is-a-butt victory";
+            t = "Crushingly dominant victory";
         else
             t = "Victory";
 

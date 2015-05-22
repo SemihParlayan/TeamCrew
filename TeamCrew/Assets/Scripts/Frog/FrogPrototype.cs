@@ -37,7 +37,7 @@ public class FrogPrototype : MonoBehaviour
     public Transform rightHand;
     private Rigidbody2D rightBody;
 
-    private Rigidbody2D body;
+    public Rigidbody2D body;
 
     public GripMagnet leftHandMagnet;
     public GripMagnet rightHandMagnet;
