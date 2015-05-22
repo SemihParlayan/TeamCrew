@@ -23,20 +23,21 @@ public class GameManager : MonoBehaviour
     public static float LevelHeight;
 
     private TutorialBubbles tutorialBubbles;
-    private TopFrogSpawner  topfrogSpawnerScript;
-    public LevelGeneration  generatorScript;
-    public Respawn  respawnScript;
+    private TopFrogSpawner topfrogSpawnerScript;
+    public LevelGeneration generatorScript;
+    public Respawn respawnScript;
     public CameraFollow cameraFollowScript;
     public CameraFollowTerrain  terrainScript;
     public CameraPan cameraPanScript;
     public MainMenu mainMenuScript;
-    private Vector3             cameraDefaultPosition;
-    private Transform           cameraTransform;
-    public bool                 gameActive;
+    private Vector3 cameraDefaultPosition;
+    private Transform cameraTransform;
+    public bool gameActive;
     public MenuMusicController menuMusicController;
+    public FinalMusic finalMusicCotroller;
 
-    public LayerMask            mask;
-    private bool                tutorilBubblesSpawned;
+    public LayerMask mask;
+    private bool tutorilBubblesSpawned;
     public string singlePlayerStarted;
 
     public bool tutorialComplete;
@@ -284,6 +285,8 @@ public class GameManager : MonoBehaviour
 
     private void TutorialComplete()
     {
+        finalMusicCotroller.enabled = true;
+
         cameraFollowScript.enabled = true;
         tutorialComplete = true;
 
@@ -305,6 +308,9 @@ public class GameManager : MonoBehaviour
     }
     public void Win(int frogNumber)
     {
+        finalMusicCotroller.Stop();
+        finalMusicCotroller.enabled = false;
+        
         mainMenuScript.StartMenuCycle(frogNumber);
 
         inactivityText.transform.parent.gameObject.SetActive(false);
