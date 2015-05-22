@@ -6,6 +6,8 @@ public class FinalMusic : MonoBehaviour
     public float activationHeight = 40;
     public float fadeInDuration = 30;
     public float fadeOutDuration = 1;
+    public float fadeInMaxHeight = 20;
+
 
     private float originalActivationHeight;
     private AudioSource finalsound;
@@ -18,7 +20,6 @@ public class FinalMusic : MonoBehaviour
 
     private float gameMaxHeight = 80;
 
-    private float fadeInMaxHeight = 40;
 
 	void Start () {
         originalActivationHeight = activationHeight;
