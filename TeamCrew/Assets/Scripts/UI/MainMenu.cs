@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
 
     private Animator anim;
     private GameManager gameManager;
+    private AudioSource goSound;
 
     //Countdown 3-2-1-GO! variables
     [HideInInspector]public bool goReady;
@@ -31,7 +32,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-
+        goSound = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         menuMusicController = transform.GetComponentInChildren<MenuMusicController>();
@@ -45,7 +46,7 @@ public class MainMenu : MonoBehaviour
             goTimer += Time.deltaTime;
 
             if (goTimer >= 1)
-            {
+            {       
                 goTimer = 0;
                 goIndex++;
 
@@ -58,6 +59,9 @@ public class MainMenu : MonoBehaviour
                     playerOneReady.gameObject.SetActive(false);
                     playerTwoReady.gameObject.SetActive(false);
                 }
+
+                if (goIndex == 0)
+                    goSound.Play();
             }
         }
 
@@ -95,7 +99,6 @@ public class MainMenu : MonoBehaviour
     {
         if (startGo || goReady)
             return;
-
         goRenderers = renderers;
         startGo = true;
         goIndex = -1;

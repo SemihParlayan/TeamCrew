@@ -99,9 +99,12 @@ public class EmotionController : MonoBehaviour
         {
             if (!playerOneScript.leftGripScript.isOnGrip && !playerOneScript.rightGripScript.isOnGrip)
             {
-                if (playerOneScript.body.velocity.y < -2)
+                if (playerOneScript.body)
                 {
-                    playerOneScript.emotionsScript.SetGeneralEmotion("panic");
+                    if (playerOneScript.body.velocity.y < -2)
+                    {
+                        playerOneScript.emotionsScript.SetGeneralEmotion("panic");
+                    }
                 }
             }
         }
@@ -109,9 +112,12 @@ public class EmotionController : MonoBehaviour
         {
             if (!playerTwoScript.leftGripScript.isOnGrip && !playerTwoScript.rightGripScript.isOnGrip)
             {
-                if (playerTwoScript.body.velocity.y < -2)
+                if (playerTwoScript.body)
                 {
-                    playerTwoScript.emotionsScript.SetGeneralEmotion("panic");
+                    if (playerTwoScript.body.velocity.y < -2)
+                    {
+                        playerTwoScript.emotionsScript.SetGeneralEmotion("panic");
+                    }
                 }
             }
         }
