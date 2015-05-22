@@ -39,7 +39,7 @@ public class RandomSoundFromList : MonoBehaviour
     {
         if(SoundList.Length > 10)
         {
-            speaker.volume = 0;
+            speaker.volume = 0; // because velocityVolume
             speaker.pitch = 1;
             speaker.clip = SoundList[10];
             speaker.Play();
