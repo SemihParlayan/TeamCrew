@@ -181,9 +181,12 @@ public class FrogPrototype : MonoBehaviour
         }
         else
         {
-            leftHandSoundChooser.Stop();
-            leftScratchSounding = false;
-            velVolLeft.enabled = false;
+            if(leftScratchSounding)
+            {
+                leftHandSoundChooser.Stop();
+                leftScratchSounding = false;
+                velVolLeft.enabled = false;
+            }
         }
 
         //right scratch sound
@@ -199,9 +202,12 @@ public class FrogPrototype : MonoBehaviour
         }
         else
         {
-            rightHandSoundChooser.Stop();
-            rightScratchSounding = false;
-            velVolRight.enabled = false;
+            if (rightScratchSounding)
+            {
+                rightHandSoundChooser.Stop();
+                rightScratchSounding = false;
+                velVolRight.enabled = false;
+            }
         }
     }
 
