@@ -12,7 +12,11 @@ public class RandomSoundFromList : MonoBehaviour
         
 	}
 
-   
+    public void Stop()
+    {
+        Debug.Log("stop sound");
+        speaker.Stop();
+    }
 
     public void GenerateGrip()
     {
@@ -29,16 +33,7 @@ public class RandomSoundFromList : MonoBehaviour
     }
 
 
-    public void GenerateRockImpact()
-    {
-        //TODO: Check if this sounds the way it should
-        speaker = transform.GetComponent<AudioSource>();
-        speaker.pitch = 1;
-        speaker.volume = 1;
-        int coolInt = Random.Range(0, SoundList.Length - 1);
-        speaker.clip = SoundList[coolInt];
-
-    }
+   
 
     public void GenerateScratch()
     {
@@ -52,8 +47,27 @@ public class RandomSoundFromList : MonoBehaviour
         }
     }
 
-    public void Stop()
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    public void GenerateRockImpact()
     {
-        speaker.Stop();
+        //TODO: Check if this sounds the way it should
+        speaker = transform.GetComponent<AudioSource>();
+        speaker.pitch = 1;
+        speaker.volume = 1;
+        int coolInt = Random.Range(0, SoundList.Length - 1);
+        speaker.clip = SoundList[coolInt];
+
     }
 }
