@@ -87,7 +87,7 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &2115997185
+--- !u!1001 &1041234515
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -128,36 +128,58 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11499254, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11468184, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11455464, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11442076, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11432138, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11428854, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11419024, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11410356, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11412448, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: finalMusicCotroller
+      value: 
+      objectReference: {fileID: 1239446024}
+    - target: {fileID: 11433102, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413712, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 191422, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1239446024 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11470568, guid: b7edf2a46c703d342a491a1c05069853,
+    type: 2}
+  m_PrefabInternal: {fileID: 1041234515}
+  m_Script: {fileID: 11500000, guid: bb98d0e97692a3f42b9b606a62026b6a, type: 3}
