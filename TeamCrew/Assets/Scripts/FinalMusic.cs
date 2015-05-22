@@ -21,4 +21,9 @@ public class FinalMusic : MonoBehaviour
     {
         if(!finalsound.isPlaying) finalsound.Play();
     }
+
+    public void Stop()
+    {
+        finalsound.Stop();
+    }
 }
