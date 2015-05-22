@@ -299,7 +299,6 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateCameraPan()
     {
-
         menuMusicController.ChangeFadeState(Fade.outs);
         cameraPanScript.enabled = true;
         Camera.main.orthographicSize = 7.5f;
