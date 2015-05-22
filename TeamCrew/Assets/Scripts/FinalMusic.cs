@@ -14,15 +14,19 @@ public class FinalMusic : MonoBehaviour
     
     private Fade fade;
     private float timer = 0;
-    private bool first = true; 
+    private bool first = true;
+
+    private float gameMaxHeight = 80;
+
+    private float fadeInMaxHeight = 40;
 
 	void Start () {
         originalActivationHeight = activationHeight;
         Debug.Log("original Activation height is "+ originalActivationHeight);
         finalsound = transform.GetComponent<AudioSource>();
         cam = Camera.main;
-        activationHeight -= 80; //because the world goes downwards D:
-        ChangeFadeState(Fade.ins);
+        activationHeight -= gameMaxHeight; //because the world goes downwards D:
+        ChangeFadeState(Fade.nones);
 	}
 
     void OnEnable()
@@ -36,22 +40,25 @@ public class FinalMusic : MonoBehaviour
         finalsound = transform.GetComponent<AudioSource>();
         cam = Camera.main;
         activationHeight = originalActivationHeight - 80; //because the world goes downwards D:
-        ChangeFadeState(Fade.ins);
+        ChangeFadeState(Fade.nones);
     }
 
     void Update()
     {
-        //Debug.Log("update is happening");
         if (cam.transform.position.y > activationHeight)
         {
-            Debug.Log("cami is" + cam.transform.position.y);
-            Debug.Log("activation height: " + activationHeight);
-            //Debug.Log("2 Fade is: " + fade);
             PlayFinalMusic();
-
-
             switch (fade)
             {
+                case Fade.nones:
+                {
+                    float max = fadeInMaxHeight - activationHeight;
+                    float camY = cam.transform.position.y - activationHeight;
+                    finalsound.volume = camY / max;
+                    break;
+                }
+                
+
                 case Fade.ins:
                     {
                         timer += Time.deltaTime;
