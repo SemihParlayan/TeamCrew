@@ -168,6 +168,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &158576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 425398}
+  - 212: {fileID: 21253290}
+  m_Layer: 0
+  m_Name: sitting_frog_bodyupper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &167008
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,6 +355,18 @@ Transform:
   - {fileID: 482938}
   m_Father: {fileID: 492898}
   m_RootOrder: 0
+--- !u!4 &425398
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158576}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0467170216, y: .104081444, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 497598}
+  m_RootOrder: 12
 --- !u!4 &439960
 Transform:
   m_ObjectHideFlags: 1
@@ -492,7 +520,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.66239977, y: -70.2619019, z: 0}
+  m_LocalPosition: {x: 2.77112532, y: -69.6459274, z: 0}
   m_LocalScale: {x: .767912924, y: .767913461, z: .767913461}
   m_Children:
   - {fileID: 453120}
@@ -507,6 +535,7 @@ Transform:
   - {fileID: 494876}
   - {fileID: 493162}
   - {fileID: 408044}
+  - {fileID: 425398}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!50 &5034340
@@ -884,6 +913,32 @@ SpriteRenderer:
   m_SortingLayerID: 162863743
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300008, guid: 27dd62710be4e2d4995fe55d22ba2e32, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!212 &21253290
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158576}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 162863743
+  m_SortingOrder: 11
+  m_Sprite: {fileID: 21300016, guid: 27dd62710be4e2d4995fe55d22ba2e32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21255298
 SpriteRenderer:
