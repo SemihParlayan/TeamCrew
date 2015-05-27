@@ -14,7 +14,23 @@ public class GameManager : MonoBehaviour
         Vector3 input = new Vector3(Input.GetAxis(horizontalInput), Input.GetAxis(verticalInput));
         return input;
     }
+    public static bool GetGrip(string axis)
+    {
+        bool button = Input.GetButton(axis);
+        if (button)
+        {
+            return true;
+        }
 
+        float trigger = Input.GetAxis(axis + "X");
+        Debug.Log(trigger);
+        if (trigger >= 0.2f)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
 
     public bool xbox = false;
@@ -401,8 +417,8 @@ public class GameManager : MonoBehaviour
     {
         Vector3 input = GetInput("P1HL", "P1VL");
         Vector3 input2 = GetInput("P1HR", "P1VR");
-        bool button = Input.GetButton("P1GL");
-        bool button2 = Input.GetButton("P1GR");
+        bool button = GetGrip("P1GL");
+        bool button2 = GetGrip("P1GR");
 
         if (input != Vector3.zero || input2 != Vector3.zero || button || button2)
         {   
@@ -417,8 +433,8 @@ public class GameManager : MonoBehaviour
 
         input = GetInput("P2HL", "P2VL");
         input2 = GetInput("P2HR", "P2VR");
-        button = Input.GetButton("P2GL");
-        button2 = Input.GetButton("P2GR");
+        button = GetGrip("P2GL");
+        button2 = GetGrip("P2GR");
         if (input != Vector3.zero || input2 != Vector3.zero || button || button2)
         {
             if (singlePlayerStarted == string.Empty || singlePlayerStarted == "P2")

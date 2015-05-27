@@ -52,18 +52,19 @@ public class TopFrog : MonoBehaviour
 
     void ControlHand(Vector3 input, Rigidbody2D body, Transform hand, Transform handNeutral, Transform handOrigin)
     {
-        float angle = Mathf.Rad2Deg * (float)Mathf.Atan2(input.x, input.y);
-        if (angle < 0)
-        {
-            angle = 180 + (180 - Mathf.Abs(angle));
-        }
-        float i = (int)(angle / 45.0f);
-        angle = (45 * i) * Mathf.Deg2Rad;
+        float angle = GetAngleFromInput(input);
 
         if ((input.x != 0 || input.y != 0)) //If hand is moving and not on a grip
         {
             //Move towards joystick Direction
             Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
+
+            if (!GameManager.DigitalInput)
+            {
+                dir.x *= Mathf.Abs(input.x * 1.3f);
+                dir.y *= Mathf.Abs(input.y * 1.3f);
+            }
+
             Vector3 targetPosition = handOrigin.position + dir * 2.0f;
             body.velocity = (targetPosition - hand.position) * 10f;
         }
@@ -74,7 +75,27 @@ public class TopFrog : MonoBehaviour
             body.velocity = (targetPosition - hand.position) * 10f;
         }
     }
+    float GetAngleFromInput(Vector3 input)
+    {
+        float angle = Mathf.Rad2Deg * (float)Mathf.Atan2(input.x, input.y);
 
+        //Convert angle to stay between 0-360 degrees
+        if (angle < 0)
+        {
+            angle = 180 + (180 - Mathf.Abs(angle));
+        }
+
+        if (GameManager.DigitalInput)
+        {
+            //Set angle to snap each 45 degree
+            float i = (int)(angle / 45.0f);
+            angle = (45 * i);
+        }
+
+        angle *= Mathf.Deg2Rad;
+
+        return angle;
+    }
     public void RemoveChampagne()
     {
         champagne.transform.parent.gameObject.SetActive(false);

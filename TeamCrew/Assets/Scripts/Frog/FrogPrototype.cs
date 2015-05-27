@@ -418,8 +418,8 @@ public class FrogPrototype : MonoBehaviour
 
                 if (!GameManager.DigitalInput)
                 {
-                    dir.x *= Mathf.Abs(input.x);
-                    dir.y *= Mathf.Abs(input.y);
+                    dir.x *= Mathf.Abs(input.x * 1.3f);
+                    dir.y *= Mathf.Abs(input.y * 1.3f);
                 }
 
                 Vector3 targetPosition = handOrigin.position + dir * 2.0f + magnet.magnetDir;

@@ -7,8 +7,6 @@ public class GripMagnet : MonoBehaviour
     public HandGrip gripScript;
     private Transform grip;
 
-
-
 	void Start () 
     {
 	
@@ -29,7 +27,7 @@ public class GripMagnet : MonoBehaviour
 	void Update () 
     {
         magnetDir = Vector3.zero;
-        if (grip && Input.GetButton(gripScript.axis))
+        if (grip && GameManager.GetGrip(gripScript.axis))
         {
             magnetDir = grip.position - transform.position;
             magnetDir.Normalize();

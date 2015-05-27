@@ -67,6 +67,7 @@ public class HandGrip : MonoBehaviour
             return gripPoint.transform.position;
         }
     }
+    private bool lastGripValue;
 
 	void Start () 
     {
@@ -103,7 +104,7 @@ public class HandGrip : MonoBehaviour
                 return;
         }
         isGripping = false;
-        if (Input.GetButton(axis)) //Grip button down is down
+        if (GameManager.GetGrip(axis)) //Grip button down is down
         {
             //Set gripping to true
             isGripping = true;
@@ -115,8 +116,9 @@ public class HandGrip : MonoBehaviour
                 gripAnimation.Activate("air");
             }
         }
-        else if (Input.GetButtonUp(axis)) //Grip button goes up
+        else if (lastGripValue && ! GameManager.GetGrip(axis)) //Grip button goes up
         {
+            Debug.Log("Rawr");
             if (!handIsLocked)
             {
                 ReleaseGrip();
@@ -135,6 +137,8 @@ public class HandGrip : MonoBehaviour
                 DeLockHand();
             }
         }
+
+        lastGripValue = GameManager.GetGrip(axis);
 	}
     bool AllowGrip(Grip g)
     {
@@ -142,7 +146,7 @@ public class HandGrip : MonoBehaviour
         string holdername = axis.Substring(0, 2);
 
         //Check for grip input
-        if (Input.GetButton(axis) && !isOnGrip)
+        if (GameManager.GetGrip(axis) && !isOnGrip)
         {
             //Aquire grip point
             gripPoint = g.GetClosestGrip(transform.position);

@@ -20,7 +20,7 @@ public class PlayerReadyInput : MonoBehaviour
 
     void Update()
     {
-        ready = (Input.GetButton(player + "GL") || Input.GetButton(player + "GR"));
+        ready = (GameManager.GetGrip(player + "GL") || GameManager.GetGrip(player + "GR"));
         if (ready)
         {
             button.image.sprite = button.spriteState.pressedSprite;
