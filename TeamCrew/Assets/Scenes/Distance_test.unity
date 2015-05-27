@@ -5792,6 +5792,8 @@ MonoBehaviour:
   playerTwoReadyInput: {fileID: 1545778133}
   playerOneReady: {fileID: 1929304770}
   playerTwoReady: {fileID: 1580733871}
+  singleplayerSign: {fileID: 0}
+  singleplayerText: {fileID: 0}
   goReady: 0
   goSprites:
   - {fileID: 21300004, guid: a229f65b2dc177043b4c9241606e849c, type: 3}
@@ -6414,6 +6416,7 @@ MonoBehaviour:
   minZoom: 6
   absoluteZoomValue: 7.5
   absoluteZoom: 0
+  absoluteMaxZoom: 0
 --- !u!114 &794065275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8132,6 +8135,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11407282, guid: e1dd856c014710f419aeb3751006d42c, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1dd856c014710f419aeb3751006d42c, type: 2}
   m_IsPrefabParent: 0
@@ -9430,7 +9437,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 484642, guid: af13f8425c11a614bb7c956c3e3ca9ee, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11470014, guid: af13f8425c11a614bb7c956c3e3ca9ee, type: 2}
       propertyPath: m_Enabled
@@ -14326,6 +14333,8 @@ MonoBehaviour:
   cameraPanScript: {fileID: 794065272}
   mainMenuScript: {fileID: 659139366}
   gameActive: 1
+  menuMusicController: {fileID: 0}
+  finalMusicCotroller: {fileID: 0}
   mask:
     serializedVersion: 2
     m_Bits: 256
