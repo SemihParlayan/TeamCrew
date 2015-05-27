@@ -103,18 +103,8 @@ public class FrogPrototype : MonoBehaviour
         boilSounder = gameObject.AddComponent<AudioSource>();
         shhSounder = gameObject.AddComponent<AudioSource>();
 
-
-
         boilSounder.clip = Resources.Load("kettle") as AudioClip;
         shhSounder.clip = Resources.Load("shh") as AudioClip;
-        //if (boilSound == null) Debug.Log("boil sound is null");
-
-        //sounder.clip = boilSound;
-
-
-
-        
-
     }
 
     private void Update()
@@ -150,8 +140,6 @@ public class FrogPrototype : MonoBehaviour
         //Control Hands
         ControlHand(leftGripScript, GameManager.GetInput(player + "HL", player + "VL"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
         ControlHand(rightGripScript, GameManager.GetInput(player + "HR", player +"VR"), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
-        //ControlHand2(0);
-        //ControlHand2(1);
 
         //Shake loose body
         ShakeLooseBody();
@@ -364,9 +352,17 @@ public class FrogPrototype : MonoBehaviour
     }
     void ControlHand(HandGrip handScript, Vector3 input, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin, HandGrip otherGripScript)
     {
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Is hand gripping or not?
+        ///////////////////////////////////////////////////////////////////////////
         bool grip = joint.useMotor = handScript.isOnGrip;
         body.isKinematic = false;
 
+
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Make hand go up when no hands are gripping
+        ///////////////////////////////////////////////////////////////////////////
         if (!leftGripScript.isOnGrip && !rightGripScript.isOnGrip && gameManager.tutorialComplete)
         {
             if (input.y < 0)
@@ -375,15 +371,16 @@ public class FrogPrototype : MonoBehaviour
             }
         }
 
-        float angle = Mathf.Rad2Deg * (float)Mathf.Atan2(input.x, input.y);
-        if (angle < 0)
-        {
-            angle = 180 + (180 - Mathf.Abs(angle));
-        }
-        float i = (int)(angle / 45.0f);
-        angle = (45 * i) * Mathf.Deg2Rad;
 
 
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Aquire angle from input
+        ///////////////////////////////////////////////////////////////////////////
+        float angle = GetAngleFromInput(input);
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Set appropriate settings for the motor
+        ///////////////////////////////////////////////////////////////////////////
         HingeJoint2D otherJoint = null;
         JointMotor2D motor = new JointMotor2D();
         motor.motorSpeed = motorSpeed;
@@ -396,9 +393,7 @@ public class FrogPrototype : MonoBehaviour
         }
 
         if (joint == leftJoint)
-        {
             otherJoint = rightJoint;
-        }
         else
         {
             motor.motorSpeed *= -1;
@@ -410,23 +405,35 @@ public class FrogPrototype : MonoBehaviour
         joint.useMotor = (grip && input.y < 0);
 
 
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                  Steer hand in different directions
+        ///////////////////////////////////////////////////////////////////////////
         if (!grip)
         {
-            if ((input.x != 0 || input.y != 0)) //If hand is moving and not on a grip
+            //Move towards joystick Direction
+            if ((input.x != 0 || input.y != 0))
             {
-                //Move towards joystick Direction
                 Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
+
+                if (!GameManager.DigitalInput)
+                {
+                    dir.x *= Mathf.Abs(input.x);
+                    dir.y *= Mathf.Abs(input.y);
+                }
+
                 Vector3 targetPosition = handOrigin.position + dir * 2.0f + magnet.magnetDir;
                 body.velocity = (targetPosition - hand.position) * speed;
             }
-            else if (otherGripScript.isOnGrip && otherJoint.useMotor && handScript.isGripping) // Move towards other hand when neutral
+            // Move towards other hand when neutral
+            else if (otherGripScript.isOnGrip && otherJoint.useMotor && handScript.isGripping)
             {
                 Vector3 targetPosition = otherGripScript.gripPoint.transform.position;
                 body.velocity = (targetPosition - hand.position) * speed;
             }
-            else //If hand is not moving and not on grip
+            //Move towards neutral position
+            else
             {
-                //Move towards neutral position
                 Vector3 targetPosition = handNeutral.position;
                 body.velocity = (targetPosition - hand.position) * speed;
             }
@@ -441,6 +448,27 @@ public class FrogPrototype : MonoBehaviour
                 body.isKinematic = false;
             }
         }
+    }
+    float GetAngleFromInput(Vector3 input)
+    {
+        float angle = Mathf.Rad2Deg * (float)Mathf.Atan2(input.x, input.y);
+
+        //Convert angle to stay between 0-360 degrees
+        if (angle < 0)
+        {
+            angle = 180 + (180 - Mathf.Abs(angle));
+        }
+
+        if (GameManager.DigitalInput)
+        {
+            //Set angle to snap each 45 degree
+            float i = (int)(angle / 45.0f);
+            angle = (45 * i);
+        }
+
+        angle *= Mathf.Deg2Rad;
+
+        return angle;
     }
 }
 

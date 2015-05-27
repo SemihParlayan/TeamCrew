@@ -4,18 +4,24 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public bool joysticks = false;
-    public static bool UsingJoysticks;
     public static Vector3 GetInput(string horizontalInput, string verticalInput)
     {
-        if (!UsingJoysticks)
+        if (Xbox)
         {
             horizontalInput += "X";
-            verticalInput   += "X";
+            verticalInput += "X";
         }
         Vector3 input = new Vector3(Input.GetAxis(horizontalInput), Input.GetAxis(verticalInput));
         return input;
     }
+
+
+
+    public bool xbox = false;
+    public static bool Xbox;
+
+    public bool digitalInput = false;
+    public static bool DigitalInput;
 
     public GameObject fireWorks;
     public Animator finalStretch;
@@ -72,7 +78,10 @@ public class GameManager : MonoBehaviour
 
         cameraTransform = Camera.main.transform;
         cameraDefaultPosition = cameraTransform.transform.position;
-        UsingJoysticks = joysticks;
+
+        //Set static variables
+        Xbox = xbox;
+        DigitalInput = digitalInput;
 	}
 
     private FrogPrototype playerOneScript, playerTwoScript;

@@ -77,7 +77,6 @@ public class TopFrog : MonoBehaviour
 
     public void RemoveChampagne()
     {
-        Debug.Log("Remove champ");
         champagne.transform.parent.gameObject.SetActive(false);
         taunt.SetActive(false);
         neutral.SetActive(true);
