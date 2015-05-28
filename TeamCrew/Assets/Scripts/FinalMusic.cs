@@ -13,9 +13,9 @@ public class FinalMusic : MonoBehaviour
     private AudioSource finalsound;
     private Camera cam;
     private GameManager gameManager;
-    
-    
-    private Fade fade;
+
+
+    public Fade fade;
     private float timer = 0;
     private bool first = true;
 
@@ -55,9 +55,26 @@ public class FinalMusic : MonoBehaviour
             {
                 case Fade.nones:
                 {
-                    float max = fadeInMaxHeight - activationHeight;
-                    float camY = cam.transform.position.y - activationHeight;
-                    finalsound.volume = camY / max;
+                    //float max = fadeInMaxHeight - activationHeight;
+                    //float camY = cam.transform.position.y - activationHeight;
+                    //finalsound.volume = camY / max;
+
+                    float camY = cam.transform.position.y;
+                    float levelHeight = Mathf.Abs(GameManager.LevelHeight);
+
+                    camY = levelHeight + camY;
+
+                    if (camY >= levelHeight - originalActivationHeight)
+                    {
+                        float v = 1f - (2*(levelHeight - camY) / originalActivationHeight);
+                        finalsound.volume = v;
+
+                        Debug.Log(v);
+                    }
+                    else
+                    {
+                        finalsound.volume = 0;
+                    }
                     break;
                 }
                 
@@ -94,8 +111,11 @@ public class FinalMusic : MonoBehaviour
     }
 	public void PlayFinalMusic()
     {
-        if (!finalsound.isPlaying && gameManager.gameActive) 
+        if (!finalsound.isPlaying && gameManager.gameActive)
+        {
             finalsound.Play();
+            ChangeFadeState(Fade.nones);
+        }
     }
 
     public void Stop()
