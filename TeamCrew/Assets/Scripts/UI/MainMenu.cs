@@ -107,7 +107,7 @@ public class MainMenu : MonoBehaviour
                 exitImage.sprite = exitSprites[1];
                 exitTimer -= Time.deltaTime;
 
-                exitText.text = "Quiting in " + Mathf.RoundToInt(exitTimer).ToString() + "...";
+                exitText.text = "Quitting in " + Mathf.RoundToInt(exitTimer).ToString() + "...";
 
                 if (exitTimer < 0)
                 {

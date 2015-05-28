@@ -47,7 +47,6 @@ public class FrogPrototype : MonoBehaviour
 
     public int versusHands;
 
-    public bool hacks = true;
     public bool Ready { get { return (leftGripScript.isGrippingTutorial || rightGripScript.isGrippingTutorial);} }
 
     private GameManager gameManager;
@@ -82,10 +81,6 @@ public class FrogPrototype : MonoBehaviour
         if (gameManager == null) { Debug.Log("GameManager is null"); Debug.Break(); }
 
 
-
-        //body.isKinematic = true;
-        hacks = true;
-
         leftHandSoundChooser = leftGripScript.GetComponentInChildren<RandomSoundFromList>();
         if (leftHandSoundChooser == null) { Debug.Log("leftHandSoundChooser is null"); }
 
@@ -109,7 +104,7 @@ public class FrogPrototype : MonoBehaviour
 
     private void Update()
     {
-        if (hacks)
+        if (gameManager.hacks)
         {
             if (Input.GetButtonDown("Select"))
             {
@@ -229,7 +224,6 @@ public class FrogPrototype : MonoBehaviour
                 rightGripScript.ReleaseVersusGrip(1.0f);
 
                 //Release sound
-                Debug.Log("sounding release");
                 shhSounder.volume = .1f;
                 shhSounder.Play();
             }

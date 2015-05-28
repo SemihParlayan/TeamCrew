@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
             Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 7.5f, Time.deltaTime / 2);
 
             bool started = false;
-            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Select"))
+            if (Input.GetButtonDown("Select") && hacks)
             {
                 started = true;
             }
@@ -328,15 +328,16 @@ public class GameManager : MonoBehaviour
     {
         menuMusicController.ChangeFadeState(Fade.outs);
         cameraPanScript.enabled = true;
+        mainMenuScript.exitImage.gameObject.SetActive(false);
         Camera.main.orthographicSize = 7.5f;
     }
     public void Win(int frogNumber)
     {
         finalMusicCotroller.ChangeFadeState(Fade.outs);
-        //finalMusicCotroller.enabled = false;
         
         mainMenuScript.StartMenuCycle(frogNumber);
 
+        mainMenuScript.exitImage.gameObject.SetActive(true);
         inactivityText.transform.parent.gameObject.SetActive(false);
         cameraFollowScript.enabled = false;
         respawnScript.enabled = false;
@@ -356,6 +357,7 @@ public class GameManager : MonoBehaviour
         mainMenuScript.EnableUI();
         generatorScript.ActivateEasyBlock();
 
+        mainMenuScript.exitImage.gameObject.SetActive(true);
         inactivityText.transform.parent.gameObject.SetActive(false);
         cameraFollowScript.enabled = false;
         respawnScript.enabled = false;
