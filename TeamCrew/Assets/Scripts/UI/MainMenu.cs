@@ -15,6 +15,11 @@ public class MainMenu : MonoBehaviour
     public Animator singleplayerSign;
     public Text singleplayerText;
 
+    public Image exitImage;
+    public Sprite[] exitSprites;
+    public Text exitText;
+    private float exitTimer;
+
     private Animator anim;
     private GameManager gameManager;
     private AudioSource goSound;
@@ -92,6 +97,29 @@ public class MainMenu : MonoBehaviour
         else
         {
             singleplayerSign.SetBool("Ready", false);
+        }
+
+        if (!gameManager.gameActive)
+        {
+            if (Input.GetButton("Exit"))
+            {
+                exitText.gameObject.SetActive(true);
+                exitImage.sprite = exitSprites[1];
+                exitTimer -= Time.deltaTime;
+
+                exitText.text = "Quiting in " + Mathf.RoundToInt(exitTimer).ToString() + "...";
+
+                if (exitTimer < 0)
+                {
+                    Application.Quit();
+                }
+            }
+            else
+            {
+                exitText.gameObject.SetActive(false);
+                exitImage.sprite = exitSprites[0];
+                exitTimer = 5f;
+            }
         }
 	}
 

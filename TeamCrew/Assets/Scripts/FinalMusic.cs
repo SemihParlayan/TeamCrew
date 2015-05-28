@@ -12,6 +12,7 @@ public class FinalMusic : MonoBehaviour
     private float originalActivationHeight;
     private AudioSource finalsound;
     private Camera cam;
+    private GameManager gameManager;
     
     
     private Fade fade;
@@ -28,6 +29,8 @@ public class FinalMusic : MonoBehaviour
         cam = Camera.main;
         activationHeight -= gameMaxHeight; //because the world goes downwards D:
         ChangeFadeState(Fade.nones);
+
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 	}
 
     void OnEnable()
@@ -37,7 +40,6 @@ public class FinalMusic : MonoBehaviour
             first = false;
             return;
         }
-        Debug.Log("original act height is then " + originalActivationHeight);
         finalsound = transform.GetComponent<AudioSource>();
         cam = Camera.main;
         activationHeight = originalActivationHeight - 80; //because the world goes downwards D:
@@ -88,15 +90,12 @@ public class FinalMusic : MonoBehaviour
                         break;
                     }
             }
-
-
         }
-
-
     }
 	public void PlayFinalMusic()
     {
-        if(!finalsound.isPlaying) finalsound.Play();
+        if (!finalsound.isPlaying && gameManager.gameActive) 
+            finalsound.Play();
     }
 
     public void Stop()
