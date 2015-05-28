@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
         }
 
         float trigger = Input.GetAxis(axis + "X");
-        Debug.Log(trigger);
         if (trigger >= 0.2f)
         {
             return true;

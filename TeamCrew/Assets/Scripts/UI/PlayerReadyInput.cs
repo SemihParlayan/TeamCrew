@@ -8,6 +8,7 @@ public class PlayerReadyInput : MonoBehaviour
     public bool ready;
     public bool singlePlayerReady;
     public float timer;
+    public Sprite[] sprites;
 
     //Components
     private Button button;
@@ -20,10 +21,29 @@ public class PlayerReadyInput : MonoBehaviour
 
     void Update()
     {
-        ready = (GameManager.GetGrip(player + "GL") || GameManager.GetGrip(player + "GR"));
-        if (ready)
+        bool leftReady = GameManager.GetGrip(player + "GL");
+        bool rightReady = GameManager.GetGrip(player + "GR");
+
+        if (leftReady && rightReady)
         {
-            button.image.sprite = button.spriteState.pressedSprite;
+            button.image.sprite = sprites[0];
+        }
+        else if (leftReady)
+        {
+            button.image.sprite = sprites[1];
+        }
+        else if (rightReady)
+        {
+            button.image.sprite = sprites[2];
+        }
+        else
+        {
+            button.image.sprite = sprites[3];
+        }
+
+        if (leftReady && rightReady)
+        {
+            ready = true;
             timer -= Time.deltaTime;
 
             if (timer <= 0)
@@ -33,8 +53,8 @@ public class PlayerReadyInput : MonoBehaviour
         }
         else
         {
+            ready = false;
             timer = 10f;
-            button.image.sprite = button.spriteState.disabledSprite;
         }
     }
 }

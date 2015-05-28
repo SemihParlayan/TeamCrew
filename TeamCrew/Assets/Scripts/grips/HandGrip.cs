@@ -118,7 +118,6 @@ public class HandGrip : MonoBehaviour
         }
         else if (lastGripValue && ! GameManager.GetGrip(axis)) //Grip button goes up
         {
-            Debug.Log("Rawr");
             if (!handIsLocked)
             {
                 ReleaseGrip();

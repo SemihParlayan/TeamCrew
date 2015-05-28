@@ -52,7 +52,7 @@ public class Insect : MonoBehaviour
             startPos = bottomFrog.position;
             startPos.x = (GameManager.playerOne.position.x + GameManager.playerTwo.position.x) * .5f;
         }
-            
+
         //Check side to spawn
         if (Random.Range(0.0f, 1.0f) > .5f)
         {
@@ -75,6 +75,7 @@ public class Insect : MonoBehaviour
 
         chaseForce = 500f;
         ChangeState(MotionState.chasing);
+        playerDifference = -1;
 	}
 	
 	
@@ -169,6 +170,7 @@ public class Insect : MonoBehaviour
                 {
                     if (playerDifference < 3)
                     {
+                        Debug.Log("Diff to low");
                         ChangeState(MotionState.normal);
                     }
                 }
@@ -192,7 +194,7 @@ public class Insect : MonoBehaviour
                     else
                         direction = -1;
 
-                    body.AddForce(new Vector2(direction * 300, 0));
+                    body.AddForce(new Vector2(direction * 600, 0));
 
                     //Clamp velocity
                     Vector2 vel = body.velocity;
