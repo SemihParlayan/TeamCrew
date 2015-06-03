@@ -68,8 +68,6 @@ public class FinalMusic : MonoBehaviour
                     {
                         float v = 1f - (2*(levelHeight - camY) / originalActivationHeight);
                         finalsound.volume = v;
-
-                        Debug.Log(v);
                     }
                     else
                     {

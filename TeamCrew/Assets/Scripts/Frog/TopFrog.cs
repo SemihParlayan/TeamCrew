@@ -5,8 +5,8 @@ public class TopFrog : MonoBehaviour
 {
     public string player;
 
-    public GameObject neutral;
     public ParticleSystem champagne;
+    public GameObject medallion;
     private float timer = 0;
 
     public Transform leftHand;
@@ -31,6 +31,7 @@ public class TopFrog : MonoBehaviour
 
     void Start()
     {
+
         leftBody = leftHand.GetComponent<Rigidbody2D>();
         rightBody = rightHand.GetComponent<Rigidbody2D>();
     }
@@ -95,9 +96,22 @@ public class TopFrog : MonoBehaviour
 
         return angle;
     }
-    public void RemoveChampagne()
+
+    public void AddAccessories(int accessoriesCount)
     {
+        Debug.Log(accessoriesCount);
+        medallion.SetActive(false);
         champagne.transform.parent.gameObject.SetActive(false);
-        neutral.SetActive(true);
+
+        if (accessoriesCount == 0)
+        {
+            medallion.SetActive(true);
+        }
+
+        if (accessoriesCount > 0)
+        {
+            medallion.SetActive(true);
+            champagne.transform.parent.gameObject.SetActive(true);
+        }
     }
 }

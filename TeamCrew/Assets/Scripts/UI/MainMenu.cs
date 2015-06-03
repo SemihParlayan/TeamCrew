@@ -163,9 +163,11 @@ public class MainMenu : MonoBehaviour
     public Animator p1DeathCounter;
     public Animator p2DeathCounter;
     private int winFrog;
+    private int victoryNumber;
 
-    public void StartMenuCycle(int frogNumber)
+    public void StartMenuCycle(int frogNumber, int victoryNumber)
     {
+        this.victoryNumber = victoryNumber;
         winFrog = frogNumber;
         Invoke("EnableWinSign", 1.5f);
     }
@@ -196,32 +198,21 @@ public class MainMenu : MonoBehaviour
         p1DeathCounter.transform.GetChild(0).GetComponent<Text>().text = deathCount.x.ToString();
         p2DeathCounter.transform.GetChild(0).GetComponent<Text>().text = deathCount.y.ToString();
 
-        int v = 0;
-
-        if (winFrog == 1)
-        {
-            v = (int)deathCount.y - (int)deathCount.x;
-        }
-        else
-        {
-            v = (int)deathCount.x - (int)deathCount.y;
-        }
-
         string t = "";
 
-        if (v <= -3)
+        if (victoryNumber <= -3)
             t = "Disgusting victory!";
-        else if (v == -2)
+        else if (victoryNumber == -2)
             t = "Douchefrog victory";
-        else if (v == -1)
+        else if (victoryNumber == -1)
             t = "Bandaged victory";
-        else if (v == 0)
+        else if (victoryNumber == 0)
             t = "Fair victory";
-        else if (v == 1)
+        else if (victoryNumber == 1)
             t = "Beautiful victory";
-        else if (v == 2)
+        else if (victoryNumber == 2)
             t = "Dominant victory";
-        else if (v >= 3)
+        else if (victoryNumber >= 3)
             t = "Crushingly dominant victory";
         else
             t = "Victory";
