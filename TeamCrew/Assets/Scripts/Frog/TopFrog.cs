@@ -5,7 +5,6 @@ public class TopFrog : MonoBehaviour
 {
     public string player;
 
-    public GameObject taunt;
     public GameObject neutral;
     public ParticleSystem champagne;
     private float timer = 0;
@@ -99,7 +98,6 @@ public class TopFrog : MonoBehaviour
     public void RemoveChampagne()
     {
         champagne.transform.parent.gameObject.SetActive(false);
-        taunt.SetActive(false);
         neutral.SetActive(true);
     }
 }
