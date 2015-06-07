@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Attach a main menu script to GameManager.cs!");
 
         topfrogSpawnerScript = GetComponent<TopFrogSpawner>();
+		topfrogSpawnerScript.accessoriesCount = -5;
         topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
 
         tutorialBubbles = GetComponent<TutorialBubbles>();
@@ -334,8 +335,20 @@ public class GameManager : MonoBehaviour
     public void Win(int frogNumber)
     {
         finalMusicCotroller.ChangeFadeState(Fade.outs);
+
+        Vector2 deathCount = GetFrogDeathCount();
+
+        int v = 0;
+        if (frogNumber == 1)
+        {
+            v = (int)deathCount.y - (int)deathCount.x;
+        }
+        else
+        {
+            v = (int)deathCount.x - (int)deathCount.y;
+        }
         
-        mainMenuScript.StartMenuCycle(frogNumber);
+        mainMenuScript.StartMenuCycle(frogNumber, v);
 
         mainMenuScript.exitImage.gameObject.SetActive(true);
         inactivityText.transform.parent.gameObject.SetActive(false);
@@ -349,7 +362,8 @@ public class GameManager : MonoBehaviour
         fireWorks.SetActive(true);
         fireWorks.GetComponent<Fireworks>().Reset();
 
-        Invoke("DestroyFrogs", 3f); 
+        Invoke("DestroyFrogs", 3f);
+        topfrogSpawnerScript.accessoriesCount = v;
         topfrogSpawnerScript.SpawnFrog(frogNumber, 3f, true);
     }
     private void GoBackToMenu()
