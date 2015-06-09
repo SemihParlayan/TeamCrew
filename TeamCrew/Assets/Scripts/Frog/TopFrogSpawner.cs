@@ -10,7 +10,7 @@ public class TopFrogSpawner : MonoBehaviour
     private Transform currentTopFrog;
     private int frogNumberToSpawn;
     private bool accessories;
-    public int accessoriesCount;
+	public int accessoriesCount = -1;
 
     private Respawn respawnScript;
 
@@ -45,10 +45,7 @@ public class TopFrogSpawner : MonoBehaviour
                 b.AddBandage(2);
             }
 
-            if (accessories)
-            {
                 currentTopFrog.FindChild("body").GetComponent<TopFrog>().AddAccessories(accessoriesCount);
-            }
         }
     }
     public void SpawnFrog(int frogNumber, float timeUntilSpawn, bool accessories = false)

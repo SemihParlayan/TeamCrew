@@ -21,6 +21,8 @@ public class Respawn : MonoBehaviour
     //Data
     public float respawnTime = 3f;
 
+    //put boingsoundhere
+
 	void Start () 
     {
         //Get componenets
@@ -155,4 +157,10 @@ public class Respawn : MonoBehaviour
 
         return cam.transform.position;
     }
+
+    void playBoing()
+    {
+        //play boing sound
+    }
+
 }
