@@ -36,7 +36,9 @@ public class Block : MonoBehaviour
         get
         {
             Vector3 pos = transform.position;
+            pos.x -= size.x / 2;
             pos.x += pixelsFromLeftEnd / 100.0f;
+            pos.y += size.y / 2;
             return pos;
         }
     }
@@ -45,8 +47,9 @@ public class Block : MonoBehaviour
         get
         {
             Vector3 pos = transform.position;
+            pos.x -= size.x / 2;
             pos.x += pixelsFromLeftStart / 100.0f;
-            pos.y -= size.y;
+            pos.y -= size.y / 2;
             return pos;
         }
     }
@@ -76,10 +79,10 @@ public class Block : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(GetEndPosition, 0.25f);
+        Gizmos.DrawSphere(GetEndPosition, 0.1f);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(GetStartPosition, 0.25f);
+        Gizmos.DrawSphere(GetStartPosition, 0.1f);
     }
 }
 

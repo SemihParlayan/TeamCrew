@@ -217,7 +217,6 @@ public class LevelGeneration : MonoBehaviour
 
             //Change position of new block here!
             Vector3 diff = b.GetEndPosition - previousBlock.GetStartPosition;
-            diff.y = previousBlock.size.y;
             b.transform.position -= diff;
             return b;
         }
