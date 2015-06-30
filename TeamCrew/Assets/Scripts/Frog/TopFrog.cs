@@ -99,7 +99,6 @@ public class TopFrog : MonoBehaviour
 
     public void AddAccessories(int accessoriesCount)
     {
-        Debug.Log(accessoriesCount);
         medallion.SetActive(false);
         champagne.transform.parent.gameObject.SetActive(false);
 

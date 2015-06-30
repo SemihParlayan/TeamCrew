@@ -11,8 +11,6 @@ public class LevelGeneration : MonoBehaviour
     public List<Block> level = new List<Block>();
     public List<Block> lastLevel = new List<Block>();
 
-    private float blockSize;
-
     private Transform currentTop;
     private Transform previousTop;
     private GameObject easyBlock;
@@ -22,11 +20,10 @@ public class LevelGeneration : MonoBehaviour
     public int numberOfMediumBlocks = 1;
     public int numberOfEasyBlocks = 1;
 
-    public float LevelHeight { get { return (numberOfEasyBlocks + numberOfMediumBlocks + numberOfHardBlocks + 1) * blockSize; } }
+    public float LevelHeight { get { return (numberOfEasyBlocks + numberOfMediumBlocks + numberOfHardBlocks + 1); } }
 
     void Awake()
     {
-        blockSize = -19.2f;
         GameManager.LevelHeight = LevelHeight - 5;
     }
 
@@ -42,10 +39,19 @@ public class LevelGeneration : MonoBehaviour
         {
             blockList[i].blockIndex = i;
         }
-	}
 
+        Generate();
+	}
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Generate();
+        }
+    }
     public void Generate()
     {
+        //Remove previouslevel
         for (int i = 0; i < level.Count; i++)
         {
             DestroyImmediate(level[i].gameObject);
@@ -58,19 +64,15 @@ public class LevelGeneration : MonoBehaviour
         previousTop = currentTop;
         currentTop = block.transform;
 
-        float x = 0;
-        if (block.start == BlockEnding.A)
-            x = 3;
-        else if (block.start == BlockEnding.B)
-            x = -3;
-
-        //transform.position = new Vector3(x, transform.position.y);
-        block.transform.position = new Vector3(x, block.transform.position.y);
+        block.transform.position = new Vector3(0, block.transform.position.y);
         if (previousTop)
         {
             previousTop.parent = null;
             DestroyImmediate(previousTop.gameObject);
         }
+
+
+
 
         //Spawn Hard Blocks
         for (int i = 0; i < numberOfHardBlocks; i++)
@@ -93,18 +95,18 @@ public class LevelGeneration : MonoBehaviour
 
             if (i == numberOfEasyBlocks - 1)
             {
-                while (true)
-                {
-                    if (block.start == BlockEnding.AB)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        DestroyImmediate(block.transform.gameObject);
-                        block = GetBlock(level.Last().GetComponent<Block>(), BlockDifficulty.Easy);
-                    }
-                }
+                //while (true)
+                //{
+                //    ////if (block.start == BlockEnding.AB)
+                //    ////{
+                //    ////    break;
+                //    ////}
+                //    ////else
+                //    ////{
+                //    ////    DestroyImmediate(block.transform.gameObject);
+                //    ////    block = GetBlock(level.Last().GetComponent<Block>(), BlockDifficulty.Easy);
+                //    ////}
+                //}
             }
             block.transform.parent = transform; level.Add(block);
         }
@@ -158,32 +160,39 @@ public class LevelGeneration : MonoBehaviour
 
         for (int i = 0; i < blockList.Count; i++)
         {
-            if (previousBlock == null)
+            //Search for a TOP block
+            if (previousBlock == null) 
             {
                 if (blockList[i].difficulty == BlockDifficulty.Top)
                     foundBlocks.Add(blockList[i]);
             }
-            else
+            //Search for other block
+            else 
             {
-                if (blockList[i].difficulty != difficulty)
-                    continue;
-
-                if (previousBlock.start == BlockEnding.AB)
+                //If the searched difficulty matches
+                if (blockList[i].difficulty == difficulty)
                 {
-                    if (blockList[i].end == BlockEnding.AB)
+                    if (previousBlock.start == BlockEnding.Thick)
+                    {
+                        if (blockList[i].end == BlockEnding.Thick)
+                        {
+                            foundBlocks.Add(blockList[i]);
+                        }
+                    }
+                    else if (blockList[i].end != BlockEnding.Thick)
                     {
                         foundBlocks.Add(blockList[i]);
                     }
                 }
-                else if (blockList[i].end != BlockEnding.AB)
-                {
-                    foundBlocks.Add(blockList[i]);
-                }
             }
         }
 
+
+
+
         if (foundBlocks.Count > 0)
         {
+            //Remove blocks that was in previous level
             for (int j = 0; j < foundBlocks.Count; j++)
             {
                 for (int i = 0; i < lastLevel.Count; i++)
@@ -196,6 +205,7 @@ public class LevelGeneration : MonoBehaviour
                 }
             }
 
+            //Return TOP block if TOP was searched for
             if (previousBlock == null)
             {
                 Transform top = Instantiate(foundBlocks[Random.Range(0, foundBlocks.Count)].transform, Vector3.zero, Quaternion.identity) as Transform;
@@ -205,16 +215,10 @@ public class LevelGeneration : MonoBehaviour
             Transform t = Instantiate(foundBlocks[Random.Range(0, foundBlocks.Count)].transform, previousBlock.transform.position, Quaternion.identity) as Transform;
             Block b = t.GetComponent<Block>();
 
-            if (previousBlock.start == BlockEnding.B && b.end == BlockEnding.A)
-            {
-                b.transform.position += new Vector3(6, 0);
-            }
-            else if (previousBlock.start == BlockEnding.A && b.end == BlockEnding.B)
-            {
-                b.transform.position += new Vector3(-6, 0);
-            }
-
-            b.transform.position += new Vector3(0, blockSize);
+            //Change position of new block here!
+            Vector3 diff = b.GetEndPosition - previousBlock.GetStartPosition;
+            diff.y = previousBlock.size.y;
+            b.transform.position -= diff;
             return b;
         }
 
