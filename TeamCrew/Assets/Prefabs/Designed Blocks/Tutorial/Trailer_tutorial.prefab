@@ -5720,11 +5720,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoundList:
-  - {fileID: 8300000, guid: 7966166a58a4a444baa646f860730217, type: 3}
-  - {fileID: 8300000, guid: 6b929fa354193014395f033e7eaf58ae, type: 3}
-  - {fileID: 8300000, guid: 000fcde862a87804b80d890a0adfafa5, type: 3}
-  - {fileID: 8300000, guid: 27d7d2560543ef746a0ea1d6ff887724, type: 3}
-  - {fileID: 8300000, guid: 6d263596c11faeb49a696e2e3225ee38, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &11414586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5883,11 +5883,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 903a7cac203b160429016efbc94fc3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end: 2
+  end: 1
+  pixelsFromLeftEnd: 0
   start: 2
+  pixelsFromLeftStart: 0
   difficulty: 4
+  blockIndex: 0
   playerOneStart: {fileID: 0}
   playerTwoStart: {fileID: 0}
+  green: {fileID: 0}
+  yellow: {fileID: 0}
+  red: {fileID: 0}
 --- !u!114 &11429878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9405,7 +9411,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: end
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 113620}

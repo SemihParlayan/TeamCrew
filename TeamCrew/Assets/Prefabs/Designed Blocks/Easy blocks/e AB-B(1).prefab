@@ -6465,10 +6465,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716bf17363f6d724caf636a937c34652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end: 1
-  start: 2
+  end: 0
+  pixelsFromLeftEnd: 0
+  start: 1
+  pixelsFromLeftStart: 0
   difficulty: 0
-  blockIndex: 2
+  blockIndex: 15
 --- !u!114 &11439862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14062,7 +14064,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: start
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: end
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 139678}
