@@ -6,6 +6,7 @@ using System.Linq;
 public class LevelGeneration : MonoBehaviour 
 {
     public Transform startTop;
+    public Block thickConverter;
     public List<Block> blockList = new List<Block>();
     public List<Sprite> signSprites = new List<Sprite>();
     public List<Block> level = new List<Block>();
@@ -34,6 +35,8 @@ public class LevelGeneration : MonoBehaviour
         else
             Debug.LogError("Assign a START-TOP on GameMaster!");
 
+        if (!thickConverter)
+            Debug.LogError("Assign a thickConverter to LevelGenerator");
 
         for (int i = 0; i < blockList.Count; i++)
         {
@@ -92,23 +95,25 @@ public class LevelGeneration : MonoBehaviour
         for (int i = 0; i < numberOfEasyBlocks; i++)
         {
             block = GetBlock(block, BlockDifficulty.Easy);
+            block.transform.parent = transform; level.Add(block);
 
             if (i == numberOfEasyBlocks - 1)
             {
-                //while (true)
-                //{
-                //    ////if (block.start == BlockEnding.AB)
-                //    ////{
-                //    ////    break;
-                //    ////}
-                //    ////else
-                //    ////{
-                //    ////    DestroyImmediate(block.transform.gameObject);
-                //    ////    block = GetBlock(level.Last().GetComponent<Block>(), BlockDifficulty.Easy);
-                //    ////}
-                //}
+                if (block.start == BlockEnding.Thin)
+                {
+                    //Add thickConverter
+                    Transform t = Instantiate(thickConverter.transform, block.transform.position, Quaternion.identity) as Transform;
+                    Block b = t.GetComponent<Block>();
+
+                    //Change position of new block here!
+                    Vector3 diff = b.GetEndPosition - block.GetStartPosition;
+                    b.transform.position -= diff;
+                    b.transform.name = "thickConverter";
+                    b.transform.parent = transform; level.Add(b);
+
+                    block = b;
+                }
             }
-            block.transform.parent = transform; level.Add(block);
         }
         easyBlock = block.gameObject;
 

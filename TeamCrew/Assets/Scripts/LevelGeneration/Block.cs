@@ -79,10 +79,10 @@ public class Block : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(GetEndPosition, 0.1f);
+        Gizmos.DrawCube(GetEndPosition, new Vector3(0.1f, 0.1f));
 
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(GetStartPosition, 0.1f);
+        Gizmos.DrawCube(GetStartPosition, new Vector3(0.1f, 0.1f));
     }
 }
 
