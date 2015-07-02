@@ -31,7 +31,6 @@ public class Parallax : MonoBehaviour
 	void Start ()
     {
         //maxParallax = 235;
-        levelHeight = Mathf.Abs(GameManager.LevelHeight);
         origin = transform.position;
         //origin -= new Vector2(0, levelHeight);
         
@@ -44,6 +43,9 @@ public class Parallax : MonoBehaviour
 
 	void Update ()
     {
+        if (GameManager.LevelHeight == 0)
+            return;
+        levelHeight = Mathf.Abs(GameManager.LevelHeight);
         Vector2 camPos = cam.transform.position;
         float normClimbDist = (camPos.y + levelHeight) / levelHeight;
 

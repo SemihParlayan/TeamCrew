@@ -21,11 +21,20 @@ public class LevelGeneration : MonoBehaviour
     public int numberOfMediumBlocks = 1;
     public int numberOfEasyBlocks = 1;
 
-    public float LevelHeight { get { return (numberOfEasyBlocks + numberOfMediumBlocks + numberOfHardBlocks + 1); } }
+    public float LevelHeight 
+    { 
+        get 
+        { 
+            Block tut = level.Last();
+            if (!tut)
+                return 0;
+            return tut.transform.position.y - tut.size.y / 2;
+        } 
+    }
 
     void Awake()
     {
-        GameManager.LevelHeight = LevelHeight - 5;
+        //GameManager.LevelHeight = LevelHeight - 5;
     }
 
 	void Start () 
@@ -42,16 +51,7 @@ public class LevelGeneration : MonoBehaviour
         {
             blockList[i].blockIndex = i;
         }
-
-        Generate();
 	}
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            Generate();
-        }
-    }
     public void Generate()
     {
         //Remove previouslevel
@@ -129,7 +129,7 @@ public class LevelGeneration : MonoBehaviour
         {
             lastLevel.Add(level[i]);
         }
-        
+        GameManager.LevelHeight = LevelHeight + 7;
     }
     private void FixSigns()
     {

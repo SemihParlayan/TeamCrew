@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     public GameObject fireWorks;
     public Animator finalStretch;
     public static Transform playerOne, playerTwo;
-    public static float LevelHeight;
+    public static float LevelHeight = 0;
 
     private TutorialBubbles tutorialBubbles;
     private TopFrogSpawner topfrogSpawnerScript;
@@ -170,6 +170,7 @@ public class GameManager : MonoBehaviour
             }
             if (cameraPanScript.Complete())
             {
+                Debug.Log("Camera pan complete");
                 StartGame();
                 generatorScript.DeactivateEasyBlock();
             }
@@ -203,7 +204,7 @@ public class GameManager : MonoBehaviour
                 singlePlayerStarted = "P2";
             }
 
-            if (started)
+            if (started || Input.GetKeyDown(KeyCode.B))
             {
                 ActivateCameraPan();
                 generatorScript.Generate();
@@ -327,6 +328,7 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateCameraPan()
     {
+        Debug.Log("Activate");
         menuMusicController.ChangeFadeState(Fade.outs);
         cameraPanScript.enabled = true;
         mainMenuScript.exitImage.gameObject.SetActive(false);
