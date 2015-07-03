@@ -12,6 +12,16 @@ public class SpinningWheel : MonoBehaviour
 	{
         body = GetComponent<Rigidbody2D>();
         GetComponent<HingeJoint2D>().connectedAnchor = transform.position;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            MovingGrip g = transform.GetChild(i).GetComponent<MovingGrip>();
+
+            if (g)
+            {
+                g.GetComponent<HingeJoint2D>().connectedAnchor = g.transform.localPosition;
+            }
+        }
 	}
 
 	void FixedUpdate () 

@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: 6b26d149cf754b54f8e3161ae6542e5f
-timeCreated: 1435829286
+timeCreated: 1435925580
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: partygrips_spritesheet_0
+    21300000: wheel_small
+    21300002: wheel_big
+    21300004: partygrips_spritesheet_0
+    21300006: partygrips_spritesheet_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -50,13 +53,43 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
+    - name: wheel_small
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 19
+        width: 485
+        height: 464
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: wheel_big
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 25
+        width: 658
+        height: 629
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: partygrips_spritesheet_0
       rect:
         serializedVersion: 2
-        x: 95
-        y: 28
-        width: 453
-        height: 453
+        x: 1263
+        y: 56
+        width: 50
+        height: 540
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: partygrips_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 1339
+        y: 45
+        width: 52
+        height: 561
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
