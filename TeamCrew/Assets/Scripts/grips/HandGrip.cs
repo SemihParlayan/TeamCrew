@@ -12,6 +12,7 @@ public class HandGrip : MonoBehaviour
     public bool isGrippingTutorial;
     public bool isGrippingInsect;
     public bool isVersusGripping;
+    public bool hackGrip;
 
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
 
@@ -104,7 +105,7 @@ public class HandGrip : MonoBehaviour
                 return;
         }
         isGripping = false;
-        if (GameManager.GetGrip(axis)) //Grip button down is down
+        if (GameManager.GetGrip(axis) || hackGrip) //Grip button down is down
         {
             //Set gripping to true
             isGripping = true;
@@ -116,7 +117,7 @@ public class HandGrip : MonoBehaviour
                 gripAnimation.Activate("air");
             }
         }
-        else if (lastGripValue && ! GameManager.GetGrip(axis)) //Grip button goes up
+        else if (lastGripValue && ! (GameManager.GetGrip(axis) || hackGrip)) //Grip button goes up
         {
             if (!handIsLocked)
             {
@@ -137,7 +138,7 @@ public class HandGrip : MonoBehaviour
             }
         }
 
-        lastGripValue = GameManager.GetGrip(axis);
+        lastGripValue = GameManager.GetGrip(axis) || hackGrip;
 	}
     bool AllowGrip(Grip g)
     {
@@ -145,7 +146,7 @@ public class HandGrip : MonoBehaviour
         string holdername = axis.Substring(0, 2);
 
         //Check for grip input
-        if (GameManager.GetGrip(axis) && !isOnGrip)
+        if ((GameManager.GetGrip(axis) || hackGrip) && !isOnGrip)
         {
             //Aquire grip point
             gripPoint = g.GetClosestGrip(transform.position);

@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
         //Start GAME!
         if (!cameraFollowScript.enabled)
         {
+            
             mainMenuScript.playerOneReady.gameObject.SetActive(false);
             mainMenuScript.playerTwoReady.gameObject.SetActive(false);
 
@@ -154,7 +155,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (mainMenuScript.goReady && !tutorialComplete && gameActive || (playerOne && playerTwo && hacks ? Input.GetButtonDown("Select") : false))
+            if (mainMenuScript.goReady && !tutorialComplete && gameActive || (playerOne && playerTwo && hacks ? Input.GetButtonDown("Select") || Input.GetKeyDown(KeyCode.B) : false))
             {
                 TutorialComplete();
             }
@@ -183,8 +184,22 @@ public class GameManager : MonoBehaviour
             //Zoom to default
             Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 7.5f, Time.deltaTime / 2);
 
-            bool started = false;
-            if (Input.GetButtonDown("Select") && hacks)
+            bool started = true;
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                mainMenuScript.playerOneReadyInput.singlePlayerReady = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                mainMenuScript.playerTwoReadyInput.singlePlayerReady = true;
+            }
+            else if(!Input.GetKeyDown(KeyCode.B))
+            {
+                started = false;
+            }
+
+
+            if ((Input.GetButtonDown("Select") || Input.GetKeyDown(KeyCode.B)) && hacks)
             {
                 started = true;
             }
@@ -204,7 +219,9 @@ public class GameManager : MonoBehaviour
                 singlePlayerStarted = "P2";
             }
 
-            if (started || Input.GetKeyDown(KeyCode.B))
+          
+
+            if (started)
             {
                 ActivateCameraPan();
                 generatorScript.Generate();
@@ -393,17 +410,18 @@ public class GameManager : MonoBehaviour
 
 
 
-        if (singlePlayerStarted == string.Empty)
-        {
-            playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
-            playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
-        }
-        else if (singlePlayerStarted == "P1")
+        
+        if (singlePlayerStarted == "P1")
         {
             playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
         }
         else if (singlePlayerStarted == "P2")
         {
+            playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+        }
+        else
+        {
+            playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
             playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
         }
 
@@ -437,7 +455,7 @@ public class GameManager : MonoBehaviour
         bool button = GetGrip("P1GL");
         bool button2 = GetGrip("P1GR");
 
-        if (input != Vector3.zero || input2 != Vector3.zero || button || button2)
+        if (input != Vector3.zero || input2 != Vector3.zero || button || button2 || (hacks && Input.GetMouseButton(0)))
         {   
             if (singlePlayerStarted == string.Empty || singlePlayerStarted == "P1")
                 playerOneInactivityTimer = 0;
