@@ -139,12 +139,6 @@ public class FrogPrototype : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //TEMPORARY RESTART
-        if (Input.GetButtonDown("Start"))
-        {
-            Application.LoadLevel(Application.loadedLevel);
-        }
-
         //Disable new grips on tutorial block
         leftGripScript.allowNewGrip = !Ready;
         rightGripScript.allowNewGrip = !Ready;
