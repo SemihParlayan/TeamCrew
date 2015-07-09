@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     public GameObject fireWorks;
     public Animator finalStretch;
     public static Transform playerOne, playerTwo;
-    public static float LevelHeight = 0;
+    public static float LevelHeight = -60.2f;
 
     private TutorialBubbles tutorialBubbles;
     private TopFrogSpawner topfrogSpawnerScript;
@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
     private FrogPrototype playerOneScript, playerTwoScript;
     void Update()
     {
+        Debug.Log("level height " + LevelHeight);
         //Start GAME!
         if (!cameraFollowScript.enabled)
         {

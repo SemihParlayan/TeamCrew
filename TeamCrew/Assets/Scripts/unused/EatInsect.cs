@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class EatInsect : MonoBehaviour {
-    private FrogPrototype frogScript;
+    //private FrogPrototype frogScript;
 
 	void Start () {
-        frogScript = GetComponent<FrogPrototype>();
+        //frogScript = GetComponent<FrogPrototype>();
 	}
 	
 	void Update () {

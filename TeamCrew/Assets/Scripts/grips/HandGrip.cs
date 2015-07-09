@@ -23,7 +23,7 @@ public class HandGrip : MonoBehaviour
     public string axis;
 
     //Sprites for different hand states
-    private SpriteRenderer renderer;
+    private SpriteRenderer spriteRenderer;
     public Sprite open;
     public Sprite semiOpen;
     public Sprite closed;
@@ -40,8 +40,6 @@ public class HandGrip : MonoBehaviour
     public AudioSource gripSoundSource;
     public AudioSource scream;
     private RandomSoundFromList randSoundGen;
-
-    private AudioSource wallScratchSource;
 
     //Insect reference
     public Insect insectScript;
@@ -73,7 +71,7 @@ public class HandGrip : MonoBehaviour
 	void Start () 
     {
         //Aquire spriterenderer and sound
-        renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         randSoundGen = gripSoundSource.GetComponent<RandomSoundFromList>();
         
         //Aquire joint and disable it
@@ -87,14 +85,10 @@ public class HandGrip : MonoBehaviour
             gameManager = game.GetComponent<GameManager>();
         }
 
-        //Set Scratch sound Source
-        wallScratchSource = transform.GetComponent<AudioSource>();
         //scream sound
         scream = transform.GetComponent<AudioSource>();
 
-
         versusGripController = GetComponent<VersusGripController>();
-
 	}
 
 	void Update ()
@@ -113,7 +107,7 @@ public class HandGrip : MonoBehaviour
             //Change hand sprite to semi-open
             if (!isOnGrip)
             {
-                renderer.sprite = semiOpen;
+                spriteRenderer.sprite = semiOpen;
                 gripAnimation.Activate("air");
             }
         }
@@ -165,7 +159,7 @@ public class HandGrip : MonoBehaviour
                             gripPoint.holderName = holdername;
                             gripPoint.numberOfHands++;
 
-                            renderer.sprite = closed;
+                            spriteRenderer.sprite = closed;
                             joint.enabled = true;
 
                             randSoundGen.GenerateGrip();
@@ -191,7 +185,7 @@ public class HandGrip : MonoBehaviour
                     gripPoint.numberOfHands++;
 
                     //Change hand sprite
-                    renderer.sprite = closed;
+                    spriteRenderer.sprite = closed;
 
                     //Enable hand joints
                     joint.enabled = true;
@@ -332,8 +326,8 @@ public class HandGrip : MonoBehaviour
     {
         //Reset hand sprite
         if (isOnGrip)
-            renderer.color = Color.white;
-        renderer.sprite = open;
+            spriteRenderer.color = Color.white;
+        spriteRenderer.sprite = open;
 
         //If hand is on a grip
         if (isOnGrip)
@@ -384,14 +378,14 @@ public class HandGrip : MonoBehaviour
             ReleaseGrip();
 
         if (!isOnGrip)
-            renderer.color = Color.red;
+            spriteRenderer.color = Color.red;
 
         allowVersusGrab = false;
         Invoke("AllowVersusGrab", grabDelay);
     }
     private void AllowVersusGrab()
     {
-        renderer.color = Color.white;
+        spriteRenderer.color = Color.white;
         allowVersusGrab = true;
     }
     Transform FindVersusBody(Transform branch)

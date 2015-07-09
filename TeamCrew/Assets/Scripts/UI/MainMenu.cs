@@ -72,7 +72,7 @@ public class MainMenu : MonoBehaviour
 
 
         ////Single player
-        float moveSpeed = 5f;
+        //float moveSpeed = 5f; //Never used
         if (uiEnabled)
         {
             if (playerOneReadyInput.timer < 10)

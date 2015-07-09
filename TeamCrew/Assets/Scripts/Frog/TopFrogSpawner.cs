@@ -9,7 +9,7 @@ public class TopFrogSpawner : MonoBehaviour
 
     private Transform currentTopFrog;
     private int frogNumberToSpawn;
-    private bool accessories;
+    //private bool accessories; //Never used
 	public int accessoriesCount = -1;
 
     private Respawn respawnScript;
@@ -50,7 +50,7 @@ public class TopFrogSpawner : MonoBehaviour
     }
     public void SpawnFrog(int frogNumber, float timeUntilSpawn, bool accessories = false)
     {
-        this.accessories = accessories;
+        //this.accessories = accessories; //Never used
         frogNumberToSpawn = frogNumber;
         Invoke("CreateFrog", timeUntilSpawn);
     }

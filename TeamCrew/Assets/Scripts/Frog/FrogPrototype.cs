@@ -297,7 +297,7 @@ public class FrogPrototype : MonoBehaviour
         //rightGripScript, player + "HR", player + "VR", rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
         string horizontalAxis = player + (a == 0 ? "HLX" : "HRX");
         string verticalAxis   = player + (a == 0 ? "VLX" : "VRX");
-        int motorDir = (a == 0 ? 1 : -1);
+        //int motorDir = (a == 0 ? 1 : -1); //Never used
 
         joints[a].useMotor = gripScript[a].isOnGrip;
         bool grip = gripScript[a].isOnGrip;

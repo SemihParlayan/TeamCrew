@@ -11,7 +11,7 @@ public class Respawn : MonoBehaviour
 
     //Components
     private Camera cam;
-    private CameraFollow follow;
+    //private CameraFollow follow; // never used
     private AudioSource screamSource;
     private BandageManager bandageManager;
 
@@ -27,7 +27,7 @@ public class Respawn : MonoBehaviour
     {
         //Get componenets
         cam = Camera.main;
-        follow = cam.transform.GetComponent<CameraFollow>();
+        //follow = cam.transform.GetComponent<CameraFollow>(); never used
         screamSource = GetComponent<AudioSource>();
         bandageManager = GetComponent<BandageManager>();
 

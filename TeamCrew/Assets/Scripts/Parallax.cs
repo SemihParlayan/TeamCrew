@@ -3,19 +3,65 @@ using System.Collections;
 
 public class Parallax : MonoBehaviour
 {
+    private Transform mainCamera;
+    private Vector2 neutralParallaxPosition;
+    private float levelHeight;
+
     public float cameraToRockLenghts;
     public float maxParallax;
-    //public bool transparentParallax = true;
+
+    //-Settings-
+    public bool debugTransparent = false;
 
 
-    private Vector2 origin;
-    private Camera cam;
-    private float levelHeight;
+	void Start ()
+    {
+        //-Init-
+        neutralParallaxPosition = transform.position;
+        mainCamera = Camera.main.transform;
+        
+        //-Debugging cases-
+        if(debugTransparent)
+            transform.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, .5f);
+	}
+
+	void Update ()
+    {
+        if (isUpdateRedundant()) return;
+
+        //calculate next position
+        Vector3 nextPosition;
+        levelHeight = Mathf.Abs(GameManager.LevelHeight); //shouldn't be in update :(
+        float climbingProgress = (mainCamera.position.y + levelHeight) / levelHeight;
+        float parallaxProgress = climbingProgress * maxParallax; //ex: 0.5 * max parallax value
+
+
+        //set position
+        
+        //// Fixing y pos so that the parallax is at max parralax state at the top
+        //relOrig.y = paralPosY;
+        Vector2 targetPos = new Vector2(
+            (mainCamera.position.x / levelHeight) * maxParallax,
+            parallaxProgress
+        );
+        
+
+        // The scalar based on distance
+        //float relDist = 1 / mainCameraToRockLenghts; //Never used
+
+        //transform.position = relDist * relOrig + origin ;
+        nextPosition = targetPos + neutralParallaxPosition + new Vector2(0, -levelHeight + 10);
+
+        transform.position = nextPosition;
+	}
     
-
-    /* For when it was not in the camera
-     * public float distance;
-     */
+    bool isUpdateRedundant()
+    {
+        if (GameManager.LevelHeight == 0)
+            return true;
+        else
+            return false;
+    }
 
     void OnBecameVisible()
     {
@@ -27,41 +73,8 @@ public class Parallax : MonoBehaviour
     {
         enabled = false;
     }
-
-	void Start ()
+    void Exit()
     {
-        //maxParallax = 235;
-        origin = transform.position;
-        //origin -= new Vector2(0, levelHeight);
         
-        cam = Camera.main;
-
-        SpriteRenderer render = transform.GetComponent<SpriteRenderer>();
-        //if(transparentParallax)
-        //render.color = new Color(1f, 1f, 1f, .5f);
-	}
-
-	void Update ()
-    {
-        if (GameManager.LevelHeight == 0)
-            return;
-        levelHeight = Mathf.Abs(GameManager.LevelHeight);
-        Vector2 camPos = cam.transform.position;
-        float normClimbDist = (camPos.y + levelHeight) / levelHeight;
-
-        float paralPosY = normClimbDist * maxParallax;
-        //Vector2 relOrig = origin - camPos;
-        
-        //// Fixing y pos so that the parallax is at max parralax state at the top
-        //relOrig.y = paralPosY;
-        Vector2 targetPos = origin;
-        targetPos.x += maxParallax * (camPos.x / levelHeight);
-        targetPos.y += paralPosY;
-
-        // The scalar based on distance
-        float relDist = 1 / cameraToRockLenghts;
-
-        //transform.position = relDist * relOrig + origin ;
-        transform.position = targetPos + new Vector2(0, -levelHeight + 10);
-	}
+    }
 }

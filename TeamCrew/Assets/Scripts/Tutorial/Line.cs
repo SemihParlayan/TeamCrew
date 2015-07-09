@@ -8,7 +8,7 @@ public class Line : MonoBehaviour
     public Transform hook;
 
     SpringJoint2D joint;
-    Rigidbody2D body;
+    //Rigidbody2D body; //Never used
 
     float maxY;
     Vector2 startPosition;
@@ -16,7 +16,7 @@ public class Line : MonoBehaviour
 
 	void Start ()
     {
-        body = GetComponent<Rigidbody2D>();
+        //body = GetComponent<Rigidbody2D>(); //Never used
         joint = GetComponent<SpringJoint2D>();
 
         joint.connectedAnchor = new Vector2(hinge.position.x, hinge.position.y + tutorialLength);

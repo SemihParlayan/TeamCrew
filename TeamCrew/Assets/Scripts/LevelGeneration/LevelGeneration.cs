@@ -145,13 +145,13 @@ public class LevelGeneration : MonoBehaviour
         for (int j = 0; j < signSprites.Count; j++)
         {
             int maxY = int.MaxValue;
-            int index = -1;
+            //int index = -1; //Never used
             for (int i = 0; i < signs.Length; i++)
             {
                 float y = signs[i].transform.position.y;
                 if (y < maxY)
                 {
-                    index = i;
+                    //index = i; //Never used
                 }
             }
 
