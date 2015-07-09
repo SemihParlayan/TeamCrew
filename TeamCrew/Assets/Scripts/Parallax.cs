@@ -33,7 +33,7 @@ public class Parallax : MonoBehaviour
         Vector3 nextPosition;
         levelHeight = Mathf.Abs(GameManager.LevelHeight); //shouldn't be in update :(
         float climbingProgress = (mainCamera.position.y + levelHeight) / levelHeight;
-        float parallaxProgress = climbingProgress * maxParallax; //ex: 0.5 * max parallax value
+        float parallaxProgress = climbingProgress * maxParallax; 
 
 
         //set position
