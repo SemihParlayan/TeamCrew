@@ -103,7 +103,12 @@ public class GameManager : MonoBehaviour
     private FrogPrototype playerOneScript, playerTwoScript;
     void Update()
     {
-        Debug.Log("level height " + LevelHeight);
+        //TEMPORARY RESTART
+        if (Input.GetButtonDown("Start"))
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
         //Start GAME!
         if (!cameraFollowScript.enabled)
         {
@@ -346,7 +351,6 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateCameraPan()
     {
-        Debug.Log("Activate");
         menuMusicController.ChangeFadeState(Fade.outs);
         cameraPanScript.enabled = true;
         mainMenuScript.exitImage.gameObject.SetActive(false);
