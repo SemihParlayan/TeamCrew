@@ -683,7 +683,7 @@ GameObject:
   - 114: {fileID: 11403068}
   - 114: {fileID: 11478782}
   m_Layer: 5
-  m_Name: button_singleplayer
+  m_Name: button_playerOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2331,6 +2331,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 433224}
   - 114: {fileID: 11412448}
+  - 114: {fileID: 11400180}
   - 114: {fileID: 11494612}
   - 114: {fileID: 11457272}
   - 82: {fileID: 8233810}
@@ -2594,7 +2595,7 @@ GameObject:
   - 114: {fileID: 11492520}
   - 114: {fileID: 11401978}
   m_Layer: 5
-  m_Name: button_multiplayer
+  m_Name: button_playerTwo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5683,7 +5684,7 @@ Transform:
   - {fileID: 411530}
   - {fileID: 22453476}
   m_Father: {fileID: 463300}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &433600
 Transform:
   m_ObjectHideFlags: 1
@@ -6560,8 +6561,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 492298}
   - {fileID: 433224}
+  - {fileID: 492298}
   - {fileID: 494582}
   - {fileID: 451648}
   - {fileID: 474268}
@@ -7523,7 +7524,7 @@ Transform:
   m_LocalScale: {x: .899999857, y: .768749893, z: .75}
   m_Children: []
   m_Father: {fileID: 463300}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &492586
 Transform:
   m_ObjectHideFlags: 1
@@ -7615,7 +7616,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.76999998, y: -7.90999985, z: 10}
+  m_LocalPosition: {x: 6.76999998, y: -13.9300003, z: 10}
   m_LocalScale: {x: .899999857, y: .768749893, z: .75}
   m_Children: []
   m_Father: {fileID: 463300}
@@ -8999,6 +9000,41 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11400180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3ca61f1b5fe4488b5b18c424ca172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  readyOneReference: {fileID: 11478782}
+  readyTwoReference: {fileID: 11401978}
+  readyOneSprites:
+  - {fileID: 21300014, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
+  - {fileID: 21300008, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
+  - {fileID: 21300010, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
+  - {fileID: 21300012, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
+  - {fileID: 21300014, guid: 61e06189a65547d46acbf0c2aeb435f7, type: 3}
+  - {fileID: 21300024, guid: 61e06189a65547d46acbf0c2aeb435f7, type: 3}
+  - {fileID: 21300010, guid: 61e06189a65547d46acbf0c2aeb435f7, type: 3}
+  - {fileID: 21300012, guid: 61e06189a65547d46acbf0c2aeb435f7, type: 3}
+  readyTwoSprites:
+  - {fileID: 21300006, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
+  - {fileID: 21300000, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
+  - {fileID: 21300002, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
+  - {fileID: 21300004, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
+  - {fileID: 21300006, guid: 61e06189a65547d46acbf0c2aeb435f7, type: 3}
+  - {fileID: 21300000, guid: 61e06189a65547d46acbf0c2aeb435f7, type: 3}
+  - {fileID: 21300002, guid: 61e06189a65547d46acbf0c2aeb435f7, type: 3}
+  - {fileID: 21300004, guid: 61e06189a65547d46acbf0c2aeb435f7, type: 3}
+  bubbleOneReference: {fileID: 9545656}
+  bubbleTwoReference: {fileID: 9502578}
+  xboxHeaveController: {fileID: 9100000, guid: fd88faa6ec523cf4497234019ed8c6a0, type: 2}
+  ps4HeaveController: {fileID: 9100000, guid: 2b9889707978afb40993df330621b16e, type: 2}
 --- !u!114 &11400314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9075,11 +9111,7 @@ MonoBehaviour:
   ready: 0
   singlePlayerReady: 0
   timer: 0
-  sprites:
-  - {fileID: 21300006, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
-  - {fileID: 21300000, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
-  - {fileID: 21300002, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
-  - {fileID: 21300004, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
+  sprites: []
 --- !u!114 &11402248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9105,6 +9137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 0
   maxParallax: 59
+  debugTransparent: 0
 --- !u!114 &11402846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9437,6 +9470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 0
   maxParallax: 53
+  debugTransparent: 0
 --- !u!114 &11410784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9455,7 +9489,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183800}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -9530,6 +9564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xbox: 1
+  ps4: 0
   digitalInput: 0
   fireWorks: {fileID: 176880}
   finalStretch: {fileID: 9557978}
@@ -9591,6 +9626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 8
   maxParallax: 43
+  debugTransparent: 0
 --- !u!114 &11414190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9851,6 +9887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 8
   maxParallax: 41
+  debugTransparent: 0
 --- !u!114 &11424454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9912,6 +9949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 5
   maxParallax: 40
+  debugTransparent: 0
 --- !u!114 &11429432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10498,7 +10536,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183244}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -10683,6 +10721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 15
   maxParallax: 43.5
+  debugTransparent: 0
 --- !u!114 &11454276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10739,6 +10778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 3
   maxParallax: 20
+  debugTransparent: 0
 --- !u!114 &11455452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10841,6 +10881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 3
   maxParallax: 11.1000004
+  debugTransparent: 0
 --- !u!114 &11458326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11169,6 +11210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 8
   maxParallax: 44
+  debugTransparent: 0
 --- !u!114 &11467454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11264,6 +11306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 15
   maxParallax: 50
+  debugTransparent: 0
 --- !u!114 &11470550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11380,6 +11423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 5
   maxParallax: 41
+  debugTransparent: 0
 --- !u!114 &11473712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11579,11 +11623,7 @@ MonoBehaviour:
   ready: 0
   singlePlayerReady: 0
   timer: 0
-  sprites:
-  - {fileID: 21300014, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
-  - {fileID: 21300008, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
-  - {fileID: 21300010, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
-  - {fileID: 21300012, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
+  sprites: []
 --- !u!114 &11478894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11621,6 +11661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToRockLenghts: 0
   maxParallax: 56
+  debugTransparent: 0
 --- !u!114 &11479388
 MonoBehaviour:
   m_ObjectHideFlags: 1

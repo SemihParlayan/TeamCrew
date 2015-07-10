@@ -11,6 +11,11 @@ public class GameManager : MonoBehaviour
             horizontalInput += "X";
             verticalInput += "X";
         }
+        else if (PS4)
+        {
+            horizontalInput += "PS";
+            verticalInput += "PS";
+        }
         Vector3 input = new Vector3(Input.GetAxis(horizontalInput), Input.GetAxis(verticalInput));
         return input;
     }
@@ -22,7 +27,13 @@ public class GameManager : MonoBehaviour
             return true;
         }
 
-        float trigger = Input.GetAxis(axis + "X");
+        float trigger = 0.0f;
+
+        if (Xbox)
+            trigger = Input.GetAxis(axis + "X");
+        else if (PS4)
+            trigger = Input.GetAxis(axis + "PS");
+
         if (trigger >= 0.2f)
         {
             return true;
@@ -30,10 +41,19 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
+    public static bool GetCheatButton()
+    {
+        if (!staticHacks)
+            return false;
 
+        return ((Xbox && Input.GetButtonDown("SelectX")) || (PS4 && Input.GetButtonDown("SelectPS")) || (Input.GetKeyDown(KeyCode.B)));
+    }
 
     public bool xbox = false;
     public static bool Xbox;
+
+    public bool ps4 = false;
+    public static bool PS4;
 
     public bool digitalInput = false;
     public static bool DigitalInput;
@@ -63,6 +83,16 @@ public class GameManager : MonoBehaviour
 
     public bool tutorialComplete;
     public bool hacks = true;
+    private static bool staticHacks;
+
+    void Awake()
+    {
+        //Set static variables
+        Xbox = xbox;
+        PS4 = ps4;
+        staticHacks = hacks;
+        DigitalInput = digitalInput;
+    }
 
 	void Start ()
     {
@@ -94,19 +124,21 @@ public class GameManager : MonoBehaviour
 
         cameraTransform = Camera.main.transform;
         cameraDefaultPosition = cameraTransform.transform.position;
-
-        //Set static variables
-        Xbox = xbox;
-        DigitalInput = digitalInput;
 	}
 
     private FrogPrototype playerOneScript, playerTwoScript;
     void Update()
     {
         //TEMPORARY RESTART
-        if (Input.GetButtonDown("Start"))
+        if (GameManager.Xbox)
         {
-            Application.LoadLevel(Application.loadedLevel);
+            if (Input.GetButtonDown("StartX"))
+                Application.LoadLevel(Application.loadedLevel);
+        }
+        else if (GameManager.PS4)
+        {
+            if (Input.GetButtonDown("StartPS"))
+                Application.LoadLevel(Application.loadedLevel);
         }
 
         //Start GAME!
@@ -161,7 +193,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (mainMenuScript.goReady && !tutorialComplete && gameActive || (playerOne && playerTwo && hacks ? Input.GetButtonDown("Select") || Input.GetKeyDown(KeyCode.B) : false))
+            if (mainMenuScript.goReady && !tutorialComplete && gameActive || (playerOne && playerTwo && hacks ? GetCheatButton() || Input.GetKeyDown(KeyCode.B) : false))
             {
                 TutorialComplete();
             }
@@ -205,7 +237,8 @@ public class GameManager : MonoBehaviour
             }
 
 
-            if ((Input.GetButtonDown("Select") || Input.GetKeyDown(KeyCode.B)) && hacks)
+            /////// CHEAT WITH SELECT
+            if (GetCheatButton())
             {
                 started = true;
             }

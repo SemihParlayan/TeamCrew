@@ -109,7 +109,7 @@ public class FrogPrototype : MonoBehaviour
     {
         if (gameManager.hacks)
         {
-            if (Input.GetButtonDown("Select") || Input.GetKey(KeyCode.B))
+            if (GameManager.GetCheatButton())
             {
                 body.AddForce(new Vector2(0, 100000));
             }
@@ -347,7 +347,7 @@ public class FrogPrototype : MonoBehaviour
             {
                 //Move towards joystick Direction
                 Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
-                Vector3 targetPosition = handOrigin[a].position + dir * 2.0f + handMagnet[a].magnetDir;
+                Vector3 targetPosition = handOrigin[a].position + dir + handMagnet[a].magnetDir;
                 handBody[a].velocity = (targetPosition - hand[a].position) * speed;
             }
             else if (gripScript[1-a].isOnGrip && otherJoint.useMotor && gripScript[a].isGripping) // Move towards other hand when neutral

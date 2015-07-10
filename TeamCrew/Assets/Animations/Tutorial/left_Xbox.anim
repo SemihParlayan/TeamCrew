@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: tutorial_second
+  m_Name: left_Xbox
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -17,15 +17,17 @@ AnimationClip:
   m_FloatCurves: []
   m_PPtrCurves:
   - curve:
-    - time: 0
-      value: {fileID: 21300014, guid: e2887b172bd31fc46b8522638038034d, type: 3}
-    - time: .5
-      value: {fileID: 21300016, guid: e2887b172bd31fc46b8522638038034d, type: 3}
+    - time: .000166666665
+      value: {fileID: 21300004, guid: 2e0c74c8d794d2a4d8b9630339d36ce5, type: 3}
+    - time: .333333343
+      value: {fileID: 21300006, guid: 2e0c74c8d794d2a4d8b9630339d36ce5, type: 3}
+    - time: .666666687
+      value: {fileID: 21300006, guid: 2e0c74c8d794d2a4d8b9630339d36ce5, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 2
+  m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -39,12 +41,13 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300014, guid: e2887b172bd31fc46b8522638038034d, type: 3}
-    - {fileID: 21300016, guid: e2887b172bd31fc46b8522638038034d, type: 3}
+    - {fileID: 21300004, guid: 2e0c74c8d794d2a4d8b9630339d36ce5, type: 3}
+    - {fileID: 21300006, guid: 2e0c74c8d794d2a4d8b9630339d36ce5, type: 3}
+    - {fileID: 21300006, guid: 2e0c74c8d794d2a4d8b9630339d36ce5, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: .683333337
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

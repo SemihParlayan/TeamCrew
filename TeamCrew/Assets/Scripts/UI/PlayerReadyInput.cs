@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class PlayerReadyInput : MonoBehaviour 
@@ -8,7 +9,8 @@ public class PlayerReadyInput : MonoBehaviour
     public bool ready;
     public bool singlePlayerReady;
     public float timer;
-    public Sprite[] sprites;
+    //[HideInInspector]
+    public List<Sprite> sprites;
 
     //Components
     private Button button;

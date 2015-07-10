@@ -101,7 +101,13 @@ public class MainMenu : MonoBehaviour
 
         if (!gameManager.gameActive)
         {
-            if (Input.GetButton("Exit"))
+            bool exit = false;
+            if (GameManager.Xbox && Input.GetButton("ExitX"))
+                exit = true;
+            else if (GameManager.PS4 && Input.GetButton("ExitPS"))
+                exit = true;
+
+            if (exit)
             {
                 exitText.gameObject.SetActive(true);
                 exitImage.sprite = exitSprites[1];

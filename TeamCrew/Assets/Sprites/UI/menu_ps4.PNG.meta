@@ -1,15 +1,25 @@
 fileFormatVersion: 2
-guid: bd704b9d9da1c324eb0711f9350079ee
-timeCreated: 1432200831
+guid: 61e06189a65547d46acbf0c2aeb435f7
+timeCreated: 1436532740
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: both_0
-    21300002: both_1
-    21300004: left_0
-    21300006: left_1
-    21300008: right_0
-    21300010: right_1
+    21300000: PS4_playerTwo_left
+    21300002: PS4_playerTwo_right
+    21300004: PS4_playerTwo_none
+    21300006: PS4_playerTwo_both
+    21300008: PS4_playerOne_left
+    21300010: PS4_playerOne_right
+    21300012: PS4_playerOne_none
+    21300014: PS4_playerOne_both
+    21300016: PS4_playerTwo_left
+    21300018: PS4_playerTwo_right
+    21300020: PS4_playerTwo_none
+    21300022: PS4_playerTwo_both
+    21300024: PS4_playerOne_Left
+    21300026: PS4_playerOne_right
+    21300028: PS4_playerOne_none
+    21300030: PS4_playerOne_both
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -33,7 +43,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
-  maxTextureSize: 4096
+  maxTextureSize: 2048
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -55,63 +65,83 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: both_0
+    - name: PS4_playerTwo_left
       rect:
         serializedVersion: 2
         x: 0
-        y: 1530
-        width: 800
-        height: 765
+        y: 972
+        width: 739
+        height: 324
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: both_1
+    - name: PS4_playerTwo_right
       rect:
         serializedVersion: 2
-        x: 800
-        y: 1530
-        width: 800
-        height: 765
+        x: 739
+        y: 972
+        width: 739
+        height: 324
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: left_0
+    - name: PS4_playerTwo_none
       rect:
         serializedVersion: 2
         x: 0
-        y: 765
-        width: 800
-        height: 765
+        y: 648
+        width: 739
+        height: 324
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: left_1
+    - name: PS4_playerTwo_both
       rect:
         serializedVersion: 2
-        x: 800
-        y: 765
-        width: 800
-        height: 765
+        x: 739
+        y: 648
+        width: 739
+        height: 324
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: right_0
+    - name: PS4_playerOne_Left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 324
+        width: 739
+        height: 324
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: PS4_playerOne_right
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 324
+        width: 739
+        height: 324
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: PS4_playerOne_none
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 800
-        height: 765
+        width: 739
+        height: 324
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: right_1
+    - name: PS4_playerOne_both
       rect:
         serializedVersion: 2
-        x: 800
+        x: 739
         y: 0
-        width: 800
-        height: 765
+        width: 739
+        height: 324
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
