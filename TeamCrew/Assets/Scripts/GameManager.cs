@@ -65,11 +65,11 @@ public class GameManager : MonoBehaviour
 
     private TutorialBubbles tutorialBubbles;
     private TopFrogSpawner topfrogSpawnerScript;
-    public LevelGeneration generatorScript;
-    public Respawn respawnScript;
-    public CameraFollow cameraFollowScript;
-    public CameraFollowTerrain  terrainScript;
-    public CameraPan cameraPanScript;
+    private LevelGeneration generatorScript;
+    private Respawn respawnScript;
+    private CameraFollow cameraFollowScript;
+    private CameraFollowTerrain  terrainScript;
+    private CameraPan cameraPanScript;
     public MainMenu mainMenuScript;
     private Vector3 cameraDefaultPosition;
     private Transform cameraTransform;
@@ -115,6 +115,13 @@ public class GameManager : MonoBehaviour
 
         if (mainMenuScript == null)
             Debug.LogError("Attach a main menu script to GameManager.cs!");
+
+        generatorScript = GetComponent<LevelGeneration>();
+        respawnScript = GetComponent<Respawn>();
+        cameraFollowScript = Camera.main.GetComponent<CameraFollow>();
+        terrainScript = Camera.main.GetComponent<CameraFollowTerrain>();
+        cameraPanScript = Camera.main.GetComponent<CameraPan>();
+
 
         topfrogSpawnerScript = GetComponent<TopFrogSpawner>();
 		topfrogSpawnerScript.accessoriesCount = -5;
