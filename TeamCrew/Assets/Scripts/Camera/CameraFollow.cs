@@ -9,11 +9,12 @@ public class CameraFollow : MonoBehaviour
     public float maxZoom = 12;
     public float minZoom = 6;
     public float absoluteZoomValue = 8;
+    public float finalStretchZoomValue = 11;
 
     private Camera cam;
 
     public bool absoluteZoom;
-    public bool absoluteMaxZoom;
+    public bool absoluteFinalStretchZoom;
 
     void Start()
     {
@@ -50,6 +51,11 @@ public class CameraFollow : MonoBehaviour
         //Set target size
         float targetSize = absoluteZoomValue;
 
+        if (absoluteFinalStretchZoom)
+        {
+            targetSize = finalStretchZoomValue;
+        }
+
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetSize, Time.deltaTime * zoomSpeed);
 
         //Fix Z position
@@ -78,9 +84,10 @@ public class CameraFollow : MonoBehaviour
 
         //Set target size
         float targetSize = Mathf.Clamp(Mathf.Abs(GameManager.playerOne.position.y - GameManager.playerTwo.position.y), minZoom, maxZoom);
-        if (absoluteMaxZoom) // ZOOM FOR LAST STRETCH
+
+        if (absoluteFinalStretchZoom)
         {
-            targetSize = 11;
+            targetSize = finalStretchZoomValue;
         }
         else if (absoluteZoom)
         {

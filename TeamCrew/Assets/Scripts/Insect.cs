@@ -170,7 +170,6 @@ public class Insect : MonoBehaviour
                 {
                     if (playerDifference < 3)
                     {
-                        Debug.Log("Diff to low");
                         ChangeState(MotionState.normal);
                     }
                 }

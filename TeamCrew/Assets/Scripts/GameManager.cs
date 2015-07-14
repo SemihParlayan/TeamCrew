@@ -43,22 +43,28 @@ public class GameManager : MonoBehaviour
     }
     public static bool GetCheatButton()
     {
-        if (!staticHacks)
+        if (!Hacks)
             return false;
 
         return ((Xbox && Input.GetButtonDown("SelectX")) || (PS4 && Input.GetButtonDown("SelectPS")) || (Input.GetKeyDown(KeyCode.B)));
     }
-
-    public bool xbox = false;
+    public static bool Hacks;
     public static bool Xbox;
-
-    public bool ps4 = false;
     public static bool PS4;
-
-    public bool digitalInput = false;
     public static bool DigitalInput;
 
-    public GameObject fireWorks;
+
+    //////////////////////////
+
+
+    public bool gameActive;
+    public bool tutorialComplete;
+    public bool hacks = true;
+    public bool xbox = false;
+    public bool ps4 = false;
+    public bool digitalInput = false;
+
+    private GameObject fireWorks;
     public Animator finalStretch;
     public static Transform playerOne, playerTwo;
     public static float LevelHeight = -60.2f;
@@ -68,285 +74,130 @@ public class GameManager : MonoBehaviour
     private LevelGeneration generatorScript;
     private Respawn respawnScript;
     private CameraFollow cameraFollowScript;
-    private CameraFollowTerrain  terrainScript;
+    private CameraFollowTerrain  cameraFollowTerrainScript;
     private CameraPan cameraPanScript;
     public MainMenu mainMenuScript;
     private Vector3 cameraDefaultPosition;
-    private Transform cameraTransform;
-    public bool gameActive;
     public MenuMusicController menuMusicController;
     public FinalMusic finalMusicCotroller;
+    private InactivityController inactivityController;
+    private FrogPrototype playerOneScript, playerTwoScript;    
 
-    public LayerMask mask;
-    private bool tutorilBubblesSpawned;
+    private bool playedFinalStretch = true;
+
+    [HideInInspector]
     public string singlePlayerStarted;
-
-    public bool tutorialComplete;
-    public bool hacks = true;
-    private static bool staticHacks;
+    public bool IsInMultiplayerMode { get { return (singlePlayerStarted == string.Empty); } }
 
     void Awake()
     {
         //Set static variables
         Xbox = xbox;
         PS4 = ps4;
-        staticHacks = hacks;
+        Hacks = hacks;
         DigitalInput = digitalInput;
     }
-
 	void Start ()
     {
         Application.targetFrameRate = 200;
 
-        if (generatorScript == null)
-            Debug.LogError("Attach a generator script to GameManager.cs!");
-
-        if (respawnScript == null)
-            Debug.LogError("Attach a respawn script to GameManager.cs!");
-
-        if (cameraFollowScript == null)
-            Debug.LogError("Attach a camera follow script to GameManager.cs!");
-
-        if (cameraPanScript == null)
-            Debug.LogError("Attach a camera pan script to GameManager.cs!");
-
-        if (terrainScript == null)
-            Debug.LogError("Attach a camera terrain script to GameManager.cs!");
-
-        if (mainMenuScript == null)
-            Debug.LogError("Attach a main menu script to GameManager.cs!");
-
+        //Aquire LevelGenerator script
         generatorScript = GetComponent<LevelGeneration>();
+        if (generatorScript == null)
+        {
+            Debug.LogError("Can't find a generator script on GameManager object");
+        }
+
+        //Aquire Respawn script
         respawnScript = GetComponent<Respawn>();
-        cameraFollowScript = Camera.main.GetComponent<CameraFollow>();
-        terrainScript = Camera.main.GetComponent<CameraFollowTerrain>();
-        cameraPanScript = Camera.main.GetComponent<CameraPan>();
+        if (respawnScript == null)
+        {
+            Debug.LogError("Can't find a respawn script on GameManager object");
+        }
+        
+        //Aquire CameraFollow script
+        Camera mainCamera = Camera.main;
+        cameraFollowScript = mainCamera.GetComponent<CameraFollow>();
+        if (cameraFollowScript == null)
+        {
+            Debug.LogError("Can't find a CameraFollowScript script on MainCamera!");
+        }
 
+        //Aquire CameraPan script
+        cameraPanScript = mainCamera.GetComponent<CameraPan>();
+        if (cameraPanScript == null)
+        {
+            Debug.LogError("Can't find a Camerapan script on MainCamera!");
+        }
 
+        //Aquire CameraFollowTerrain script
+        cameraFollowTerrainScript = mainCamera.GetComponent<CameraFollowTerrain>();
+        if (cameraFollowTerrainScript == null)
+        {
+            Debug.LogError("Can't find a CameraFollowTerrainScript script on MainCamera!");
+        }
+        
+        //Aquire fireworks gameobject
+        fireWorks = GameObject.FindWithTag("Fireworks");
+        if (fireWorks == null)
+        {
+            Debug.LogError("Can't find an object with tag: Fireworks");
+        }
+        else
+        {
+            fireWorks.SetActive(false);
+        }
+
+        //Aquire inactivityController script
+        inactivityController = GetComponent<InactivityController>();
+        if (inactivityController == null)
+        {
+            Debug.LogError("Can't find a InactivityController script on GameManager object");
+        }
+
+        //Check if mainmenuScript is applied
+        if (mainMenuScript == null)
+        {
+            Debug.LogError("Attach a main menu script to GameManager.cs!");
+        }
+
+        //Aquire topFrogSpawner script
         topfrogSpawnerScript = GetComponent<TopFrogSpawner>();
-		topfrogSpawnerScript.accessoriesCount = -5;
-        topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
-
+        if (topfrogSpawnerScript == null)
+        {
+            Debug.LogError("Can't find a TopFrogSpawner script on GameManager object");
+        }
+        else
+        {
+            topfrogSpawnerScript.accessoriesCount = -5;
+            topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
+        }
+		
+        //Aquire tutorialBubbles script
         tutorialBubbles = GetComponent<TutorialBubbles>();
+        if (tutorialBubbles == null)
+        {
+            Debug.LogError("Can't find a TutorialBubbles script on GameManager object");
+        }
 
-        cameraTransform = Camera.main.transform;
-        cameraDefaultPosition = cameraTransform.transform.position;
+        //Set cameras default position
+        cameraDefaultPosition = mainCamera.transform.position;
 	}
 
-    private FrogPrototype playerOneScript, playerTwoScript;
     void Update()
     {
-        //TEMPORARY RESTART
-        if (GameManager.Xbox)
-        {
-            if (Input.GetButtonDown("StartX"))
-                Application.LoadLevel(Application.loadedLevel);
-        }
-        else if (GameManager.PS4)
-        {
-            if (Input.GetButtonDown("StartPS"))
-                Application.LoadLevel(Application.loadedLevel);
-        }
-
-        //Start GAME!
-        if (!cameraFollowScript.enabled)
-        {
-            
-            mainMenuScript.playerOneReady.gameObject.SetActive(false);
-            mainMenuScript.playerTwoReady.gameObject.SetActive(false);
-
-            if (!mainMenuScript.goReady)
-            {
-                bool playerOneReady = false;
-                bool playerTwoReady = false;
-
-                //Check for player one ready
-                if (playerOneScript)
-                {
-                    if (playerOneScript.Ready)
-                    {
-                        if (singlePlayerStarted == string.Empty)
-                            mainMenuScript.playerOneReady.gameObject.SetActive(true);
-                        playerOneReady = true;
-                    }
-                }
-
-                //Check for player two ready
-                if (playerTwoScript)
-                {
-                    if (playerTwoScript.Ready)
-                    {
-                        if (singlePlayerStarted == string.Empty)
-                            mainMenuScript.playerTwoReady.gameObject.SetActive(true);
-                        playerTwoReady = true;
-                    }
-                }
-                
-
-                //Start in multiplayer
-                if (singlePlayerStarted == string.Empty)
-                {
-                    if (playerOneReady && playerTwoReady)
-                    {
-                        mainMenuScript.StartGoImage(generatorScript.GetReadySetGoSpriteRenderes());  
-                    }
-                }
-                else // Start singleplayer
-                {
-                    if (playerOneReady || playerTwoReady)
-                    {
-                        mainMenuScript.StartGoImage(generatorScript.GetReadySetGoSpriteRenderes());
-                    }
-                }
-            }
-
-            if (mainMenuScript.goReady && !tutorialComplete && gameActive || (playerOne && playerTwo && hacks ? GetCheatButton() || Input.GetKeyDown(KeyCode.B) : false))
-            {
-                TutorialComplete();
-            }
-        }
-
-            
-        //Check for camera pan complete
-        if (cameraPanScript.enabled)
-        {
-            if (cameraPanScript.Halfway())
-            {
-                CreateNewFrogs();
-            }
-            if (cameraPanScript.Complete())
-            {
-                Debug.Log("Camera pan complete");
-                StartGame();
-                generatorScript.DeactivateEasyBlock();
-            }
-        }
-        else if (!gameActive)
-        {
-            //Move camera to default
-            cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraDefaultPosition, Time.deltaTime);
-
-            //Zoom to default
-            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 7.5f, Time.deltaTime / 2);
-
-            bool started = true;
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                mainMenuScript.playerOneReadyInput.singlePlayerReady = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                mainMenuScript.playerTwoReadyInput.singlePlayerReady = true;
-            }
-            else if(!Input.GetKeyDown(KeyCode.B))
-            {
-                started = false;
-            }
-
-
-            /////// CHEAT WITH SELECT
-            if (GetCheatButton())
-            {
-                started = true;
-            }
-            else if (mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready)
-            {
-                started = true;
-                singlePlayerStarted = string.Empty;
-            }
-            else if (mainMenuScript.playerOneReadyInput.singlePlayerReady)
-            {
-                started = true;
-                singlePlayerStarted = "P1";
-            }
-            else if (mainMenuScript.playerTwoReadyInput.singlePlayerReady)
-            {
-                started = true;
-                singlePlayerStarted = "P2";
-            }
-
-          
-
-            if (started)
-            {
-                ActivateCameraPan();
-                generatorScript.Generate();
-                mainMenuScript.DisableUI();
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////
-        //                      Inactivity
-        ///////////////////////////////////////////////////////////////////////////
-        if (gameActive)
-        {
-            playerOneInactivityTimer += Time.deltaTime;
-            playerTwoInactivityTimer += Time.deltaTime;
-
-            if (playerOneInactivityTimer >= 5 && playerTwoInactivityTimer >= 5)
-            {
-                inactivityText.transform.parent.gameObject.SetActive(true);
-                inactivityTimer -= Time.deltaTime;
-
-                inactivityText.text = "Inactivity! \n Returning to main menu in " + Mathf.RoundToInt(inactivityTimer) + "...";
-
-                if (inactivityTimer <= 0)
-                {
-                    GoBackToMenu();
-                    playerOneInactivityTimer = 0;
-                    playerTwoInactivityTimer = 0;
-                }
-            }
-            else
-            {
-                inactivityText.transform.parent.gameObject.SetActive(false);
-                inactivityTimer = 5;
-            }
-        }
-
-
-        DeactivateInactivityCounter();
-        respawnScript.playerOne.inactive = PlayerOneInactive();
-        respawnScript.playerTwo.inactive = PlayerTwoInactive();
-
-
-        ///////////////////////////////////////////////////////////////////////////
-        //                      Final stretch
-        ///////////////////////////////////////////////////////////////////////////
-        float height = Mathf.Abs(LevelHeight);
-        float climbedNormalDistance = (Camera.main.transform.position.y + height) / height;
-
-        if (climbedNormalDistance >= 0.8f && !playedFinalStretch && gameActive)
-        {
-            playedFinalStretch = true;
-            finalStretch.SetTrigger("Play");
-        }
-        if (gameActive)
-            cameraFollowScript.absoluteMaxZoom = playedFinalStretch;
-
-        
-
-
-        ///////////////////////////////////////////////////////////////////////////
-        //                      Singleplayer
-        ///////////////////////////////////////////////////////////////////////////
-        if (singlePlayerStarted == "P1")
-        {
-            playerTwoInactivityTimer = 10;
-        }
-        else if (singlePlayerStarted == "P2")
-        {
-            playerOneInactivityTimer = 10;
-        }
+        RestartGame();
+        CheckForTutorialComplete();
+        CheckForCameraPanComplete();
+        CheckForFinalStretch();
+        CheckForPlayersReadyInMenu();
     }
-    private bool playedFinalStretch = true;
 
-    float inactivityTimer = 5;
     void StartGame()
     {
         playedFinalStretch = false;
         gameActive = true;
-        terrainScript.enabled = false;
+        cameraFollowTerrainScript.enabled = false;
         respawnScript.enabled = true;
         mainMenuScript.goReady = false;
 
@@ -371,31 +222,6 @@ public class GameManager : MonoBehaviour
 
         tutorialBubbles.EnableScript();
     }
-
-    private void TutorialComplete()
-    {
-        finalMusicCotroller.enabled = true;
-
-        cameraFollowScript.enabled = true;
-        tutorialComplete = true;
-
-        if (playerOne != null)
-            playerOne.GetComponent<Line>().Remove();
-
-        if (playerTwo != null)
-            playerTwo.GetComponent<Line>().Remove();
-
-        tutorialBubbles.DisableScript();
-
-        generatorScript.ActivateEasyBlock();
-    }
-    public void ActivateCameraPan()
-    {
-        menuMusicController.ChangeFadeState(Fade.outs);
-        cameraPanScript.enabled = true;
-        mainMenuScript.exitImage.gameObject.SetActive(false);
-        Camera.main.orthographicSize = 7.5f;
-    }
     public void Win(int frogNumber)
     {
         finalMusicCotroller.ChangeFadeState(Fade.outs);
@@ -415,10 +241,10 @@ public class GameManager : MonoBehaviour
         mainMenuScript.StartMenuCycle(frogNumber, v);
 
         mainMenuScript.exitImage.gameObject.SetActive(true);
-        inactivityText.transform.parent.gameObject.SetActive(false);
+        inactivityController.inactivityText.transform.parent.gameObject.SetActive(false);
         cameraFollowScript.enabled = false;
         respawnScript.enabled = false;
-        terrainScript.enabled = true;
+        cameraFollowTerrainScript.enabled = true;
         tutorialComplete = false;
         gameActive = false;
         respawnScript.ResetRespawns();
@@ -430,16 +256,16 @@ public class GameManager : MonoBehaviour
         topfrogSpawnerScript.accessoriesCount = v;
         topfrogSpawnerScript.SpawnFrog(frogNumber, 3f, true);
     }
-    private void GoBackToMenu()
+    public void GoBackToMenu()
     {
         mainMenuScript.EnableUI();
         generatorScript.ActivateEasyBlock();
 
         mainMenuScript.exitImage.gameObject.SetActive(true);
-        inactivityText.transform.parent.gameObject.SetActive(false);
+        inactivityController.inactivityText.transform.parent.gameObject.SetActive(false);
         cameraFollowScript.enabled = false;
         respawnScript.enabled = false;
-        terrainScript.enabled = true;
+        cameraFollowTerrainScript.enabled = true;
         tutorialComplete = false;
         gameActive = false;
         respawnScript.ResetRespawns();
@@ -448,90 +274,321 @@ public class GameManager : MonoBehaviour
         Invoke("DestroyFrogs", 3f);
         topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
     }
+
+    /*
+     * I'm currently working on cleaning up GameManager, the methods below are new, commented and better than before.
+     * I will eventually move all above methods underneath of here so that everything is commented and as clean as can be.
+    */
+    
+    //Single use methods
+    /// <summary>
+    /// Deletes old frogs and creates either one or two new frogs depending on which game mode the game is currently in.
+    /// </summary>
     private void CreateNewFrogs()
     {
+        //Remove old frogs.
         DestroyFrogs();
+
+        //Reset the bandage counter.
         GetComponent<BandageManager>().ResetBandages();
 
+        //Aquire spawn positions for frogs
+        Vector3 pOneSpawnPos = generatorScript.GetPlayerOneSpawnPosition();
+        Vector3 pTwoSpawnPos = generatorScript.GetPlayerTwoSpawnPosition();
 
-
-        
+        //Spawn frogs depending on which mode the game was started in.
         if (singlePlayerStarted == "P1")
         {
-            playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+            playerOne = (Instantiate(respawnScript.playerOne.prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
         }
         else if (singlePlayerStarted == "P2")
         {
-            playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
+            playerTwo = (Instantiate(respawnScript.playerTwo.prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
         }
         else
         {
-            playerOne = (Instantiate(respawnScript.playerOne.prefab, generatorScript.GetPlayerOneSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
-            playerTwo = (Instantiate(respawnScript.playerTwo.prefab, generatorScript.GetPlayerTwoSpawnPosition(), Quaternion.identity) as Transform).FindChild("body");
-        }
-
-
-        topfrogSpawnerScript.RemoveFrog();
-        if (!tutorilBubblesSpawned)
-        {
-            tutorilBubblesSpawned = true;
+            playerOne = (Instantiate(respawnScript.playerOne.prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
+            playerTwo = (Instantiate(respawnScript.playerTwo.prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
         }
     }
+
+    /// <summary>
+    /// Deletes the current active frogs.
+    /// </summary>
     private void DestroyFrogs()
     {
+        //Remove player one frog
         if (playerOne != null)
             Destroy(playerOne.parent.gameObject);
+
+        //Remove player two frog
         if (playerTwo != null)
             Destroy(playerTwo.parent.gameObject);
     }
 
+    /// <summary>
+    /// Sets the tutorial to complete and more such as disabling tutorial bubbles, remove safety lines etc...
+    /// </summary>
+    private void TutorialComplete()
+    {
+        //Set flags
+        tutorialComplete = true;
+        finalMusicCotroller.enabled = true;
+        cameraFollowScript.enabled = true;
+
+        //Disable tutorial bubbles;
+        tutorialBubbles.DisableScript();
+
+        //Reactivate the easy block thats above the tutorial.
+        generatorScript.ActivateEasyBlock();
+
+
+        //Remove player one safety line
+        if (playerOne != null)
+            playerOne.GetComponent<Line>().Remove();
+        //Remove player two safety line
+        if (playerTwo != null)
+            playerTwo.GetComponent<Line>().Remove();
+    }
+
+    /// <summary>
+    /// Sets the camera in motion to pan down the mountain.
+    /// </summary>
+    public void ActivateCameraPan()
+    {
+        //Set menu music to start fading out
+        menuMusicController.ChangeFadeState(Fade.outs);
+
+        //Activate cameraPan script
+        cameraPanScript.enabled = true;
+
+        //Disable exitbuttonImage
+        mainMenuScript.exitImage.gameObject.SetActive(false);
+
+        //Set the start zoom value for the camera when panning down.
+        Camera.main.orthographicSize = 7.5f;
+    }
+
+    /// <summary>
+    /// Return the frogs total deathcount. X = PlayerOne death count. Y = PlayerTwo death count.
+    /// </summary>
     public Vector2 GetFrogDeathCount()
     {
         return new Vector2(respawnScript.playerOne.deathCount, respawnScript.playerTwo.deathCount);
     }
-    public Text inactivityText;
-    public float inactivityTime = 5;
-    public float playerOneInactivityTimer;
-    public float playerTwoInactivityTimer;
-    private void DeactivateInactivityCounter()
+
+
+    //Methods called from Update constantly
+    /// <summary>
+    /// Reloads the current scene loaded.
+    /// </summary>
+    private void RestartGame()
     {
-        Vector3 input = GetInput("P1HL", "P1VL");
-        Vector3 input2 = GetInput("P1HR", "P1VR");
-        bool button = GetGrip("P1GL");
-        bool button2 = GetGrip("P1GR");
-
-        if (input != Vector3.zero || input2 != Vector3.zero || button || button2 || (hacks && Input.GetMouseButton(0)))
-        {   
-            if (singlePlayerStarted == string.Empty || singlePlayerStarted == "P1")
-                playerOneInactivityTimer = 0;
-            else if (tutorialComplete)
-            {
-                playerOneInactivityTimer = 0;
-                singlePlayerStarted = string.Empty;
-            }
-        }
-
-        input = GetInput("P2HL", "P2VL");
-        input2 = GetInput("P2HR", "P2VR");
-        button = GetGrip("P2GL");
-        button2 = GetGrip("P2GR");
-        if (input != Vector3.zero || input2 != Vector3.zero || button || button2)
+        //Restart game with Xbox 360 Controller
+        if (GameManager.Xbox)
         {
-            if (singlePlayerStarted == string.Empty || singlePlayerStarted == "P2")
-                playerTwoInactivityTimer = 0;
-            else if (tutorialComplete)
-            {
-                playerTwoInactivityTimer = 0;
-                singlePlayerStarted = string.Empty;
-            }
+            if (Input.GetButtonDown("StartX"))
+                Application.LoadLevel(Application.loadedLevel);
+        }
+        //Restart game with PS4 controller
+        else if (GameManager.PS4)
+        {
+            if (Input.GetButtonDown("StartPS"))
+                Application.LoadLevel(Application.loadedLevel);
         }
     }
-    public bool PlayerOneInactive()
+
+    /// <summary>
+    /// Check to see if the frogs/frog has reached the tutorial grips. If so start the game!
+    /// </summary>
+    private void CheckForTutorialComplete()
     {
-        return playerOneInactivityTimer >= 7.5f;
+        if (!gameActive || tutorialComplete)
+            return;
+
+        /*
+         * We are currently inside of tutorial state for all the code below. Tutorial state means that the frogs are active and
+         * are currently climbing the tutorial block. They have not yet completed the tutorial. The code below
+         * will start the game whenver the frogs have completed the tutorial.
+        */
+
+        mainMenuScript.playerOneReady.gameObject.SetActive(false);
+        mainMenuScript.playerTwoReady.gameObject.SetActive(false);
+
+        bool playerOneCompletedTutorial = false;
+        bool playerTwoCompletedTutorial = false;
+
+        //Check for player one ready
+        if (playerOneScript && playerOneScript.IsGrippingTutorial)
+        {
+            playerOneCompletedTutorial = true;
+            if (IsInMultiplayerMode)
+                mainMenuScript.playerOneReady.gameObject.SetActive(true);
+        }
+        //Check for player two ready
+        if (playerTwoScript && playerTwoScript.IsGrippingTutorial)
+        {
+            playerTwoCompletedTutorial = true;
+            if (IsInMultiplayerMode)
+                mainMenuScript.playerTwoReady.gameObject.SetActive(true);
+        }
+
+
+        //Start in multiplayer
+        if (IsInMultiplayerMode)
+        {
+            if (playerOneCompletedTutorial && playerTwoCompletedTutorial)
+            {
+                mainMenuScript.StartGoImage(generatorScript.GetReadySetGoSpriteRenderes());
+            }
+        }
+        //Start singleplayer
+        else
+        {
+            if (playerOneCompletedTutorial || playerTwoCompletedTutorial)
+            {
+                mainMenuScript.StartGoImage(generatorScript.GetReadySetGoSpriteRenderes());
+            }
+        }
+
+        //Set tutorial complete
+        if (mainMenuScript.goReady && !tutorialComplete)
+        {
+            TutorialComplete();
+        }
+        //Set tutorial complete with HACKS
+        else if (GetCheatButton())
+        {
+            TutorialComplete();
+        }
     }
-    public bool PlayerTwoInactive()
+
+    /// <summary>
+    /// Checks to see if the pan has reached halfway and when it is complete.
+    /// </summary>
+    private void CheckForCameraPanComplete()
     {
-        return playerTwoInactivityTimer >= 7.5f;
+        if (!cameraPanScript.enabled)
+            return;
+        /*
+         * We are currently in panning state which means we are currently panning down the mountain in the code below.
+        */
+
+
+        //We have panned halfway down
+        if (cameraPanScript.Halfway())
+        {
+            //Spawn new frogs at the bottom of the mountain
+            CreateNewFrogs();
+
+            //Delete the topfrog
+            topfrogSpawnerScript.RemoveFrog();
+        }
+
+        //We have panned all the way to the bottom
+        if (cameraPanScript.Complete())
+        {
+            StartGame();
+            generatorScript.DeactivateEasyBlock();
+        }
+    }
+
+    /// <summary>
+    /// Checks to see if the camera has reached the final stretch marker, if so it activates the final stretch text.
+    /// </summary>
+    private void CheckForFinalStretch()
+    {
+        if (!gameActive)
+            return;
+
+
+        //Aquire the height of the mountain.
+        float height = Mathf.Abs(LevelHeight);
+        
+        /*
+         * Calculate how far the camera is up the mountain. The value will be between 0 and 1.
+         * 0 = Bottom
+         *1 = Top
+        */
+        float climbedNormalDistance = (Camera.main.transform.position.y + height) / height;
+
+        //Play finalstretch animation if we have climbed 80% of the mountain.
+        bool reachedStretchMarker = (climbedNormalDistance >= 0.8f);
+        cameraFollowScript.absoluteFinalStretchZoom = reachedStretchMarker;
+
+        if (!playedFinalStretch && reachedStretchMarker)
+        {
+            playedFinalStretch = true;
+            finalStretch.SetTrigger("Play");
+        }
+    }
+
+    /// <summary>
+    /// Checks to see if the players are ready inside of the menu. This method starts the game in either singleplayer or multiplaye mode.
+    /// </summary>
+    private void CheckForPlayersReadyInMenu()
+    {
+        if (gameActive || cameraPanScript.enabled)
+            return;
+        /*
+         * The code below is currently in MenuState which means thats we are at the top of the mountain.
+         * We are checking for the player to click ready in order to start the camerapan.
+         */
+
+
+        //Lerp cameras position towards the default position at the top of the mountain.
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cameraDefaultPosition, Time.deltaTime);
+
+        //Lerp cameras zoom to default zoom distance at the top of the mountain.
+        Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 7.5f, Time.deltaTime / 2);
+
+        //Set flag to start game with only playerOne
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            mainMenuScript.playerOneReadyInput.singlePlayerReady = true;
+        }
+        //Set flag to start game with only playerTwo
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            mainMenuScript.playerTwoReadyInput.singlePlayerReady = true;
+        }
+
+        bool started = false;
+
+        //Both frogs are ready, set flag to start in multiplayer mode.
+        if (mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready)
+        {
+            started = true;
+            singlePlayerStarted = string.Empty;
+        }
+        //Only playerOne is ready, playerOne started the game in singleplayer mode.
+        else if (mainMenuScript.playerOneReadyInput.singlePlayerReady)
+        {
+            started = true;
+            singlePlayerStarted = "P1";
+        }
+        //Only playerTwo is ready, playerTwo started the game in singleplayer mode.
+        else if (mainMenuScript.playerTwoReadyInput.singlePlayerReady)
+        {
+            started = true;
+            singlePlayerStarted = "P2";
+        }
+
+        //Start game with cheatbutton. This will start the game in multiplayerMode.
+        if (GetCheatButton())
+        {
+            started = true;
+        }
+
+        /*
+         * If the flag has been set to start game in either singleplayer or multiplayed mode we
+         * activate the camera pan, generate a new level to climb and disable the UI.
+         */
+        if (started)
+        {
+            ActivateCameraPan();
+            generatorScript.Generate();
+            mainMenuScript.DisableUI();
+        }
     }
 }

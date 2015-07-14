@@ -24,7 +24,6 @@ public class FinalMusic : MonoBehaviour
 
 	void Start () {
         originalActivationHeight = activationHeight;
-        Debug.Log("original Activation height is "+ originalActivationHeight);
         finalsound = transform.GetComponent<AudioSource>();
         cam = Camera.main;
         activationHeight -= gameMaxHeight; //because the world goes downwards D:

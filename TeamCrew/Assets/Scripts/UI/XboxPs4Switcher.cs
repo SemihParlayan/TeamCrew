@@ -45,12 +45,10 @@ public class XboxPs4Switcher : MonoBehaviour
         if (GameManager.Xbox)
         {
             startIndex = 0;
-            Debug.Log("Xbox");
         }
         else if (GameManager.PS4)
         {
             startIndex = 4;
-            Debug.Log("PS4");
         }
 
         for (int i = 0; i < 4; i++)

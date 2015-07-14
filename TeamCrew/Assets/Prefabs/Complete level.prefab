@@ -2342,6 +2342,7 @@ GameObject:
   - 114: {fileID: 11452178}
   - 114: {fileID: 11442946}
   - 114: {fileID: 11463538}
+  - 114: {fileID: 11410194}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: GameManager
@@ -3561,11 +3562,11 @@ GameObject:
   - 82: {fileID: 8259782}
   m_Layer: 0
   m_Name: Fireworks woho
-  m_TagString: Untagged
+  m_TagString: Fireworks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &177842
 GameObject:
   m_ObjectHideFlags: 1
@@ -9436,6 +9437,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11410194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414f9bcecada4ed4ca38494898027d25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inactivityText: {fileID: 11403498}
+  inactivitySecondLimit: 5
 --- !u!114 &11410258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9489,7 +9503,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183800}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -9563,30 +9577,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a518fd21e0cbd25488cb7f6ecaac0d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameActive: 0
+  tutorialComplete: 0
+  hacks: 1
   xbox: 1
   ps4: 0
   digitalInput: 0
-  fireWorks: {fileID: 176880}
   finalStretch: {fileID: 9557978}
-  generatorScript: {fileID: 11494612}
-  respawnScript: {fileID: 11457272}
-  cameraFollowScript: {fileID: 11454276}
-  terrainScript: {fileID: 11495812}
-  cameraPanScript: {fileID: 11400314}
   mainMenuScript: {fileID: 11431896}
-  gameActive: 0
   menuMusicController: {fileID: 11464268}
   finalMusicCotroller: {fileID: 11470568}
-  mask:
-    serializedVersion: 2
-    m_Bits: 256
   singlePlayerStarted: 
-  tutorialComplete: 0
-  hacks: 1
-  inactivityText: {fileID: 11403498}
-  inactivityTime: 10
-  playerOneInactivityTimer: 0
-  playerTwoInactivityTimer: 0
 --- !u!114 &11412510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10536,7 +10537,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183244}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f97e6d9f742038a40bbabd499117fbaf, type: 3}
   m_Name: 
@@ -10738,8 +10739,9 @@ MonoBehaviour:
   maxZoom: 9
   minZoom: 6
   absoluteZoomValue: 7.5
+  finalStretchZoomValue: 11
   absoluteZoom: 0
-  absoluteMaxZoom: 0
+  absoluteFinalStretchZoom: 0
 --- !u!114 &11454390
 MonoBehaviour:
   m_ObjectHideFlags: 1
