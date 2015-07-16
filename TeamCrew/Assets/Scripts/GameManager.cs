@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    //Static variables and properties
     public static Vector3 GetInput(string horizontalInput, string verticalInput)
     {
         if (Xbox)
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour
     public static bool PS4;
     public static bool DigitalInput;
 
+    public static Transform playerOne, playerTwo;
+    public static float LevelHeight = -60.2f;
 
     //////////////////////////
 
@@ -66,8 +69,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject fireWorks;
     public Animator finalStretch;
-    public static Transform playerOne, playerTwo;
-    public static float LevelHeight = -60.2f;
+    
 
     private TutorialBubbles tutorialBubbles;
     private TopFrogSpawner topfrogSpawnerScript;
@@ -91,7 +93,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        //Set static variables
+        //Set static variables to their coresponding public property.
         Xbox = xbox;
         PS4 = ps4;
         Hacks = hacks;
@@ -184,6 +186,7 @@ public class GameManager : MonoBehaviour
         cameraDefaultPosition = mainCamera.transform.position;
 	}
 
+    //Update method
     void Update()
     {
         RestartGame();
@@ -192,94 +195,10 @@ public class GameManager : MonoBehaviour
         CheckForFinalStretch();
         CheckForPlayersReadyInMenu();
     }
-
-    void StartGame()
-    {
-        playedFinalStretch = false;
-        gameActive = true;
-        cameraFollowTerrainScript.enabled = false;
-        respawnScript.enabled = true;
-        mainMenuScript.goReady = false;
-
-        GameObject player = GameObject.FindWithTag("PlayerOne");
-        if (player)
-        {
-            playerOne = player.transform;
-            playerOneScript = playerOne.GetComponent<FrogPrototype>();
-        }
-
-        player = GameObject.FindWithTag("PlayerTwo");
-        if (player)
-        {
-            playerTwo = player.transform;
-            playerTwoScript = playerTwo.GetComponent<FrogPrototype>();
-        }
-
-        respawnScript.playerOne.deathCount = 0;
-        respawnScript.playerTwo.deathCount = 0;
-
-        fireWorks.SetActive(false);
-
-        tutorialBubbles.EnableScript();
-    }
-    public void Win(int frogNumber)
-    {
-        finalMusicCotroller.ChangeFadeState(Fade.outs);
-
-        Vector2 deathCount = GetFrogDeathCount();
-
-        int v = 0;
-        if (frogNumber == 1)
-        {
-            v = (int)deathCount.y - (int)deathCount.x;
-        }
-        else
-        {
-            v = (int)deathCount.x - (int)deathCount.y;
-        }
-        
-        mainMenuScript.StartMenuCycle(frogNumber, v);
-
-        mainMenuScript.exitImage.gameObject.SetActive(true);
-        inactivityController.inactivityText.transform.parent.gameObject.SetActive(false);
-        cameraFollowScript.enabled = false;
-        respawnScript.enabled = false;
-        cameraFollowTerrainScript.enabled = true;
-        tutorialComplete = false;
-        gameActive = false;
-        respawnScript.ResetRespawns();
-        GetComponent<FlySpawner>().RemoveFly();
-        fireWorks.SetActive(true);
-        fireWorks.GetComponent<Fireworks>().Reset();
-
-        Invoke("DestroyFrogs", 3f);
-        topfrogSpawnerScript.accessoriesCount = v;
-        topfrogSpawnerScript.SpawnFrog(frogNumber, 3f, true);
-    }
-    public void GoBackToMenu()
-    {
-        mainMenuScript.EnableUI();
-        generatorScript.ActivateEasyBlock();
-
-        mainMenuScript.exitImage.gameObject.SetActive(true);
-        inactivityController.inactivityText.transform.parent.gameObject.SetActive(false);
-        cameraFollowScript.enabled = false;
-        respawnScript.enabled = false;
-        cameraFollowTerrainScript.enabled = true;
-        tutorialComplete = false;
-        gameActive = false;
-        respawnScript.ResetRespawns();
-        GetComponent<FlySpawner>().RemoveFly();
-
-        Invoke("DestroyFrogs", 3f);
-        topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
-    }
-
-    /*
-     * I'm currently working on cleaning up GameManager, the methods below are new, commented and better than before.
-     * I will eventually move all above methods underneath of here so that everything is commented and as clean as can be.
-    */
     
+
+
+
     //Single use methods
     /// <summary>
     /// Deletes old frogs and creates either one or two new frogs depending on which game mode the game is currently in.
@@ -376,6 +295,134 @@ public class GameManager : MonoBehaviour
     {
         return new Vector2(respawnScript.playerOne.deathCount, respawnScript.playerTwo.deathCount);
     }
+
+    /// <summary>
+    /// Resets the game variables and returns the camera to the menu (Top of the mountain).
+    /// </summary>
+    public void GoBackToMenu()
+    {
+        //Enable UI
+        mainMenuScript.EnableUI();
+
+        //Reactivate block above tutorial
+        generatorScript.ActivateEasyBlock();
+
+        //Reset menu variables
+        ResetVariablesToMenu();
+
+        //Destroy old frogs and spawn new topfrog
+        Invoke("DestroyFrogs", 3f);
+        topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
+    }
+
+    /// <summary>
+    /// Resets all boolean flags needed to return to menu for a safe restart of the game. Enables exit button in menu & removes fly.
+    /// </summary>
+    private void ResetVariablesToMenu()
+    {
+        //Disable inactivity controller
+        inactivityController.inactivityText.transform.parent.gameObject.SetActive(false);
+
+        //Enable exit button in menu again
+        mainMenuScript.exitImage.gameObject.SetActive(true);
+
+        //Reset boolean flags
+        cameraFollowTerrainScript.enabled = true;
+        cameraFollowScript.enabled = false;
+        respawnScript.enabled = false;
+        playedFinalStretch = false;
+        tutorialComplete = false;
+        gameActive = false;
+
+        //Reset spawn timers
+        respawnScript.ResetRespawns();
+
+        //Remove any active fly
+        GetComponent<FlySpawner>().RemoveFly();
+    }
+
+    /// <summary>
+    /// Enables the menu cycle that shows which frog won, deathcount and sets accessories for the winning frog. Also activates FireWorks.
+    /// </summary>
+    /// <param name="frogNumber">What frog won the game? 1 or 2?</param>
+    public void Win(int frogNumber)
+    {
+        //Fade out finalmusic
+        finalMusicCotroller.ChangeFadeState(Fade.outs);
+
+        //Aquire death count for both frogs
+        Vector2 deathCount = GetFrogDeathCount();
+
+        //Which frog won? store the number of accessories for winning frog in variable 'v'.
+        int v = 0;
+        if (frogNumber == 1)
+        {
+            v = (int)deathCount.y - (int)deathCount.x;
+        }
+        else
+        {
+            v = (int)deathCount.x - (int)deathCount.y;
+        }
+
+        //Start menu cycle, who won?, deathcount etc...
+        mainMenuScript.StartMenuCycle(frogNumber, v);
+
+        //Reset menu variables
+        ResetVariablesToMenu();
+
+        //Destroy old frogs and spawn new topfrog
+        Invoke("DestroyFrogs", 3f);
+        topfrogSpawnerScript.accessoriesCount = v;
+        topfrogSpawnerScript.SpawnFrog(frogNumber, 3f, true);
+
+        //Enable fireworks
+        fireWorks.SetActive(true);
+        fireWorks.GetComponent<Fireworks>().Reset();
+    }
+
+    /// <summary>
+    /// Sets the game to active, meaning that the frogs can move and the tutorial is started.
+    /// </summary>
+    void StartGame()
+    {
+        //Enables respawning
+        respawnScript.enabled = true;
+
+        //Sets the game to be active (Camera pan has just reached the bottom)
+        gameActive = true;
+
+        //Reset variables
+        playedFinalStretch = false;
+        cameraFollowTerrainScript.enabled = false;
+        mainMenuScript.goReady = false;
+
+        //Find frog number one
+        GameObject player = GameObject.FindWithTag("PlayerOne");
+        if (player)
+        {
+            playerOne = player.transform;
+            playerOneScript = playerOne.GetComponent<FrogPrototype>();
+        }
+
+        //Find frog number two
+        player = GameObject.FindWithTag("PlayerTwo");
+        if (player)
+        {
+            playerTwo = player.transform;
+            playerTwoScript = playerTwo.GetComponent<FrogPrototype>();
+        }
+
+        //Reset deathcounter
+        respawnScript.ResetDeathcount();
+
+        //Disable fireworks
+        fireWorks.SetActive(false);
+
+        //Enable tutorial bubbles
+        tutorialBubbles.EnableScript();
+    }
+
+
 
 
     //Methods called from Update constantly

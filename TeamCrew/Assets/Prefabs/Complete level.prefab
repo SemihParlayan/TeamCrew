@@ -2343,6 +2343,7 @@ GameObject:
   - 114: {fileID: 11442946}
   - 114: {fileID: 11463538}
   - 114: {fileID: 11410194}
+  - 114: {fileID: 11437006}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: GameManager
@@ -10228,6 +10229,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aboveLayer: {fileID: 405728}
+--- !u!114 &11437006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414f9bcecada4ed4ca38494898027d25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inactivityText: {fileID: 11403498}
+  inactivitySecondLimit: 5
 --- !u!114 &11437174
 MonoBehaviour:
   m_ObjectHideFlags: 1
