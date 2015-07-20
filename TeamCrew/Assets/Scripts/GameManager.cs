@@ -98,21 +98,6 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 200;
 
-        if (generatorScript == null)
-            Debug.LogError("Attach a generator script to GameManager.cs!");
-
-        if (respawnScript == null)
-            Debug.LogError("Attach a respawn script to GameManager.cs!");
-
-        if (cameraFollowScript == null)
-            Debug.LogError("Attach a camera follow script to GameManager.cs!");
-
-        if (cameraPanScript == null)
-            Debug.LogError("Attach a camera pan script to GameManager.cs!");
-
-        if (terrainScript == null)
-            Debug.LogError("Attach a camera terrain script to GameManager.cs!");
-
         if (mainMenuScript == null)
             Debug.LogError("Attach a main menu script to GameManager.cs!");
 
@@ -271,6 +256,7 @@ public class GameManager : MonoBehaviour
             {
                 ActivateCameraPan();
                 generatorScript.Generate();
+                Parallax.SetLevelHeight(generatorScript.LevelHeight);
                 mainMenuScript.DisableUI();
             }
         }

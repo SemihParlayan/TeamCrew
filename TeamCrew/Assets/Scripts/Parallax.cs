@@ -5,14 +5,21 @@ public class Parallax : MonoBehaviour
 {
     private Transform mainCamera;
     private Vector2 neutralParallaxPosition;
-    private float levelHeight;
+    private static float levelHeight;
 
     public float cameraToRockLenghts;
     public float maxParallax;
 
     //-Settings-
     public bool debugTransparent = false;
+    public float ManualProgress = 0;
+    private float lastManualProgress = 0;
+    public bool IsManual = false;
+    private bool lastIsManual = false;
 
+    //Distributing local settings to
+    private static float manualProgress = 0;
+    private static bool isManual = false;
 
 	void Start ()
     {
@@ -25,42 +32,68 @@ public class Parallax : MonoBehaviour
             transform.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, .5f);
 	}
 
+    bool IsUpdateRedundant()
+    {
+        if (isManual) return false;
+
+        if (levelHeight == 0) return true; // There is no level
+
+        return false;
+    }
+
+    void CheckChangedSettings()
+    {
+        if (IsManual != lastIsManual)
+        {
+            lastIsManual = IsManual;
+            isManual = IsManual;
+        }
+        if (ManualProgress != lastManualProgress)
+        {
+            lastManualProgress = ManualProgress;
+            manualProgress = ManualProgress;
+        }
+    }
+
 	void Update ()
     {
-        if (isUpdateRedundant()) return;
-
-        //calculate next position
-        Vector3 nextPosition;
-        levelHeight = Mathf.Abs(GameManager.LevelHeight); //shouldn't be in update :(
-        float climbingProgress = (mainCamera.position.y + levelHeight) / levelHeight;
-        float parallaxProgress = climbingProgress * maxParallax; 
-
-
-        //set position
+        CheckChangedSettings(); //This function is stupid but I don't know of any easier alternatives
+        if (IsUpdateRedundant() == true) return;
+        SetCamera(GetParallaxProgress());
         
-        //// Fixing y pos so that the parallax is at max parralax state at the top
-        //relOrig.y = paralPosY;
-        Vector2 targetPos = new Vector2(
-            (mainCamera.position.x / levelHeight) * maxParallax,
-            parallaxProgress
-        );
-        
-
-        // The scalar based on distance
-        //float relDist = 1 / mainCameraToRockLenghts; //Never used
-
-        //transform.position = relDist * relOrig + origin ;
-        nextPosition = targetPos + neutralParallaxPosition + new Vector2(0, -levelHeight + 10);
-
-        transform.position = nextPosition;
 	}
-    
-    bool isUpdateRedundant()
+
+    float GetParallaxProgress()
     {
-        if (GameManager.LevelHeight == 0)
-            return true;
+        float cameraProgress = 0;
+        if (isManual)
+        {
+            cameraProgress = manualProgress;
+        }
         else
-            return false;
+        {
+            //Inside the parenthesis levelHeight is compensation for level top being at y=0;
+            cameraProgress = (mainCamera.position.y + levelHeight) / levelHeight;
+        }
+        return cameraProgress * maxParallax;
+    }
+    void SetCamera(float parallaxProgress)
+    {
+        if (levelHeight == 0)
+        {
+            Debug.Log("Error: Division with 0");
+            return;
+        }
+
+        float xParallax = (mainCamera.position.x / levelHeight) * maxParallax;
+        float yParallax = parallaxProgress;
+        Vector2 targetPos = new Vector2( xParallax, yParallax);
+        transform.position = targetPos + neutralParallaxPosition + new Vector2(0, -levelHeight+13);
+    }
+
+    public static void SetLevelHeight(float inputHeight)
+    {
+        levelHeight = Mathf.Abs(inputHeight);
     }
 
     void OnBecameVisible()
