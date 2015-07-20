@@ -6,6 +6,8 @@ public class Parallax : MonoBehaviour
     private Transform mainCamera;
     private Vector2 neutralParallaxPosition;
     private static float levelHeight;
+    private static float stupidHeight = 67.2f; //the normal height when 3 blocks + tutorial... 
+
 
     public float cameraToRockLenghts;
     public float maxParallax;
@@ -59,8 +61,7 @@ public class Parallax : MonoBehaviour
     {
         CheckChangedSettings(); //This function is stupid but I don't know of any easier alternatives
         if (IsUpdateRedundant() == true) return;
-        SetCamera(GetParallaxProgress());
-        
+        SetCamera(GetParallaxProgress());        
 	}
 
     float GetParallaxProgress()
@@ -75,7 +76,7 @@ public class Parallax : MonoBehaviour
             //Inside the parenthesis levelHeight is compensation for level top being at y=0;
             cameraProgress = (mainCamera.position.y + levelHeight) / levelHeight;
         }
-        return cameraProgress * maxParallax;
+        return cameraProgress * maxParallax * (levelHeight / stupidHeight);
     }
     void SetCamera(float parallaxProgress)
     {
