@@ -55,7 +55,19 @@ public class GameManager : MonoBehaviour
     public static bool DigitalInput;
 
     public static Transform playerOne, playerTwo;
-    public static float LevelHeight = 1337;
+    private static float levelHeight = 1337;
+    public static float LevelHeight
+    {
+        set
+        {
+            Parallax.SetLevelHeight(value);
+             levelHeight = value;
+        }
+        get
+        {
+            return levelHeight;
+        }
+    }
 
     //////////////////////////
 
@@ -189,7 +201,6 @@ public class GameManager : MonoBehaviour
     //Update method
     void Update()
     {
-        Debug.Log(GameManager.LevelHeight);
         RestartGame();
         CheckForTutorialComplete();
         CheckForCameraPanComplete();
@@ -284,9 +295,6 @@ public class GameManager : MonoBehaviour
 
         //Disable exitbuttonImage
         mainMenuScript.exitImage.gameObject.SetActive(false);
-
-        //Give height to parallaxes
-        Parallax.SetLevelHeight(LevelHeight);//generatorScript.LevelHeight);
 
         //Set the start zoom value for the camera when panning down.
         Camera.main.orthographicSize = 7.5f;

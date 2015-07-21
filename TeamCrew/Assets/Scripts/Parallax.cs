@@ -91,7 +91,7 @@ public class Parallax : MonoBehaviour
         float xParallax = (mainCamera.position.x / levelHeight) * maxParallax;
         float yParallax = parallaxProgress;
         Vector2 targetPos = new Vector2( xParallax, yParallax);
-        transform.position = targetPos + neutralParallaxPosition+ new Vector2(0, -levelHeight + 13); //this +13 might be changed to * .85, we will see how it works when level height exists.
+        transform.position = targetPos + neutralParallaxPosition+ new Vector2(0, -levelHeight *.85f); //this +13 might be changed to * .85, we will see how it works when level height exists.
     }
 
     public static void SetLevelHeight(float inputHeight)
