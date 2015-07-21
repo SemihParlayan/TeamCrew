@@ -62,8 +62,8 @@ public class Parallax : MonoBehaviour
         CheckChangedSettings(); //This function is stupid but I don't know of any easier alternatives
         if (IsUpdateRedundant() == true) return;
         SetCamera(GetParallaxProgress());
-        Debug.Log("Level Height: "+levelHeight);
-        Debug.Log(mainCamera.position);
+        //Debug.Log("Level Height: "+levelHeight);
+        //Debug.Log(mainCamera.position);
 	}
 
     float GetParallaxProgress()

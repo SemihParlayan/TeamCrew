@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     public static bool DigitalInput;
 
     public static Transform playerOne, playerTwo;
-    public static float LevelHeight = -60.2f;
+    public static float LevelHeight = 1337;
 
     //////////////////////////
 
@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour
     //Update method
     void Update()
     {
+        Debug.Log(GameManager.LevelHeight);
         RestartGame();
         CheckForTutorialComplete();
         CheckForCameraPanComplete();
