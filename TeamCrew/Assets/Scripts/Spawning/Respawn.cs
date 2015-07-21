@@ -11,6 +11,7 @@ public class Respawn : MonoBehaviour
 
     //Components
     private Camera cam;
+
     //private CameraFollow follow; // never used
     private AudioSource screamSource;
     private BandageManager bandageManager;
@@ -125,6 +126,11 @@ public class Respawn : MonoBehaviour
         b.AddForce(Vector2.up * 650000);
 
         return body;
+    }
+    public void ResetDeathcount()
+    {
+        playerOne.deathCount = 0;
+        playerTwo.deathCount = 0;
     }
 
     Vector2 GetSpawnPosition(PlayerRespawn player)

@@ -28,13 +28,8 @@ public class LevelGeneration : MonoBehaviour
             Block tut = level.Last();
             if (!tut)
                 return 0;
-            return tut.transform.position.y - tut.size.y / 2;
+            return (tut.transform.position.y - tut.size.y / 2) + 7.2f;
         } 
-    }
-
-    void Awake()
-    {
-        //GameManager.LevelHeight = LevelHeight - 5;
     }
 
 	void Start () 
@@ -129,7 +124,7 @@ public class LevelGeneration : MonoBehaviour
         {
             lastLevel.Add(level[i]);
         }
-        GameManager.LevelHeight = LevelHeight + 7;
+        GameManager.LevelHeight = LevelHeight;
     }
     private void FixSigns()
     {
