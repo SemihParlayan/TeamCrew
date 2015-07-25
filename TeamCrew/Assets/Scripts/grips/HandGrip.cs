@@ -16,8 +16,11 @@ public class HandGrip : MonoBehaviour
 
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
 
-    public bool allowNewGrip = true;
+    private bool allowNewGrip = true;
     private bool allowVersusGrab = true;
+
+    //Time of last grip
+    public float lastGripTime;
 
     //Axis of which to grip with
     public string axis;
@@ -98,6 +101,13 @@ public class HandGrip : MonoBehaviour
             if (!gameManager.gameActive)
                 return;
         }
+
+        //Set last grip time
+        if (JustGripped)
+        {
+            lastGripTime = Time.timeSinceLevelLoad;
+        }
+
         isGripping = false;
         if (GameManager.GetGrip(axis) || hackGrip) //Grip button down is down
         {
@@ -136,6 +146,11 @@ public class HandGrip : MonoBehaviour
 	}
     bool AllowGrip(Grip g)
     {
+        if (!allowNewGrip)
+        {
+            return false;
+        }
+
         //Find name of the hand
         string holdername = axis.Substring(0, 2);
 
@@ -322,7 +337,7 @@ public class HandGrip : MonoBehaviour
         handIsLocked = true;
         handLockTimer = time;
     }
-    public void ReleaseGrip()
+    public void ReleaseGrip(float newGripDelay = 0)
     {
         //Reset hand sprite
         if (isOnGrip)
@@ -371,6 +386,12 @@ public class HandGrip : MonoBehaviour
             insectScript = null;
         }
         isGrippingInsect = false;
+
+        if (newGripDelay > 0)
+        {
+            allowNewGrip = false;
+            Invoke("ActivateAllowGrip", newGripDelay);
+        }
     }
     public void ReleaseVersusGrip(float grabDelay)
     {
@@ -387,6 +408,10 @@ public class HandGrip : MonoBehaviour
     {
         spriteRenderer.color = Color.white;
         allowVersusGrab = true;
+    }
+    private void ActivateAllowGrip()
+    {
+        allowNewGrip = true;
     }
     Transform FindVersusBody(Transform branch)
     {

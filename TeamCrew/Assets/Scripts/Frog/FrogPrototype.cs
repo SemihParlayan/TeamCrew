@@ -139,9 +139,6 @@ public class FrogPrototype : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //Disable new grips on tutorial block
-        leftGripScript.allowNewGrip = !IsGrippingTutorial;
-        rightGripScript.allowNewGrip = !IsGrippingTutorial;
 
         //Keeps body still until a grip is made
         ActivateBody();
