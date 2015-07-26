@@ -8,9 +8,8 @@ public class LevelGeneration : MonoBehaviour
     public Transform startTop;
     public Block thickConverter;
     public List<Block> blockList = new List<Block>();
-    public List<Sprite> signSprites = new List<Sprite>();
-    public List<Block> level = new List<Block>();
-    public List<Block> lastLevel = new List<Block>();
+    private List<Block> level = new List<Block>();
+    private List<Block> lastLevel = new List<Block>();
 
     private Transform currentTop;
     private Transform previousTop;
@@ -125,32 +124,24 @@ public class LevelGeneration : MonoBehaviour
             lastLevel.Add(level[i]);
         }
         GameManager.LevelHeight = LevelHeight;
+        Debug.Log(GameManager.LevelHeight);
     }
     private void FixSigns()
     {
         GameObject[] signs = GameObject.FindGameObjectsWithTag("Sign");
 
-        if (signs.Length != signSprites.Count)
+        for (int i = 0; i < signs.Length; i++)
         {
-            Debug.LogWarning("Number of signs found is not equal to sign sprites applied to LevelGeneration.cs" +
-                " \n Signs found: " + signs.Length + " \n Sprites applied: " + signSprites.Count
-                );
-            return;
-        }
-        for (int j = 0; j < signSprites.Count; j++)
-        {
-            int maxY = int.MaxValue;
-            //int index = -1; //Never used
-            for (int i = 0; i < signs.Length; i++)
-            {
-                float y = signs[i].transform.position.y;
-                if (y < maxY)
-                {
-                    //index = i; //Never used
-                }
-            }
+            float y = Mathf.RoundToInt(Mathf.Abs(signs[i].transform.position.y));
 
-            signs[j].GetComponent<SpriteRenderer>().sprite = signSprites[j];
+            if (signs[i].transform.childCount == 0)
+                Debug.LogError("Sign is missing a textmesh at: " + signs[i].transform.parent.name);
+
+            TextMesh text = signs[i].transform.GetChild(0).GetComponent<TextMesh>();
+            if (text)
+            {
+                text.text = y.ToString() + "m";
+            }
         }
     }
 
