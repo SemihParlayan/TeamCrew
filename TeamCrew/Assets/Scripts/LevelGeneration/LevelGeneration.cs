@@ -95,6 +95,7 @@ public class LevelGeneration : MonoBehaviour
             {
                 if (block.start == BlockEnding.Thin)
                 {
+                    Debug.Log("Converter added");
                     //Add thickConverter
                     Transform t = Instantiate(thickConverter.transform, block.transform.position, Quaternion.identity) as Transform;
                     Block b = t.GetComponent<Block>();
@@ -124,7 +125,6 @@ public class LevelGeneration : MonoBehaviour
             lastLevel.Add(level[i]);
         }
         GameManager.LevelHeight = LevelHeight;
-        Debug.Log(GameManager.LevelHeight);
     }
     private void FixSigns()
     {
