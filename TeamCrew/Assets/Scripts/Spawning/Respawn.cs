@@ -11,6 +11,7 @@ public class Respawn : MonoBehaviour
 
     //Components
     private Camera cam;
+    private StoneDisabler stoneDisabler;
 
     //private CameraFollow follow; // never used
     private AudioSource screamSource;
@@ -28,9 +29,9 @@ public class Respawn : MonoBehaviour
     {
         //Get componenets
         cam = Camera.main;
-        //follow = cam.transform.GetComponent<CameraFollow>(); never used
         screamSource = GetComponent<AudioSource>();
         bandageManager = GetComponent<BandageManager>();
+        stoneDisabler = GetComponent<StoneDisabler>();
 
         playerOne.timer = respawnTime;
         playerTwo.timer = respawnTime;
@@ -117,13 +118,14 @@ public class Respawn : MonoBehaviour
         pos.y -= 3;
         Transform t = Instantiate(player.prefab, pos, Quaternion.identity) as Transform;
 
-
         Transform body = t.FindChild("body");
         body.GetComponent<Line>().Remove();
 
         Rigidbody2D b = body.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
         b.AddForce(Vector2.up * 650000);
+
+        stoneDisabler.DisableStoneAt(pos);
 
         return body;
     }

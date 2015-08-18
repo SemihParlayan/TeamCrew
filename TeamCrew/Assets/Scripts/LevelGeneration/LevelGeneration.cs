@@ -124,7 +124,6 @@ public class LevelGeneration : MonoBehaviour
             lastLevel.Add(level[i]);
         }
         GameManager.LevelHeight = LevelHeight;
-        Debug.Log(GameManager.LevelHeight);
     }
     private void FixSigns()
     {
