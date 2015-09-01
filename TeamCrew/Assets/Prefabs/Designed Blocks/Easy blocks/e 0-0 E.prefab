@@ -293,7 +293,7 @@ GameObject:
   - 60: {fileID: 6003982}
   m_Layer: 0
   m_Name: e 0-0 E
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9942,7 +9942,7 @@ MonoBehaviour:
   start: 0
   pixelsFromLeftStart: 110
   difficulty: 0
-  blockIndex: 0
+  blockIndex: 15
 --- !u!114 &11481014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14071,7 +14071,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 106656}

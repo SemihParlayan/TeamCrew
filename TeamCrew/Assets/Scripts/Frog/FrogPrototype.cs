@@ -3,8 +3,8 @@ using System.Collections;
 
 public class FrogPrototype : MonoBehaviour
 {
-    public ParticleSystem rightParticle;
-    public ParticleSystem leftParticle;
+    private ParticleSystem rightParticle;
+    private ParticleSystem leftParticle;
 
     public float speed;
     public float yVelocityClamp = 10;
@@ -37,6 +37,7 @@ public class FrogPrototype : MonoBehaviour
     public Transform rightHand;
     private Rigidbody2D rightBody;
 
+    [HideInInspector]
     public Rigidbody2D body;
 
     public GripMagnet leftHandMagnet;
@@ -45,6 +46,7 @@ public class FrogPrototype : MonoBehaviour
     public float motorSpeed = 350;
     public float versusMotorBoost = 350;
 
+    [HideInInspector]
     public int versusHands;
 
     public bool IsGrippingTutorial { get { return (leftGripScript.isGrippingTutorial || rightGripScript.isGrippingTutorial);} }
@@ -69,6 +71,9 @@ public class FrogPrototype : MonoBehaviour
 
     void Start()
     {
+        leftParticle = leftHandMagnet.GetComponent<ParticleSystem>();
+        rightParticle = rightHandMagnet.GetComponent<ParticleSystem>();
+
         leftBody  = handBody[0] = leftHand.GetComponent<Rigidbody2D>();
         if (leftBody == null) { Debug.Log("leftBody is null"); }
 
@@ -84,7 +89,7 @@ public class FrogPrototype : MonoBehaviour
         if (gameManager == null) { Debug.Log("GameManager is null"); Debug.Break(); }
 
 
-        leftHandSoundChooser = leftGripScript.GetComponentInChildren<RandomSoundFromList>();
+    
         if (leftHandSoundChooser == null) { Debug.Log("leftHandSoundChooser is null"); }
 
         velVolLeft = leftGripScript.GetComponentInChildren<VelocityVolume>();
