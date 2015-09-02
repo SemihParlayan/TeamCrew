@@ -578,7 +578,7 @@ public class GameManager : MonoBehaviour
         //float climbedNormalDistance = (Camera.main.transform.position.y + height) / height;
 
         //Play finalstretch animation if we have climbed 80% of the mountain.
-        bool reachedStretchMarker = (Camera.main.transform.position.y+height >= height - 40);
+        bool reachedStretchMarker = (Camera.main.transform.position.y+height >= height - 15);
         cameraFollowScript.absoluteFinalStretchZoom = reachedStretchMarker;
 
         if(reachedStretchMarker)
