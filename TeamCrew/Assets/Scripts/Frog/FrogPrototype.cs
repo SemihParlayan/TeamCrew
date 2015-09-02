@@ -89,7 +89,7 @@ public class FrogPrototype : MonoBehaviour
         if (gameManager == null) { Debug.Log("GameManager is null"); Debug.Break(); }
 
 
-    
+        leftHandSoundChooser = leftGripScript.GetComponentInChildren<RandomSoundFromList>();
         if (leftHandSoundChooser == null) { Debug.Log("leftHandSoundChooser is null"); }
 
         velVolLeft = leftGripScript.GetComponentInChildren<VelocityVolume>();

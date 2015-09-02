@@ -24,7 +24,7 @@ public class InactivityController : MonoBehaviour
 
 	void Update () 
 	{
-        if (gameManager.gameActive)
+        if (gameManager.gameActive && !gameManager.designTestingEnabled)
         {
             //Increase inactivity timers
             playerOneInactivityTimer += Time.deltaTime;

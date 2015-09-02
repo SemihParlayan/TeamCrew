@@ -72,8 +72,9 @@ public class GameManager : MonoBehaviour
     //////////////////////////
 
 
-    public bool gameActive;
-    public bool tutorialComplete;
+    public bool designTestingEnabled;
+    [HideInInspector] public bool gameActive;
+    [HideInInspector] public bool tutorialComplete;
     public bool hacks = true;
     public bool xbox = false;
     public bool ps4 = false;
@@ -110,6 +111,13 @@ public class GameManager : MonoBehaviour
         PS4 = ps4;
         Hacks = hacks;
         DigitalInput = digitalInput;
+
+        //Activate design testing
+        if (designTestingEnabled)
+        {
+            gameActive = true;
+            tutorialComplete = true;
+        }
     }
 	void Start ()
     {
@@ -588,6 +596,9 @@ public class GameManager : MonoBehaviour
     private void CheckForPlayersReadyInMenu()
     {
         if (gameActive || cameraPanScript.enabled)
+            return;
+
+        if (designTestingEnabled)
             return;
         /*
          * The code below is currently in MenuState which means thats we are at the top of the mountain.
