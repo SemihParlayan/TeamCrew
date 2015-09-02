@@ -3,115 +3,96 @@ using System.Collections;
 
 public class FinalMusic : MonoBehaviour
 {
-    public float activationHeight = 40;
-    public float fadeInDuration = 30;
-    public float fadeOutDuration = 1;
-    public float fadeInMaxHeight = 20;
-
-
-    private float originalActivationHeight;
     private AudioSource finalsound;
-    private Camera cam;
     private GameManager gameManager;
 
 
-    public Fade fade;
+    public float activationHeight = -40;
+
+    private Transform cam;
+    
+    public FadeState fade = FadeState.NONE;
     private float timer = 0;
-    private bool first = true;
-
-    private float gameMaxHeight = 80;
-
+    public float fadeInDuration = 30;
+    public float fadeOutDuration = 1;
 
 	void Start () {
-        originalActivationHeight = activationHeight;
         finalsound = transform.GetComponent<AudioSource>();
-        cam = Camera.main;
-        activationHeight -= gameMaxHeight; //because the world goes downwards D:
-        ChangeFadeState(Fade.nones);
-
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+
+        cam = Camera.main.transform;
+        //SetFadeState(FadeState.NONE);
 	}
 
     void OnEnable()
     {
-        if (first)
-        {
-            first = false;
-            return;
-        }
+        //Copied from Start()
         finalsound = transform.GetComponent<AudioSource>();
-        cam = Camera.main;
-        activationHeight = originalActivationHeight - 80; //because the world goes downwards D:
-        ChangeFadeState(Fade.nones);
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+
+        cam = Camera.main.transform;
+        //SetFadeState(FadeState.NONE);
+        //===================================
+        PlayFinalMusic();
+
+        Debug.Log("Final Stretch Music enabled");
+    }
+
+    void OnDisable()
+    {
+        Debug.Log("Final Stretch Music Disabled");
     }
 
     void Update()
     {
-        if (cam.transform.position.y > activationHeight)
+        switch (fade)
         {
-            PlayFinalMusic();
-            switch (fade)
-            {
-                case Fade.nones:
-                {
-                    //float max = fadeInMaxHeight - activationHeight;
-                    //float camY = cam.transform.position.y - activationHeight;
-                    //finalsound.volume = camY / max;
+            case FadeState.NONE:
+                NoFadeUpdate(); break;
 
-                    float camY = cam.transform.position.y;
-                    float levelHeight = Mathf.Abs(GameManager.LevelHeight);
+            case FadeState.IN:
+                FadeInUpdate(); break;
 
-                    camY = levelHeight + camY;
-
-                    if (camY >= levelHeight - originalActivationHeight)
-                    {
-                        float v = 1f - (2*(levelHeight - camY) / originalActivationHeight);
-                        finalsound.volume = v;
-                    }
-                    else
-                    {
-                        finalsound.volume = 0;
-                    }
-                    break;
-                }
-                
-
-                case Fade.ins:
-                    {
-                        timer += Time.deltaTime;
-                        if (timer >= fadeInDuration)
-                        {
-                            finalsound.volume = 1;
-                            ChangeFadeState(Fade.nones);
-                        }
-                        else finalsound.volume = (timer / fadeInDuration);
-
-                        break;
-                    }
-
-                case Fade.outs:
-                    {
-                        timer += Time.deltaTime;
-                        if (timer >= fadeOutDuration)
-                        {
-                            Stop();
-                            finalsound.volume = 0;
-                            ChangeFadeState(Fade.nones);
-                            enabled = false;
-                        }
-                        else finalsound.volume = 1 - (timer / fadeOutDuration);
-
-                        break;
-                    }
-            }
+            case FadeState.OUT:
+                FadeOutUpdate(); break;
         }
+    }
+
+    void NoFadeUpdate()
+    {
+        
+        finalsound.volume = 1f - Mathf.Abs((cam.position.y) / (activationHeight));
+    }
+
+    void FadeInUpdate()
+    {
+        timer += Time.deltaTime;
+        if (timer >= fadeInDuration)
+        {
+            finalsound.volume = 1;
+            SetFadeState(FadeState.NONE);
+        }
+        else finalsound.volume = (timer / fadeInDuration);
+    }
+
+    void FadeOutUpdate()
+    {
+        timer += Time.deltaTime;
+        if (timer >= fadeOutDuration)
+        {
+            Stop();
+            finalsound.volume = 0;
+            SetFadeState(FadeState.NONE);
+            enabled = false;
+        }
+        else finalsound.volume = 1 - (timer / fadeOutDuration);
     }
 	public void PlayFinalMusic()
     {
         if (!finalsound.isPlaying && gameManager.gameActive)
         {
             finalsound.Play();
-            ChangeFadeState(Fade.nones);
+            SetFadeState(FadeState.NONE);
         }
     }
 
@@ -120,7 +101,7 @@ public class FinalMusic : MonoBehaviour
         finalsound.Stop();
     }
 
-    public void ChangeFadeState(Fade state)
+    public void SetFadeState(FadeState state)
     {
         if (finalsound == null)
         {
@@ -128,24 +109,24 @@ public class FinalMusic : MonoBehaviour
         }
         switch (state)
         {
-            case Fade.ins:
+            case FadeState.IN:
+                PlayFinalMusic();
                 timer = 0;
                 finalsound.volume = 0;
-                fade = Fade.ins;
+                fade = FadeState.IN;
                 break;
-            case Fade.outs:
+            case FadeState.OUT:
                 timer = 0;
-                finalsound.volume = 1;
-                fade = Fade.outs;
+                fade = FadeState.OUT;
 
                 break;
-            case Fade.nones:
-                fade = Fade.nones;
-
+            case FadeState.NONE:
+                fade = FadeState.NONE;
                 break;
             default: break;
 
         }
     }
 
+    
 }

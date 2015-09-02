@@ -154,7 +154,7 @@ public class MainMenu : MonoBehaviour
     }
     public void EnableUI()
     {
-        menuMusicController.ChangeFadeState(Fade.ins);
+        menuMusicController.ChangeFadeState(FadeState.IN);
         uiEnabled = true;
         Invoke("EnableUIParent", 0.1f);
         anim.SetTrigger("EnableUI");

@@ -272,7 +272,6 @@ public class GameManager : MonoBehaviour
     {
         //Set flags
         tutorialComplete = true;
-        finalMusicCotroller.enabled = true;
         cameraFollowScript.enabled = true;
 
         //Disable tutorial bubbles;
@@ -296,7 +295,7 @@ public class GameManager : MonoBehaviour
     public void ActivateCameraPan()
     {
         //Set menu music to start fading out
-        menuMusicController.ChangeFadeState(Fade.outs);
+        menuMusicController.ChangeFadeState(FadeState.OUT);
            
         //Activate cameraPan script
         cameraPanScript.enabled = true;
@@ -368,7 +367,7 @@ public class GameManager : MonoBehaviour
     public void Win(int frogNumber)
     {
         //Fade out finalmusic
-        finalMusicCotroller.ChangeFadeState(Fade.outs);
+        finalMusicCotroller.SetFadeState(FadeState.OUT);
 
         //Aquire death count for both frogs
         Vector2 deathCount = GetFrogDeathCount();
@@ -568,7 +567,6 @@ public class GameManager : MonoBehaviour
         if (!gameActive)
             return;
 
-
         //Aquire the height of the mountain.
         float height = Mathf.Abs(LevelHeight);
         
@@ -577,16 +575,34 @@ public class GameManager : MonoBehaviour
          * 0 = Bottom
          *1 = Top
         */
-        float climbedNormalDistance = (Camera.main.transform.position.y + height) / height;
+        //float climbedNormalDistance = (Camera.main.transform.position.y + height) / height;
 
         //Play finalstretch animation if we have climbed 80% of the mountain.
-        bool reachedStretchMarker = (climbedNormalDistance >= 0.8f);
+        bool reachedStretchMarker = (Camera.main.transform.position.y+height >= height - 40);
         cameraFollowScript.absoluteFinalStretchZoom = reachedStretchMarker;
 
-        if (!playedFinalStretch && reachedStretchMarker)
+        if(reachedStretchMarker)
         {
-            playedFinalStretch = true;
-            finalStretch.SetTrigger("Play");
+            if (!playedFinalStretch)
+            { 
+                playedFinalStretch = true;
+                finalStretch.SetTrigger("Play");
+            }
+
+            if (!finalMusicCotroller.enabled)
+            {
+                finalMusicCotroller.enabled = true;
+            }
+
+        }
+        else
+        {
+            if(finalMusicCotroller.enabled)
+            {
+                finalMusicCotroller.enabled = false;
+                //finalMusicCotroller.SetFadeState(FadeState.OUT);
+            }
+            
         }
     }
 
