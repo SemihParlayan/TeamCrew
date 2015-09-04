@@ -7871,10 +7871,12 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!60 &6000320
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -8424,7 +8426,7 @@ AudioSource:
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -10320,6 +10322,7 @@ MonoBehaviour:
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
+  m_RepeatDelay: .5
   m_AllowActivationOnMobileDevice: 0
 --- !u!114 &11437524
 MonoBehaviour:
@@ -11394,11 +11397,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb98d0e97692a3f42b9b606a62026b6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activationHeight: 30
+  activationHeight: 15
+  fade: 0
   fadeInDuration: 30
   fadeOutDuration: 3
-  fadeInMaxHeight: 30
-  fade: 0
 --- !u!114 &11470822
 MonoBehaviour:
   m_ObjectHideFlags: 1

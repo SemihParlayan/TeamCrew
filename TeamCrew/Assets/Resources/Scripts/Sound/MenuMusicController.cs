@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum Fade
+public enum FadeState
 {
-    ins,
-    outs,
-    nones
+    IN,
+    OUT,
+    NONE
 }
 
 public class MenuMusicController : MonoBehaviour
@@ -13,7 +13,7 @@ public class MenuMusicController : MonoBehaviour
     public AudioClip[] SoundList;
     public int songNum = 4;
 
-    private Fade fade = Fade.ins;
+    private FadeState fade = FadeState.IN;
 
     private float fadeInDuration = 10;
     private float fadeOutDuration = 1;
@@ -58,27 +58,27 @@ public class MenuMusicController : MonoBehaviour
     {
         switch(fade)
         {
-            case Fade.ins:
+            case FadeState.IN:
             {
                 timer += Time.deltaTime;
                 if (timer >= fadeInDuration)
                 {
                     speaker.volume = 1;
-                    ChangeFadeState(Fade.nones);
+                    ChangeFadeState(FadeState.NONE);
                 }
                 else speaker.volume = (timer / fadeInDuration);
 
                 break;
             }
 
-            case Fade.outs:
+            case FadeState.OUT:
             {
                 timer += Time.deltaTime;
                 if (timer >= fadeOutDuration)
                 {
                     Stop();
                     speaker.volume = 0;
-                    ChangeFadeState(Fade.nones);
+                    ChangeFadeState(FadeState.NONE);
                 }
                 else speaker.volume = 1 - (timer / fadeOutDuration);
 
@@ -87,7 +87,7 @@ public class MenuMusicController : MonoBehaviour
         }
     }
 
-    public void ChangeFadeState(Fade state)
+    public void ChangeFadeState(FadeState state)
     {
         if(speaker == null)
         {
@@ -95,19 +95,19 @@ public class MenuMusicController : MonoBehaviour
         }
         switch(state)
         {
-            case Fade.ins:
+            case FadeState.IN:
                 timer = 0;
                 speaker.volume = 0;
-                fade = Fade.ins;
+                fade = FadeState.IN;
                 break;
-            case Fade.outs:
+            case FadeState.OUT:
                 timer = 0;
                 speaker.volume = 1;
-                fade = Fade.outs;
+                fade = FadeState.OUT;
 
                 break;
-            case Fade.nones:
-                fade = Fade.nones;
+            case FadeState.NONE:
+                fade = FadeState.NONE;
 
                 break;
             default: break;
