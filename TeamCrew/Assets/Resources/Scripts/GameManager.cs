@@ -569,9 +569,16 @@ public class GameManager : MonoBehaviour
 
         //Aquire the height of the mountain.
         float height = Mathf.Abs(LevelHeight);
+        
+        /*
+         * Calculate how far the camera is up the mountain. The value will be between 0 and 1.
+         * 0 = Bottom
+         *1 = Top
+        */
+        //float climbedNormalDistance = (Camera.main.transform.position.y + height) / height;
 
-        //Play finalstretch animation if we have 15 units left to climb
-        bool reachedStretchMarker = (Camera.main.transform.position.y >= -15);
+        //Play finalstretch animation if we have climbed 80% of the mountain.
+        bool reachedStretchMarker = (Camera.main.transform.position.y+height >= height - 15);
         cameraFollowScript.absoluteFinalStretchZoom = reachedStretchMarker;
 
         if(reachedStretchMarker)
