@@ -3,114 +3,56 @@ using System.Collections;
 
 public class Parallax : MonoBehaviour
 {
-    private Transform mainCamera;
-    private Vector2 neutralParallaxPosition;
-    private static float levelHeight;
-    private static float stupidHeight = 67.2f; //the normal height when 3 blocks + tutorial... 
+    //Static
+    public static float LevelHeight;
 
+    //Data
+    public bool active;
+    [Range(-1, 1)]
+    public float minmumPercentage;
+    [Range(-1, 1)]
+    public float maximumPercentage;
 
-    public float cameraToRockLenghts;
-    public float maxParallax;
+    //Components
 
-    //-Settings-
-    public bool debugTransparent = false;
-    public float ManualProgress = 0;
-    private float lastManualProgress = 0;
-    public bool IsManual = false;
-    private bool lastIsManual = false;
+    //References
+    private Camera cam;
 
-    //Distributing local settings to
-    private static float manualProgress = 0;
-    private static bool isManual = false;
-
-	void Start ()
+    void Start()
     {
-        //-Init-
-        neutralParallaxPosition = transform.position;
-        mainCamera = Camera.main.transform;
-        
-        //-Debugging cases-
-        if(debugTransparent)
-            transform.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, .5f);
-	}
-
-    bool IsUpdateRedundant()
-    {
-        if (isManual) return false;
-
-        if (levelHeight == 0) return true; // There is no level
-
-        return false;
+        cam = Camera.main;
     }
 
-    void CheckChangedSettings()
+    void Update()
     {
-        if (IsManual != lastIsManual)
+        if (!active)
         {
-            lastIsManual = IsManual;
-            isManual = IsManual;
-        }
-        if (ManualProgress != lastManualProgress)
-        {
-            lastManualProgress = ManualProgress;
-            manualProgress = ManualProgress;
-        }
-    }
+            //Set parallaxes to active
+            if (LevelHeight != 0)
+            {
+                active = true;
+                transform.position = new Vector3(transform.position.x, LevelHeight - (LevelHeight * minmumPercentage), transform.position.z);
+            }
 
-	void Update ()
-    {
-        CheckChangedSettings(); //This function is stupid but I don't know of any easier alternatives
-        if (IsUpdateRedundant() == true) return;
-        SetCamera(GetParallaxProgress());
-        //Debug.Log("Level Height: "+levelHeight);
-        //Debug.Log(mainCamera.position);
-	}
-
-    float GetParallaxProgress()
-    {
-        float cameraProgress = 0;
-        if (isManual)
-        {
-            cameraProgress = manualProgress;
-        }
-        else
-        {
-            //Inside the parenthesis levelHeight is compensation for level top being at y=0;
-            cameraProgress = (mainCamera.position.y + levelHeight) / levelHeight;
-        }
-        return cameraProgress * maxParallax;// * (levelHeight / stupidHeight);
-    }
-    void SetCamera(float parallaxProgress)
-    {
-        if (levelHeight == 0)
-        {
-            Debug.Log("Error: Division with 0");
             return;
         }
 
-        float xParallax = (mainCamera.position.x / levelHeight) * maxParallax;
-        float yParallax = parallaxProgress;
-        Vector2 targetPos = new Vector2( xParallax, yParallax);
-        transform.position = targetPos + neutralParallaxPosition+ new Vector2(0, -levelHeight *.85f); //this +13 might be changed to * .85, we will see how it works when level height exists.
+        //We are now active, update the parallaxes to correct height
+        UpdateParallaxes();
     }
 
-    public static void SetLevelHeight(float inputHeight)
+    private void UpdateParallaxes()
     {
-        levelHeight = Mathf.Abs(inputHeight);
+        float minY = LevelHeight - (LevelHeight * minmumPercentage);
+        float maxY = LevelHeight - (LevelHeight * maximumPercentage);
+        float diff = Mathf.Abs(minY) - Mathf.Abs(maxY);
+        float cameraNormal = 1 - ((cam.transform.position.y - cam.orthographicSize / 2) / LevelHeight);
+        Vector3 targetpos = transform.position;
+
+        targetpos.y = minY + (diff * cameraNormal);
+        Debug.Log(cameraNormal);
+
+        transform.position = targetpos;
     }
 
-    void OnBecameVisible()
-    {
-        enabled = true;
-
-    }
-
-    void OnBecameInvisible()
-    {
-        enabled = false;
-    }
-    void Exit()
-    {
-        
-    }
 }
