@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         set
         {
-             //Parallax.SetLevelHeight(value);
+            //Parallax.SetLevelHeight(value);
             Parallax.LevelHeight = value;
             levelHeight = value;
         }
