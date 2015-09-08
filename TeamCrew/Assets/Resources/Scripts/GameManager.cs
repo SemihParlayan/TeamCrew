@@ -284,10 +284,18 @@ public class GameManager : MonoBehaviour
 
         //Remove player one safety line
         if (playerOne != null)
-            playerOne.GetComponent<Line>().Remove();
+        {
+            if (playerOne.GetComponent<Line>() != null)
+                playerOne.GetComponent<Line>().Remove();
+        }
+            
         //Remove player two safety line
         if (playerTwo != null)
-            playerTwo.GetComponent<Line>().Remove();
+        {
+            if (playerTwo.GetComponent<Line>() != null)
+                playerTwo.GetComponent<Line>().Remove();
+        }
+            
     }
 
     /// <summary>
