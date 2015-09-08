@@ -8,10 +8,9 @@ public class Parallax : MonoBehaviour
 
     //Data
     public bool active;
-    [Range(-1, 1)]
-    public float minmumPercentage;
-    [Range(-1, 1)]
-    public float maximumPercentage;
+
+    public float startOffset;
+    public float endOffset;
 
     //Components
 
@@ -31,7 +30,6 @@ public class Parallax : MonoBehaviour
             if (LevelHeight != 0)
             {
                 active = true;
-                transform.position = new Vector3(transform.position.x, LevelHeight - (LevelHeight * minmumPercentage), transform.position.z);
             }
 
             return;
@@ -41,18 +39,30 @@ public class Parallax : MonoBehaviour
         UpdateParallaxes();
     }
 
+    public float delta;
+    public float cameraNormal;
+    public float cameraOffset;
+    public float yPos;
+    public float x;
+
     private void UpdateParallaxes()
     {
-        float minY = LevelHeight - (LevelHeight * minmumPercentage);
-        float maxY = LevelHeight - (LevelHeight * maximumPercentage);
-        float diff = Mathf.Abs(minY) - Mathf.Abs(maxY);
-        float cameraNormal = 1 - ((cam.transform.position.y - cam.orthographicSize / 2) / LevelHeight);
-        Vector3 targetpos = transform.position;
+        cameraNormal = 1 - ((cam.transform.position.y - cam.orthographicSize / 2) / LevelHeight);
 
-        targetpos.y = minY + (diff * cameraNormal);
+        float biggestNumber = (startOffset > endOffset) ? startOffset : endOffset;
+        float lowestNumber = (startOffset == biggestNumber) ? endOffset : startOffset;
+        delta = biggestNumber - lowestNumber;
+
+        x = cameraNormal * delta;
+        cameraOffset = biggestNumber - x;
+
+        yPos = cam.transform.position.y + cameraOffset;
+
+        Vector3 pos = transform.position;
+        pos.y = yPos;
+        transform.position = pos;
+
         Debug.Log(cameraNormal);
-
-        transform.position = targetpos;
     }
 
 }
