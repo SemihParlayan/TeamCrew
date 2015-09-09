@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
     {
         set
         {
-            //Parallax.SetLevelHeight(value);
             Parallax.LevelHeight = value;
             levelHeight = value;
         }
@@ -281,6 +280,10 @@ public class GameManager : MonoBehaviour
         //Reactivate the easy block thats above the tutorial.
         generatorScript.ActivateEasyBlock();
 
+        //Disable ready signs
+        mainMenuScript.playerOneReady.gameObject.SetActive(false);
+        mainMenuScript.playerTwoReady.gameObject.SetActive(false);
+
 
         //Remove player one safety line
         if (playerOne != null)
@@ -484,7 +487,7 @@ public class GameManager : MonoBehaviour
         /*
          * We are currently inside of tutorial state for all the code below. Tutorial state means that the frogs are active and
          * are currently climbing the tutorial block. They have not yet completed the tutorial. The code below
-         * will start the game whenver the frogs have completed the tutorial.
+         * will start the game whenever the frogs have completed the tutorial.
         */
 
         mainMenuScript.playerOneReady.gameObject.SetActive(false);
@@ -501,7 +504,7 @@ public class GameManager : MonoBehaviour
                 mainMenuScript.playerOneReady.gameObject.SetActive(true);
         }
         //Check for player two ready
-        if (playerTwoScript && playerTwoScript.IsGrippingTutorial)
+        if ((playerTwoScript && playerTwoScript.IsGrippingTutorial) || Input.GetKey(KeyCode.Space))
         {
             playerTwoCompletedTutorial = true;
             if (IsInMultiplayerMode)
