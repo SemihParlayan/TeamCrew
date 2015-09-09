@@ -311,6 +311,7 @@ public class GameManager : MonoBehaviour
            
         //Activate cameraPan script
         cameraPanScript.enabled = true;
+        cameraFollowTerrainScript.enabled = true;
 
         //Disable exitbuttonImage
         mainMenuScript.exitImage.gameObject.SetActive(false);

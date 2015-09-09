@@ -39,24 +39,18 @@ public class Parallax : MonoBehaviour
         UpdateParallaxes();
     }
 
-    public float delta;
-    public float cameraNormal;
-    public float cameraOffset;
-    public float yPos;
-    public float x;
-
     private void UpdateParallaxes()
     {
-        cameraNormal = 1 - ((cam.transform.position.y - cam.orthographicSize / 2) / LevelHeight);
+        float cameraNormal = 1 - ((cam.transform.position.y - cam.orthographicSize / 2) / LevelHeight);
 
         float biggestNumber = (startOffset > endOffset) ? startOffset : endOffset;
         float lowestNumber = (startOffset == biggestNumber) ? endOffset : startOffset;
-        delta = biggestNumber - lowestNumber;
+        float delta = biggestNumber - lowestNumber;
 
-        x = cameraNormal * delta;
-        cameraOffset = biggestNumber - x;
+        float x = cameraNormal * delta;
+        float cameraOffset = biggestNumber - x;
 
-        yPos = cam.transform.position.y + cameraOffset;
+        float yPos = cam.transform.position.y + cameraOffset;
 
         Vector3 pos = transform.position;
         pos.y = yPos;

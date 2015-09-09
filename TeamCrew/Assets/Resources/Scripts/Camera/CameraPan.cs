@@ -5,18 +5,16 @@ public class CameraPan : MonoBehaviour
 {
     public float movementSpeed = 10;
     private bool halfway;
-
-	void Start () 
-    {
-	}
 	
 	void Update () 
     {
-        Vector3 velocity = -Vector3.up * Time.deltaTime;
-        velocity *= Mathf.Abs(transform.position.y - GameManager.LevelHeight);
-        velocity *= movementSpeed;
+        //Vector3 velocity = -Vector3.up * Time.deltaTime;
+        //velocity *= Mathf.Abs(transform.position.y - GameManager.LevelHeight);
+        //velocity *= movementSpeed;
 
-        transform.position += velocity;
+        //transform.position += velocity;
+
+        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, GameManager.LevelHeight, transform.position.z), Time.deltaTime * movementSpeed);
 	}
 
     public bool Halfway()
