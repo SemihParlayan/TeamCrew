@@ -84,9 +84,6 @@ public class LevelGeneration : MonoBehaviour
             DestroyImmediate(previousTop.gameObject);
         }
 
-
-
-
         //Spawn Hard Blocks
         for (int i = 0; i < numberOfHardBlocks; i++)
         {
@@ -111,17 +108,19 @@ public class LevelGeneration : MonoBehaviour
             {
                 if (block.start == BlockEnding.Thin)
                 {
-                    //Add thickConverter
-                    Transform t = Instantiate(thickConverter.transform, block.transform.position, Quaternion.identity) as Transform;
-                    Block b = t.GetComponent<Block>();
+                    ////Add thickConverter
+                    //Transform t = Instantiate(thickConverter.transform, block.transform.position, Quaternion.identity) as Transform;
+                    //Block b = t.GetComponent<Block>();
 
-                    //Change position of new block here!
-                    Vector3 diff = b.GetEndPosition - block.GetStartPosition;
-                    b.transform.position -= diff;
-                    b.transform.name = "thickConverter";
-                    b.transform.parent = transform; level.Add(b);
+                    ////Change position of new block here!
+                    //Vector3 diff = b.GetEndPosition - block.GetStartPosition;
+                    //b.transform.position -= diff;
+                    //b.transform.name = "Converter";
+                    //b.transform.parent = transform; level.Add(b);
 
-                    block = b;
+                    //block = b;
+                    block = GetBlock(block, BlockDifficulty.Converter);
+                    block.transform.parent = transform; level.Add(block);
                 }
             }
         }
@@ -302,6 +301,13 @@ public class LevelGeneration : MonoBehaviour
 
         //Load tutorial blocks
         blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Tutorial blocks");
+        for (int i = 0; i < blocks.Length; i++)
+        {
+            blockList.Add(blocks[i]);
+        }
+
+        //Load converter blocks
+        blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Converter blocks");
         for (int i = 0; i < blocks.Length; i++)
         {
             blockList.Add(blocks[i]);
