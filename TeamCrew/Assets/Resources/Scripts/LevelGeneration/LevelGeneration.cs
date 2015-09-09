@@ -108,17 +108,7 @@ public class LevelGeneration : MonoBehaviour
             {
                 if (block.start == BlockEnding.Thin)
                 {
-                    ////Add thickConverter
-                    //Transform t = Instantiate(thickConverter.transform, block.transform.position, Quaternion.identity) as Transform;
-                    //Block b = t.GetComponent<Block>();
-
-                    ////Change position of new block here!
-                    //Vector3 diff = b.GetEndPosition - block.GetStartPosition;
-                    //b.transform.position -= diff;
-                    //b.transform.name = "Converter";
-                    //b.transform.parent = transform; level.Add(b);
-
-                    //block = b;
+                    //Add converter
                     block = GetBlock(block, BlockDifficulty.Converter);
                     block.transform.parent = transform; level.Add(block);
                 }
