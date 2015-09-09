@@ -61,8 +61,6 @@ public class Parallax : MonoBehaviour
         Vector3 pos = transform.position;
         pos.y = yPos;
         transform.position = pos;
-
-        Debug.Log(cameraNormal);
     }
 
 }

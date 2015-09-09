@@ -31,16 +31,14 @@ public class FinalMusic : MonoBehaviour
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         cam = Camera.main.transform;
-        //SetFadeState(FadeState.NONE);
-        //===================================
+        
+        //Final stretch music enabled
         PlayFinalMusic();
-
-        Debug.Log("Final Stretch Music enabled");
     }
 
     void OnDisable()
     {
-        Debug.Log("Final Stretch Music Disabled");
+        //Final stretch music disabled
     }
 
     void Update()

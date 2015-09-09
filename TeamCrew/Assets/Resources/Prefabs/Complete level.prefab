@@ -5580,7 +5580,6 @@ Transform:
   - {fileID: 489080}
   - {fileID: 464918}
   - {fileID: 451076}
-  - {fileID: 496324}
   - {fileID: 473060}
   - {fileID: 495820}
   m_Father: {fileID: 463300}
@@ -6075,6 +6074,7 @@ Transform:
   - {fileID: 460198}
   - {fileID: 455050}
   - {fileID: 489466}
+  - {fileID: 496324}
   m_Father: {fileID: 497158}
   m_RootOrder: 0
 --- !u!4 &448920
@@ -6975,7 +6975,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 430022}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!4 &473282
 Transform:
   m_ObjectHideFlags: 1
@@ -7675,7 +7675,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 430022}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!4 &496324
 Transform:
   m_ObjectHideFlags: 1
@@ -7683,11 +7683,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 104896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.80000019, y: -63.4000015, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 430022}
-  m_RootOrder: 4
+  m_Father: {fileID: 448086}
+  m_RootOrder: 8
 --- !u!4 &496878
 Transform:
   m_ObjectHideFlags: 1
@@ -12222,7 +12222,7 @@ MonoBehaviour:
   startTop: {fileID: 411530}
   thickConverter: {fileID: 11477304, guid: 1c8f095a51efa114693ce8f482adcd0d, type: 2}
   numberOfHardBlocks: 0
-  numberOfMediumBlocks: 4
+  numberOfMediumBlocks: 3
   numberOfEasyBlocks: 1
 --- !u!114 &11495032
 MonoBehaviour:
