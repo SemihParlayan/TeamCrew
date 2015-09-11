@@ -167,16 +167,38 @@ public class LevelGeneration : MonoBehaviour
                 //If the searched difficulty matches
                 if (blockList[i].difficulty == difficulty)
                 {
+                    Block found = null;
+
                     if (previousBlock.start == BlockEnding.Thick)
                     {
                         if (blockList[i].end == BlockEnding.Thick)
                         {
-                            foundBlocks.Add(blockList[i]);
+                            //foundBlocks.Add(blockList[i]);
+                            found = blockList[i];
                         }
                     }
                     else if (blockList[i].end != BlockEnding.Thick)
                     {
-                        foundBlocks.Add(blockList[i]);
+                        //foundBlocks.Add(blockList[i]);
+                        found = blockList[i];
+                    }
+
+                    if (found)
+                    {
+                        bool add = true;
+
+                        for (int j = 0; j < level.Count; j++)
+                        {
+                            if (level[j].blockIndex == found.blockIndex)
+                            {
+                                add = false;
+                                break;
+                            }
+                        }
+                        if (add)
+                        {
+                            foundBlocks.Add(found);
+                        }
                     }
                 }
             }
@@ -199,6 +221,7 @@ public class LevelGeneration : MonoBehaviour
                     }
                 }
             }
+            
 
             //Return TOP block if TOP was searched for
             if (previousBlock == null)
