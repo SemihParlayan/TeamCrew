@@ -991,7 +991,6 @@ GameObject:
   m_Component:
   - 224: {fileID: 22498956}
   - 82: {fileID: 8254106}
-  - 114: {fileID: 11407514}
   - 114: {fileID: 11464268}
   m_Layer: 5
   m_Name: UI
@@ -8552,9 +8551,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24393762, guid: fef4cf215906ce74d9d11ee38fa96d9f,
     type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: 3c4d290c6fa0fd34192337524ca194a2, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -8570,15 +8569,15 @@ AudioSource:
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: .897599995
+    - time: 0
       value: 1
-      inSlope: 0
-      outSlope: -9.765625
+      inSlope: -1.40076733
+      outSlope: -1.40076733
       tangentMode: 0
-    - time: .92696631
+    - time: 1
       value: 0
-      inSlope: -9.765625
-      outSlope: 0
+      inSlope: -1.20050251
+      outSlope: -1.20050251
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -8757,7 +8756,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188938}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24351224, guid: fef4cf215906ce74d9d11ee38fa96d9f,
     type: 2}
@@ -9445,25 +9444,6 @@ MonoBehaviour:
   deathPositionX: 0
   deathCount: 0
   inactive: 0
---- !u!114 &11407514
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 119554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aa251d4e4c6e504681bf0d4264f7fec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SoundList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &11407622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11168,13 +11148,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoundList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 3c4d290c6fa0fd34192337524ca194a2, type: 3}
+  - {fileID: 8300000, guid: 3c4d290c6fa0fd34192337524ca194a2, type: 3}
+  - {fileID: 8300000, guid: 3c4d290c6fa0fd34192337524ca194a2, type: 3}
+  - {fileID: 8300000, guid: 3c4d290c6fa0fd34192337524ca194a2, type: 3}
+  - {fileID: 8300000, guid: 3c4d290c6fa0fd34192337524ca194a2, type: 3}
+  - {fileID: 8300000, guid: 3c4d290c6fa0fd34192337524ca194a2, type: 3}
+  - {fileID: 8300000, guid: 3c4d290c6fa0fd34192337524ca194a2, type: 3}
   songNum: 4
 --- !u!114 &11464294
 MonoBehaviour:
