@@ -314,6 +314,7 @@ public class GameManager : MonoBehaviour
     {
         //activate woosh
         Camera.main.transform.GetComponent<AudioSource>().enabled = true;
+        Camera.main.transform.GetComponent<FallSoundCam>().enabled = true;
 
         //Set menu music to start fading out
         menuMusicController.ChangeFadeState(FadeState.OUT);
@@ -345,10 +346,6 @@ public class GameManager : MonoBehaviour
         //Enable UI
         mainMenuScript.EnableUI();
 
-        //Enable menu music
-        menuMusicController.Play();
-        menuMusicController.ChangeFadeState(FadeState.IN);
-
         //Reactivate block above tutorial
         generatorScript.ActivateEasyBlock();
 
@@ -358,6 +355,10 @@ public class GameManager : MonoBehaviour
         //Destroy old frogs and spawn new topfrog
         Invoke("DestroyFrogs", 3f);
         topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
+
+        //Enable menu music
+        menuMusicController.Play();
+        menuMusicController.ChangeFadeState(FadeState.IN);
     }
 
     /// <summary>
@@ -370,6 +371,7 @@ public class GameManager : MonoBehaviour
 
         //Enable fall sound
         Camera.main.transform.GetComponent<AudioSource>().enabled = true;
+        Camera.main.transform.GetComponent<FallSoundCam>().enabled = true;
 
         //Enable exit button in menu again
         mainMenuScript.exitImage.gameObject.SetActive(true);
@@ -584,6 +586,7 @@ public class GameManager : MonoBehaviour
         if (cameraPanScript.Complete())
         {
             Camera.main.transform.GetComponent<AudioSource>().enabled = false; //Disable fall sound
+            Camera.main.transform.GetComponent<FallSoundCam>().enabled = false;
             StartGame();
             generatorScript.DeactivateEasyBlock();
         }
