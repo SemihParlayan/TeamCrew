@@ -204,6 +204,12 @@ public class GameManager : MonoBehaviour
 
         //Set cameras default position
         cameraDefaultPosition = mainCamera.transform.position;
+
+        //menuMusicController = ;
+
+        //Enable menu music
+        menuMusicController.Play();
+        menuMusicController.ChangeFadeState(FadeState.IN);
 	}
 
     //Update method
@@ -306,6 +312,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ActivateCameraPan()
     {
+        //activate woosh
+        Camera.main.transform.GetComponent<AudioSource>().enabled = true;
+
         //Set menu music to start fading out
         menuMusicController.ChangeFadeState(FadeState.OUT);
            
@@ -336,6 +345,10 @@ public class GameManager : MonoBehaviour
         //Enable UI
         mainMenuScript.EnableUI();
 
+        //Enable menu music
+        menuMusicController.Play();
+        menuMusicController.ChangeFadeState(FadeState.IN);
+
         //Reactivate block above tutorial
         generatorScript.ActivateEasyBlock();
 
@@ -354,6 +367,9 @@ public class GameManager : MonoBehaviour
     {
         //Disable inactivity controller
         inactivityController.inactivityText.transform.parent.gameObject.SetActive(false);
+
+        //Enable fall sound
+        Camera.main.transform.GetComponent<AudioSource>().enabled = true;
 
         //Enable exit button in menu again
         mainMenuScript.exitImage.gameObject.SetActive(true);
@@ -567,6 +583,7 @@ public class GameManager : MonoBehaviour
         //We have panned all the way to the bottom
         if (cameraPanScript.Complete())
         {
+            Camera.main.transform.GetComponent<AudioSource>().enabled = false; //Disable fall sound
             StartGame();
             generatorScript.DeactivateEasyBlock();
         }
