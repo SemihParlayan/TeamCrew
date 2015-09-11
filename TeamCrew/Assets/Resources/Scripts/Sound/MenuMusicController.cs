@@ -13,7 +13,7 @@ public class MenuMusicController : MonoBehaviour
     public AudioClip[] SoundList;
     public int songNum = 4;
 
-    private FadeState fade = FadeState.IN;
+    private FadeState fade = FadeState.NONE;
 
     private float fadeInDuration = 10;
     private float fadeOutDuration = 1;
@@ -22,16 +22,21 @@ public class MenuMusicController : MonoBehaviour
 
     private AudioSource speaker;
 
-    void Start()
+    void Awake()
     {
         speaker = transform.GetComponent<AudioSource>();
+    }
+    void Start()
+    {
+       
+
+        if (speaker != null)
+            Debug.Log("yay speaker is here!");
 
         speaker.volume = 0;
 
         //Gen();
         SetA(songNum);
-        ChangeFadeState(fade);
-        Play();
     }
 
     public void Gen()
@@ -41,12 +46,16 @@ public class MenuMusicController : MonoBehaviour
     public void SetA(int songNum)
     {
         speaker.clip = SoundList[songNum];
-
     }
 
     public void Play()
     {
-        speaker.Play();
+        if(speaker != null)
+            speaker.Play();
+        else
+        {
+            Debug.Log("no fucking speaker");
+        }
     }
 
     public void Stop()
