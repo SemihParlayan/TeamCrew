@@ -212,6 +212,12 @@ public class LevelGeneration : MonoBehaviour
             //Remove blocks that was in previous level
             for (int j = 0; j < foundBlocks.Count; j++)
             {
+                if (foundBlocks.Count < 2)
+                {
+                    Debug.Log("Using same block as before");
+                    break;
+                }
+
                 for (int i = 0; i < lastLevel.Count; i++)
                 {
                     if (foundBlocks[j].blockIndex == lastLevel[i].blockIndex)
@@ -230,13 +236,21 @@ public class LevelGeneration : MonoBehaviour
                 return top.GetComponent<Block>();
             }
 
-            Transform t = Instantiate(foundBlocks[Random.Range(0, foundBlocks.Count)].transform, previousBlock.transform.position, Quaternion.identity) as Transform;
-            Block b = t.GetComponent<Block>();
+            Block blockToSpawn = foundBlocks[Random.Range(0, foundBlocks.Count)];
+            if (blockToSpawn)
+            {
+                Transform t = Instantiate(foundBlocks[Random.Range(0, foundBlocks.Count)].transform, previousBlock.transform.position, Quaternion.identity) as Transform;
+                Block b = t.GetComponent<Block>();
 
-            //Change position of new block here!
-            Vector3 diff = b.GetEndPosition - previousBlock.GetStartPosition;
-            b.transform.position -= diff;
-            return b;
+                //Change position of new block here!
+                Vector3 diff = b.GetEndPosition - previousBlock.GetStartPosition;
+                b.transform.position -= diff;
+                return b;
+            }
+            else
+            {
+                Debug.LogError("Could not find any block to spawn in foundblocks.count");
+            }
         }
 
         Debug.LogError("Error finding a " + difficulty.ToString() + " Block!");
