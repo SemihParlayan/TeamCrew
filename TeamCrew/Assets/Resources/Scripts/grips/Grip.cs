@@ -20,7 +20,7 @@ public class Grip : MonoBehaviour
         enabled = false;
     }
 
-    void Start()
+    void Awake()
     {
         gripPoints.Clear();
 
@@ -30,6 +30,10 @@ public class Grip : MonoBehaviour
             if (p)
                 gripPoints.Add(p);
         }
+    }
+    void Start()
+    {
+        
     }
 
     public GripPoint GetClosestGrip(Vector3 handPosition)

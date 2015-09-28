@@ -20,13 +20,13 @@ public class EmotionController : MonoBehaviour
         ///////////////////////////////////////////////////////////////////////////
         if (playerOneScript == null)
         {
-            if (GameManager.playerOne != null)
-                playerOneScript = GameManager.playerOne.GetComponent<FrogPrototype>();
+            if (GameManager.players[0] != null)
+                playerOneScript = GameManager.players[0].GetComponent<FrogPrototype>();
         }
         if (playerTwoScript == null)
         {
-            if (GameManager.playerTwo != null)
-                playerTwoScript = GameManager.playerTwo.GetComponent<FrogPrototype>();
+            if (GameManager.players[1] != null)
+                playerTwoScript = GameManager.players[1].GetComponent<FrogPrototype>();
         }
 
 

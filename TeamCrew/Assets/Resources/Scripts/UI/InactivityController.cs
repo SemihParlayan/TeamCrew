@@ -1,81 +1,118 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.UI;
 
 public class InactivityController : MonoBehaviour 
 {
-    public Text inactivityText;
-    public float inactivitySecondLimit = 5;
-
-    private float playerOneInactivityTimer;
-    private float playerTwoInactivityTimer;
+    //Data
+    public float inactivitySecondLimit = 6;
     private float inactivityTimer;
+    private bool started;
 
+    //Components
+
+    //References
+    public Text inactivityText;
     private GameManager gameManager;
-    private Respawn respawnScript;
+    private Respawn respawn;
+    public InactivityFrog[] inactivityScripts = new InactivityFrog[4];
 
 	void Start () 
 	{
-        gameManager = GetComponent<GameManager>();
-        respawnScript = GetComponent<Respawn>();
+        gameManager = transform.parent.GetComponent<GameManager>();
+        respawn = transform.parent.GetComponent<Respawn>();
 
-        inactivityTimer = inactivitySecondLimit;
+        inactivityTimer = inactivitySecondLimit * 1.5f;
+
+        for (int i = 0; i < inactivityScripts.Length; i++)
+        {
+            inactivityScripts[i].frog = "P" + (i + 1).ToString();
+            inactivityScripts[i].inactivityLimit = inactivitySecondLimit;
+            inactivityScripts[i].inactivityTimer = inactivitySecondLimit;
+        }
 	}
+
+    public void OnGameStart()
+    {
+        for (int i = 0; i < GameManager.players.Length; i++)
+        {
+            if (GameManager.players[i] != null)
+            {
+                inactivityScripts[i].inactivityTimer = 0;
+            }
+        }
+    }
 
 	void Update () 
 	{
-        if (gameManager.gameActive && !gameManager.designTestingEnabled)
+        if (!gameManager.gameActive || gameManager.designTestingEnabled)
+            return;
+
+        //Search for how many frogs are inactive
+        int inactivityFrogCounter = 0;
+        for (int i = 0; i < inactivityScripts.Length; i++)
         {
-            //Increase inactivity timers
-            playerOneInactivityTimer += Time.deltaTime;
-            playerTwoInactivityTimer += Time.deltaTime;
-
-            //Check if both players have been inactive for too long
-            if (playerOneInactivityTimer >= inactivitySecondLimit && playerTwoInactivityTimer >= inactivitySecondLimit)
+            if (inactivityScripts[i] != null)
             {
-                //Activate inactivity text
-                inactivityText.transform.parent.gameObject.SetActive(true);
-                inactivityTimer -= Time.deltaTime;
+                inactivityScripts[i].inactivityTimer += Time.deltaTime;
 
-                //Update inactivity text
-                inactivityText.text = "Inactivity! \n Returning to main menu in " + Mathf.RoundToInt(inactivityTimer) + "...";
-
-                //Return to menu
-                if (inactivityTimer <= 0)
+                if (inactivityScripts[i].IsInactive)
                 {
-                    gameManager.GoBackToMenu();
-                    playerOneInactivityTimer = 0;
-                    playerTwoInactivityTimer = 0;
+                    inactivityFrogCounter++;
                 }
             }
-            else
+        }
+
+        if (inactivityFrogCounter >= inactivityScripts.Length)
+        {
+            //Activate inactivity text
+            inactivityText.transform.parent.gameObject.SetActive(true);
+            inactivityTimer -= Time.deltaTime;
+
+            //Update inactivity text
+            inactivityText.text = "Inactivity! \n Returning to main menu in " + Mathf.RoundToInt(inactivityTimer) + "...";
+
+            //Return to menu
+            if (inactivityTimer <= 0)
             {
-                //Disable inactivity text
-                inactivityText.transform.parent.gameObject.SetActive(false);
-                inactivityTimer = 5;
+                gameManager.GoBackToMenu();
+                for (int i = 0; i < inactivityScripts.Length; i++)
+                {
+                    inactivityScripts[i].inactivityTimer = 0;
+                }
             }
+        }
+        else
+        {
+            //Disable inactivity text
+            inactivityText.transform.parent.gameObject.SetActive(false);
+            inactivityTimer = 5;
         }
 
 
         //Deactivate inactivity with input from players
-        DeactivateOnInput("P1");
-        DeactivateOnInput("P2");
+        for (int i = 0; i < inactivityScripts.Length; i++)
+        {
+            DeactivateOnInput("P" + (i + 1));
+        }
 
         //Set respawn script values
-        respawnScript.playerOne.inactive = (playerOneInactivityTimer >= inactivitySecondLimit + 2.5f);
-        respawnScript.playerTwo.inactive = (playerTwoInactivityTimer >= inactivitySecondLimit + 2.5f);
-
+        for (int i = 0; i < respawn.respawnScripts.Count; i++)
+        {
+            respawn.respawnScripts[i].inactive = inactivityScripts[i].IsInactive;
+        }
 
         //Set inactivity to max if in singleplayer mode
         if (!gameManager.IsInMultiplayerMode)
         {
             if (gameManager.singlePlayerStarted == "P1")
             {
-                playerTwoInactivityTimer = 10;
-            }
-            else if (gameManager.singlePlayerStarted == "P2")
-            {
-                playerOneInactivityTimer = 10;
+                for (int i = 1; i < inactivityScripts.Length; i++)
+                {
+                    inactivityScripts[i].inactivityTimer = 10;
+                }
             }
         }
 	}
@@ -85,24 +122,21 @@ public class InactivityController : MonoBehaviour
         Vector3 input2 = GameManager.GetInput(player + "HR", player + "VR");
         bool button = GameManager.GetGrip(player + "GL");
         bool button2 = GameManager.GetGrip(player + "GR");
-
         if (input != Vector3.zero || input2 != Vector3.zero || button || button2 || (GameManager.Hacks && Input.GetMouseButton(0)))
         {
-            if (gameManager.singlePlayerStarted == string.Empty || gameManager.singlePlayerStarted == player)
-            {
-                if (player == "P1")
-                    playerOneInactivityTimer = 0;
-                else if (player == "P2")
-                    playerTwoInactivityTimer = 0;
-            }
-            else if (gameManager.tutorialComplete)
-            {
-                if (player == "P1")
-                    playerOneInactivityTimer = 0;
-                else if (player == "P2")
-                    playerTwoInactivityTimer = 0;
+            string sub = player.Split('P').Last();
+            int frog = int.Parse(sub) - 1;
 
-                gameManager.singlePlayerStarted = string.Empty;
+            if (!gameManager.tutorialComplete)
+            {
+                if (GameManager.players[frog] != null)
+                {
+                    inactivityScripts[frog].inactivityTimer = 0;
+                }
+            }
+            else
+            {
+                inactivityScripts[frog].inactivityTimer = 0;
             }
         }
     }

@@ -44,13 +44,13 @@ public class Insect : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         startPos = new Vector2();
 
-        if (GameManager.playerOne && GameManager.playerTwo)
+        if (GameManager.players[0] && GameManager.players[1])
         {
             //Aquire bottomFrog
-            bottomFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ? GameManager.playerOne : GameManager.playerTwo;
+            bottomFrog = (GameManager.players[0].position.y < GameManager.players[1].position.y) ? GameManager.players[0] : GameManager.players[1];
 
             startPos = bottomFrog.position;
-            startPos.x = (GameManager.playerOne.position.x + GameManager.playerTwo.position.x) * .5f;
+            startPos.x = (GameManager.players[0].position.x + GameManager.players[1].position.x) * .5f;
         }
 
         //Check side to spawn
@@ -81,11 +81,11 @@ public class Insect : MonoBehaviour
 	
 	void Update ()
     {
-        if (GameManager.playerOne && GameManager.playerTwo)
+        if (GameManager.players[0] && GameManager.players[1])
         {
-            bottomFrog = (GameManager.playerOne.position.y < GameManager.playerTwo.position.y) ? GameManager.playerOne : GameManager.playerTwo;
+            bottomFrog = (GameManager.players[0].position.y < GameManager.players[1].position.y) ? GameManager.players[0] : GameManager.players[1];
 
-            playerDifference = Mathf.Abs(GameManager.playerOne.position.y - GameManager.playerTwo.position.y);
+            playerDifference = Mathf.Abs(GameManager.players[0].position.y - GameManager.players[1].position.y);
         }
         else
         {
@@ -180,9 +180,9 @@ public class Insect : MonoBehaviour
             case MotionState.panicMode:
             {
                 Transform topFrog = null;
-                if (GameManager.playerOne && GameManager.playerTwo)
+                if (GameManager.players[0] && GameManager.players[1])
                 {
-                    topFrog = (GameManager.playerOne.position.y > GameManager.playerTwo.position.y) ? GameManager.playerOne : GameManager.playerTwo;
+                    topFrog = (GameManager.players[0].position.y > GameManager.players[1].position.y) ? GameManager.players[0] : GameManager.players[1];
                 }
 
                 if (topFrog != null)

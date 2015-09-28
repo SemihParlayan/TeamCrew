@@ -28,10 +28,6 @@ public class MenuMusicController : MonoBehaviour
     }
     void Start()
     {
-       
-
-        if (speaker != null)
-            Debug.Log("yay speaker is here!");
 
         speaker.volume = 0;
 

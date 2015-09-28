@@ -25,12 +25,12 @@ public class TopFrogSpawner : MonoBehaviour
         if (frogNumberToSpawn == 1)
         {
             spawnFrog = playerOneTopPrefab; ;
-            bandageCount = respawnScript.playerOne.deathCount;
+            bandageCount = respawnScript.respawnScripts[0].deathCount;
         }
         else if (frogNumberToSpawn == 2)
         {
             spawnFrog = playerTwoTopPrefab;
-            bandageCount = respawnScript.playerTwo.deathCount;
+            bandageCount = respawnScript.respawnScripts[1].deathCount;
         }
 
         if (spawnFrog != null)

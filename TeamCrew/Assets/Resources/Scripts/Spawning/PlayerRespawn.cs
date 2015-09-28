@@ -6,11 +6,12 @@ public class PlayerRespawn : MonoBehaviour
 {
     public Transform prefab;
     public Image arrow;
-    public Text text;
+    private Text text;
     [HideInInspector]
     public float timer;
     [HideInInspector]
     public float deathPositionX;
+    [HideInInspector]
     public float deathCount;
     public bool Respawning
     {
@@ -41,7 +42,13 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
     private bool respawning;
+    [HideInInspector]
     public bool inactive;
+
+    void Start()
+    {
+        text = arrow.transform.GetChild(0).GetComponent<Text>();
+    }
 
     public bool AllowRespawn(float newRespawnTime)
     {

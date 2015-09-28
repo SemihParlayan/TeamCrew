@@ -92,6 +92,9 @@ public class HandGrip : MonoBehaviour
         scream = transform.GetComponent<AudioSource>();
 
         versusGripController = GetComponent<VersusGripController>();
+
+        //Set correct axis controller
+        axis = transform.parent.parent.FindChild("body").GetComponent<FrogPrototype>().player + axis;
 	}
 
 	void Update ()
@@ -144,7 +147,7 @@ public class HandGrip : MonoBehaviour
 
         lastGripValue = GameManager.GetGrip(axis) || hackGrip;
 	}
-    bool AllowGrip(Grip g)
+    bool AllowGrip(Grip newGrip)
     {
         if (!allowNewGrip)
         {
@@ -158,20 +161,21 @@ public class HandGrip : MonoBehaviour
         if ((GameManager.GetGrip(axis) || hackGrip) && !isOnGrip)
         {
             //Aquire grip point
-            gripPoint = g.GetClosestGrip(transform.position);
+            gripPoint = newGrip.GetClosestGrip(transform.position);
 
             //Do we have a grip point?
             if (gripPoint != null)
             {
-                if (g is MovingGrip && gripPoint.holderName != string.Empty)
+                if (newGrip is VersusGrip)
                 {
+                    VersusGrip versusGrip = newGrip as VersusGrip;
+
                     //VERSUS GRIP
-                    if (holdername == gripPoint.holderName)
+                    if (versusGrip.parentedPlayer != holdername)
                     {
                         if (allowVersusGrab)
                         {
                             isOnGrip = true;
-                            gripPoint.holderName = holdername;
                             gripPoint.numberOfHands++;
 
                             spriteRenderer.sprite = closed;
@@ -196,7 +200,6 @@ public class HandGrip : MonoBehaviour
                     isOnGrip = true;
 
                     //Set grips holder and number of hands
-                    gripPoint.holderName = holdername;
                     gripPoint.numberOfHands++;
 
                     //Change hand sprite
@@ -210,7 +213,7 @@ public class HandGrip : MonoBehaviour
                     randSoundGen.GenerateGrip();
                     gripSoundSource.Play();
 
-                    if (g.winningGrip)
+                    if (newGrip.winningGrip)
                     {
                         if (gameManager)
                         {
@@ -218,7 +221,7 @@ public class HandGrip : MonoBehaviour
                             gameManager.Win(frogNumber);
                         }
                     }
-                    else if (g.tutorialStart)
+                    else if (newGrip.tutorialStart)
                     {
                         isGrippingTutorial = true;
                     }
@@ -353,11 +356,6 @@ public class HandGrip : MonoBehaviour
             //Decrease number of hands on grip point
             gripPoint.numberOfHands--;
 
-            //if hand count is zero.... reset owner of the grip
-            if (gripPoint.numberOfHands <= 0 && !isVersusGripping)
-            {
-                gripPoint.holderName = "";
-            }
 
             //Disable connected hand joint
             joint.enabled = false;

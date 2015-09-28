@@ -563,7 +563,7 @@ GameObject:
   - 4: {fileID: 483590}
   - 212: {fileID: 21258646}
   - 58: {fileID: 5879342}
-  - 114: {fileID: 11449606}
+  - 114: {fileID: 11497094}
   m_Layer: 0
   m_Name: right_foot
   m_TagString: VersusGrip
@@ -856,7 +856,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 492112}
   - 58: {fileID: 5874848}
-  - 114: {fileID: 11490384}
+  - 114: {fileID: 11432382}
   m_Layer: 0
   m_Name: grip
   m_TagString: VersusGrip
@@ -975,7 +975,7 @@ GameObject:
   - 4: {fileID: 423760}
   - 212: {fileID: 21200740}
   - 58: {fileID: 5831446}
-  - 114: {fileID: 11466810}
+  - 114: {fileID: 11471110}
   m_Layer: 0
   m_Name: kneepad
   m_TagString: VersusGrip
@@ -2023,7 +2023,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.03000021, y: -56.1500015, z: 0}
+  m_LocalPosition: {x: 17.7800007, y: -44.5099983, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 486434}
@@ -3538,7 +3538,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: P2
   numberOfHands: 0
 --- !u!114 &11417868
 MonoBehaviour:
@@ -3573,7 +3572,7 @@ MonoBehaviour:
   isVersusGripping: 0
   hackGrip: 0
   lastGripTime: 0
-  axis: P1GR
+  axis: GR
   open: {fileID: 21300004, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
   semiOpen: {fileID: 21300016, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
   closed: {fileID: 21300014, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
@@ -3621,7 +3620,7 @@ MonoBehaviour:
   isVersusGripping: 0
   hackGrip: 0
   lastGripTime: 0
-  axis: P1GL
+  axis: GL
   open: {fileID: 21300004, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
   semiOpen: {fileID: 21300016, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
   closed: {fileID: 21300014, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
@@ -3654,6 +3653,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de0ece074c0a604b8fc427747c6c5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11432382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winningGrip: 0
+  tutorialStart: 0
+  gripPoints:
+  - {fileID: 11461498}
+  connectedBody: {fileID: 5051738}
+  anchor: {x: 0, y: 0}
+  parentedPlayer: P1
 --- !u!114 &11435544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3769,23 +3786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46eeee19f87b55c428236396b38cf804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11449606
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 140566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10b4af78a9e43c64aa7be9e4b3ff83ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winningGrip: 0
-  tutorialStart: 0
-  gripPoints:
-  - {fileID: 11468270}
-  connectedBody: {fileID: 5053898}
-  anchor: {x: .0128259696, y: -1.36198199}
 --- !u!114 &11449786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3835,7 +3835,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: P2
   numberOfHands: 0
 --- !u!114 &11465744
 MonoBehaviour:
@@ -3848,25 +3847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: P2
   numberOfHands: 0
---- !u!114 &11466810
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 171886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10b4af78a9e43c64aa7be9e4b3ff83ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winningGrip: 0
-  tutorialStart: 0
-  gripPoints:
-  - {fileID: 11465744}
-  connectedBody: {fileID: 5053898}
-  anchor: {x: -.0799999982, y: 0}
 --- !u!114 &11468270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3878,8 +3859,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: P2
   numberOfHands: 0
+--- !u!114 &11471110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winningGrip: 0
+  tutorialStart: 0
+  gripPoints:
+  - {fileID: 11465744}
+  connectedBody: {fileID: 5053898}
+  anchor: {x: -.0799999982, y: 0}
+  parentedPlayer: P1
 --- !u!114 &11475708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3917,7 +3915,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: P2
   numberOfHands: 0
 --- !u!114 &11477974
 MonoBehaviour:
@@ -4024,23 +4021,6 @@ MonoBehaviour:
   offset: {x: -.0299999993, y: .0799999982}
   sortingLayerName: Frog
   sortingOrder: 5
---- !u!114 &11490384
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10b4af78a9e43c64aa7be9e4b3ff83ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winningGrip: 0
-  tutorialStart: 0
-  gripPoints:
-  - {fileID: 11461498}
-  connectedBody: {fileID: 5051738}
-  anchor: {x: 0, y: 0}
 --- !u!114 &11491094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4063,6 +4043,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de0ece074c0a604b8fc427747c6c5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11497094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winningGrip: 0
+  tutorialStart: 0
+  gripPoints:
+  - {fileID: 11468270}
+  connectedBody: {fileID: 5053898}
+  anchor: {x: .0128259696, y: -1.36198199}
+  parentedPlayer: P1
 --- !u!114 &11498290
 MonoBehaviour:
   m_ObjectHideFlags: 1

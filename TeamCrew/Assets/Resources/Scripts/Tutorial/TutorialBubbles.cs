@@ -10,9 +10,9 @@ public class TutorialBubbles : MonoBehaviour
         //Aquire first frog
         if (frog == null)
         {
-            if (GameManager.playerOne)
+            if (GameManager.players[0])
             {
-                frog = GameManager.playerOne.GetComponent<FrogPrototype>();
+                frog = GameManager.players[0].GetComponent<FrogPrototype>();
             }
         }
 
@@ -20,9 +20,9 @@ public class TutorialBubbles : MonoBehaviour
         //Aquire second frog
         if (frogTwo == null)
         {
-            if (GameManager.playerTwo)
+            if (GameManager.players[1])
             {
-                frogTwo = GameManager.playerTwo.GetComponent<FrogPrototype>();
+                frogTwo = GameManager.players[1].GetComponent<FrogPrototype>();
             }
         }
 

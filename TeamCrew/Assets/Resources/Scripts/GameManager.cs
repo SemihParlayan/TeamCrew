@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -54,7 +56,8 @@ public class GameManager : MonoBehaviour
     public static bool PS4;
     public static bool DigitalInput;
 
-    public static Transform playerOne, playerTwo;
+    public static Transform[] players = new Transform[4];
+    public InactivityController inactivityController;
     private static float levelHeight = 1337;
     public static float LevelHeight
     {
@@ -95,8 +98,7 @@ public class GameManager : MonoBehaviour
     private Vector3 cameraDefaultPosition;
     public MenuMusicController menuMusicController;
     public FinalMusic finalMusicCotroller;
-    private InactivityController inactivityController;
-    private FrogPrototype playerOneScript, playerTwoScript;    
+    public FrogPrototype[] playerScripts = new FrogPrototype[4];
 
     private bool playedFinalStretch = true;
 
@@ -170,13 +172,6 @@ public class GameManager : MonoBehaviour
             fireWorks.SetActive(false);
         }
 
-        //Aquire inactivityController script
-        inactivityController = GetComponent<InactivityController>();
-        if (inactivityController == null)
-        {
-            Debug.LogError("Can't find a InactivityController script on GameManager object");
-        }
-
         //Check if mainmenuScript is applied
         if (mainMenuScript == null)
         {
@@ -220,8 +215,9 @@ public class GameManager : MonoBehaviour
         CheckForCameraPanComplete();
         CheckForFinalStretch();
         CheckForPlayersReadyInMenu();
+        SetPlayerScripts();
     }
-    
+
 
 
 
@@ -244,16 +240,16 @@ public class GameManager : MonoBehaviour
         //Spawn frogs depending on which mode the game was started in.
         if (singlePlayerStarted == "P1")
         {
-            playerOne = (Instantiate(respawnScript.playerOne.prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
+            players[0] = (Instantiate(respawnScript.respawnScripts[0].prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
         }
         else if (singlePlayerStarted == "P2")
         {
-            playerTwo = (Instantiate(respawnScript.playerTwo.prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
+            players[1] = (Instantiate(respawnScript.respawnScripts[1].prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
         }
         else
         {
-            playerOne = (Instantiate(respawnScript.playerOne.prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
-            playerTwo = (Instantiate(respawnScript.playerTwo.prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
+            players[0] = (Instantiate(respawnScript.respawnScripts[0].prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
+            players[1] = (Instantiate(respawnScript.respawnScripts[1].prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
         }
     }
 
@@ -262,13 +258,20 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void DestroyFrogs()
     {
-        //Remove player one frog
-        if (playerOne != null)
-            Destroy(playerOne.parent.gameObject);
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i] != null)
+            {
+                Destroy(players[i].parent.gameObject);
+            }
+        }
+        ////Remove player one frog
+        //if (playerOne != null)
+        //    Destroy(playerOne.parent.gameObject);
 
-        //Remove player two frog
-        if (playerTwo != null)
-            Destroy(playerTwo.parent.gameObject);
+        ////Remove player two frog
+        //if (playerTwo != null)
+        //    Destroy(playerTwo.parent.gameObject);
     }
 
     /// <summary>
@@ -292,18 +295,32 @@ public class GameManager : MonoBehaviour
 
 
         //Remove player one safety line
-        if (playerOne != null)
+        for (int i = 0; i < players.Length; i++)
         {
-            if (playerOne.GetComponent<Line>() != null)
-                playerOne.GetComponent<Line>().Remove();
+            Transform player = players[i];
+
+            if (player != null)
+            {
+                Line line = player.GetComponent<Line>();
+
+                if (line)
+                {
+                    line.Remove();
+                }
+            }
         }
+        //if (playerOne != null)
+        //{
+        //    if (playerOne.GetComponent<Line>() != null)
+        //        playerOne.GetComponent<Line>().Remove();
+        //}
             
-        //Remove player two safety line
-        if (playerTwo != null)
-        {
-            if (playerTwo.GetComponent<Line>() != null)
-                playerTwo.GetComponent<Line>().Remove();
-        }
+        ////Remove player two safety line
+        //if (playerTwo != null)
+        //{
+        //    if (playerTwo.GetComponent<Line>() != null)
+        //        playerTwo.GetComponent<Line>().Remove();
+        //}
             
     }
 
@@ -333,9 +350,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Return the frogs total deathcount. X = PlayerOne death count. Y = PlayerTwo death count.
     /// </summary>
-    public Vector2 GetFrogDeathCount()
+    public Vector4 GetFrogDeathCount()
     {
-        return new Vector2(respawnScript.playerOne.deathCount, respawnScript.playerTwo.deathCount);
+        return new Vector4(respawnScript.respawnScripts[0].deathCount, respawnScript.respawnScripts[1].deathCount, respawnScript.respawnScripts[2].deathCount, respawnScript.respawnScripts[3].deathCount);
     }
 
     /// <summary>
@@ -446,21 +463,18 @@ public class GameManager : MonoBehaviour
         cameraFollowTerrainScript.enabled = false;
         mainMenuScript.goReady = false;
 
-        //Find frog number one
-        GameObject player = GameObject.FindWithTag("PlayerOne");
-        if (player)
+        //Find frogs
+        for (int i = 1; i < 5; i++)
         {
-            playerOne = player.transform;
-            playerOneScript = playerOne.GetComponent<FrogPrototype>();
+            GameObject player = GameObject.FindWithTag("Player" + i.ToString());
+            if (player)
+            {
+                players[i - 1] = player.transform;
+                playerScripts[i - 1] = player.GetComponent<FrogPrototype>();
+            }
         }
 
-        //Find frog number two
-        player = GameObject.FindWithTag("PlayerTwo");
-        if (player)
-        {
-            playerTwo = player.transform;
-            playerTwoScript = playerTwo.GetComponent<FrogPrototype>();
-        }
+        inactivityController.OnGameStart();
 
         //Reset deathcounter
         respawnScript.ResetDeathcount();
@@ -516,14 +530,14 @@ public class GameManager : MonoBehaviour
         bool playerTwoCompletedTutorial = false;
 
         //Check for player one ready
-        if (playerOneScript && playerOneScript.IsGrippingTutorial)
+        if (playerScripts[0] && playerScripts[0].IsGrippingTutorial)
         {
             playerOneCompletedTutorial = true;
             if (IsInMultiplayerMode)
                 mainMenuScript.playerOneReady.gameObject.SetActive(true);
         }
         //Check for player two ready
-        if ((playerTwoScript && playerTwoScript.IsGrippingTutorial) || Input.GetKey(KeyCode.Space))
+        if (playerScripts[1] && playerScripts[1].IsGrippingTutorial)
         {
             playerTwoCompletedTutorial = true;
             if (IsInMultiplayerMode)
@@ -708,6 +722,25 @@ public class GameManager : MonoBehaviour
             ActivateCameraPan();
             generatorScript.Generate();
             mainMenuScript.DisableUI();
+        }
+    }
+
+    /// <summary>
+    /// This method finds which frogs are active and which are not and sets the player scripts accordingly
+    /// </summary>
+    private void SetPlayerScripts()
+    {
+        for (int i = 0; i < playerScripts.Length; i++)
+        {
+            if (GameManager.players[i] != null)
+            {
+                if (playerScripts[i] == null)
+                    playerScripts[i] = GameManager.players[i].GetComponent<FrogPrototype>();
+            }
+            else
+            {
+                playerScripts[i] = null;
+            }
         }
     }
 }

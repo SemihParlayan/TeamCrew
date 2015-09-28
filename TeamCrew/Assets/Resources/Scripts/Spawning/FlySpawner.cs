@@ -29,10 +29,10 @@ public class FlySpawner : MonoBehaviour
     }
     void SpawnFly()
     {
-        Transform playerOne = GameManager.playerOne;
-        Transform playerTwo = GameManager.playerTwo;
+        Transform playerOne = GameManager.players[0];
+        Transform playerTwo = GameManager.players[1];
 
-        if (GameManager.playerOne == null || GameManager.playerTwo == null || fly != null || !gameManager.tutorialComplete)// || !gameManager.tutorialComplete)
+        if (GameManager.players[0] == null || GameManager.players[1] == null || fly != null || !gameManager.tutorialComplete)// || !gameManager.tutorialComplete)
             return;
 
         float playersDistanceY = Mathf.Abs(playerOne.position.y - playerTwo.position.y);
