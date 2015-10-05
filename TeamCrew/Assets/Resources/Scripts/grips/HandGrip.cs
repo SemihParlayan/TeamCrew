@@ -244,7 +244,7 @@ public class HandGrip : MonoBehaviour
             insectScript = c.transform.parent.GetComponent<Insect>();
             if (insectScript != null)
             {
-                if (insectScript.motionState == MotionState.chasing)
+                if (insectScript.motionState == MotionState.Chasing)
                 {
                     MovingGrip movingGrip = c.transform.GetComponent<MovingGrip>();
                     if (movingGrip)

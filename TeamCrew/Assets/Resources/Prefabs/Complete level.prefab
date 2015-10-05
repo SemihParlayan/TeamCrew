@@ -7282,7 +7282,7 @@ Transform:
   - {fileID: 498126}
   - {fileID: 462398}
   m_Father: {fileID: 463300}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &452444
 Transform:
   m_ObjectHideFlags: 1
@@ -7742,11 +7742,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 433224}
+  - {fileID: 499706}
   - {fileID: 492298}
   - {fileID: 494582}
   - {fileID: 451648}
   - {fileID: 474268}
-  - {fileID: 499706}
   - {fileID: 430022}
   - {fileID: 22494392}
   - {fileID: 497158}
@@ -8209,7 +8209,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 463300}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!4 &474432
 Transform:
   m_ObjectHideFlags: 1
@@ -8827,7 +8827,7 @@ Transform:
   m_LocalScale: {x: .899999857, y: .768749893, z: .75}
   m_Children: []
   m_Father: {fileID: 463300}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &492586
 Transform:
   m_ObjectHideFlags: 1
@@ -8935,7 +8935,7 @@ Transform:
   m_LocalScale: {x: .899999857, y: .768749893, z: .75}
   m_Children: []
   m_Father: {fileID: 463300}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &495378
 Transform:
   m_ObjectHideFlags: 1
@@ -9168,7 +9168,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 463300}
-  m_RootOrder: 5
+  m_RootOrder: 1
 --- !u!4 &499962
 Transform:
   m_ObjectHideFlags: 1
@@ -11084,6 +11084,11 @@ MonoBehaviour:
   mainMenuScript: {fileID: 11431896}
   menuMusicController: {fileID: 11464268}
   finalMusicCotroller: {fileID: 11470568}
+  playerScripts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   singlePlayerStarted: 
 --- !u!114 &11412510
 MonoBehaviour:
@@ -12890,8 +12895,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d43d8251c32d7944bb3a2dca0c4f655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlyPrefab: {fileID: 432452, guid: 9d6c1b19877602247985cc2cd0197966, type: 2}
-  RespawnCheckRate: 2
+  respawnCheckRate: 2
+  ladybugPrefab: {fileID: 432452, guid: 9d6c1b19877602247985cc2cd0197966, type: 2}
 --- !u!114 &11462752
 MonoBehaviour:
   m_ObjectHideFlags: 1

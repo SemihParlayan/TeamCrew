@@ -2,121 +2,101 @@
 using System.Collections;
 public enum MotionState
 {
-    rip,
-    chasing,
-    sit,
-    panicMode,
-    normal
+    Chasing,
+    Panic,
+    Exit
 }
 
 public class Insect : MonoBehaviour
 {
-    //State
+    //Data
     public MotionState motionState;
-
-    //Positions
     public Vector2 relativeSpawnPosToFrog;
-    public Vector2 relativeDeSpawnPosToFrog;
-    public float panicModeTop;
-    public float playerOffsetY = 3f;
-    public float startLowestFly;
-    float targetY;
+    public float panicIncreaseInHeight;
+
     private Vector2 startPos;
+    private int direction;
+    public int activeFrogCounter;
+    public float playerHeightDifference;
+    private int grabbed;
+    private float panicTargetY;
 
-    //Forces
-    public float goSlowlyDownForce = 500;
-    public float goSlowlyUpForce   = 1000;
-    public float liftPlayerForce   = 1500;
+    public float exitingSpeed;
+    public float chasingSpeed;
+    public float panicSpeed;
+    public float goSlowlyDownForce;
+    public float goSlowlyUpForce;
+    public float liftPlayerForce;
+    public float currentForce;
+    private bool hasSetDifference;
 
-    public AudioSource soundSource;
-    Rigidbody2D body;
-    Transform hand;
-    private int grabbed = 0;
-    int direction = -1;
-
+    public Transform topFrog;
     public Transform bottomFrog;
 
-    public float playerDifference;
-    public float chaseForce;
+    //References
+    public AudioSource soundSource;
+    private Rigidbody2D body;
 
 	void Start ()
     {
+        //Aquire components
         body = GetComponent<Rigidbody2D>();
-        startPos = new Vector2();
-
-        if (GameManager.players[0] && GameManager.players[1])
-        {
-            //Aquire bottomFrog
-            bottomFrog = (GameManager.players[0].position.y < GameManager.players[1].position.y) ? GameManager.players[0] : GameManager.players[1];
-
-            startPos = bottomFrog.position;
-            startPos.x = (GameManager.players[0].position.x + GameManager.players[1].position.x) * .5f;
-        }
 
         //Check side to spawn
-        if (Random.Range(0.0f, 1.0f) > .5f)
-        {
-            //Spawn to the Right
-            startPos.x += relativeSpawnPosToFrog.x;
-            direction = -1;
-            transform.Rotate(Vector3.up, Mathf.PI);
-        }
-        else
-        {
-            //Spawn to the left
-            direction = 1;
-            startPos.x -= relativeSpawnPosToFrog.x;
-        }
+        direction = (Random.Range(0.0f, 1.0f) > 0.5f) ? 1 : -1;
+        if (direction == -1)
+            transform.Rotate(Vector3.up, 180f);
 
+        //Set start position
+        startPos = transform.position;
+        startPos.x += relativeSpawnPosToFrog.x * -direction;
         startPos.y += relativeSpawnPosToFrog.y;
-
         transform.position = startPos;
-        targetY = startPos.y + panicModeTop;
 
-        chaseForce = 500f;
-        ChangeState(MotionState.chasing);
-        playerDifference = -1;
+        ChangeState(MotionState.Chasing);
 	}
 	
 	
 	void Update ()
     {
-        if (GameManager.players[0] && GameManager.players[1])
+        topFrog = GameManager.GetTopFrog();
+        bottomFrog = GameManager.GetBottomFrog();
+        //Count how many active frogs we have
+        activeFrogCounter = 0;
+        for (int i = 0; i < GameManager.players.Length; i++)
         {
-            bottomFrog = (GameManager.players[0].position.y < GameManager.players[1].position.y) ? GameManager.players[0] : GameManager.players[1];
-
-            playerDifference = Mathf.Abs(GameManager.players[0].position.y - GameManager.players[1].position.y);
+            if (GameManager.players[i] != null)
+                activeFrogCounter++;
         }
-        else
+
+        //Exit screen if there is not enough frogs
+        if (activeFrogCounter <= 1)
         {
-            playerDifference = -1;
+            ChangeState(MotionState.Exit);
         }
 
-        if (bottomFrog == null)
+        if (activeFrogCounter > 1)
         {
-            if (motionState == MotionState.chasing)
-                ChangeState(MotionState.normal);
-        }
-        else
-        {
-
-            startPos.y = Mathf.MoveTowards(startPos.y, bottomFrog.position.y + playerOffsetY, Time.deltaTime);
+            //Difference between top and bottom frog in Y position
+            playerHeightDifference = Mathf.Abs(GameManager.GetTopFrog().position.y - GameManager.GetBottomFrog().position.y);
+            hasSetDifference = true;
         }
 	}
     void FixedUpdate()
     {
         switch(motionState)
         {
-            case MotionState.normal:
+            case MotionState.Exit:
             {
                 //Remove insect if it is to far away from targetFrog
-                if (Mathf.Abs(transform.position.x - startPos.x) > relativeDeSpawnPosToFrog.x)
+                if (transform.position.x > 60 || transform.position.x < -60)
                 {
                     Destroy(gameObject);
                 }
 
                 //Move in X Direction;
-                body.AddForce(new Vector2(150f * direction, 0));
+                body.AddForce(new Vector2(currentForce * direction, 0));
+                currentForce++;
                        
                 if (transform.position.y < startPos.y)
                 {
@@ -132,32 +112,31 @@ public class Insect : MonoBehaviour
             } 
             break;
               
-            case MotionState.chasing:
+            case MotionState.Chasing:
             {
+                Transform bottomFrog = GameManager.GetBottomFrog();
+
                 if (bottomFrog == null)
                     break;
 
+                currentForce = chasingSpeed;
                 //Follow targetFrog in X
-                if (bottomFrog.position.x > transform.position.x)
+                if (transform.position.x < bottomFrog.position.x)
                     direction = 1;
                 else
                     direction = -1;
 
-                if (chaseForce > 150)
-                {
-                    chaseForce -= 1f;
-                }
-                body.AddForce(new Vector2(direction * chaseForce, 0));
+                body.AddForce(new Vector2(direction * currentForce, 0));
 
                 //Clamp velocity
                 Vector2 vel = body.velocity;
                 vel.x = Mathf.Clamp(vel.x, -6, 6);
                 body.velocity = vel;
 
-                if (transform.position.y < startPos.y)
+                if (transform.position.y < bottomFrog.position.y + 4)
                 {
                     //Go upwards
-                    body.AddForce(new Vector2(0, goSlowlyUpForce * 0.75f));
+                    body.AddForce(new Vector2(0, goSlowlyUpForce * 0.6f));
                 }
                 else if (body.velocity.y < 0)
                 {
@@ -166,34 +145,26 @@ public class Insect : MonoBehaviour
                 }
 
 
-                if (playerDifference != -1)
+                if (playerHeightDifference < 3 && hasSetDifference)
                 {
-                    if (playerDifference < 3)
-                    {
-                        ChangeState(MotionState.normal);
-                    }
+                    ChangeState(MotionState.Exit);
                 }
-                
             }
             break;
 
-            case MotionState.panicMode:
+            case MotionState.Panic:
             {
-                Transform topFrog = null;
-                if (GameManager.players[0] && GameManager.players[1])
-                {
-                    topFrog = (GameManager.players[0].position.y > GameManager.players[1].position.y) ? GameManager.players[0] : GameManager.players[1];
-                }
+                Transform topFrog = GameManager.GetTopFrog();
 
                 if (topFrog != null)
                 {
                     //Follow targetFrog in X
-                    if (bottomFrog.position.x < topFrog.position.x)
+                    if (transform.position.x < topFrog.position.x)
                         direction = 1;
                     else
                         direction = -1;
 
-                    body.AddForce(new Vector2(direction * 600, 0));
+                    body.AddForce(new Vector2(direction * currentForce, 0));
 
                     //Clamp velocity
                     Vector2 vel = body.velocity;
@@ -201,7 +172,7 @@ public class Insect : MonoBehaviour
                     body.velocity = vel;
                 }
 
-                if (transform.position.y < targetY)
+                if (transform.position.y < panicTargetY)
                 {
                     float force = grabbed > 0 ? liftPlayerForce : goSlowlyUpForce;
                     body.AddForce(new Vector2(0, force));
@@ -211,50 +182,40 @@ public class Insect : MonoBehaviour
                     body.AddForce(new Vector2(0, goSlowlyDownForce));
                 }
             } 
-            break;  
-
-            case MotionState.rip:
-            {
-                if (bottomFrog != null)
-                {
-                    if (Mathf.Abs(transform.position.y - bottomFrog.position.y) > relativeDeSpawnPosToFrog.y)
-                    {
-                        Destroy(gameObject);
-                    }
-                }
-                else
-                {
-                    if (transform.position.y < startPos.y - relativeDeSpawnPosToFrog.y)
-                    {
-                        Destroy(gameObject);
-                    }
-                }
-            }
             break;
         }
     }
 
     void ChangeState(MotionState state)
     {
-        if(state == motionState) return;
+        //Return if we are changing to the same state
+        if(state == motionState) 
+            return;
 
+        //Set new state
         motionState = state;
-        //getting new behaviour
+
+
+        //React to the new state
         switch (motionState)
         {
-            case MotionState.panicMode:
+            case MotionState.Panic:
             {
-                targetY = transform.position.y + panicModeTop;
+                currentForce = panicSpeed;
+                panicTargetY = transform.position.y + panicIncreaseInHeight;
             }
             break;
-            case MotionState.chasing:
+
+            case MotionState.Exit:
             {
-                chaseForce = 500f;
-            }
-            break;
-            case MotionState.normal:
-            {
+                currentForce = exitingSpeed;
                 Destroy(GetComponent<HingeJoint2D>());
+            }
+            break;
+
+            case MotionState.Chasing:
+            {
+                currentForce = chasingSpeed;
             }
             break;
         }
@@ -263,7 +224,7 @@ public class Insect : MonoBehaviour
     public void AddHand()
     {
         if(grabbed == 0) 
-            ChangeState(MotionState.panicMode);
+            ChangeState(MotionState.Panic);
 
         grabbed++;
     }
@@ -272,7 +233,7 @@ public class Insect : MonoBehaviour
         grabbed--;
         if (grabbed <= 0)
         {
-            ChangeState(MotionState.normal);
+            ChangeState(MotionState.Exit);
         }
     }
 }

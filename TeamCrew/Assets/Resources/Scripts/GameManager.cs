@@ -405,7 +405,7 @@ public class GameManager : MonoBehaviour
         respawnScript.ResetRespawns();
 
         //Remove any active fly
-        GetComponent<FlySpawner>().RemoveFly();
+        GetComponent<LadybugSpawner>().RemoveFly();
     }
 
     /// <summary>
@@ -484,6 +484,66 @@ public class GameManager : MonoBehaviour
 
         //Enable tutorial bubbles
         tutorialBubbles.EnableScript();
+    }
+
+    //Static methods
+    /// <summary>
+    /// Returns the frog transform that is currently at the highest Y position
+    /// </summary>
+    /// <returns></returns>
+    public static Transform GetTopFrog()
+    {
+        Transform frog = null;
+
+        int topFrogIndex = -1;
+        float topY = -float.MaxValue;
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i] == null)
+                continue;
+
+            if (players[i].position.y > topY)
+            {
+                topFrogIndex = i;
+                topY = players[i].position.y;
+            }
+        }
+
+        if (topFrogIndex != -1)
+        {
+            frog = players[topFrogIndex];
+        }
+
+        return frog;
+    }
+    /// <summary>
+    /// Returns the frog transform that is currently at the lowest Y position
+    /// </summary>
+    /// <returns></returns>
+    public static Transform GetBottomFrog()
+    {
+        Transform frog = null;
+
+        int bottomFrogIndex = -1;
+        float bottomY = float.MaxValue;
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i] == null)
+                continue;
+
+            if (players[i].position.y < bottomY)
+            {
+                bottomFrogIndex = i;
+                bottomY = players[i].position.y;
+            }
+        }
+
+        if (bottomFrogIndex != -1)
+        {
+            frog = players[bottomFrogIndex];
+        }
+
+        return frog;
     }
 
 
