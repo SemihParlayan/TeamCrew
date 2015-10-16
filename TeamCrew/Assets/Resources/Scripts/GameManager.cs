@@ -44,6 +44,19 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
+    public static bool GetButtonDown(string buttonName)
+    {
+        if (Xbox)
+        {
+            return Input.GetButtonDown(buttonName + "X");
+        }
+        else if (PS4)
+        {
+            return Input.GetButtonDown(buttonName + "PS");
+        }
+
+        return false;
+    }
     public static bool GetCheatButton()
     {
         if (!Hacks)

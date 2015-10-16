@@ -48,10 +48,6 @@ public class MenuMusicController : MonoBehaviour
     {
         if(speaker != null)
             speaker.Play();
-        else
-        {
-            Debug.Log("no fucking speaker");
-        }
     }
 
     public void Stop()
