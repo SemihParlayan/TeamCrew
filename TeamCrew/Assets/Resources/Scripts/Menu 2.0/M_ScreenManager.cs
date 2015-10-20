@@ -39,7 +39,7 @@ public class M_ScreenManager : MonoBehaviour
         //Zoom camera
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentScreen.movementProperties.zoom, currentScreen.movementProperties.zoomSpeed * Time.deltaTime);
     }
-    void DisableScreenScripts()
+    public void DisableScreenScripts()
     {
         M_Screen[] screens = transform.GetComponentsInChildren<M_Screen>();
 

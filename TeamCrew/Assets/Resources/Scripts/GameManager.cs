@@ -105,13 +105,11 @@ public class GameManager : MonoBehaviour
     private LevelGeneration generatorScript;
     private Respawn respawnScript;
     private CameraFollow cameraFollowScript;
-    private CameraFollowTerrain  cameraFollowTerrainScript;
-    private CameraPan cameraPanScript;
-    public MainMenu mainMenuScript;
-    private Vector3 cameraDefaultPosition;
     public MenuMusicController menuMusicController;
     public FinalMusic finalMusicCotroller;
     public FrogPrototype[] playerScripts = new FrogPrototype[4];
+    [HideInInspector]
+    public bool[] frogsReady = new bool[4];
 
     private bool playedFinalStretch = true;
 
@@ -160,20 +158,6 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Can't find a CameraFollowScript script on MainCamera!");
         }
 
-        //Aquire CameraPan script
-        cameraPanScript = mainCamera.GetComponent<CameraPan>();
-        if (cameraPanScript == null)
-        {
-            Debug.LogError("Can't find a Camerapan script on MainCamera!");
-        }
-
-        //Aquire CameraFollowTerrain script
-        cameraFollowTerrainScript = mainCamera.GetComponent<CameraFollowTerrain>();
-        if (cameraFollowTerrainScript == null)
-        {
-            Debug.LogError("Can't find a CameraFollowTerrainScript script on MainCamera!");
-        }
-        
         //Aquire fireworks gameobject
         fireWorks = GameObject.FindWithTag("Fireworks");
         if (fireWorks == null)
@@ -185,12 +169,6 @@ public class GameManager : MonoBehaviour
             fireWorks.SetActive(false);
         }
 
-        //Check if mainmenuScript is applied
-        if (mainMenuScript == null)
-        {
-            Debug.LogError("Attach a main menu script to GameManager.cs!");
-        }
-
         //Aquire topFrogSpawner script
         topfrogSpawnerScript = GetComponent<TopFrogSpawner>();
         if (topfrogSpawnerScript == null)
@@ -200,7 +178,6 @@ public class GameManager : MonoBehaviour
         else
         {
             topfrogSpawnerScript.accessoriesCount = -5;
-            topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
         }
 		
         //Aquire tutorialBubbles script
@@ -209,9 +186,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Can't find a TutorialBubbles script on GameManager object");
         }
-
-        //Set cameras default position
-        cameraDefaultPosition = mainCamera.transform.position;
 
         //menuMusicController = ;
 
@@ -225,9 +199,9 @@ public class GameManager : MonoBehaviour
     {
         RestartGame();
         CheckForTutorialComplete();
-        CheckForCameraPanComplete();
+        //CheckForCameraPanComplete();
         CheckForFinalStretch();
-        CheckForPlayersReadyInMenu();
+        //CheckForPlayersReadyInMenu();
         SetPlayerScripts();
     }
 
@@ -238,7 +212,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Deletes old frogs and creates either one or two new frogs depending on which game mode the game is currently in.
     /// </summary>
-    private void CreateNewFrogs()
+    public void CreateNewFrogs()
     {
         //Remove old frogs.
         DestroyFrogs();
@@ -246,24 +220,33 @@ public class GameManager : MonoBehaviour
         //Reset the bandage counter.
         GetComponent<BandageManager>().ResetBandages();
 
-        //Aquire spawn positions for frogs
-        Vector3 pOneSpawnPos = generatorScript.GetPlayerSpawnPosition(1);
-        Vector3 pTwoSpawnPos = generatorScript.GetPlayerSpawnPosition(2);
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (frogsReady[i])
+            {
+                Vector3 spawnPosition = generatorScript.GetPlayerSpawnPosition(i + 1);
+                players[i] = (Instantiate(respawnScript.respawnScripts[i].prefab, spawnPosition, Quaternion.identity) as Transform).FindChild("body");
+            }
+        }
 
-        //Spawn frogs depending on which mode the game was started in.
-        if (singlePlayerStarted == "P1")
-        {
-            players[0] = (Instantiate(respawnScript.respawnScripts[0].prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
-        }
-        else if (singlePlayerStarted == "P2")
-        {
-            players[1] = (Instantiate(respawnScript.respawnScripts[1].prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
-        }
-        else
-        {
-            players[0] = (Instantiate(respawnScript.respawnScripts[0].prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
-            players[1] = (Instantiate(respawnScript.respawnScripts[1].prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
-        }
+        ////Aquire spawn positions for frogs
+        //Vector3 pOneSpawnPos = generatorScript.GetPlayerSpawnPosition(1);
+        //Vector3 pTwoSpawnPos = generatorScript.GetPlayerSpawnPosition(2);
+
+        ////Spawn frogs depending on which mode the game was started in.
+        //if (singlePlayerStarted == "P1")
+        //{
+        //    players[0] = (Instantiate(respawnScript.respawnScripts[0].prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
+        //}
+        //else if (singlePlayerStarted == "P2")
+        //{
+        //    players[1] = (Instantiate(respawnScript.respawnScripts[1].prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
+        //}
+        //else
+        //{
+        //    players[0] = (Instantiate(respawnScript.respawnScripts[0].prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
+        //    players[1] = (Instantiate(respawnScript.respawnScripts[1].prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
+        //}
     }
 
     /// <summary>
@@ -292,9 +275,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void TutorialComplete()
     {
+        if (tutorialComplete)
+            return;
+
         //Set flags
         tutorialComplete = true;
-        cameraFollowScript.enabled = true;
+        //cameraFollowScript.enabled = true;
 
         //Disable tutorial bubbles;
         tutorialBubbles.DisableScript();
@@ -302,12 +288,7 @@ public class GameManager : MonoBehaviour
         //Reactivate the easy block thats above the tutorial.
         generatorScript.ActivateEasyBlock();
 
-        //Disable ready signs
-        mainMenuScript.playerOneReady.gameObject.SetActive(false);
-        mainMenuScript.playerTwoReady.gameObject.SetActive(false);
-
-
-        //Remove player one safety line
+        //Remove players safety line
         for (int i = 0; i < players.Length; i++)
         {
             Transform player = players[i];
@@ -340,9 +321,6 @@ public class GameManager : MonoBehaviour
         //cameraPanScript.enabled = true;
         //cameraFollowTerrainScript.enabled = true;
 
-        //Disable exitbuttonImage
-        mainMenuScript.exitImage.gameObject.SetActive(false);
-
         //Set the start zoom value for the camera when panning down.
         //Camera.main.orthographicSize = 7.5f;
     }
@@ -360,22 +338,22 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GoBackToMenu()
     {
-        //Enable UI
-        mainMenuScript.EnableUI();
+        ////Enable UI
+        //mainMenuScript.EnableUI();
 
-        //Reactivate block above tutorial
-        generatorScript.ActivateEasyBlock();
+        ////Reactivate block above tutorial
+        //generatorScript.ActivateEasyBlock();
 
-        //Reset menu variables
-        ResetVariablesToMenu();
+        ////Reset menu variables
+        //ResetVariablesToMenu();
 
-        //Destroy old frogs and spawn new topfrog
-        Invoke("DestroyFrogs", 3f);
-        topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
+        ////Destroy old frogs and spawn new topfrog
+        //Invoke("DestroyFrogs", 3f);
+        //topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
 
-        //Enable menu music
-        menuMusicController.Play();
-        menuMusicController.ChangeFadeState(FadeState.IN);
+        ////Enable menu music
+        //menuMusicController.Play();
+        //menuMusicController.ChangeFadeState(FadeState.IN);
     }
 
     /// <summary>
@@ -390,11 +368,7 @@ public class GameManager : MonoBehaviour
         Camera.main.transform.GetComponent<AudioSource>().enabled = true;
         Camera.main.transform.GetComponent<FallSoundCam>().enabled = true;
 
-        //Enable exit button in menu again
-        mainMenuScript.exitImage.gameObject.SetActive(true);
-
         //Reset boolean flags
-        cameraFollowTerrainScript.enabled = true;
         cameraFollowScript.enabled = false;
         respawnScript.enabled = false;
         playedFinalStretch = false;
@@ -431,9 +405,6 @@ public class GameManager : MonoBehaviour
             v = (int)deathCount.x - (int)deathCount.y;
         }
 
-        //Start menu cycle, who won?, deathcount etc...
-        mainMenuScript.StartMenuCycle(frogNumber, v);
-
         //Reset menu variables
         ResetVariablesToMenu();
 
@@ -450,7 +421,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Sets the game to active, meaning that the frogs can move and the tutorial is started.
     /// </summary>
-    void StartGame()
+    public void StartGame()
     {
         //Enables respawning
         respawnScript.enabled = true;
@@ -460,8 +431,6 @@ public class GameManager : MonoBehaviour
 
         //Reset variables
         playedFinalStretch = false;
-        cameraFollowTerrainScript.enabled = false;
-        mainMenuScript.goReady = false;
 
         //Find frogs
         for (int i = 1; i < 5; i++)
@@ -484,6 +453,24 @@ public class GameManager : MonoBehaviour
 
         //Enable tutorial bubbles
         tutorialBubbles.EnableScript();
+    }
+
+    /// <summary>
+    /// Return how many frogs was ready in the menu
+    /// </summary>
+    /// <returns></returns>
+    public int GetFrogReadyCount()
+    {
+        int count = 0;
+        for (int i = 0; i < frogsReady.Length; i++)
+        {
+            if (frogsReady[i])
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     //Static methods
@@ -576,6 +563,7 @@ public class GameManager : MonoBehaviour
     {
         if (!gameActive || tutorialComplete)
             return;
+        Debug.Log("Checking tutorial");
 
         /*
          * We are currently inside of tutorial state for all the code below. Tutorial state means that the frogs are active and
@@ -583,47 +571,19 @@ public class GameManager : MonoBehaviour
          * will start the game whenever the frogs have completed the tutorial.
         */
 
-        mainMenuScript.playerOneReady.gameObject.SetActive(false);
-        mainMenuScript.playerTwoReady.gameObject.SetActive(false);
-
-        bool playerOneCompletedTutorial = false;
-        bool playerTwoCompletedTutorial = false;
-
-        //Check for player one ready
-        if (playerScripts[0] && playerScripts[0].IsGrippingTutorial)
+        int completedTutorialCount = 0;
+        for (int i = 0; i < playerScripts.Length; i++)
         {
-            playerOneCompletedTutorial = true;
-            if (IsInMultiplayerMode)
-                mainMenuScript.playerOneReady.gameObject.SetActive(true);
-        }
-        //Check for player two ready
-        if (playerScripts[1] && playerScripts[1].IsGrippingTutorial)
-        {
-            playerTwoCompletedTutorial = true;
-            if (IsInMultiplayerMode)
-                mainMenuScript.playerTwoReady.gameObject.SetActive(true);
-        }
-
-
-        //Start in multiplayer
-        if (IsInMultiplayerMode)
-        {
-            if (playerOneCompletedTutorial && playerTwoCompletedTutorial)
+            if (playerScripts[i])
             {
-                mainMenuScript.StartGoImage(generatorScript.GetReadySetGoSpriteRenderes());
-            }
-        }
-        //Start singleplayer
-        else
-        {
-            if (playerOneCompletedTutorial || playerTwoCompletedTutorial)
-            {
-                mainMenuScript.StartGoImage(generatorScript.GetReadySetGoSpriteRenderes());
+                if (playerScripts[i].IsGrippingTutorial)
+                {
+                    completedTutorialCount++;
+                }
             }
         }
 
-        //Set tutorial complete
-        if (mainMenuScript.goReady && !tutorialComplete)
+        if (completedTutorialCount == GetFrogReadyCount())
         {
             TutorialComplete();
         }
@@ -639,31 +599,31 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void CheckForCameraPanComplete()
     {
-        if (!cameraPanScript.enabled)
-            return;
-        /*
-         * We are currently in panning state which means we are currently panning down the mountain in the code below.
-        */
+        //if (!cameraPanScript.enabled)
+        //    return;
+        ///*
+        // * We are currently in panning state which means we are currently panning down the mountain in the code below.
+        //*/
 
 
-        //We have panned halfway down
-        if (cameraPanScript.Halfway())
-        {
-            //Spawn new frogs at the bottom of the mountain
-            CreateNewFrogs();
+        ////We have panned halfway down
+        //if (cameraPanScript.Halfway())
+        //{
+        //    //Spawn new frogs at the bottom of the mountain
+        //    CreateNewFrogs();
 
-            //Delete the topfrog
-            topfrogSpawnerScript.RemoveFrog();
-        }
+        //    //Delete the topfrog
+        //    topfrogSpawnerScript.RemoveFrog();
+        //}
 
-        //We have panned all the way to the bottom
-        if (cameraPanScript.Complete())
-        {
-            Camera.main.transform.GetComponent<AudioSource>().enabled = false; //Disable fall sound
-            Camera.main.transform.GetComponent<FallSoundCam>().enabled = false;
-            StartGame();
-            generatorScript.DeactivateEasyBlock();
-        }
+        ////We have panned all the way to the bottom
+        //if (cameraPanScript.Complete())
+        //{
+        //    Camera.main.transform.GetComponent<AudioSource>().enabled = false; //Disable fall sound
+        //    Camera.main.transform.GetComponent<FallSoundCam>().enabled = false;
+        //    StartGame();
+        //    generatorScript.DeactivateEasyBlock();
+        //}
     }
 
     /// <summary>
@@ -710,78 +670,6 @@ public class GameManager : MonoBehaviour
                 //finalMusicCotroller.SetFadeState(FadeState.OUT);
             }
             
-        }
-    }
-
-    /// <summary>
-    /// Checks to see if the players are ready inside of the menu. This method starts the game in either singleplayer or multiplaye mode.
-    /// </summary>
-    private void CheckForPlayersReadyInMenu()
-    {
-        if (gameActive || cameraPanScript.enabled)
-            return;
-
-        if (designTestingEnabled)
-            return;
-        /*
-         * The code below is currently in MenuState which means thats we are at the top of the mountain.
-         * We are checking for the player to click ready in order to start the camerapan.
-         */
-
-
-        //Lerp cameras position towards the default position at the top of the mountain.
-        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cameraDefaultPosition, Time.deltaTime);
-
-        //Lerp cameras zoom to default zoom distance at the top of the mountain.
-        Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 7.5f, Time.deltaTime / 2);
-
-        //Set flag to start game with only playerOne
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            mainMenuScript.playerOneReadyInput.singlePlayerReady = true;
-        }
-        //Set flag to start game with only playerTwo
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            mainMenuScript.playerTwoReadyInput.singlePlayerReady = true;
-        }
-
-        bool started = false;
-
-        //Both frogs are ready, set flag to start in multiplayer mode.
-        if (mainMenuScript.playerOneReadyInput.ready && mainMenuScript.playerTwoReadyInput.ready)
-        {
-            started = true;
-            singlePlayerStarted = string.Empty;
-        }
-        //Only playerOne is ready, playerOne started the game in singleplayer mode.
-        else if (mainMenuScript.playerOneReadyInput.singlePlayerReady)
-        {
-            started = true;
-            singlePlayerStarted = "P1";
-        }
-        //Only playerTwo is ready, playerTwo started the game in singleplayer mode.
-        else if (mainMenuScript.playerTwoReadyInput.singlePlayerReady)
-        {
-            started = true;
-            singlePlayerStarted = "P2";
-        }
-
-        //Start game with cheatbutton. This will start the game in multiplayerMode.
-        if (GetCheatButton())
-        {
-            started = true;
-        }
-
-        /*
-         * If the flag has been set to start game in either singleplayer or multiplayed mode we
-         * activate the camera pan, generate a new level to climb and disable the UI.
-         */
-        if (started)
-        {
-            ActivateCameraPan();
-            generatorScript.Generate();
-            mainMenuScript.DisableUI();
         }
     }
 

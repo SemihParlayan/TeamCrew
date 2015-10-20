@@ -16,6 +16,9 @@ public class FallSoundCam : MonoBehaviour
 	
 	void Update ()
     {
+        if (!sound.enabled)
+            return;
+
         Vector2 thing = new Vector2(body.velocity.x, body.velocity.y); // do not want z
 
         if (thing.magnitude > .5f)

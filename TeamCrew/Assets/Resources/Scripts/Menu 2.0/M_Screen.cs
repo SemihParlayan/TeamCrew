@@ -135,7 +135,7 @@ public class M_Screen : MonoBehaviour
     }
 
     //Events
-    public void OnSwitchedTo()
+    public virtual void OnSwitchedTo()
     {
         Invoke("Activate", 0.2f);
         HighlightDefaultButton();
@@ -151,7 +151,7 @@ public class M_Screen : MonoBehaviour
             }
         }
     }
-    public void OnSwitchedFrom()
+    public virtual void OnSwitchedFrom()
     {
         active = false;
 

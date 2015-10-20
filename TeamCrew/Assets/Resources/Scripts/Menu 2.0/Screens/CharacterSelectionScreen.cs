@@ -36,6 +36,15 @@ public class CharacterSelectionScreen : M_Screen
         }
     }
 
+    //References
+    private GameManager gameManager;
+
+
+    void Start()
+    {
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+    }
+
     //Methods
     public void P1Join()
     {
@@ -77,16 +86,16 @@ public class CharacterSelectionScreen : M_Screen
             joinArray[i] = false;
             readyArray[i] = false;
         }
+
+        gameManager.frogsReady = readyArray;
     }
     public void ContinueToModeSelection()
     {
         if (!CanContinue || continueScreen == null)
             return;
 
-        SwitchScreen(continueScreen);
-    }
+        gameManager.frogsReady = readyArray;
 
-    void Update()
-    {
+        SwitchScreen(continueScreen);
     }
 }
