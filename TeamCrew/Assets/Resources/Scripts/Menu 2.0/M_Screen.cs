@@ -25,6 +25,8 @@ public struct ScreenMovementProperties
 public class M_Screen : MonoBehaviour 
 {
     //Inspector
+    [HideInInspector]
+    public bool active;
     public bool subScreen;
     public string playerControl = "P1";
     public Transform cameraLocation;
@@ -36,6 +38,7 @@ public class M_Screen : MonoBehaviour
 
 
     //Data
+
     private bool CanSelect
     {
         get
@@ -69,8 +72,6 @@ public class M_Screen : MonoBehaviour
         }
     }
     private bool canPress;
-
-    private bool active;
 
     
     //Static
@@ -168,7 +169,7 @@ public class M_Screen : MonoBehaviour
     //Methods
     bool SendEventToCurrentButton(Event e)
     {
-        bool canSend = currentButton;
+        bool canSend = (currentButton != null);
 
         if (canSend)
             currentButton.SendMessage(e.ToString());
@@ -238,10 +239,8 @@ public class M_Screen : MonoBehaviour
     }
     public void SwitchScreen(M_Screen targetScreen)
     {
-        if (SendEventToCurrentButton(Event.OnDeSelect))
-        {
-            M_ScreenManager.SwitchScreen(targetScreen);
-        }
+        SendEventToCurrentButton(Event.OnDeSelect);
+        M_ScreenManager.SwitchScreen(targetScreen);
     }
     public void PressButton(M_Button targetButton)
     {

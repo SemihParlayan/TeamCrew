@@ -247,8 +247,8 @@ public class GameManager : MonoBehaviour
         GetComponent<BandageManager>().ResetBandages();
 
         //Aquire spawn positions for frogs
-        Vector3 pOneSpawnPos = generatorScript.GetPlayerOneSpawnPosition();
-        Vector3 pTwoSpawnPos = generatorScript.GetPlayerTwoSpawnPosition();
+        Vector3 pOneSpawnPos = generatorScript.GetPlayerSpawnPosition(1);
+        Vector3 pTwoSpawnPos = generatorScript.GetPlayerSpawnPosition(2);
 
         //Spawn frogs depending on which mode the game was started in.
         if (singlePlayerStarted == "P1")
@@ -321,20 +321,7 @@ public class GameManager : MonoBehaviour
                     line.Remove();
                 }
             }
-        }
-        //if (playerOne != null)
-        //{
-        //    if (playerOne.GetComponent<Line>() != null)
-        //        playerOne.GetComponent<Line>().Remove();
-        //}
-            
-        ////Remove player two safety line
-        //if (playerTwo != null)
-        //{
-        //    if (playerTwo.GetComponent<Line>() != null)
-        //        playerTwo.GetComponent<Line>().Remove();
-        //}
-            
+        }   
     }
 
     /// <summary>
@@ -350,14 +337,14 @@ public class GameManager : MonoBehaviour
         menuMusicController.ChangeFadeState(FadeState.OUT);
            
         //Activate cameraPan script
-        cameraPanScript.enabled = true;
-        cameraFollowTerrainScript.enabled = true;
+        //cameraPanScript.enabled = true;
+        //cameraFollowTerrainScript.enabled = true;
 
         //Disable exitbuttonImage
         mainMenuScript.exitImage.gameObject.SetActive(false);
 
         //Set the start zoom value for the camera when panning down.
-        Camera.main.orthographicSize = 7.5f;
+        //Camera.main.orthographicSize = 7.5f;
     }
 
     /// <summary>

@@ -13,7 +13,10 @@ public enum BlockDifficulty
     Medium,
     Hard,
     Top,
-    Tutorial,
+    Tutorial_1player,
+    Tutorial_2player,
+    Tutorial_3player,
+    Tutorial_4player,
     Converter
 }
 public class Block : MonoBehaviour 

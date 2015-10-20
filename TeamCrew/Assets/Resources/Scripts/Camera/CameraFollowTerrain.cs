@@ -22,7 +22,7 @@ public class CameraFollowTerrain : MonoBehaviour
             Block b = hit.transform.GetComponent<Block>();
             if (b)
             {
-                if (b.difficulty == BlockDifficulty.Tutorial)
+                if (b.difficulty == BlockDifficulty.Tutorial_1player)
                 {
                     targetX = hit.transform.position.x;
                 }

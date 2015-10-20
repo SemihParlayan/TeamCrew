@@ -117,7 +117,7 @@ public class LevelGeneration : MonoBehaviour
         easyBlock = block.gameObject;
 
         //Spawn Tutorial
-        block = GetBlock(block, BlockDifficulty.Tutorial);
+        block = GetBlock(block, BlockDifficulty.Tutorial_1player);
         block.transform.parent = transform; level.Add(block);
 
         FixSigns();
@@ -257,13 +257,9 @@ public class LevelGeneration : MonoBehaviour
         return null;
     }
 
-    public Vector3 GetPlayerOneSpawnPosition()
+    public Vector3 GetPlayerSpawnPosition(int player)
     {
-        return level.Last().GetComponent<TutorialBlock>().playerOneStart.position;
-    }
-    public Vector3 GetPlayerTwoSpawnPosition()
-    {
-        return level.Last().GetComponent<TutorialBlock>().playerTwoStart.position;
+        return level.Last().GetComponent<TutorialBlock>().playerStartPosition[player - 1].position;
     }
     public SpriteRenderer[] GetReadySetGoSpriteRenderes()
     {
