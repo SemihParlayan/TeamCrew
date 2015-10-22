@@ -37,6 +37,9 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+--- !u!127 &3
+LevelGameManager:
+  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -65,7 +68,6 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
-    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
@@ -180,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &5287897
 GameObject:
@@ -586,12 +589,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 2a9ac86b29ef4b14daa6013601d98f3a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -1297,7 +1294,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -1617,6 +1613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &202551044
 GameObject:
@@ -2988,7 +2985,7 @@ MonoBehaviour:
   m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ForceModuleActive: 0
+  m_AllowActivationOnStandalone: 0
 --- !u!114 &253515037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3007,7 +3004,7 @@ MonoBehaviour:
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
   m_RepeatDelay: .5
-  m_ForceModuleActive: 0
+  m_AllowActivationOnMobileDevice: 0
 --- !u!114 &253515038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5039,12 +5036,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: d923ea9903c58c34e95f23c33d04d935, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -7512,12 +7503,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .960784376, g: .917647123, b: .729411781, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3a5932c265ce84144b0527c7a9237a12, type: 3}
     m_FontSize: 80
@@ -7607,12 +7592,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: c3378b112c4556a4a82d82681fc547c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -7668,6 +7647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &396004073
 GameObject:
@@ -7709,6 +7689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &407305399
 GameObject:
@@ -7777,6 +7758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &418416453
 GameObject:
@@ -7873,6 +7855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &433059186
 GameObject:
@@ -7941,7 +7924,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -8306,6 +8288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &461338183
 GameObject:
@@ -8843,12 +8826,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300002, guid: 396e6cfb383775c4693b9eb592abeb8d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -9259,12 +9236,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 25591e7ebf291d34f825bd3835f84a0a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -9472,12 +9443,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 43fad53f37d1af44f84c2b2e4be13c30, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -9633,6 +9598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &582318110
 GameObject:
@@ -9674,6 +9640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &587597302
 GameObject:
@@ -9715,6 +9682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &598851291
 GameObject:
@@ -10170,6 +10138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &659817612
 GameObject:
@@ -10373,6 +10342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &675123980
 GameObject:
@@ -10672,48 +10642,6 @@ SpriteRenderer:
   m_SortingOrder: -3
   m_Sprite: {fileID: 21300002, guid: adbc7b671db522f46aefc6cca5ab3925, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!1001 &740311582
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 451242, guid: f7ffb23c2cf422e4a8c3d0da8c6792ef, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 2.16000009
-      objectReference: {fileID: 0}
-    - target: {fileID: 451242, guid: f7ffb23c2cf422e4a8c3d0da8c6792ef, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 5.5999999
-      objectReference: {fileID: 0}
-    - target: {fileID: 451242, guid: f7ffb23c2cf422e4a8c3d0da8c6792ef, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 451242, guid: f7ffb23c2cf422e4a8c3d0da8c6792ef, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 451242, guid: f7ffb23c2cf422e4a8c3d0da8c6792ef, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 451242, guid: f7ffb23c2cf422e4a8c3d0da8c6792ef, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 451242, guid: f7ffb23c2cf422e4a8c3d0da8c6792ef, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 451242, guid: f7ffb23c2cf422e4a8c3d0da8c6792ef, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: f7ffb23c2cf422e4a8c3d0da8c6792ef, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &744750791
 GameObject:
   m_ObjectHideFlags: 0
@@ -10850,6 +10778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &794197611
 GameObject:
@@ -11496,6 +11425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &862578204
 GameObject:
@@ -11537,6 +11467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &864634007
 GameObject:
@@ -11959,12 +11890,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .670588255, g: .929411829, b: .909803987, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3a5932c265ce84144b0527c7a9237a12, type: 3}
     m_FontSize: 60
@@ -12150,12 +12075,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300004, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -12794,12 +12713,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .894117713, g: 1, b: .741176486, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3a5932c265ce84144b0527c7a9237a12, type: 3}
     m_FontSize: 75
@@ -13691,6 +13604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &1168184532
 GameObject:
@@ -14025,6 +13939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &1271878117
 GameObject:
@@ -14199,12 +14114,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .70588237}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: a49fa3c42f9a91140a48828a81a58e73, type: 3}
     m_FontSize: 35
@@ -15484,6 +15393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &1318037360
 GameObject:
@@ -17066,12 +16976,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 29cc095a64ddd9a4d9935bcdd4e62a8e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -17187,6 +17091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &1388634031
 GameObject:
@@ -17667,6 +17572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &1479200330
 GameObject:
@@ -17846,6 +17752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &1499890814
 GameObject:
@@ -18255,6 +18162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &1535659033
 GameObject:
@@ -18573,12 +18481,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: e730ba01443fd704fa513f9ac61c325f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -18677,12 +18579,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 862eb2f8118e78b4badf582ffe482f93, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -18808,12 +18704,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300012, guid: a5cd0e5b9ed5d5a4b9a03ef0cb49ba18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -18878,12 +18768,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 8b07813a8cc1f894f91bd32ddfd2aede, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -20108,12 +19992,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300002, guid: 29cc095a64ddd9a4d9935bcdd4e62a8e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -20247,12 +20125,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: .800000072, b: .600000024, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3a5932c265ce84144b0527c7a9237a12, type: 3}
     m_FontSize: 60
@@ -21608,6 +21480,7 @@ GameObject:
   - 114: {fileID: 1656714395}
   - 114: {fileID: 1656714394}
   - 114: {fileID: 1656714393}
+  - 114: {fileID: 1656714392}
   - 114: {fileID: 1656714391}
   - 114: {fileID: 1656714390}
   - 114: {fileID: 1656714389}
@@ -21660,13 +21533,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414f9bcecada4ed4ca38494898027d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inactivitySecondLimit: 5
   inactivityText: {fileID: 1281661718}
-  inactivityScripts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  inactivitySecondLimit: 5
 --- !u!114 &1656714390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21697,6 +21565,20 @@ MonoBehaviour:
   playerOneTopPrefab: {fileID: 478934, guid: c7c4254f227d6964ab57a62a30e7eaa5, type: 2}
   playerTwoTopPrefab: {fileID: 469740, guid: 11a861e70315d2a479544788da91e370, type: 2}
   accessoriesCount: 0
+--- !u!114 &1656714392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11452178, guid: b7edf2a46c703d342a491a1c05069853,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656714386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc680c74855b3d44b9859eb4ec4e02a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubble: {fileID: 2122580212}
+  bubbleTwo: {fileID: 1464201373}
 --- !u!114 &1656714393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21711,6 +21593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 478678, guid: 5e3f1cd2bd236a14885c9c89ea9189e3, type: 2}
   arrow: {fileID: 1786963377}
+  text: {fileID: 902669715}
   timer: 0
   deathPositionX: 0
   deathCount: 0
@@ -21729,6 +21612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 462204, guid: 34231b7168804d347aa6aa6004eee88a, type: 2}
   arrow: {fileID: 85130112}
+  text: {fileID: 1604972267}
   timer: 0
   deathPositionX: 0
   deathCount: 0
@@ -21745,8 +21629,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d43d8251c32d7944bb3a2dca0c4f655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnCheckRate: 2
-  ladybugPrefab: {fileID: 0}
+  FlyPrefab: {fileID: 432452, guid: 9d6c1b19877602247985cc2cd0197966, type: 2}
+  RespawnCheckRate: 2
 --- !u!114 &1656714396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21777,7 +21661,6 @@ AudioSource:
   m_Pitch: .689999998
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 0
   MinDistance: 14.2534075
@@ -21844,8 +21727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8b0b7cbf1e904438a5d37d1387ea86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnScripts: []
-  inactivityController: {fileID: 0}
+  playerOne: {fileID: 1656714394}
+  playerTwo: {fileID: 1656714393}
   respawnTime: 3
 --- !u!114 &1656714399
 MonoBehaviour:
@@ -21912,7 +21795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a518fd21e0cbd25488cb7f6ecaac0d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inactivityController: {fileID: 0}
   designTestingEnabled: 0
   gameActive: 0
   tutorialComplete: 0
@@ -21924,11 +21806,6 @@ MonoBehaviour:
   mainMenuScript: {fileID: 186489304}
   menuMusicController: {fileID: 1800420559}
   finalMusicCotroller: {fileID: 433059188}
-  playerScripts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   singlePlayerStarted: 
 --- !u!1 &1667897173
 GameObject:
@@ -23280,7 +23157,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 0
   MinDistance: 1
@@ -24704,12 +24580,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 396e6cfb383775c4693b9eb592abeb8d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -24949,12 +24819,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: c3378b112c4556a4a82d82681fc547c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -25020,12 +24884,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300002, guid: 2a9ac86b29ef4b14daa6013601d98f3a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -25091,12 +24949,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: c3378b112c4556a4a82d82681fc547c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -25432,7 +25284,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 0
   MinDistance: 448.799988
@@ -26059,7 +25910,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -26130,7 +25980,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -26202,7 +26051,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -26514,6 +26362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &1916050411
 GameObject:
@@ -26712,12 +26561,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .70588237}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: a49fa3c42f9a91140a48828a81a58e73, type: 3}
     m_FontSize: 35
@@ -26793,6 +26636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &1929589522
 GameObject:
@@ -26834,6 +26678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &1930214413
 GameObject:
@@ -27054,12 +26899,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .894117713, g: 1, b: .741176486, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3a5932c265ce84144b0527c7a9237a12, type: 3}
     m_FontSize: 75
@@ -29034,7 +28873,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -29262,12 +29100,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .70588237}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: a49fa3c42f9a91140a48828a81a58e73, type: 3}
     m_FontSize: 45
@@ -30682,6 +30514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &2082963424
 GameObject:
@@ -30783,6 +30616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &2100788918
 GameObject:
@@ -31058,6 +30892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &2122580210
 GameObject:
@@ -31075,7 +30910,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2122580211
 Transform:
   m_ObjectHideFlags: 0
@@ -31083,7 +30918,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2122580210}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.76999998, y: -35.9900017, z: 10}
+  m_LocalPosition: {x: 6.76999998, y: -13.9300003, z: 10}
   m_LocalScale: {x: .899999857, y: .768749893, z: .75}
   m_Children: []
   m_Father: {fileID: 281696297}
@@ -31173,6 +31008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holderName: 
   numberOfHands: 0
 --- !u!1 &2132043863
 GameObject:

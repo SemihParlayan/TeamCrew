@@ -486,18 +486,5 @@ public class FrogPrototype : MonoBehaviour
 
         return angle;
     }
-
-    public Transform GetHand(int handIndex)
-    {
-        if(handIndex == 0)
-        {
-            return leftHand;
-        }
-        if(handIndex == 1)
-        {
-            return rightHand;
-        }
-        return null;
-    }
 }
 
