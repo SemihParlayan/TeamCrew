@@ -16,7 +16,6 @@ public class TutorialBubbles : MonoBehaviour
             }
         }
 
-
         //Aquire second frog
         if (frogTwo == null)
         {

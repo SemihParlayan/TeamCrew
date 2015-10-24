@@ -7,12 +7,14 @@ public class Fireworks : MonoBehaviour
     public AudioSource applaudes;
     public AudioSource fireworkBackgroundSounder;
 
+    public AudioSource bigExplosion;
     public AudioClip[] fireworks;
     public float duration = 10.0f;
 
-	void Start ()
+    public void ExplodeBig()
     {
-	}
+        bigExplosion.Play();
+    }
 	
 	void Update ()
     {

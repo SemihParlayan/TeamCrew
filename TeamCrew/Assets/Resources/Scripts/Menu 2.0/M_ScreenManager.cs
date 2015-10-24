@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class M_ScreenManager : MonoBehaviour 
+public class M_ScreenManager : MonoBehaviour
 {
     //Data
     public M_Screen startScreen;
@@ -31,10 +31,13 @@ public class M_ScreenManager : MonoBehaviour
         if (currentScreen == null)
             return;
 
-        //Move camera position
-        Vector3 newPos = Vector3.Lerp(cam.transform.position, currentScreen.cameraLocation.position, Time.deltaTime * currentScreen.movementProperties.movementSpeed);
-        newPos.z = -1;
-        cam.transform.position = newPos;
+        if (currentScreen.movementProperties.cameraLocation != null)
+        {
+            //Move camera position
+            Vector3 newPos = Vector3.Lerp(cam.transform.position, currentScreen.movementProperties.cameraLocation.position, Time.deltaTime * currentScreen.movementProperties.movementSpeed);
+            newPos.z = -1;
+            cam.transform.position = newPos;
+        }
 
         //Zoom camera
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentScreen.movementProperties.zoom, currentScreen.movementProperties.zoomSpeed * Time.deltaTime);
@@ -64,5 +67,12 @@ public class M_ScreenManager : MonoBehaviour
 
         currentScreen.enabled = true;
         currentScreen.OnSwitchedTo();
+    }
+    public static void TeleportToCurrentScreen()
+    {
+        if (!currentScreen)
+            return;
+
+        Camera.main.transform.position = currentScreen.movementProperties.cameraLocation.position;
     }
 }

@@ -18,6 +18,7 @@ public enum Event
 [System.Serializable]
 public struct ScreenMovementProperties
 {
+    public Transform cameraLocation;
     public float zoom;
     public float zoomSpeed;
     public float movementSpeed;
@@ -29,7 +30,6 @@ public class M_Screen : MonoBehaviour
     public bool active;
     public bool subScreen;
     public string playerControl = "P1";
-    public Transform cameraLocation;
     public M_Button entryButton;
     public ScreenMovementProperties movementProperties;
 
@@ -78,16 +78,25 @@ public class M_Screen : MonoBehaviour
     public static float selectionDelay = 0.2f;
     public static float pressDelay = 0.2f;
 
+    void Awake()
+    {
+        OnAwake();
+    }
     void Start()
     {
-        if (cameraLocation == null)
-        {
-            Debug.LogError("Assign a camera location transform to " + transform.name);
-        }
-
         CanSelect = true;
         CanPress = true;
         HighlightDefaultButton();
+
+        OnStart();
+    }
+    protected virtual void OnAwake()
+    {
+
+    }
+    protected virtual void OnStart()
+    {
+
     }
     void Update()
     {
@@ -132,6 +141,13 @@ public class M_Screen : MonoBehaviour
         {
             Return();
         }
+
+        OnUpdate();
+    }
+
+    protected virtual void OnUpdate()
+    {
+
     }
 
     //Events

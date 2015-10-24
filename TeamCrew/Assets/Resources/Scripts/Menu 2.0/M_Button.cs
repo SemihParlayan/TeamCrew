@@ -39,7 +39,7 @@ public class M_Button : MonoBehaviour
     }
 
     //Methods
-    IEnumerator UnPress()
+    protected IEnumerator UnPress()
     {
         yield return new WaitForSeconds(pressDelay);
 
@@ -47,16 +47,16 @@ public class M_Button : MonoBehaviour
     }
 
     //Events
-    public void OnPress()
+    public virtual void OnPress()
     {
         StartCoroutine(UnPress());
         renderer.sprite = pressedSprite;
     }
-    public void OnSelect()
+    public virtual void OnSelect()
     {
         renderer.sprite = selectedSprite;
     }
-    public void OnDeSelect()
+    public virtual void OnDeSelect()
     {
         StopAllCoroutines();
         renderer.sprite = defaultSprite;

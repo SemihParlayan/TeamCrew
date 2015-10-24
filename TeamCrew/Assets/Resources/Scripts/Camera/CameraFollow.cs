@@ -29,7 +29,11 @@ public class CameraFollow : MonoBehaviour
     void FollowFrogs()
     {
         //Set target position to frogs feet
-        Vector3 topfrogPosition = GameManager.GetTopFrog().position;
+        Transform topfrog = GameManager.GetTopFrog();
+        if (!topfrog)
+            return;
+
+        Vector3 topfrogPosition = topfrog.position;
         if (topfrogPosition == Vector3.zero)
         {
             return;
@@ -55,7 +59,7 @@ public class CameraFollow : MonoBehaviour
         //Fix Z position
         Vector3 pos = cam.transform.position;
         pos.z = (cam.orthographicSize - minZoom) / (maxZoom - minZoom) * -5 - 10;
-        //pos.y = Mathf.Clamp(pos.y, GameManager.LevelHeight + 7, int.MaxValue);
+        pos.y = Mathf.Clamp(pos.y, -42 + cam.orthographicSize, int.MaxValue);
         cam.transform.position = pos;
     }
 
@@ -74,6 +78,7 @@ public class CameraFollow : MonoBehaviour
 
         return totalX / frogCount;
     }
+
     public void SetAbsoluteZoom(bool state)
     {
         absoluteZoom = state;

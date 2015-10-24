@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     //Static variables and properties
     public static Vector3 GetInput(string horizontalInput, string verticalInput)
     {
+        if (!horizontalInput.Contains("P") || !verticalInput.Contains("P"))
+            return Vector3.zero;
+
         if (Xbox)
         {
             horizontalInput += "X";
@@ -24,6 +27,9 @@ public class GameManager : MonoBehaviour
     }
     public static bool GetGrip(string axis)
     {
+        if (!axis.Contains("P"))
+            return false;
+
         bool button = Input.GetButton(axis);
         if (button)
         {
@@ -97,8 +103,6 @@ public class GameManager : MonoBehaviour
     public bool digitalInput = false;
 
     private GameObject fireWorks;
-    public Animator finalStretch;
-    
 
     private TutorialBubbles tutorialBubbles;
     private TopFrogSpawner topfrogSpawnerScript;
@@ -106,12 +110,16 @@ public class GameManager : MonoBehaviour
     private Respawn respawnScript;
     private CameraFollow cameraFollowScript;
     public MenuMusicController menuMusicController;
-    public FinalMusic finalMusicCotroller;
+    public FinalMusic finalStretchMusic;
+    public Animator finalStretch;
     public FrogPrototype[] playerScripts = new FrogPrototype[4];
     [HideInInspector]
     public bool[] frogsReady = new bool[4];
+    public EndgameScreen endGameScreen;
 
-    private bool playedFinalStretch = true;
+    private bool playerFinalStretchAnimation = true;
+    private Transform topFrogPrefab;
+    private int victoryFrogNumber;
 
     [HideInInspector]
     public string singlePlayerStarted;
@@ -206,8 +214,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-
     //Single use methods
     /// <summary>
     /// Deletes old frogs and creates either one or two new frogs depending on which game mode the game is currently in.
@@ -228,31 +234,12 @@ public class GameManager : MonoBehaviour
                 players[i] = (Instantiate(respawnScript.respawnScripts[i].prefab, spawnPosition, Quaternion.identity) as Transform).FindChild("body");
             }
         }
-
-        ////Aquire spawn positions for frogs
-        //Vector3 pOneSpawnPos = generatorScript.GetPlayerSpawnPosition(1);
-        //Vector3 pTwoSpawnPos = generatorScript.GetPlayerSpawnPosition(2);
-
-        ////Spawn frogs depending on which mode the game was started in.
-        //if (singlePlayerStarted == "P1")
-        //{
-        //    players[0] = (Instantiate(respawnScript.respawnScripts[0].prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
-        //}
-        //else if (singlePlayerStarted == "P2")
-        //{
-        //    players[1] = (Instantiate(respawnScript.respawnScripts[1].prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
-        //}
-        //else
-        //{
-        //    players[0] = (Instantiate(respawnScript.respawnScripts[0].prefab, pOneSpawnPos, Quaternion.identity) as Transform).FindChild("body");
-        //    players[1] = (Instantiate(respawnScript.respawnScripts[1].prefab, pTwoSpawnPos, Quaternion.identity) as Transform).FindChild("body");
-        //}
     }
 
     /// <summary>
     /// Deletes the current active frogs.
     /// </summary>
-    private void DestroyFrogs()
+    public void DestroyFrogs()
     {
         for (int i = 0; i < players.Length; i++)
         {
@@ -261,13 +248,6 @@ public class GameManager : MonoBehaviour
                 Destroy(players[i].parent.gameObject);
             }
         }
-        ////Remove player one frog
-        //if (playerOne != null)
-        //    Destroy(playerOne.parent.gameObject);
-
-        ////Remove player two frog
-        //if (playerTwo != null)
-        //    Destroy(playerTwo.parent.gameObject);
     }
 
     /// <summary>
@@ -280,13 +260,13 @@ public class GameManager : MonoBehaviour
 
         //Set flags
         tutorialComplete = true;
-        //cameraFollowScript.enabled = true;
+        cameraFollowScript.enabled = true;
 
         //Disable tutorial bubbles;
         tutorialBubbles.DisableScript();
 
         //Reactivate the easy block thats above the tutorial.
-        generatorScript.ActivateEasyBlock();
+        //generatorScript.ActivateEasyBlock();
 
         //Remove players safety line
         for (int i = 0; i < players.Length; i++)
@@ -338,6 +318,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GoBackToMenu()
     {
+        GameObject.FindWithTag("MenuManager").GetComponent<M_ScreenManager>().enabled = true;
+        M_ScreenManager.SwitchScreen(endGameScreen);
+        endGameScreen.OnEnter(generatorScript.GetTopPosition());
+
         ////Enable UI
         //mainMenuScript.EnableUI();
 
@@ -359,7 +343,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Resets all boolean flags needed to return to menu for a safe restart of the game. Enables exit button in menu & removes fly.
     /// </summary>
-    private void ResetVariablesToMenu()
+    private void ResetGameVariables()
     {
         //Disable inactivity controller
         inactivityController.inactivityText.transform.parent.gameObject.SetActive(false);
@@ -371,7 +355,7 @@ public class GameManager : MonoBehaviour
         //Reset boolean flags
         cameraFollowScript.enabled = false;
         respawnScript.enabled = false;
-        playedFinalStretch = false;
+        playerFinalStretchAnimation = false;
         tutorialComplete = false;
         gameActive = false;
 
@@ -386,34 +370,39 @@ public class GameManager : MonoBehaviour
     /// Enables the menu cycle that shows which frog won, deathcount and sets accessories for the winning frog. Also activates FireWorks.
     /// </summary>
     /// <param name="frogNumber">What frog won the game? 1 or 2?</param>
-    public void Win(int frogNumber)
+    public void Win(Transform topfrogPrefab, int victoryFrogNumber)
     {
+        this.victoryFrogNumber = victoryFrogNumber;
+        this.topFrogPrefab = topfrogPrefab;
+
+        GoBackToMenu();
+
         //Fade out finalmusic
-        finalMusicCotroller.SetFadeState(FadeState.OUT);
+        finalStretchMusic.SetFadeState(FadeState.OUT);
 
         //Aquire death count for both frogs
         Vector2 deathCount = GetFrogDeathCount();
 
         //Which frog won? store the number of accessories for winning frog in variable 'v'.
-        int v = 0;
-        if (frogNumber == 1)
-        {
-            v = (int)deathCount.y - (int)deathCount.x;
-        }
-        else
-        {
-            v = (int)deathCount.x - (int)deathCount.y;
-        }
+        //int v = 0;
+        //if (frogNumber == 1)
+        //{
+        //    v = (int)deathCount.y - (int)deathCount.x;
+        //}
+        //else
+        //{
+        //    v = (int)deathCount.x - (int)deathCount.y;
+        //}
 
         //Reset menu variables
-        ResetVariablesToMenu();
+        ResetGameVariables();
 
         //Destroy old frogs and spawn new topfrog
-        Invoke("DestroyFrogs", 3f);
-        topfrogSpawnerScript.accessoriesCount = v;
-        topfrogSpawnerScript.SpawnFrog(frogNumber, 3f, true);
+        //topfrogSpawnerScript.accessoriesCount = v;
+        //topfrogSpawnerScript.SpawnFrog(frogNumber, 3f, true);
 
         //Enable fireworks
+        fireWorks.transform.position = generatorScript.GetTopPosition() + new Vector3(0, -18, 0);
         fireWorks.SetActive(true);
         fireWorks.GetComponent<Fireworks>().Reset();
     }
@@ -430,7 +419,7 @@ public class GameManager : MonoBehaviour
         gameActive = true;
 
         //Reset variables
-        playedFinalStretch = false;
+        playerFinalStretchAnimation = false;
 
         //Find frogs
         for (int i = 1; i < 5; i++)
@@ -471,6 +460,15 @@ public class GameManager : MonoBehaviour
         }
 
         return count;
+    }
+
+    /// <summary>
+    /// Spawns the victory frog on top of the mountain
+    /// </summary>
+    public void SpawnTopFrog()
+    {
+        topfrogSpawnerScript.spawnPosition = generatorScript.GetTopPosition();
+        topfrogSpawnerScript.SpawnFrog(topFrogPrefab, victoryFrogNumber, 0f);
     }
 
     //Static methods
@@ -534,8 +532,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-
     //Methods called from Update constantly
     /// <summary>
     /// Reloads the current scene loaded.
@@ -563,7 +559,6 @@ public class GameManager : MonoBehaviour
     {
         if (!gameActive || tutorialComplete)
             return;
-        Debug.Log("Checking tutorial");
 
         /*
          * We are currently inside of tutorial state for all the code below. Tutorial state means that the frogs are active and
@@ -634,42 +629,22 @@ public class GameManager : MonoBehaviour
         if (!gameActive)
             return;
 
-        //Aquire the height of the mountain.
-        float height = Mathf.Abs(LevelHeight);
-        
-        /*
-         * Calculate how far the camera is up the mountain. The value will be between 0 and 1.
-         * 0 = Bottom
-         *1 = Top
-        */
-        //float climbedNormalDistance = (Camera.main.transform.position.y + height) / height;
-
         //Play finalstretch animation if we have climbed 80% of the mountain.
-        bool reachedStretchMarker = (Camera.main.transform.position.y+height >= height - 15);
+        bool reachedStretchMarker = (Camera.main.transform.position.y >= LevelHeight - 15);
         cameraFollowScript.absoluteFinalStretchZoom = reachedStretchMarker;
 
         if(reachedStretchMarker)
         {
-            if (!playedFinalStretch)
+            if (!playerFinalStretchAnimation)
             { 
-                playedFinalStretch = true;
+                playerFinalStretchAnimation = true;
                 finalStretch.SetTrigger("Play");
             }
-
-            if (!finalMusicCotroller.enabled)
-            {
-                finalMusicCotroller.enabled = true;
-            }
-
+            finalStretchMusic.SetFadeState(FadeState.IN);
         }
         else
         {
-            if(finalMusicCotroller.enabled)
-            {
-                finalMusicCotroller.enabled = false;
-                //finalMusicCotroller.SetFadeState(FadeState.OUT);
-            }
-            
+            finalStretchMusic.SetFadeState(FadeState.OUT);
         }
     }
 

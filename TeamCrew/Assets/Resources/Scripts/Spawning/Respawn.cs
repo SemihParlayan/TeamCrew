@@ -8,8 +8,6 @@ using System.Linq;
 public class Respawn : MonoBehaviour 
 {
     //Respawn scripts
-    //public PlayerRespawn playerOne;
-    //public PlayerRespawn playerTwo;
     public List<PlayerRespawn> respawnScripts = new List<PlayerRespawn>();
 
     //Components
@@ -42,8 +40,6 @@ public class Respawn : MonoBehaviour
         {
             respawnScripts[i].timer = respawnTime;
         }
-        //    playerOne.timer = respawnTime;
-        //playerTwo.timer = respawnTime;
 	}
 	
 	void Update () 
@@ -88,51 +84,6 @@ public class Respawn : MonoBehaviour
                 script.Respawning = true;
             }
         }
-
-        ////Check player under screen, remove and start respawn
-        //if (GameManager.playerOne != null)
-        //{
-        //    if (GameManager.playerOne.position.y < minHeight - 2.5f)
-        //    {
-        //        playerOne.Respawning = true;
-        //        playerOne.deathPositionX = GameManager.playerOne.position.x;
-        //        playerOne.deathCount++;
-        //        Destroy(GameManager.playerOne.parent.gameObject);
-        //        bandageManager.PlayerOneRespawned();
-
-        //        if (!screamSource.isPlaying)
-        //        {
-        //            screamSource.pitch = Random.Range(.8f, 1.0f);
-        //            screamSource.Play();
-        //        }
-        //    }
-        //}
-        //else
-        //{
-        //    playerOne.Respawning = true;
-        //}
-
-        //if (GameManager.playerTwo != null)
-        //{
-        //    if (GameManager.playerTwo.position.y < minHeight - 2.5f)
-        //    {
-        //        playerTwo.Respawning = true;
-        //        playerTwo.deathPositionX = GameManager.playerTwo.position.x;
-        //        playerTwo.deathCount++;
-        //        Destroy(GameManager.playerTwo.parent.gameObject);
-        //        bandageManager.PlayerTwoRespawned();
-
-        //        if (!screamSource.isPlaying)
-        //        {
-        //            screamSource.pitch = Random.Range(.8f, 1.0f);
-        //            screamSource.Play();
-        //        }
-        //    }
-        //}
-        //else
-        //{
-        //    playerTwo.Respawning = true;
-        //}
 	}
     public void ResetRespawns()
     {
@@ -141,12 +92,6 @@ public class Respawn : MonoBehaviour
             respawnScripts[i].timer = respawnTime;
             respawnScripts[i].Respawning = false;
         }
-
-        //playerOne.timer = respawnTime;
-        //playerTwo.timer = respawnTime;
-
-        //playerOne.Respawning = false;
-        //playerTwo.Respawning = false;
     }
     Transform RespawnPlayer(PlayerRespawn player)
     {
@@ -172,8 +117,6 @@ public class Respawn : MonoBehaviour
         {
             respawnScripts[i].deathCount = 0;
         }
-        //playerOne.deathCount = 0;
-        //playerTwo.deathCount = 0;
     }
 
     Vector2 GetSpawnPosition(PlayerRespawn player)

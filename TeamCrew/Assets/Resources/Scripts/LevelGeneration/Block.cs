@@ -39,13 +39,41 @@ public class Block : MonoBehaviour
     {
         get
         {
-            Vector3 pos = transform.position;
-            pos.x -= size.x / 2;
-            pos.x += pixelsFromLeftEnd / 100.0f;
-            pos.y += size.y / 2;
+            Vector3 pos = Vector3.zero;
+            if (difficulty == BlockDifficulty.Top)
+            {
+                pos = transform.position;
+                pos.x -= size.x / 2;
+                pos.x += pixelsFromLeftEnd / 100.0f;
+                pos.y += (size.y / 2) - 8;
+            }
+            else
+            {
+                pos = transform.position;
+                pos.x -= size.x / 2;
+                pos.x += pixelsFromLeftEnd / 100.0f;
+                pos.y += size.y / 2;
+            }
+
             return pos;
         }
     }
+    public Vector3 GetEndCenterPosition
+    {
+        get
+        {
+            Vector3 pos = GetEndPosition;
+
+            float pixelWidth = 913;
+
+            if (end == BlockEnding.Thin || end == BlockEnding.None)
+                pixelWidth = 613;
+
+            pos.x += pixelWidth / 100.0f;
+            return pos;
+        }
+    }
+
     public Vector3 GetStartPosition
     {
         get
@@ -105,6 +133,7 @@ public class Block : MonoBehaviour
 
         Gizmos.color = Color.cyan;
         Gizmos.DrawCube(GetStartCenterPosition, new Vector3(0.2f, 0.2f));
+        Gizmos.DrawCube(GetEndCenterPosition, new Vector3(0.2f, 0.2f));
     }
 }
 

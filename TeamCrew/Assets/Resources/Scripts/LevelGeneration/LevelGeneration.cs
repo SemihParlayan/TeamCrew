@@ -5,6 +5,7 @@ using System.Linq;
 
 public class LevelGeneration : MonoBehaviour 
 {
+    public Transform menuTutorialBlock;
     private List<Block> blockList = new List<Block>();
     private List<Block> level = new List<Block>();
     private List<Block> previousLevel = new List<Block>();
@@ -21,10 +22,12 @@ public class LevelGeneration : MonoBehaviour
     { 
         get 
         { 
-            Block tut = level.Last();
-            if (!tut)
+            if (!menuTutorialBlock)
                 return 0;
-            return (tut.transform.position.y - tut.size.y / 2) + 7.2f;
+
+            //-16 är 8 på tom top och 8 på tom tutorial
+            return (level.Last().GetEndPosition - menuTutorialBlock.GetComponent<Block>().GetStartCenterPosition).y - 16;
+            //return (menuTutorialBlock.transform.position.y - tut.size.y / 2) + 7.2f;
         } 
     }
 
@@ -32,6 +35,11 @@ public class LevelGeneration : MonoBehaviour
     {
         LoadLevelBlocks();
 
+
+        if (menuTutorialBlock == null)
+        {
+            Debug.LogError("Assign menu tutorial block to levelgeneration");
+        }
         for (int i = 0; i < blockList.Count; i++)
         {
             blockList[i].blockIndex = i;
@@ -47,19 +55,25 @@ public class LevelGeneration : MonoBehaviour
             Generate();
         }
     }
-    public void Generate()
+    public void Generate(bool keepTutorial = false)
     {
         //Remove previouslevel
-        for (int i = 0; i < level.Count; i++)
-        {
-            DestroyImmediate(level[i].gameObject);
-        }
-        level.Clear();
+        DestroyLevel(keepTutorial);
 
         //Spawn Tutorial
-        Block block = CreateNewBlock(null, GetTutorialDifficulty());
-        block.transform.parent = transform; level.Add(block);
-        tutorialBlock = block as TutorialBlock;
+        Block block = null;
+
+        if (!keepTutorial)
+        {
+            block = CreateNewBlock(null, GetTutorialDifficulty());
+            block.transform.parent = transform; level.Add(block);
+            tutorialBlock = block as TutorialBlock;
+        }
+        else
+        {
+            block = level[0];
+        }
+        
 
         //Spawn Easy Blocks
         for (int i = 0; i < numberOfEasyBlocks; i++)
@@ -119,9 +133,6 @@ public class LevelGeneration : MonoBehaviour
         {
             previousLevel.Add(level[i]);
         }
-
-        //Set height of map
-        GameManager.LevelHeight = LevelHeight;
     }
     private void FixSigns()
     {
@@ -191,6 +202,11 @@ public class LevelGeneration : MonoBehaviour
         //Remove blocks that was in previous level
         for (int i = 0; i < availableBlocks.Count; i++)
         {
+            if (availableBlocks[i].difficulty.ToString().Contains("Tutorial"))
+            {
+                continue;
+            }
+
             for (int j = 0; j < previousLevel.Count; j++)
             {
                 if (availableBlocks[i].blockIndex == previousLevel[j].blockIndex)
@@ -219,7 +235,7 @@ public class LevelGeneration : MonoBehaviour
     {
         if (previousBlock == null)
         {
-            block.transform.position = Vector3.zero;
+            block.transform.position = menuTutorialBlock.position;
         }
         else
         {
@@ -326,5 +342,34 @@ public class LevelGeneration : MonoBehaviour
         {
             blockList.Add(blocks[i]);
         }
+    }
+    public void SetLevelHeight()
+    {
+        GameManager.LevelHeight = LevelHeight;
+    }
+    public Vector3 GetTopPosition()
+    {
+        if (level.Count > 0)
+            return level.Last().GetEndCenterPosition;
+
+        return Vector3.zero;
+    }
+    public void DestroyLevel(bool keepTutorial)
+    {
+        if (level.Count <= 0)
+            return;
+
+        for (int i = 0; i < level.Count; i++)
+        {
+            if (keepTutorial && i == 0)
+                continue;
+
+            DestroyImmediate(level[i].gameObject);
+        }
+
+        Block b = level[0];
+        level.Clear();
+        if (keepTutorial)
+            level.Add(b);
     }
 }

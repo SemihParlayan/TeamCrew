@@ -7,6 +7,7 @@ public class Parallax : MonoBehaviour
     public static float LevelHeight;
 
     //Data
+    public Transform bottomMarker;
     public bool active;
 
     public float startOffset;
@@ -20,6 +21,7 @@ public class Parallax : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        LevelHeight = 45f; //Menumountain height
     }
 
     void Update()
@@ -31,7 +33,6 @@ public class Parallax : MonoBehaviour
             {
                 active = true;
             }
-
             return;
         }
 
@@ -41,7 +42,7 @@ public class Parallax : MonoBehaviour
 
     private void UpdateParallaxes()
     {
-        float cameraNormal = 1 - ((cam.transform.position.y - cam.orthographicSize / 2) / LevelHeight);
+        float cameraNormal = (cam.transform.position.y - 8) / LevelHeight;
 
         float biggestNumber = (startOffset > endOffset) ? startOffset : endOffset;
         float lowestNumber = (startOffset == biggestNumber) ? endOffset : startOffset;

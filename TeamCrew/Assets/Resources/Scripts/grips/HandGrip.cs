@@ -218,7 +218,7 @@ public class HandGrip : MonoBehaviour
                         if (gameManager)
                         {
                             int frogNumber = int.Parse(axis[1].ToString());
-                            gameManager.Win(frogNumber);
+                            gameManager.Win(transform.parent.parent.GetComponentInChildren<FrogPrototype>().topPrefab, frogNumber);
                         }
                     }
                     else if (newGrip.tutorialStart)

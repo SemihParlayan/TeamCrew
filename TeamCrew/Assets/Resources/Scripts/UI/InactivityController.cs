@@ -77,10 +77,9 @@ public class InactivityController : MonoBehaviour
             //Return to menu
             if (inactivityTimer <= 0)
             {
-                gameManager.GoBackToMenu();
                 for (int i = 0; i < inactivityScripts.Length; i++)
                 {
-                    inactivityScripts[i].inactivityTimer = 0;
+                    //Go back to menu
                 }
             }
         }
@@ -102,18 +101,6 @@ public class InactivityController : MonoBehaviour
         for (int i = 0; i < respawn.respawnScripts.Count; i++)
         {
             respawn.respawnScripts[i].inactive = inactivityScripts[i].IsInactive;
-        }
-
-        //Set inactivity to max if in singleplayer mode
-        if (!gameManager.IsInMultiplayerMode)
-        {
-            if (gameManager.singlePlayerStarted == "P1")
-            {
-                for (int i = 1; i < inactivityScripts.Length; i++)
-                {
-                    inactivityScripts[i].inactivityTimer = 10;
-                }
-            }
         }
 	}
     private void DeactivateOnInput(string player)
