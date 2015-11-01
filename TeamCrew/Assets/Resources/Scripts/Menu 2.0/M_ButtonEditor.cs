@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 using System.Collections;
 
@@ -14,3 +15,4 @@ public class M_ButtonEditor : Editor
         b.EditorUpdate();
     }
 }
+#endif
