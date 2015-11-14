@@ -7,9 +7,11 @@ using System.Linq;
 public class M_Button : MonoBehaviour
 {
     //Data
+    public bool animated;
     public Sprite pressedSprite;
     public Sprite selectedSprite;
     private Sprite defaultSprite;
+    private Animator anim;
 
     //Static
     public static float pressDelay = 0.2f;
@@ -21,6 +23,20 @@ public class M_Button : MonoBehaviour
     {
         renderer = GetComponent<SpriteRenderer>();
         defaultSprite = renderer.sprite;
+
+        if (animated)
+        {
+            anim = GetComponent<Animator>();
+        }
+    }
+
+    void Start()
+    {
+        OnStart();
+    }
+    protected virtual void OnStart()
+    {
+
     }
 
     //Editor
@@ -49,15 +65,33 @@ public class M_Button : MonoBehaviour
     //Events
     public virtual void OnPress()
     {
+        if (animated)
+        {
+            anim.SetTrigger("OnPress");
+            return;
+        }
+
         StartCoroutine(UnPress());
         renderer.sprite = pressedSprite;
     }
     public virtual void OnSelect()
     {
+        if (animated)
+        {
+            anim.SetTrigger("OnSelect");
+            return;
+        }
+
         renderer.sprite = selectedSprite;
     }
     public virtual void OnDeSelect()
     {
+        if (animated)
+        {
+            anim.SetTrigger("OnDeSelect");
+            return;
+        }
+
         StopAllCoroutines();
         renderer.sprite = defaultSprite;
     }

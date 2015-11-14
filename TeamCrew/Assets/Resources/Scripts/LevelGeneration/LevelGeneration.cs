@@ -7,7 +7,7 @@ public class LevelGeneration : MonoBehaviour
 {
     public Transform menuTutorialBlock;
     private List<Block> blockList = new List<Block>();
-    private List<Block> level = new List<Block>();
+    public List<Block> level = new List<Block>();
     private List<Block> previousLevel = new List<Block>();
 
     private GameObject easyBlock;
@@ -17,6 +17,11 @@ public class LevelGeneration : MonoBehaviour
     public int numberOfHardBlocks = 1;
     public int numberOfMediumBlocks = 1;
     public int numberOfEasyBlocks = 1;
+
+    public bool lockComplete;
+    private int minimumSlotIndex = 1;
+    private int currentSlotIndex = 1;
+    public List<Block> tmpBlocks = new List<Block>();
 
     public float LevelHeight 
     { 
@@ -52,17 +57,16 @@ public class LevelGeneration : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            Generate();
+            GenerateFullMountain();
         }
     }
-    public void Generate(bool keepTutorial = false)
+    public void GenerateFullMountain(bool keepTutorial = false)
     {
         //Remove previouslevel
         DestroyLevel(keepTutorial);
 
         //Spawn Tutorial
         Block block = null;
-
         if (!keepTutorial)
         {
             block = CreateNewBlock(null, GetTutorialDifficulty());
@@ -71,9 +75,9 @@ public class LevelGeneration : MonoBehaviour
         }
         else
         {
-            block = level[0];
+            block = tutorialBlock;
         }
-        
+		
 
         //Spawn Easy Blocks
         for (int i = 0; i < numberOfEasyBlocks; i++)
@@ -129,9 +133,53 @@ public class LevelGeneration : MonoBehaviour
 
         //Save current level inside previousLevel
         previousLevel.Clear();
+        previousLevel.AddRange(level);
+    }
+    public void GenerateMountainSlotmachineStyle()
+    {
+        GenerateFullMountain(true);
+        lockComplete = false;
+        minimumSlotIndex = 1;
+        currentSlotIndex = 1;
+
         for (int i = 0; i < level.Count; i++)
         {
-            previousLevel.Add(level[i]);
+            tmpBlocks.Add(level[i]);
+            level[i].gameObject.SetActive(false);
+        }
+        level[0].gameObject.SetActive(true);
+
+        SetLevelHeight();
+        InvokeRepeating("IncrementSlotMachine", 0, 0.05f);
+        InvokeRepeating("LockSlotMachine", 0, 2f);
+    }
+    private void IncrementSlotMachine()
+    {
+
+        Block prev = tmpBlocks[currentSlotIndex - 1];
+        Block newBlock = CreateNewBlock(prev, tmpBlocks[currentSlotIndex].difficulty);
+
+        DestroyImmediate(tmpBlocks[currentSlotIndex].gameObject);
+        tmpBlocks[currentSlotIndex] = newBlock;
+
+        currentSlotIndex++;
+        if (currentSlotIndex >= level.Count)
+            currentSlotIndex = minimumSlotIndex;
+    }
+    private void LockSlotMachine()
+    {
+        minimumSlotIndex++;
+
+        if (minimumSlotIndex >= level.Count)
+        {
+            CancelInvoke();
+            level.Clear();
+            level.AddRange(tmpBlocks);
+            tmpBlocks.Clear();
+
+            previousLevel.Clear();
+            previousLevel.AddRange(level);
+            lockComplete = true;
         }
     }
     private void FixSigns()
@@ -153,7 +201,7 @@ public class LevelGeneration : MonoBehaviour
         }
     }
 
-    Block CreateNewBlock(Block previousBlock, BlockDifficulty difficulty, bool overrideBlockmatch = false)
+    public Block CreateNewBlock(Block previousBlock, BlockDifficulty difficulty, bool overrideBlockmatch = false)
     {
         List<Block> availableBlocks = new List<Block>();
 
@@ -357,7 +405,15 @@ public class LevelGeneration : MonoBehaviour
     public void DestroyLevel(bool keepTutorial)
     {
         if (level.Count <= 0)
+        {
+            if (keepTutorial)
+            {
+                Block block = CreateNewBlock(null, GetTutorialDifficulty());
+                block.transform.parent = transform; level.Add(block);
+                tutorialBlock = block as TutorialBlock;
+            }
             return;
+        }
 
         for (int i = 0; i < level.Count; i++)
         {

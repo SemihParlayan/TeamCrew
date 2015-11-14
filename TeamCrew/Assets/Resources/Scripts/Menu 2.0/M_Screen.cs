@@ -194,7 +194,7 @@ public class M_Screen : MonoBehaviour
     }
     bool SendEventToObject(Event e, GameObject o)
     {
-        bool canSend = o;
+        bool canSend = (o != null);
 
         if (canSend)
             o.SendMessage(e.ToString());

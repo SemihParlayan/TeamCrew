@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 6aff19fb5c83dcd439146af0e5f8012e
-timeCreated: 1447250180
+timeCreated: 1447505309
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -21,6 +21,7 @@ TextureImporter:
     21300028: head_satisfied
     21300030: head_irritated
     21300032: clock
+    21300034: head
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -60,7 +61,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 600
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
@@ -69,9 +70,9 @@ TextureImporter:
     - name: body
       rect:
         serializedVersion: 2
-        x: 354
+        x: 319
         y: 546
-        width: 436
+        width: 506
         height: 626
       alignment: 9
       pivot: {x: .5, y: .600000024}
@@ -89,9 +90,9 @@ TextureImporter:
     - name: leg_upper
       rect:
         serializedVersion: 2
-        x: 52
+        x: 6
         y: 1289
-        width: 138
+        width: 230
         height: 608
       alignment: 9
       pivot: {x: .467420548, y: .957144916}
@@ -119,22 +120,32 @@ TextureImporter:
     - name: hand_closed
       rect:
         serializedVersion: 2
-        x: 444
-        y: 1683
-        width: 252
-        height: 226
+        x: 442
+        y: 1681
+        width: 270
+        height: 230
       alignment: 9
-      pivot: {x: .535687864, y: .0439350493}
+      pivot: {x: .511221886, y: .0439350493}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: hand_semiOpen
       rect:
         serializedVersion: 2
-        x: 529
-        y: 2047
-        width: 328
-        height: 293
+        x: 526
+        y: 2044
+        width: 336
+        height: 296
       alignment: 9
       pivot: {x: .52325958, y: .0585854165}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: head
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 1240
+        width: 346
+        height: 320
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

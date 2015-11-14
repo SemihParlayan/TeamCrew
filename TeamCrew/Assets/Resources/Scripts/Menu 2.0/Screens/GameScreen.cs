@@ -5,18 +5,17 @@ public class GameScreen : M_Screen
 {
     //Data
     public bool started;
-    private bool replay;
 
     //References
     public GameObject menuMountain;
     public GameManager gameManager;
-    public LevelGeneration generator;
 
 
     //Unity methods
     protected override void OnUpdate()
     {
         base.OnUpdate();
+
         if (started)
             return;
 
@@ -40,14 +39,7 @@ public class GameScreen : M_Screen
 
             this.enabled = false;
             GameObject.FindWithTag("MenuManager").GetComponent<M_ScreenManager>().enabled = false;
-            GameObject.FindWithTag("GameManager").GetComponent<TopFrogSpawner>().RemoveFrog();
-
-            if (replay)
-            {
-                generator.Generate(true);
-                generator.SetLevelHeight();
-                replay = false;
-            }
+            gameManager.GetComponent<TopFrogSpawner>().RemoveFrog();
             gameManager.StartGame();
         }
     }
@@ -58,24 +50,6 @@ public class GameScreen : M_Screen
         base.OnSwitchedTo();
 
         started = false;
-
-        if (!replay)
-        {
-            gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-            generator = GameObject.FindWithTag("GameManager").GetComponent<LevelGeneration>();
-
-            generator.Generate();
-            generator.SetLevelHeight();
-            gameManager.CreateNewFrogs();
-        }
-        else
-        {
-            gameManager.CreateNewFrogs();
-        }
-        menuMountain.gameObject.SetActive(false);
-    }
-    public void Replay()
-    {
-        replay = true;
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 }
