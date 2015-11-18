@@ -70,29 +70,36 @@ public class M_Button : MonoBehaviour
             anim.SetTrigger("OnPress");
             return;
         }
+        else
+        {
+            StartCoroutine(UnPress());
+            renderer.sprite = pressedSprite;
+        }
 
-        StartCoroutine(UnPress());
-        renderer.sprite = pressedSprite;
+        
     }
     public virtual void OnSelect()
     {
         if (animated)
         {
-            anim.SetTrigger("OnSelect");
+            anim.SetBool("Selected", true);
             return;
         }
-
-        renderer.sprite = selectedSprite;
+        else
+            renderer.sprite = selectedSprite;
     }
     public virtual void OnDeSelect()
     {
         if (animated)
         {
-            anim.SetTrigger("OnDeSelect");
+            anim.SetBool("Selected", false);
             return;
         }
-
-        StopAllCoroutines();
-        renderer.sprite = defaultSprite;
+        else
+        {
+            StopAllCoroutines();
+            renderer.sprite = defaultSprite;
+        }
+        
     }
 }
