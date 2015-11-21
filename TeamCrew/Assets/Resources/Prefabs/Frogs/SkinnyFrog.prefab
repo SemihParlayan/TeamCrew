@@ -1643,7 +1643,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.5894661, y: -19.4547882, z: 10}
+  m_LocalPosition: {x: -19.5894661, y: -19.4547882, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 462612}
@@ -3263,7 +3263,7 @@ MonoBehaviour:
   respawnArrowColor: {r: .816176474, g: .072015591, b: .327968866, a: 1}
   speed: 10
   yVelocityClamp: 10
-  player: 
+  player: P1
   emotionsScript: {fileID: 11462550}
   gripScript: []
   joints: []
@@ -3428,7 +3428,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116776}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3439,7 +3439,7 @@ MonoBehaviour:
   - {fileID: 11460114}
   connectedBody: {fileID: 5080694}
   anchor: {x: 0, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: 
 --- !u!114 &11427144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3515,7 +3515,7 @@ MonoBehaviour:
   - {fileID: 11461644}
   connectedBody: {fileID: 5025542}
   anchor: {x: .0128259696, y: -1.36198199}
-  parentedPlayer: P1
+  parentedPlayer: 
 --- !u!114 &11441618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3678,7 +3678,7 @@ MonoBehaviour:
   - {fileID: 11422402}
   connectedBody: {fileID: 5080694}
   anchor: {x: .0128259696, y: -1.36198199}
-  parentedPlayer: P1
+  parentedPlayer: 
 --- !u!114 &11475316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3708,7 +3708,7 @@ MonoBehaviour:
   - {fileID: 11413718}
   connectedBody: {fileID: 5049100}
   anchor: {x: 0, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: 
 --- !u!114 &11483748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3802,7 +3802,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166696}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3813,7 +3813,7 @@ MonoBehaviour:
   - {fileID: 11475316}
   connectedBody: {fileID: 5025542}
   anchor: {x: -.0799999982, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: 
 --- !u!114 &11498886
 MonoBehaviour:
   m_ObjectHideFlags: 1

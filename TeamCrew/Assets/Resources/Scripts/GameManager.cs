@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool[] frogsReady = new bool[4];
     public EndgameScreen endGameScreen;
+    public ReadySetGo readySetGo;
 
     private bool playerFinalStretchAnimation = true;
     private Transform topFrogPrefab;
@@ -192,6 +193,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Can't find a TutorialBubbles script on GameManager object");
         }
 
+        readySetGo = GetComponent<ReadySetGo>();
+
         //menuMusicController = ;
 
         //Enable menu music
@@ -228,9 +231,12 @@ public class GameManager : MonoBehaviour
             if (frogsReady[i])
             {
                 Vector3 spawnPosition = generatorScript.GetPlayerSpawnPosition(i + 1);
+                spawnPosition.z = 0;
                 players[i] = (Instantiate(respawnScript.respawnScripts[i].prefab, spawnPosition, Quaternion.identity) as Transform).FindChild("body");
             }
         }
+
+        readySetGo.ResetLights();
     }
 
     /// <summary>
@@ -255,7 +261,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Sets the tutorial to complete and more such as disabling tutorial bubbles, remove safety lines etc...
     /// </summary>
-    private void TutorialComplete()
+    public void TutorialComplete()
     {
         if (tutorialComplete)
             return;
@@ -266,9 +272,6 @@ public class GameManager : MonoBehaviour
 
         //Disable tutorial bubbles;
         tutorialBubbles.DisableScript();
-
-        //Reactivate the easy block thats above the tutorial.
-        //generatorScript.ActivateEasyBlock();
 
         //Remove players safety line
         for (int i = 0; i < players.Length; i++)
@@ -408,6 +411,8 @@ public class GameManager : MonoBehaviour
 
         //Enable tutorial bubbles
         tutorialBubbles.EnableScript();
+
+        readySetGo.lights = generatorScript.GetReadySetGoSpriteRenderes();
     }
 
     /// <summary>
@@ -571,12 +576,12 @@ public class GameManager : MonoBehaviour
 
         if (completedTutorialCount == GetFrogReadyCount())
         {
-            TutorialComplete();
+            readySetGo.StartSequence();
         }
         //Set tutorial complete with HACKS
         else if (GetCheatButton())
         {
-            TutorialComplete();
+            readySetGo.StartSequence();
         }
     }
 

@@ -303,11 +303,10 @@ public class LevelGeneration : MonoBehaviour
     public SpriteRenderer[] GetReadySetGoSpriteRenderes()
     {
         SpriteRenderer[] renderers = new SpriteRenderer[3];
-        TutorialBlock tut = level.Last().GetComponent<TutorialBlock>();
 
-        renderers[0] = tut.red;
-        renderers[1] = tut.yellow;
-        renderers[2] = tut.green;
+        renderers[0] = tutorialBlock.red;
+        renderers[1] = tutorialBlock.yellow;
+        renderers[2] = tutorialBlock.green;
 
         return renderers;
     }

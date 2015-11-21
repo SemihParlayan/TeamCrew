@@ -8,17 +8,22 @@ public class CameraFollow : MonoBehaviour
 
     public float maxZoom = 12;
     public float minZoom = 6;
-    public float absoluteZoomValue = 8;
     public float finalStretchZoomValue = 11;
 
     private Camera cam;
 
-    public bool absoluteZoom;
     public bool absoluteFinalStretchZoom;
+
+    public float maxYReached;
 
     void Start()
     {
         cam = GetComponent<Camera>();
+    }
+
+    void OnEnable()
+    {
+        maxYReached = 0;
     }
 
     void Update()
@@ -26,10 +31,13 @@ public class CameraFollow : MonoBehaviour
         FollowFrogs();
     }
 
+    public Transform bottomfrog;
+    public Transform topfrog;
     void FollowFrogs()
     {
         //Set target position to frogs feet
-        Transform topfrog = GameManager.GetTopFrog();
+        topfrog = GameManager.GetTopFrog();
+        bottomfrog = GameManager.GetBottomFrog();
         if (!topfrog)
             return;
 
@@ -40,14 +48,35 @@ public class CameraFollow : MonoBehaviour
         }
 
         Vector3 targetPosition = transform.position;
-        targetPosition.y = topfrogPosition.y - 3;
+        targetPosition.y = topfrogPosition.y - 1.5f;
         targetPosition.x = GetMedianXPositionOfFrogs();
 
         //Move towards target
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * movementSpeed);
 
+        if (transform.position.y > maxYReached)
+            maxYReached = transform.position.y;
+
+        if (transform.position.y < maxYReached - 2)
+        {
+            Vector3 p = transform.position;
+            p.y = targetPosition.y = maxYReached - 2;
+
+            transform.position = p;
+        }
+
         //Set target size
-        float targetSize = absoluteZoomValue;
+        float targetSize = (minZoom + maxZoom) / 2;
+        if (bottomfrog != topfrog)
+        {
+            Debug.Log("NOT THE SAME");
+            float distance = Vector3.Distance(topfrog.position, bottomfrog.position);
+            float value = Mathf.Clamp(distance / 10, 0, 1);
+
+            targetSize = (maxZoom - minZoom) * value;
+            targetSize += minZoom;
+
+        }
 
         if (absoluteFinalStretchZoom)
         {
@@ -77,10 +106,5 @@ public class CameraFollow : MonoBehaviour
         }
 
         return totalX / frogCount;
-    }
-
-    public void SetAbsoluteZoom(bool state)
-    {
-        absoluteZoom = state;
     }
 }
