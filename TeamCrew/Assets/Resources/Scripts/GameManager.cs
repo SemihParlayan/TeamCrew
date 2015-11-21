@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject fireWorks;
 
+    public PoffMountain poffMountainScript;
     private TutorialBubbles tutorialBubbles;
     private TopFrogSpawner topfrogSpawnerScript;
     private LevelGeneration generatorScript;
@@ -183,10 +184,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Can't find a TopFrogSpawner script on GameManager object");
         }
-        else
-        {
-            topfrogSpawnerScript.accessoriesCount = -5;
-        }
 		
         //Aquire tutorialBubbles script
         tutorialBubbles = GetComponent<TutorialBubbles>();
@@ -248,6 +245,11 @@ public class GameManager : MonoBehaviour
                 Destroy(players[i].parent.gameObject);
             }
         }
+    }
+
+    public void DestroyTopFrog()
+    {
+        topfrogSpawnerScript.RemoveFrog();
     }
 
     /// <summary>
@@ -321,23 +323,6 @@ public class GameManager : MonoBehaviour
         GameObject.FindWithTag("MenuManager").GetComponent<M_ScreenManager>().enabled = true;
         M_ScreenManager.SwitchScreen(endGameScreen);
         endGameScreen.OnEnter(generatorScript.GetTopPosition());
-
-        ////Enable UI
-        //mainMenuScript.EnableUI();
-
-        ////Reactivate block above tutorial
-        //generatorScript.ActivateEasyBlock();
-
-        ////Reset menu variables
-        //ResetVariablesToMenu();
-
-        ////Destroy old frogs and spawn new topfrog
-        //Invoke("DestroyFrogs", 3f);
-        //topfrogSpawnerScript.SpawnFrog(Random.Range(1, 3), 0f);
-
-        ////Enable menu music
-        //menuMusicController.Play();
-        //menuMusicController.ChangeFadeState(FadeState.IN);
     }
 
     /// <summary>
@@ -380,26 +365,7 @@ public class GameManager : MonoBehaviour
         //Fade out finalmusic
         finalStretchMusic.SetFadeState(FadeState.OUT);
 
-        //Aquire death count for both frogs
-        Vector2 deathCount = GetFrogDeathCount();
-
-        //Which frog won? store the number of accessories for winning frog in variable 'v'.
-        //int v = 0;
-        //if (frogNumber == 1)
-        //{
-        //    v = (int)deathCount.y - (int)deathCount.x;
-        //}
-        //else
-        //{
-        //    v = (int)deathCount.x - (int)deathCount.y;
-        //}
-
-        //Reset menu variables
         ResetGameVariables();
-
-        //Destroy old frogs and spawn new topfrog
-        //topfrogSpawnerScript.accessoriesCount = v;
-        //topfrogSpawnerScript.SpawnFrog(frogNumber, 3f, true);
 
         //Enable fireworks
         fireWorks.transform.position = generatorScript.GetTopPosition() + new Vector3(0, -18, 0);
@@ -531,6 +497,31 @@ public class GameManager : MonoBehaviour
         return frog;
     }
 
+    public void LockParallaxes(bool value)
+    {
+        for (int i = 0; i < poffMountainScript.parallaxConnections.Length; i++)
+        {
+            ParallaxConnection c = poffMountainScript.parallaxConnections[i];
+            if (c == null)
+                continue;
+
+            c.parallax.enabled = !value;
+
+            if (value)
+            {
+                Vector3 localPos = c.parallax.transform.localPosition;
+                localPos.y = c.yValue;
+                c.parallax.transform.localPosition = localPos;
+            }
+            else
+            {
+                Vector3 localPos = c.parallax.transform.localPosition;
+                localPos.y = c.initialYValue;
+                c.parallax.transform.localPosition = localPos;
+            }
+        }
+    }
+
 
     //Methods called from Update constantly
     /// <summary>
@@ -541,7 +532,7 @@ public class GameManager : MonoBehaviour
         //Restart game with Xbox 360 Controller
         if (GameManager.Xbox)
         {
-            if (Input.GetButtonDown("StartX"))
+            if (Input.GetButtonDown("RestartX"))
                 Application.LoadLevel(Application.loadedLevel);
         }
         //Restart game with PS4 controller
@@ -587,38 +578,6 @@ public class GameManager : MonoBehaviour
         {
             TutorialComplete();
         }
-    }
-
-    /// <summary>
-    /// Checks to see if the pan has reached halfway and when it is complete.
-    /// </summary>
-    private void CheckForCameraPanComplete()
-    {
-        //if (!cameraPanScript.enabled)
-        //    return;
-        ///*
-        // * We are currently in panning state which means we are currently panning down the mountain in the code below.
-        //*/
-
-
-        ////We have panned halfway down
-        //if (cameraPanScript.Halfway())
-        //{
-        //    //Spawn new frogs at the bottom of the mountain
-        //    CreateNewFrogs();
-
-        //    //Delete the topfrog
-        //    topfrogSpawnerScript.RemoveFrog();
-        //}
-
-        ////We have panned all the way to the bottom
-        //if (cameraPanScript.Complete())
-        //{
-        //    Camera.main.transform.GetComponent<AudioSource>().enabled = false; //Disable fall sound
-        //    Camera.main.transform.GetComponent<FallSoundCam>().enabled = false;
-        //    StartGame();
-        //    generatorScript.DeactivateEasyBlock();
-        //}
     }
 
     /// <summary>

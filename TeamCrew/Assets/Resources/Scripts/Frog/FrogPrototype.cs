@@ -4,6 +4,7 @@ using System.Collections;
 public class FrogPrototype : MonoBehaviour
 {
     public Transform topPrefab;
+    public Transform characterSelectPrefab;
     public Color respawnArrowColor;
     private ParticleSystem rightParticle;
     private ParticleSystem leftParticle;

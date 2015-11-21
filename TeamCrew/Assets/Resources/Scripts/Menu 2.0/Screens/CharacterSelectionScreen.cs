@@ -42,12 +42,28 @@ public class CharacterSelectionScreen : M_Screen
     }
 
     //References
+    public GameObject bigReadyObject;
     private GameManager gameManager;
 
     protected override void OnAwake()
     {
         base.OnAwake();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+    }
+
+    protected override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        bigReadyObject.SetActive(CanContinue);
+
+        if (CanContinue)
+        {
+            if (Input.GetButtonDown("StartX") || Input.GetButtonDown("StartPS"))
+            {
+                ContinueToModeSelection();
+            }
+        }
     }
 
     //Methods
@@ -99,7 +115,7 @@ public class CharacterSelectionScreen : M_Screen
             availableFrogs[i].gameObject.SetActive(false);
         }
     }
-    public void ContinueToModeSelection()
+    private void ContinueToModeSelection()
     {
         if (!CanContinue || continueScreen == null)
             return;
@@ -160,6 +176,7 @@ public class CharacterSelectionScreen : M_Screen
         base.OnSwitchedFrom();
 
         SelectedFrog[] selectedFrogs = transform.GetComponentsInChildren<SelectedFrog>();
+
         for (int i = 0; i < selectedFrogs.Length; i++)
         {
             Respawn respawn = gameManager.transform.GetComponent<Respawn>();
@@ -170,8 +187,8 @@ public class CharacterSelectionScreen : M_Screen
                 GetFrog(ref testIndex, 1);
 
                 FrogPrototype frog = prefabFrogs[testIndex];
-                TopFrog topFrog = frog.topPrefab.FindChild("body").GetComponent<TopFrog>();
-                topFrog.player = frog.player = "P" + (i + 1).ToString();
+                FrogPrototype topFrog = frog.topPrefab.FindChild("body").GetComponent<FrogPrototype>();
+                frog.player = topFrog.player = "P" + (i + 1).ToString();
 
                 respawn.respawnScripts[i].prefab = frog.transform.parent;
                 respawn.respawnScripts[i].arrow.color = frog.respawnArrowColor;
@@ -179,8 +196,8 @@ public class CharacterSelectionScreen : M_Screen
             }
 
             FrogPrototype frogScript = prefabFrogs[selectedFrogs[i].index];
-            TopFrog topfrogScript = frogScript.topPrefab.FindChild("body").GetComponent<TopFrog>();
-            topfrogScript.player = frogScript.player = "P" + (i + 1).ToString();
+            FrogPrototype topFrogScript = frogScript.topPrefab.FindChild("body").GetComponent<FrogPrototype>();
+            frogScript.player = topFrogScript.player =  "P" + (i + 1).ToString();
 
             respawn.respawnScripts[i].prefab = frogScript.transform.parent;
             respawn.respawnScripts[i].arrow.color = frogScript.respawnArrowColor;
@@ -192,6 +209,13 @@ public class CharacterSelectionScreen : M_Screen
             DestroyImmediate(availableFrogs[i].gameObject);
         }
         availableFrogs.Clear();
+
+        if (M_ScreenManager.GetCurrentScreen() is StartScreen)
+        {
+            CancelInvoke("LockParallaxes");
+        }
+        else
+            LockParallaxes();
     }
     public override void OnSwitchedTo()
     {
@@ -201,9 +225,17 @@ public class CharacterSelectionScreen : M_Screen
         for (int i = 0; i < prefabFrogs.Count; i++)
         {
             prefabFrogs[i].player = string.Empty;
-            Transform t = Instantiate(prefabFrogs[i].transform.parent, Vector3.zero, Quaternion.identity) as Transform;
+            Transform t = Instantiate(prefabFrogs[i].characterSelectPrefab, Vector3.zero, Quaternion.identity) as Transform;
             t.gameObject.SetActive(false);
             availableFrogs.Add(t);
         }
+
+        CancelInvoke("LockParallaxes");
+        Invoke("LockParallaxes", 3.0f);
+    }
+
+    private void LockParallaxes()
+    {
+        gameManager.LockParallaxes(true);
     }
 }

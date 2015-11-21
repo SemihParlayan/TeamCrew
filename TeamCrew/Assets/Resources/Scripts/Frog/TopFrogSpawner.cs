@@ -4,12 +4,7 @@ using System.Collections;
 public class TopFrogSpawner : MonoBehaviour 
 {
     public Vector3 spawnPosition;
-    public Transform playerOneTopPrefab;
-    public Transform playerTwoTopPrefab;
-
     private Transform currentTopFrog;
-	public int accessoriesCount = -1;
-
     private Respawn respawnScript;
 
     void Start()
@@ -38,8 +33,6 @@ public class TopFrogSpawner : MonoBehaviour
             {
                 b.AddBandage(2);
             }
-
-            currentTopFrog.FindChild("body").GetComponent<TopFrog>().AddAccessories(accessoriesCount);
         }
     }
     public void RemoveFrog()
