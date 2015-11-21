@@ -68,6 +68,11 @@ public class M_ScreenManager : MonoBehaviour
         currentScreen.enabled = true;
         currentScreen.OnSwitchedTo();
     }
+
+    public static M_Screen GetCurrentScreen()
+    {
+        return currentScreen;
+    }
     public static void TeleportToCurrentScreen()
     {
         if (!currentScreen)

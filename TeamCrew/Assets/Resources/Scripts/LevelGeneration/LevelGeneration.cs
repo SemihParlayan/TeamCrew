@@ -149,7 +149,7 @@ public class LevelGeneration : MonoBehaviour
         }
         level[0].gameObject.SetActive(true);
 
-        SetLevelHeight();
+        //SetLevelHeight();
         InvokeRepeating("IncrementSlotMachine", 0, 0.05f);
         InvokeRepeating("LockSlotMachine", 0, 2f);
     }

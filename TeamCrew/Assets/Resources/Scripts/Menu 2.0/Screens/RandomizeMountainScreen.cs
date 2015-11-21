@@ -43,6 +43,11 @@ public class RandomizeMountainScreen : M_Screen
         base.OnSwitchedTo();
 
         menuMountain.SetActive(false);
+        Invoke("Rawr", 3);
+    }
+
+    void Rawr()
+    {
         generator.GenerateMountainSlotmachineStyle();
         waitForSlotMachine = true;
     }

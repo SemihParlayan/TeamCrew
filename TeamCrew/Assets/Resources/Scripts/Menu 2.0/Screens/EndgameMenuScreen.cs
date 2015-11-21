@@ -4,36 +4,32 @@ using System.Collections;
 public class EndgameMenuScreen : M_Screen
 {
     //References
-    public SpriteRenderer fadeToBlack;
     public LevelGeneration generator;
     public GameObject menuMountain;
     public M_Screen mainMenuScreen;
+    private M_FadeToColor fade;
 
     //Data
     public Vector3 offsetFromTop;
-    private bool fade;
 
-    protected override void OnStart()
+    protected override void OnAwake()
     {
         generator = GameObject.FindWithTag("GameManager").GetComponent<LevelGeneration>();
+        fade = GetComponent<M_FadeToColor>();
     }
 
     protected override void OnUpdate()
     {
-        if (fade)
-        {
-            Color c = fadeToBlack.color;
-            c.a = Mathf.MoveTowards(c.a, 1f, Time.deltaTime);
-            fadeToBlack.color = c;
+        base.OnUpdate();
 
-            if (c.a >= 1f)
-            {
-                ActivateMenuMountain();
-                SwitchScreen(mainMenuScreen);
-                M_ScreenManager.TeleportToCurrentScreen();
-            }
+        if (fade.Halfway)
+        {
+            ActivateMenuMountain();
+            SwitchScreen(mainMenuScreen);
+            M_ScreenManager.TeleportToCurrentScreen();
         }
     }
+
 
     public override void OnSwitchedTo()
     {
@@ -44,10 +40,7 @@ public class EndgameMenuScreen : M_Screen
 
     public void FadeToBlack()
     {
-        fade = true;
-        Color c = Color.black;
-        c.a = 0;
-        fadeToBlack.color = c;
+        fade.StartFade();
     }
 
     public void ActivateMenuMountain()

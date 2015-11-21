@@ -3,35 +3,23 @@ using System.Collections;
 
 public class StartScreen : M_Screen
 {
-    //Data
-    private bool fadeToZero;
-
     //References
-    public SpriteRenderer fadeToBlackSprite;
+    private GameManager gameManagerReference;
 
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        gameManagerReference = GameObject.FindWithTag("GameManager").transform.GetComponent<GameManager>();
+    }
     protected override void OnUpdate()
     {
         base.OnUpdate();
-
-        if (fadeToZero)
-        {
-            Color c = fadeToBlackSprite.color;
-            c.a = Mathf.MoveTowards(c.a, 0f, Time.deltaTime);
-            fadeToBlackSprite.color = c;
-        }
     }
 
     public override void OnSwitchedTo()
     {
-        fadeToZero = false;
         base.OnSwitchedTo();
-        Invoke("Fade", 0.5f);
+        gameManagerReference.LockParallaxes(false);
+        
     }
-
-    private void Fade()
-    {
-        fadeToZero = true;
-    }
-
-
 }

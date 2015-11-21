@@ -11,6 +11,11 @@ public class GameScreen : M_Screen
     public GameManager gameManager;
 
 
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+    }
     //Unity methods
     protected override void OnUpdate()
     {
@@ -41,6 +46,9 @@ public class GameScreen : M_Screen
             GameObject.FindWithTag("MenuManager").GetComponent<M_ScreenManager>().enabled = false;
             gameManager.GetComponent<TopFrogSpawner>().RemoveFrog();
             gameManager.StartGame();
+
+            gameManager.transform.GetComponent<LevelGeneration>().SetLevelHeight();
+            gameManager.LockParallaxes(false);
         }
     }
 
@@ -50,6 +58,5 @@ public class GameScreen : M_Screen
         base.OnSwitchedTo();
 
         started = false;
-        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 }
