@@ -4,6 +4,7 @@ using System.Collections;
 public class ReadySetGo : MonoBehaviour 
 {
     //Data
+    public AudioSource bip;
     public SpriteRenderer[] lights;
     public Sprite[] sprites;
     private GameManager gamemanager;
@@ -19,6 +20,8 @@ public class ReadySetGo : MonoBehaviour
     {
         if (started)
             return;
+
+        bip.Play();
 
         index = 0;
         started = true;
