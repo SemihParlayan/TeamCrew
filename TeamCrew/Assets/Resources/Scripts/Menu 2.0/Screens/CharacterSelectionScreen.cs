@@ -8,7 +8,8 @@ public class CharacterSelectionScreen : M_Screen
     //Components
     public M_Screen continueScreen;
 
-    //[HideInInspector]
+    //References
+    private Animator bigReadyAnimator;
     public List<Transform> availableFrogs = new List<Transform>();
     public List<FrogPrototype> prefabFrogs = new List<FrogPrototype>();
 
@@ -49,18 +50,20 @@ public class CharacterSelectionScreen : M_Screen
     {
         base.OnAwake();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        bigReadyAnimator = bigReadyObject.GetComponent<Animator>();
     }
 
     protected override void OnUpdate()
     {
         base.OnUpdate();
 
-        bigReadyObject.SetActive(CanContinue);
+        bigReadyAnimator.SetBool("PlayersReady", CanContinue);
 
         if (CanContinue)
         {
             if (Input.GetButtonDown("StartX") || Input.GetButtonDown("StartPS"))
             {
+                bigReadyAnimator.SetBool("PlayersReady", false);
                 ContinueToModeSelection();
             }
         }
