@@ -130,8 +130,12 @@ public class CharacterSelectionScreen : M_Screen
         int startIndex = index;
         index += indexDirection;
 
+        int rawr = 0;
         while(true)
         {
+            rawr++;
+            if (rawr >= 100)
+                return null;
             if (index == startIndex)
             {
                 for (int i = 0; i < availableFrogs.Count; i++)
