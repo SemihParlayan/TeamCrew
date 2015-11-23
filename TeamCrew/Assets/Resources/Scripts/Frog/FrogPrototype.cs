@@ -49,7 +49,6 @@ public class FrogPrototype : MonoBehaviour
     public float motorSpeed = 350;
     public float versusMotorBoost = 350;
 
-    [HideInInspector]
     public int versusHands;
 
     public bool IsGrippingTutorial { get { return (leftGripScript.isGrippingTutorial || rightGripScript.isGrippingTutorial);} }

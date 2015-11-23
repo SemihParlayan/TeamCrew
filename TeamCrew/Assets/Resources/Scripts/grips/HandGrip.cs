@@ -5,6 +5,7 @@ using System.Collections;
 public class HandGrip : MonoBehaviour
 {
     //Hand states
+    public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
     public bool isOnGrip;
     public bool lastIsOngrip;
     public bool isOnWall;
@@ -13,8 +14,6 @@ public class HandGrip : MonoBehaviour
     public bool isGrippingInsect;
     public bool isVersusGripping;
     public bool hackGrip;
-
-    public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
 
     private bool allowNewGrip = true;
     private bool allowVersusGrab = true;
@@ -376,7 +375,10 @@ public class HandGrip : MonoBehaviour
         versusGripController.DeActivateBlink();
 
         if (versusFrog)
+        {
             versusFrog.versusHands--;
+            versusFrog = null;
+        }
 
         if (isGrippingInsect)
         {

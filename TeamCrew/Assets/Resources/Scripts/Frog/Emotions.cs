@@ -6,22 +6,22 @@ public class Emotions : MonoBehaviour
 {
     public List<Transform> headTransforms = new List<Transform>();
 
-    public bool isAngry;
     private float timerDelay;
     private float situationalTimer;
-    private bool inSituational;
+    public bool inSituational;
     private Transform generalEmotion;
 
     private Transform currentEmotion;
 	
     void Start()
     {
+        headTransforms.Clear();
         for (int i = 0; i < transform.childCount; i++)
         {
             headTransforms.Add(transform.GetChild(i));
         }
 
-        currentEmotion = FindEmotion("neutral");
+        currentEmotion = FindEmotion(Emotion.neutral);
         currentEmotion.gameObject.SetActive(true);
     }
 	void Update () 
@@ -37,6 +37,7 @@ public class Emotions : MonoBehaviour
                 inSituational = false;
 
                 currentEmotion.gameObject.SetActive(false);
+
                 currentEmotion = generalEmotion;
                 currentEmotion.gameObject.SetActive(true);
                 generalEmotion = null;
@@ -44,20 +45,30 @@ public class Emotions : MonoBehaviour
         }
 	}
 
-    public void SetGeneralEmotion(string emotion)
+    public void SetGeneralEmotion(Emotion emotion)
     {
         Transform head = FindEmotion(emotion);
         if (head == null)
             return;
 
-        if (currentEmotion.name != head.name)
+        if (inSituational)
+        {
+            generalEmotion = head;
+        }
+        else if (currentEmotion == null)
+        {
+            currentEmotion = head;
+            currentEmotion.gameObject.SetActive(true);
+        }
+        else if (currentEmotion.name != head.name)
         {
             currentEmotion.gameObject.SetActive(false);
+
             currentEmotion = head;
             currentEmotion.gameObject.SetActive(true);
         }
     }
-    public void SetSituationalEmotion(string emotion, float time)
+    public void SetSituationalEmotion(Emotion emotion, float time)
     {
         if (inSituational)
             return;
@@ -75,16 +86,22 @@ public class Emotions : MonoBehaviour
             currentEmotion.gameObject.SetActive(true);
         }
     }
-    Transform FindEmotion(string emotion)
+    Transform FindEmotion(Emotion emotion)
     {
+        string e = emotion.ToString();
+
         for (int i = 0; i < headTransforms.Count; i++)
         {
-            if (headTransforms[i].name.Contains(emotion))
+            if (headTransforms[i].name.Contains(e))
             {
                 return headTransforms[i];
             }
         }
 
         return null;
+    }
+    public Transform GetCurrentEmotion()
+    {
+        return currentEmotion;
     }
 }
