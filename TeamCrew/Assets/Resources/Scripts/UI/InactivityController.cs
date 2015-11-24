@@ -58,6 +58,7 @@ public class InactivityController : MonoBehaviour
 
 	void Update () 
 	{
+        Debug.Log("GameActive: " + gameManager.gameActive);
         if (fade.Halfway)
         {
             ResetVariables();
@@ -68,10 +69,13 @@ public class InactivityController : MonoBehaviour
             gameManager.DestroyFrogs();
             gameManager.DestroyTopFrog();
             gameManager.ResetGameVariables();
-            gameObject.SetActive(false);
+            if (gameManager.gameActive)
+                gameObject.SetActive(false);
             return;
         }
 
+        //if (gameManager.designTestingEnabled)
+        //    return;
         if (!gameManager.gameActive || gameManager.designTestingEnabled)
             return;
 

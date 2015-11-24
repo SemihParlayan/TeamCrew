@@ -27,9 +27,9 @@ public class GameManager : MonoBehaviour
     }
     public static bool GetGrip(string axis)
     {
+        
         if (!axis.Contains("P"))
             return false;
-
         bool button = Input.GetButton(axis);
         if (button)
         {
@@ -37,20 +37,18 @@ public class GameManager : MonoBehaviour
         }
 
         float trigger = 0.0f;
-
         if (Xbox)
             trigger = Input.GetAxis(axis + "X");
         else if (PS4)
             trigger = Input.GetAxis(axis + "PS");
 
-        Debug.Log("Axis: " + axis + ", Trigger: " + trigger);
         if (trigger >= 0.2f)
-        {
             return true;
-        }
+
 
         return false;
     }
+
     public static bool GetButtonDown(string buttonName)
     {
         if (Xbox)
@@ -77,7 +75,6 @@ public class GameManager : MonoBehaviour
     public static bool DigitalInput;
 
     public static Transform[] players = new Transform[4];
-    public InactivityController inactivityController;
     private static float levelHeight = 1337;
     public static float LevelHeight
     {
@@ -105,6 +102,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject fireWorks;
 
+    public InactivityController inactivityController;
     public PoffMountain poffMountainScript;
     private TutorialBubbles tutorialBubbles;
     private TopFrogSpawner topfrogSpawnerScript;
@@ -336,9 +334,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResetGameVariables()
     {
-        //Disable inactivity controller
-        inactivityController.inactivityText.transform.parent.gameObject.SetActive(false);
-
         //Enable fall sound
         Camera.main.transform.GetComponent<AudioSource>().enabled = true;
         Camera.main.transform.GetComponent<FallSoundCam>().enabled = true;
