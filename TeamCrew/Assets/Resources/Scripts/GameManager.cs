@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         else if (PS4)
             trigger = Input.GetAxis(axis + "PS");
 
+        Debug.Log("Axis: " + axis + ", Trigger: " + trigger);
         if (trigger >= 0.2f)
         {
             return true;
@@ -596,7 +597,7 @@ public class GameManager : MonoBehaviour
             return;
 
         //Play finalstretch animation if we have climbed 80% of the mountain.
-        bool reachedStretchMarker = (Camera.main.transform.position.y >= LevelHeight - 15);
+        bool reachedStretchMarker = (Camera.main.transform.position.y >= LevelHeight - 3);
         cameraFollowScript.absoluteFinalStretchZoom = reachedStretchMarker;
 
         if(reachedStretchMarker)

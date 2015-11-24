@@ -112,7 +112,7 @@ public class InactivityController : MonoBehaviour
         {
             //Disable inactivity text
             inactivityText.transform.parent.gameObject.SetActive(false);
-            inactivityTimer = 2;
+            inactivityTimer = 5;
         }
 
 

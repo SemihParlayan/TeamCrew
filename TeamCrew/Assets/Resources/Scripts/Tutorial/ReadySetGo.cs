@@ -38,6 +38,7 @@ public class ReadySetGo : MonoBehaviour
         if (index == 3)
         {
             gamemanager.TutorialComplete();
+            gamemanager.GetComponent<LevelGeneration>().ActivateEasyBlock();
         }
     }
     public void ResetLights()

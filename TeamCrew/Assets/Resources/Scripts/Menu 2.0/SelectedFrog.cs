@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class SelectedFrog : MonoBehaviour 
 {
@@ -10,7 +11,12 @@ public class SelectedFrog : MonoBehaviour
     public Transform spawnPosition;
 
     public int index;
+    private string player = "";
 
+    void Awake()
+    {
+        player = GetComponent<M_Screen>().playerControl;
+    }
     void Start()
     {
         index = startIndex;
@@ -41,6 +47,7 @@ public class SelectedFrog : MonoBehaviour
             return;
 
         newFrog.position = spawnPosition.position;
+        newFrog.GetComponentInChildren<FrogPrototype>().player = player;
         selectedFrog = newFrog;
     }
 }
