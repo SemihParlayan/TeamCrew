@@ -9,6 +9,7 @@ public class FrogPrototype : MonoBehaviour
     private ParticleSystem rightParticle;
     private ParticleSystem leftParticle;
 
+    public bool characterSelectFrog;
     public float speed;
     public float yVelocityClamp = 10;
 
@@ -73,8 +74,14 @@ public class FrogPrototype : MonoBehaviour
 
     void Start()
     {
-        leftParticle = leftHandMagnet.GetComponent<ParticleSystem>();
-        rightParticle = rightHandMagnet.GetComponent<ParticleSystem>();
+        if (leftHandMagnet != null)
+        {
+            leftParticle = leftHandMagnet.GetComponent<ParticleSystem>();
+        }
+        if (rightHandMagnet != null)
+        {
+            rightParticle = rightHandMagnet.GetComponent<ParticleSystem>();
+        }
 
         leftBody  = handBody[0] = leftHand.GetComponent<Rigidbody2D>();
         if (leftBody == null) { Debug.Log("leftBody is null"); }
@@ -105,11 +112,14 @@ public class FrogPrototype : MonoBehaviour
 
 
         //Sound Stuff
-        boilSounder = gameObject.AddComponent<AudioSource>();
-        shhSounder = gameObject.AddComponent<AudioSource>();
+        if (!characterSelectFrog)
+        {
+            boilSounder = gameObject.AddComponent<AudioSource>();
+            shhSounder = gameObject.AddComponent<AudioSource>();
 
-        boilSounder.clip = Resources.Load("kettle") as AudioClip;
-        shhSounder.clip = Resources.Load("shh") as AudioClip;
+            boilSounder.clip = Resources.Load("kettle") as AudioClip;
+            shhSounder.clip = Resources.Load("shh") as AudioClip;
+        }
     }
 
     private void Update()
@@ -151,9 +161,13 @@ public class FrogPrototype : MonoBehaviour
         ActivateBody();
 
         //Activate scratch
-        rightParticle.enableEmission = false;
-        leftParticle.enableEmission = false;
-        ControlScratch();
+        if (rightParticle != null && rightParticle != null)
+        {
+            rightParticle.enableEmission = false;
+            leftParticle.enableEmission = false;
+            ControlScratch();
+        }
+            
 
         //Control Hands
         ControlHand(leftGripScript, GameManager.GetInput(player + "HL", player + "VL"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
@@ -168,11 +182,15 @@ public class FrogPrototype : MonoBehaviour
         body.velocity = velocity;
 
         //scratch rotation
-        leftHandMagnet.transform.rotation = leftHandMagnet.transform.parent.rotation;
-        rightHandMagnet.transform.rotation = leftHandMagnet.transform.parent.rotation;
+        if (leftHandMagnet != null && rightHandMagnet != null)
+        {
+            leftHandMagnet.transform.rotation = leftHandMagnet.transform.parent.rotation;
+            rightHandMagnet.transform.rotation = leftHandMagnet.transform.parent.rotation;
+        }
+       
 
         //left Scratch sound
-         if(leftParticle.enableEmission == true)
+         if(leftParticle != null && leftParticle.enableEmission == true)
         {
             if (!leftScratchSounding)
             {
@@ -196,7 +214,7 @@ public class FrogPrototype : MonoBehaviour
         }
 
         //right scratch sound
-        if (rightParticle.enableEmission == true)
+        if (rightParticle != null && rightParticle.enableEmission == true)
         {
             if (!rightScratchSounding)
             {
@@ -227,12 +245,16 @@ public class FrogPrototype : MonoBehaviour
             versusGripTimer -= Time.deltaTime;
 
 
-            if (!boilSounder.isPlaying)
+            if (boilSounder != null)
             {
-                boilSounder.time = Mathf.Clamp(8.0f - versusGripTimer, 0, 8.0f);
-                boilSounder.volume = 1;
-                boilSounder.Play();
+                if (!boilSounder.isPlaying)
+                {
+                    boilSounder.time = Mathf.Clamp(8.0f - versusGripTimer, 0, 8.0f);
+                    boilSounder.volume = 1;
+                    boilSounder.Play();
+                }
             }
+            
 
             
 
@@ -257,9 +279,12 @@ public class FrogPrototype : MonoBehaviour
             {
                 versusGripTimer += Time.deltaTime * 1.5f;
             }
-            if (boilSounder.isPlaying)
+            if (boilSounder != null)
             {
-                boilSounder.Stop();
+                if (boilSounder.isPlaying)
+                {
+                    boilSounder.Stop();
+                }
             }
            
         }

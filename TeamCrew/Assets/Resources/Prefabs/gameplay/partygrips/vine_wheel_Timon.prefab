@@ -51,22 +51,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &103070
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 428028}
-  - 82: {fileID: 8297662}
-  m_Layer: 0
-  m_Name: Wheel spin sound
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &104730
 GameObject:
   m_ObjectHideFlags: 1
@@ -199,6 +183,22 @@ GameObject:
   m_Layer: 0
   m_Name: chain_part connect
   m_TagString: MovingGrip
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &116426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 436042}
+  - 82: {fileID: 8225592}
+  m_Layer: 0
+  m_Name: Wheel_Sound
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1129,13 +1129,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.85340786, y: 4.4419198, z: 0}
+  m_LocalPosition: {x: 9.47000027, y: -65.8700027, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 436042}
   - {fileID: 487102}
   - {fileID: 418090}
   - {fileID: 434120}
-  - {fileID: 428028}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &409924
@@ -1218,7 +1218,7 @@ Transform:
   - {fileID: 497682}
   - {fileID: 450050}
   m_Father: {fileID: 409048}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &418468
 Transform:
   m_ObjectHideFlags: 1
@@ -1305,18 +1305,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 418468}
   m_RootOrder: 0
---- !u!4 &428028
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 103070}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.26431274, y: -.249724388, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 409048}
-  m_RootOrder: 3
 --- !u!4 &432086
 Transform:
   m_ObjectHideFlags: 1
@@ -1371,7 +1359,7 @@ Transform:
   - {fileID: 440194}
   - {fileID: 463574}
   m_Father: {fileID: 409048}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &434200
 Transform:
   m_ObjectHideFlags: 1
@@ -1384,6 +1372,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 418090}
   m_RootOrder: 1
+--- !u!4 &436042
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.17999995, y: -.310000002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 409048}
+  m_RootOrder: 0
 --- !u!4 &438930
 Transform:
   m_ObjectHideFlags: 1
@@ -1669,7 +1669,7 @@ Transform:
   m_Children:
   - {fileID: 403630}
   m_Father: {fileID: 409048}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &488746
 Transform:
   m_ObjectHideFlags: 1
@@ -2410,24 +2410,25 @@ PolygonCollider2D:
       - {x: -.369755268, y: -.546070993}
       - {x: .149710208, y: -.642335653}
       - {x: .472230673, y: -.336971372}
---- !u!82 &8297662
+--- !u!82 &8225592
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 103070}
+  m_GameObject: {fileID: 116426}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6f8537333dd58bd43a89f7ca48953701, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .100000001
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 12.1804056
+  MinDistance: 4.68110561
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -2453,7 +2454,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2524,7 +2525,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11407742
 MonoBehaviour:
@@ -2571,7 +2571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11421042
 MonoBehaviour:
@@ -2584,7 +2583,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11428984
 MonoBehaviour:
@@ -2597,7 +2595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11441704
 MonoBehaviour:
@@ -2708,7 +2705,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11484066
 MonoBehaviour:
@@ -2721,7 +2717,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11487718
 MonoBehaviour:
@@ -2734,7 +2729,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11492274
 MonoBehaviour:
@@ -2747,7 +2741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11499074
 MonoBehaviour:
@@ -2760,7 +2753,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!212 &21200550
 SpriteRenderer:

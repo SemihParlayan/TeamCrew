@@ -16,6 +16,9 @@ public class FallSound : MonoBehaviour
 	
 	void Update ()
     {
+        if (sound == null)
+            return;
+
         if(!body.isKinematic)
         {
             if (body.velocity.magnitude > 1)

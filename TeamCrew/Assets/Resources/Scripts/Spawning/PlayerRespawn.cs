@@ -41,7 +41,7 @@ public class PlayerRespawn : MonoBehaviour
             }
         }
     }
-    private bool respawning;
+    public bool respawning;
     [HideInInspector]
     public bool inactive;
 

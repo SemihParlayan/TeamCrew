@@ -8,7 +8,8 @@ public class ButterflySpawner : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "PlayerOne" || other.tag == "PlayerTwo")
+        Debug.Log(other.tag);
+        if (other.tag == "Frog")
         {
             ActivateButterFlies();
         }

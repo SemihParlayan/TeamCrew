@@ -63,7 +63,7 @@ public class CharacterSelectionScreen : M_Screen
         {
             if (Input.GetButtonDown("StartX") || Input.GetButtonDown("StartPS"))
             {
-                bigReadyAnimator.SetBool("PlayersReady", false);
+                bigReadyAnimator.SetBool("PlayersReady", false);    
                 ContinueToModeSelection();
             }
         }

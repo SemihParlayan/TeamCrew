@@ -126,9 +126,10 @@ GameObject:
   - 114: {fileID: 11441618}
   - 114: {fileID: 11491028}
   - 114: {fileID: 11400682}
+  - 58: {fileID: 5855028}
   m_Layer: 0
   m_Name: body
-  m_TagString: PlayerFour
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2820,6 +2821,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .170000002
+--- !u!58 &5855028
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106622}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -.104333326}
+  serializedVersion: 2
+  m_Radius: .5
 --- !u!58 &5861066
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -3645,9 +3659,10 @@ MonoBehaviour:
   characterSelectPrefab: {fileID: 439836, guid: 2e06b4cec0d9a9c4aabbcfcc445a0f43,
     type: 2}
   respawnArrowColor: {r: .816176474, g: .072015591, b: .327968866, a: 1}
+  characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
-  player: P3
+  player: P2
   emotionsScript: {fileID: 11403396}
   gripScript: []
   joints: []
@@ -3823,7 +3838,7 @@ MonoBehaviour:
   - {fileID: 11460114}
   connectedBody: {fileID: 5080694}
   anchor: {x: 0, y: 0}
-  parentedPlayer: P3
+  parentedPlayer: P1
 --- !u!114 &11427144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4079,7 +4094,7 @@ MonoBehaviour:
   - {fileID: 11413718}
   connectedBody: {fileID: 5049100}
   anchor: {x: 0, y: 0}
-  parentedPlayer: P3
+  parentedPlayer: P1
 --- !u!114 &11483748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4184,7 +4199,7 @@ MonoBehaviour:
   - {fileID: 11475316}
   connectedBody: {fileID: 5025542}
   anchor: {x: -.0799999982, y: 0}
-  parentedPlayer: P3
+  parentedPlayer: P1
 --- !u!114 &11498886
 MonoBehaviour:
   m_ObjectHideFlags: 1

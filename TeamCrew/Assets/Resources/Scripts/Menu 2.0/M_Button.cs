@@ -18,9 +18,14 @@ public class M_Button : MonoBehaviour
 
     //Components
     private SpriteRenderer renderer;
+    
+
+    //References
+    private M_Sounds soundManager;
 
     void Awake()
     {
+        soundManager = GameObject.FindWithTag("SoundManager").GetComponent<M_Sounds>();
         renderer = GetComponent<SpriteRenderer>();
         defaultSprite = renderer.sprite;
 
@@ -65,6 +70,7 @@ public class M_Button : MonoBehaviour
     //Events
     public virtual void OnPress()
     {
+        AudioSource.PlayClipAtPoint(soundManager.buttonClick, transform.position);
         if (animated)
         {
             anim.SetTrigger("OnPress");

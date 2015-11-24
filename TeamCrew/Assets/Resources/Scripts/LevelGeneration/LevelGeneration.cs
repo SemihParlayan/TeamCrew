@@ -297,8 +297,9 @@ public class LevelGeneration : MonoBehaviour
 
     public Vector3 GetPlayerSpawnPosition(int player)
     {
-        return tutorialBlock.playerStartPosition[player - 1].position;
-        //return level.Last().GetComponent<TutorialBlock>().playerStartPosition[player - 1].position;
+        if (tutorialBlock)
+            return tutorialBlock.playerStartPosition[player - 1].position;
+        return Vector3.zero;
     }
     public SpriteRenderer[] GetReadySetGoSpriteRenderes()
     {
