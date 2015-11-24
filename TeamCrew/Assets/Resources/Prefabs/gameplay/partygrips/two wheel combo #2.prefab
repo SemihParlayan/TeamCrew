@@ -542,6 +542,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &159584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 496976}
+  - 82: {fileID: 8254332}
+  m_Layer: 0
+  m_Name: Wheel_Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &160990
 GameObject:
   m_ObjectHideFlags: 1
@@ -700,22 +716,6 @@ GameObject:
   - 233: {fileID: 23368010}
   m_Layer: 0
   m_Name: chain_part
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &180532
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 496528}
-  - 82: {fileID: 8235096}
-  m_Layer: 0
-  m_Name: Wheel spin sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -966,7 +966,7 @@ Transform:
   m_LocalScale: {x: .659884155, y: .659884334, z: .659884334}
   m_Children: []
   m_Father: {fileID: 479986}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &405026
 Transform:
   m_ObjectHideFlags: 1
@@ -1029,7 +1029,7 @@ Transform:
   - {fileID: 477818}
   - {fileID: 485608}
   m_Father: {fileID: 479986}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &412700
 Transform:
   m_ObjectHideFlags: 1
@@ -1400,7 +1400,7 @@ Transform:
   m_LocalScale: {x: .674890459, y: .674890459, z: .674890459}
   m_Children: []
   m_Father: {fileID: 479986}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &477818
 Transform:
   m_ObjectHideFlags: 1
@@ -1420,13 +1420,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.6500001, y: -7.96844387, z: 0}
+  m_LocalPosition: {x: 9.56000042, y: -56.8699989, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 496976}
   - {fileID: 476898}
   - {fileID: 402540}
   - {fileID: 407718}
-  - {fileID: 496528}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &483432
@@ -1544,18 +1544,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 407718}
   m_RootOrder: 11
---- !u!4 &496528
+--- !u!4 &496976
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 180532}
+  m_GameObject: {fileID: 159584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.100000001, y: -.100000001, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 479986}
-  m_RootOrder: 3
+  m_RootOrder: 0
 --- !u!50 &5003922
 Rigidbody2D:
   serializedVersion: 2
@@ -2201,21 +2201,22 @@ PolygonCollider2D:
       - {x: -.369755268, y: -.546070993}
       - {x: .149710208, y: -.642335653}
       - {x: .472230673, y: -.336971372}
---- !u!82 &8235096
+--- !u!82 &8254332
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 180532}
+  m_GameObject: {fileID: 159584}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6f8537333dd58bd43a89f7ca48953701, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .100000001
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 4.68110561
@@ -2244,7 +2245,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2281,7 +2282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11406356
 MonoBehaviour:
@@ -2311,7 +2311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11418740
 MonoBehaviour:
@@ -2418,7 +2417,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11459532
 MonoBehaviour:
@@ -2431,7 +2429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11464208
 MonoBehaviour:
@@ -2444,7 +2441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11464508
 MonoBehaviour:
@@ -2457,7 +2453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11465526
 MonoBehaviour:
@@ -2487,7 +2482,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11473734
 MonoBehaviour:
@@ -2517,7 +2511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7bc0185b108b849b08f287daf82c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderName: 
   numberOfHands: 0
 --- !u!114 &11486872
 MonoBehaviour:

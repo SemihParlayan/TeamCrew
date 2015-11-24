@@ -252,9 +252,10 @@ GameObject:
   - 114: {fileID: 11484290}
   - 114: {fileID: 11475736}
   - 114: {fileID: 11479472}
+  - 58: {fileID: 5857172}
   m_Layer: 0
   m_Name: body
-  m_TagString: PlayerFour
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -458,7 +459,7 @@ GameObject:
   - 61: {fileID: 6156428}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -505,7 +506,7 @@ GameObject:
   - 61: {fileID: 6165506}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -627,7 +628,7 @@ GameObject:
   - 58: {fileID: 5866308}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -661,7 +662,7 @@ GameObject:
   - 61: {fileID: 6190928}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -696,7 +697,7 @@ GameObject:
   - 61: {fileID: 6177278}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -780,7 +781,7 @@ GameObject:
   - 61: {fileID: 6106318}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -796,7 +797,7 @@ GameObject:
   - 61: {fileID: 6107396}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1164,7 +1165,7 @@ GameObject:
   - 61: {fileID: 6194152}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1385,7 +1386,7 @@ GameObject:
   - 61: {fileID: 6170536}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2846,6 +2847,19 @@ CircleCollider2D:
   m_Offset: {x: .270000011, y: .0500000007}
   serializedVersion: 2
   m_Radius: .150000006
+--- !u!58 &5857172
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124602}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -.104333326}
+  serializedVersion: 2
+  m_Radius: .5
 --- !u!58 &5865960
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -3629,7 +3643,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109668}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3729,7 +3743,7 @@ MonoBehaviour:
   - {fileID: 11437508}
   connectedBody: {fileID: 5091674}
   anchor: {x: 0, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: P4
 --- !u!114 &11420468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3769,7 +3783,7 @@ MonoBehaviour:
   - {fileID: 11434882}
   connectedBody: {fileID: 5044424}
   anchor: {x: -.0799999982, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: P4
 --- !u!114 &11425722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3941,14 +3955,14 @@ MonoBehaviour:
   - {fileID: 11451346}
   connectedBody: {fileID: 5070556}
   anchor: {x: 0, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: P4
 --- !u!114 &11464632
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176140}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3990,6 +4004,7 @@ MonoBehaviour:
   characterSelectPrefab: {fileID: 421668, guid: 7d9dd4fcd089b0f4bbdbe673d0043045,
     type: 2}
   respawnArrowColor: {r: .992647052, g: .421364725, b: .0218966473, a: 1}
+  characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
   player: P1

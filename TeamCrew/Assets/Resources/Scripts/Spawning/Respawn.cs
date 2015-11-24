@@ -95,6 +95,7 @@ public class Respawn : MonoBehaviour
     }
     Transform RespawnPlayer(PlayerRespawn player)
     {
+        Debug.Log("Respawning: " + player.transform.name);
         Vector3 pos = cam.ScreenToWorldPoint(player.arrow.rectTransform.position);
         pos.z = 0;
         pos.y -= 3;

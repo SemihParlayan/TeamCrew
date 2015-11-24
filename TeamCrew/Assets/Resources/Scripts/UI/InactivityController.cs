@@ -18,7 +18,14 @@ public class InactivityController : MonoBehaviour
     private GameManager gameManager;
     private Respawn respawn;
     public InactivityFrog[] inactivityScripts = new InactivityFrog[4];
+    public M_Screen mainmenuScreen;
+    public EndgameMenuScreen endgameScreen;
+    private M_FadeToColor fade;
 
+    void Awake()
+    {
+        fade = GetComponent<M_FadeToColor>();
+    }
 	void Start () 
 	{
         gameManager = transform.parent.GetComponent<GameManager>();
@@ -26,13 +33,17 @@ public class InactivityController : MonoBehaviour
 
         inactivityTimer = inactivitySecondLimit * 1.5f;
 
+        ResetVariables();
+	}
+    private void ResetVariables()
+    {
         for (int i = 0; i < inactivityScripts.Length; i++)
         {
             inactivityScripts[i].frog = "P" + (i + 1).ToString();
             inactivityScripts[i].inactivityLimit = inactivitySecondLimit;
             inactivityScripts[i].inactivityTimer = inactivitySecondLimit;
         }
-	}
+    }
 
     public void OnGameStart()
     {
@@ -47,6 +58,18 @@ public class InactivityController : MonoBehaviour
 
 	void Update () 
 	{
+        if (fade.Halfway)
+        {
+            ResetVariables();
+            endgameScreen.ActivateMenuMountain();
+            M_ScreenManager.SetActive(true);
+            M_ScreenManager.SwitchScreen(mainmenuScreen);
+            M_ScreenManager.TeleportToCurrentScreen();
+            gameManager.ResetGameVariables();
+            gameObject.SetActive(false);
+            return;
+        }
+
         if (!gameManager.gameActive || gameManager.designTestingEnabled)
             return;
 
@@ -79,7 +102,7 @@ public class InactivityController : MonoBehaviour
             {
                 for (int i = 0; i < inactivityScripts.Length; i++)
                 {
-                    //Go back to menu
+                    fade.StartFade();
                 }
             }
         }
@@ -87,7 +110,7 @@ public class InactivityController : MonoBehaviour
         {
             //Disable inactivity text
             inactivityText.transform.parent.gameObject.SetActive(false);
-            inactivityTimer = 5;
+            inactivityTimer = 2;
         }
 
 

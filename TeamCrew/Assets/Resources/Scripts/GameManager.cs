@@ -331,7 +331,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Resets all boolean flags needed to return to menu for a safe restart of the game. Enables exit button in menu & removes fly.
     /// </summary>
-    private void ResetGameVariables()
+    public void ResetGameVariables()
     {
         //Disable inactivity controller
         inactivityController.inactivityText.transform.parent.gameObject.SetActive(false);

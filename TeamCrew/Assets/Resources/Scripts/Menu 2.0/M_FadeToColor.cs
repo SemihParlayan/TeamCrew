@@ -39,9 +39,11 @@ public class M_FadeToColor : MonoBehaviour
 
         if (!started)
             return;
+
         if (OnComplete)
         {
             started = false;
+            gameObject.SetActive(false);
         }
 
         lastComplete = complete;
@@ -75,9 +77,10 @@ public class M_FadeToColor : MonoBehaviour
     }
     public void StartFade()
     {
-        if (fading)
+        if (started)
             return;
 
+        gameObject.SetActive(true);
         this.started = true;
         this.fading = true;
         this.complete = false;

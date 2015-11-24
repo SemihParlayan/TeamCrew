@@ -128,7 +128,7 @@ GameObject:
   - 61: {fileID: 6166980}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -242,7 +242,7 @@ GameObject:
   - 61: {fileID: 6105892}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -310,7 +310,7 @@ GameObject:
   - 61: {fileID: 6113752}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -488,9 +488,10 @@ GameObject:
   - 114: {fileID: 11494524}
   - 114: {fileID: 11483512}
   - 114: {fileID: 11404452}
+  - 58: {fileID: 5839066}
   m_Layer: 0
   m_Name: body
-  m_TagString: PlayerFour
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -727,7 +728,7 @@ GameObject:
   - 61: {fileID: 6130064}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -810,7 +811,7 @@ GameObject:
   - 61: {fileID: 6144380}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -892,7 +893,7 @@ GameObject:
   - 58: {fileID: 5853712}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1127,7 +1128,7 @@ GameObject:
   - 61: {fileID: 6141044}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1143,7 +1144,7 @@ GameObject:
   - 61: {fileID: 6102480}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1175,7 +1176,7 @@ GameObject:
   - 61: {fileID: 6187958}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2807,6 +2808,19 @@ CircleCollider2D:
   m_Offset: {x: -.0399999991, y: -.25}
   serializedVersion: 2
   m_Radius: .170000002
+--- !u!58 &5839066
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133446}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -.104333326}
+  serializedVersion: 2
+  m_Radius: .5
 --- !u!58 &5842090
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -3595,7 +3609,7 @@ MonoBehaviour:
   - {fileID: 11448118}
   connectedBody: {fileID: 5027864}
   anchor: {x: 0, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: P3
 --- !u!114 &11401816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3625,7 +3639,7 @@ MonoBehaviour:
   - {fileID: 11477636}
   connectedBody: {fileID: 5030016}
   anchor: {x: -.0799999982, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: P3
 --- !u!114 &11404452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3682,7 +3696,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188776}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3693,7 +3707,7 @@ MonoBehaviour:
   - {fileID: 11401816}
   connectedBody: {fileID: 5087976}
   anchor: {x: .0128259696, y: -1.36198199}
-  parentedPlayer: P1
+  parentedPlayer: P4
 --- !u!114 &11420884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3840,7 +3854,7 @@ MonoBehaviour:
   - {fileID: 11470430}
   connectedBody: {fileID: 5087976}
   anchor: {x: 0, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: P3
 --- !u!114 &11453216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3935,7 +3949,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174446}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3946,7 +3960,7 @@ MonoBehaviour:
   - {fileID: 11414370}
   connectedBody: {fileID: 5030016}
   anchor: {x: .0128259696, y: -1.36198199}
-  parentedPlayer: P1
+  parentedPlayer: P4
 --- !u!114 &11466310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3962,9 +3976,10 @@ MonoBehaviour:
   characterSelectPrefab: {fileID: 479238, guid: 7d4138f623beb2e44abc0310cfa746b8,
     type: 2}
   respawnArrowColor: {r: .171064034, g: .83088237, b: .756982744, a: 1}
+  characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
-  player: P1
+  player: P4
   emotionsScript: {fileID: 11422352}
   gripScript: []
   joints: []

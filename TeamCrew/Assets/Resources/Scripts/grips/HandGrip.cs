@@ -74,7 +74,8 @@ public class HandGrip : MonoBehaviour
     {
         //Aquire spriterenderer and sound
         spriteRenderer = GetComponent<SpriteRenderer>();
-        randSoundGen = gripSoundSource.GetComponent<RandomSoundFromList>();
+        if (gripSoundSource != null)
+            randSoundGen = gripSoundSource.GetComponent<RandomSoundFromList>();
         
         //Aquire joint and disable it
         joint = transform.parent.GetComponent<HingeJoint2D>();

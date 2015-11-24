@@ -24,6 +24,7 @@ public class M_ScreenManager : MonoBehaviour
 
         DisableScreenScripts();
         SwitchScreen(startScreen);
+        
     }
 
     void Update()
@@ -50,6 +51,10 @@ public class M_ScreenManager : MonoBehaviour
         {
             screens[i].enabled = false;
         }
+    }
+    public static void SetActive(bool state)
+    {
+        GameObject.FindWithTag("MenuManager").GetComponent<M_ScreenManager>().enabled = state;
     }
     public static void SwitchScreen(M_Screen newScreen)
     {
@@ -78,6 +83,8 @@ public class M_ScreenManager : MonoBehaviour
         if (!currentScreen)
             return;
 
-        Camera.main.transform.position = currentScreen.movementProperties.cameraLocation.position;
+        Vector3 targetLocation = currentScreen.movementProperties.cameraLocation.position;
+        targetLocation.z = Camera.main.transform.position.z;
+        Camera.main.transform.position = targetLocation;
     }
 }

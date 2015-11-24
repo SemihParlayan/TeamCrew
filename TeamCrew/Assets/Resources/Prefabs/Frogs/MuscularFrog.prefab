@@ -253,7 +253,7 @@ GameObject:
   - 61: {fileID: 6186518}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -303,7 +303,7 @@ GameObject:
   - 61: {fileID: 6187252}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -498,7 +498,7 @@ GameObject:
   - 61: {fileID: 6132316}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -618,7 +618,7 @@ GameObject:
   - 61: {fileID: 6107366}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -816,7 +816,7 @@ GameObject:
   - 61: {fileID: 6119110}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -978,9 +978,10 @@ GameObject:
   - 114: {fileID: 11451488}
   - 114: {fileID: 11475764}
   - 114: {fileID: 11403520}
+  - 58: {fileID: 5839458}
   m_Layer: 0
   m_Name: body
-  m_TagString: PlayerFour
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1078,7 +1079,7 @@ GameObject:
   - 61: {fileID: 6128194}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1200,7 +1201,7 @@ GameObject:
   - 61: {fileID: 6152304}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1283,7 +1284,7 @@ GameObject:
   - 58: {fileID: 5875322}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1299,7 +1300,7 @@ GameObject:
   - 61: {fileID: 6173866}
   m_Layer: 10
   m_Name: rock_collider
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2781,6 +2782,19 @@ CircleCollider2D:
   m_Offset: {x: -.0399999991, y: -.25}
   serializedVersion: 2
   m_Radius: .170000002
+--- !u!58 &5839458
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175586}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -.104333326}
+  serializedVersion: 2
+  m_Radius: .5
 --- !u!58 &5839784
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -3736,7 +3750,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121584}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3747,7 +3761,7 @@ MonoBehaviour:
   - {fileID: 11464190}
   connectedBody: {fileID: 5007860}
   anchor: {x: .0128259696, y: -1.36198199}
-  parentedPlayer: P2
+  parentedPlayer: P3
 --- !u!114 &11439084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3909,7 +3923,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113952}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3920,7 +3934,7 @@ MonoBehaviour:
   - {fileID: 11442952}
   connectedBody: {fileID: 5009806}
   anchor: {x: .0128259696, y: -1.36198199}
-  parentedPlayer: P2
+  parentedPlayer: P3
 --- !u!114 &11463926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3936,9 +3950,10 @@ MonoBehaviour:
   characterSelectPrefab: {fileID: 453544, guid: 19b354de0d3be3f4cb3f05b1d00b4ecb,
     type: 2}
   respawnArrowColor: {r: .227941155, g: .173988685, b: .0536332093, a: 1}
+  characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
-  player: P2
+  player: P3
   emotionsScript: {fileID: 11427476}
   gripScript: []
   joints: []
