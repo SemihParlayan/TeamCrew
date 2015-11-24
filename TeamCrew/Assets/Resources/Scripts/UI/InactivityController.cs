@@ -65,6 +65,8 @@ public class InactivityController : MonoBehaviour
             M_ScreenManager.SetActive(true);
             M_ScreenManager.SwitchScreen(mainmenuScreen);
             M_ScreenManager.TeleportToCurrentScreen();
+            gameManager.DestroyFrogs();
+            gameManager.DestroyTopFrog();
             gameManager.ResetGameVariables();
             gameObject.SetActive(false);
             return;

@@ -226,11 +226,13 @@ public class GameManager : MonoBehaviour
         //Reset the bandage counter.
         GetComponent<BandageManager>().ResetBandages();
 
+        int frogSpawnCount = 0;
         for (int i = 0; i < players.Length; i++)
         {
             if (frogsReady[i])
             {
-                Vector3 spawnPosition = generatorScript.GetPlayerSpawnPosition(i + 1);
+                frogSpawnCount++;
+                Vector3 spawnPosition = generatorScript.GetPlayerSpawnPosition(frogSpawnCount);
                 spawnPosition.z = 0;
                 players[i] = (Instantiate(respawnScript.respawnScripts[i].prefab, spawnPosition, Quaternion.identity) as Transform).FindChild("body");
             }

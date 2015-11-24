@@ -297,6 +297,7 @@ public class LevelGeneration : MonoBehaviour
 
     public Vector3 GetPlayerSpawnPosition(int player)
     {
+        Debug.Log(player);
         if (tutorialBlock)
             return tutorialBlock.playerStartPosition[player - 1].position;
         return Vector3.zero;
