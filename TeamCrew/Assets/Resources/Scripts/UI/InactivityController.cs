@@ -9,7 +9,7 @@ public class InactivityController : MonoBehaviour
     //Data
     public float signLimit;
     public float frogInactivityLimit = 6;
-    private float signTimer;
+    public float signTimer;
     public bool active;
 
     //Components
@@ -157,6 +157,24 @@ public class InactivityController : MonoBehaviour
             ResetVariables();
             OnGameStart();
             inactivityText.transform.parent.gameObject.SetActive(false);
+        }
+        else
+        {
+            for (int i = 0; i < inactivityScripts.Length; i++)
+            {
+                inactivityScripts[i].timer = 0;
+            }
+        }
+    }
+
+    public void SetTimersForFrogs(bool[] frogsReady)
+    {
+        for (int i = 0 ; i < frogsReady.Length; i++)
+        {
+            if (frogsReady[i])
+                inactivityScripts[i].timer = 0;
+            else
+                inactivityScripts[i].timer = int.MaxValue;
         }
     }
 }

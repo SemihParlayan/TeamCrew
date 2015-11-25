@@ -7,7 +7,7 @@ public class M_Sounds : MonoBehaviour
     public AudioClip buttonSwitch;
 
     public AudioSource menuMusic;
-    private bool playMenuMusic = true;
+    public bool playMenuMusic = true;
 
     public void Update()
     {
@@ -18,18 +18,25 @@ public class M_Sounds : MonoBehaviour
         }
         else
         {
-            menuMusic.volume = Mathf.MoveTowards(menuMusic.volume, 0f, Time.deltaTime);
+            if (menuMusic.volume >= 0.1f)
+            {
+                menuMusic.volume = Mathf.MoveTowards(menuMusic.volume, 0f, Time.deltaTime);
+            }
+            else
+            {
+                if (menuMusic.isPlaying)
+                    menuMusic.Stop();
+            }
         }
     }
 
     public void StartMenuMusic()
     {
         playMenuMusic = true;
-        menuMusic.Stop();
+        menuMusic.Play();
     }
     public void StopMenuMusic()
     {
         playMenuMusic = false;
-        menuMusic.Play();
     }
 }

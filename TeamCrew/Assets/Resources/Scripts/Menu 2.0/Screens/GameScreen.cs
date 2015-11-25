@@ -58,6 +58,7 @@ public class GameScreen : M_Screen
     {
         base.OnSwitchedTo();
         gameManager.SetInactivityState(true, 6f);
+        gameManager.SetFrogsReadyInactivity();
         started = false;
     }
 }

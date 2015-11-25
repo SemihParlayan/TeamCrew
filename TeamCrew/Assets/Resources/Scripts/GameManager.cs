@@ -448,6 +448,10 @@ public class GameManager : MonoBehaviour
     {
         inactivityController.SetActiveValue(state, newLimit);
     }
+    public void SetFrogsReadyInactivity()
+    {
+        inactivityController.SetTimersForFrogs(frogsReady);
+    }
 
     /// <summary>
     /// Destroys the currently active level

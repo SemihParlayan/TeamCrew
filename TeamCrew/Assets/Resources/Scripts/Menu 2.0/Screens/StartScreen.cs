@@ -4,6 +4,7 @@ using System.Collections;
 public class StartScreen : M_Screen
 {
     //References
+    public M_Sounds soundManager;
     private GameManager gameManagerReference;
 
     protected override void OnAwake()
@@ -21,5 +22,11 @@ public class StartScreen : M_Screen
         base.OnSwitchedTo();
         gameManagerReference.LockParallaxes(false);
         gameManagerReference.SetInactivityState(false, 15f);
+        soundManager.StartMenuMusic();
+    }
+    public override void OnSwitchedFrom()
+    {
+        base.OnSwitchedFrom();
+        soundManager.StopMenuMusic();
     }
 }
