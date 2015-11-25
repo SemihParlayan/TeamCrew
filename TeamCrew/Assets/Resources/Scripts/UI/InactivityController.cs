@@ -68,7 +68,7 @@ public class InactivityController : MonoBehaviour
             gameManager.DestroyFrogs();
             gameManager.DestroyTopFrog();
             gameManager.ResetGameVariables();
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             return;
         }
 

@@ -28,11 +28,11 @@ public class TopFrogSpawner : MonoBehaviour
         {
             currentTopFrog.position += Vector3.up;
 
-            Bandage b = currentTopFrog.FindChild("body").GetComponent<Bandage>();
-            for (int i = 0; i < bandageCount; i++)
-            {
-                b.AddBandage(2);
-            }
+            //Bandage b = currentTopFrog.FindChild("body").GetComponent<Bandage>();
+            //for (int i = 0; i < bandageCount; i++)
+            //{
+            //    b.AddBandage(2);
+            //}
         }
     }
     public void RemoveFrog()

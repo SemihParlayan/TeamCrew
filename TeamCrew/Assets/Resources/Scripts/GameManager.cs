@@ -336,9 +336,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResetGameVariables()
     {
-        //Disable inactivity controller
-        inactivityController.inactivityText.transform.parent.gameObject.SetActive(false);
-
         //Enable fall sound
         Camera.main.transform.GetComponent<AudioSource>().enabled = true;
         Camera.main.transform.GetComponent<FallSoundCam>().enabled = true;
