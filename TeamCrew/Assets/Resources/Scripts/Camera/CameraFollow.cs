@@ -69,7 +69,6 @@ public class CameraFollow : MonoBehaviour
         float targetSize = (minZoom + maxZoom) / 2;
         if (bottomfrog != topfrog)
         {
-            Debug.Log("NOT THE SAME");
             float distance = Vector3.Distance(topfrog.position, bottomfrog.position);
             float value = Mathf.Clamp(distance / 10, 0, 1);
 

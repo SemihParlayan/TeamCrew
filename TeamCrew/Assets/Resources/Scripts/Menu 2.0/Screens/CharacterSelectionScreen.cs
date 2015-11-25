@@ -130,6 +130,20 @@ public class CharacterSelectionScreen : M_Screen
 
     public Transform GetFrog(ref int index, int indexDirection)
     {
+        int selectedFrogs = 0;
+        for (int i = 0; i < availableFrogs.Count; i++)
+        {
+            if (availableFrogs[i].gameObject.activeInHierarchy)
+            {
+                selectedFrogs++;
+            }
+        }
+
+        if (selectedFrogs == 4)
+        {
+            Debug.Log("Rawr");
+            return null;
+        }
         int startIndex = index;
         index += indexDirection;
 

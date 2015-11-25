@@ -408,7 +408,7 @@ public class GameManager : MonoBehaviour
         fireWorks.SetActive(false);
 
         //Enable tutorial bubbles
-        tutorialBubbles.EnableScript();
+        //tutorialBubbles.EnableScript();
 
         readySetGo.lights = generatorScript.GetReadySetGoSpriteRenderes();
     }
