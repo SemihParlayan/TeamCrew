@@ -440,6 +440,24 @@ public class GameManager : MonoBehaviour
         topfrogSpawnerScript.SpawnFrog(topFrogPrefab, victoryFrogNumber, 0f);
     }
 
+    /// <summary>
+    /// Activates and deactivates the inactivityController
+    /// </summary>
+    /// <param name="state"></param>
+    public void SetInactivityState(bool state, float newLimit)
+    {
+        inactivityController.SetActiveValue(state, newLimit);
+    }
+
+    /// <summary>
+    /// Destroys the currently active level
+    /// </summary>
+    /// <param name="keepTutorial"></param>
+    public void DestroyCurrentLevel(bool keepTutorial)
+    {
+        generatorScript.DestroyLevel(keepTutorial);
+    }
+
     //Static methods
     /// <summary>
     /// Returns the frog transform that is currently at the highest Y position

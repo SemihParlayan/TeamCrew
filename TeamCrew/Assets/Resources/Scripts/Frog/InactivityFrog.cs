@@ -5,10 +5,11 @@ public class InactivityFrog : MonoBehaviour
 {
     //Data
     public string frog;
-    public float inactivityTimer;
-    public float inactivityLimit;
+    public float timer;
+    [HideInInspector]
+    public float limit;
 
-    public bool IsInactive { get { return inactivityTimer >= inactivityLimit; } }
+    public bool IsInactive { get { return timer >= limit; } }
 
     //Components
 

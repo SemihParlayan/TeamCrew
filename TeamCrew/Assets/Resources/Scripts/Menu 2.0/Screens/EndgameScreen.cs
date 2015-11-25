@@ -48,7 +48,6 @@ public class EndgameScreen : M_Screen
         gameManager.DestroyFrogs();
         gameManager.SpawnTopFrog();
         Invoke("OnMenu", danceTime);
-
     }
     private void Fade()
     {
@@ -63,5 +62,7 @@ public class EndgameScreen : M_Screen
     {
         whiteFade.color = Color.white;
         base.OnSwitchedTo();
+
+        GameObject.FindWithTag("GameManager").GetComponent<GameManager>().SetInactivityState(false, 15f);
     }
 }

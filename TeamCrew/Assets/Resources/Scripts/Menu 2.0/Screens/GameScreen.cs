@@ -8,7 +8,7 @@ public class GameScreen : M_Screen
 
     //References
     public GameObject menuMountain;
-    public GameManager gameManager;
+    private GameManager gameManager;
 
 
     protected override void OnAwake()
@@ -57,7 +57,7 @@ public class GameScreen : M_Screen
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
-
+        gameManager.SetInactivityState(true, 6f);
         started = false;
     }
 }

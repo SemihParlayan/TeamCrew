@@ -227,6 +227,7 @@ public class CharacterSelectionScreen : M_Screen
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
+        gameManager.SetInactivityState(true, 15f);
         ResetPlayers();
 
         for (int i = 0; i < prefabFrogs.Count; i++)

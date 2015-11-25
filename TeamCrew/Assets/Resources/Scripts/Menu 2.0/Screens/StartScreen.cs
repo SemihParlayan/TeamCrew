@@ -20,6 +20,6 @@ public class StartScreen : M_Screen
     {
         base.OnSwitchedTo();
         gameManagerReference.LockParallaxes(false);
-        
+        gameManagerReference.SetInactivityState(false, 15f);
     }
 }

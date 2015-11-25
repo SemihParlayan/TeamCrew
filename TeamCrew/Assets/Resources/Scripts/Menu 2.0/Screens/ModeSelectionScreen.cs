@@ -37,6 +37,11 @@ public class ModeSelectionScreen : M_Screen
         CancelInvoke("CreateFrogs");
         Invoke("CreateFrogs", 2.6f);
     }
+    public override void OnSwitchedFrom()
+    {
+        base.OnSwitchedFrom();
+        poff.SetPoffState(false);
+    }
     private void CreateFrogs()
     {
         gameManager.CreateNewFrogs();

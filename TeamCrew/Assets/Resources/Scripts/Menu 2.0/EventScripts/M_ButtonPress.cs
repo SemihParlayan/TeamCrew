@@ -4,8 +4,16 @@ using System.Collections.Generic;
 
 public class M_ButtonPress : M_EventBase
 {
+    //References
+    private M_Screen screen;
+
     //Data
     public List<ButtonConnection> eventList = new List<ButtonConnection>();
+
+    void Awake()
+    {
+        screen = GetComponentInParent<M_Screen>();
+    }
 
     //Events
     public override void OnEvent(Event e)
@@ -17,7 +25,6 @@ public class M_ButtonPress : M_EventBase
             if (eventList[i].eventType == e)
             {
                 M_Button targetButton = eventList[i].targetButton;
-                M_Screen screen = transform.GetComponentInParent<M_Screen>();
                 if (targetButton == null)
                     break;
 

@@ -37,8 +37,8 @@ public class M_Screen : MonoBehaviour
     private M_Button currentButton;
 
 
-    //Data
 
+    //Data
     private bool CanSelect
     {
         get
@@ -47,32 +47,15 @@ public class M_Screen : MonoBehaviour
         }
         set
         {
-            if (!value && canSelect)
-            {
-                StartCoroutine(ResetCanSelect());
-            }
+            //if (!value && canSelect)
+            //{
+            //    StartCoroutine(ResetCanSelect());
+            //}
 
             canSelect = value;
         }
     }
     private bool canSelect;
-
-    private bool CanPress
-    {
-        get
-        {
-            return canPress;
-        }
-        set
-        {
-            //if (!value && canPress)
-            //    StartCoroutine(ResetCanPress());
-
-            canPress = value;
-        }
-    }
-    private bool canPress;
-
     
     //Static
     public static float selectionDelay = 0.2f;
@@ -85,7 +68,6 @@ public class M_Screen : MonoBehaviour
     void Start()
     {
         CanSelect = true;
-        CanPress = true;
         HighlightDefaultButton();
 
         OnStart();
@@ -104,25 +86,32 @@ public class M_Screen : MonoBehaviour
             return;
 
         //Stick input
+        Vector2 input = GameManager.GetInput(playerControl + "HL", playerControl + "VL");
         if (CanSelect)
         {
-            Vector2 input = GameManager.GetInput(playerControl + "HL", playerControl + "VL");
-            if (input.x < -0.8f)
+            if (input.x < -0.9f)
             {
                 CanSelect = !SendEventToCurrentButton(Event.OnStickLeft);
             }
-            else if (input.x > 0.8f)
+            else if (input.x > 0.9f)
             {
                 CanSelect = !SendEventToCurrentButton(Event.OnStickRight);
             }
-            else if (input.y > 0.8f)
+            else if (input.y > 0.9f)
             {
                 CanSelect = !SendEventToCurrentButton(Event.OnStickUp);
             }
-            else if (input.y < -0.8f)
+            else if (input.y < -0.9f)
             {
                 CanSelect = !SendEventToCurrentButton(Event.OnStickDown);
             }
+        }
+        else
+        {
+            if ((input.x > -0.1f && input.x < 0.1f) && (input.y > -0.1f && input.y < 0.1f))
+                CanSelect = true;
+            else if ((input.y > -0.1f && input.y < 0.1f) && (input.x > -0.1f && input.x < 0.1f))
+                CanSelect = true;
         }
 
         //Button select input
@@ -132,24 +121,15 @@ public class M_Screen : MonoBehaviour
         else if (GameManager.PS4)
             control = "PS";
 
-        float buttonPress = Input.GetAxis(playerControl + "MenuSelect" + control);
-        if (buttonPress > 0)
+        bool selectPress = Input.GetButtonDown(playerControl + "MenuSelect" + control);
+        bool returnPress = Input.GetButtonDown(playerControl + "MenuReturn" + control);
+        if (selectPress)
         {
             Press();
         }
-        else if (buttonPress < 0)
+        else if (returnPress)
         {
             Return();
-        }
-
-
-        //Reset can press
-        if (!CanPress)
-        {
-            if (Input.GetButtonUp(playerControl + "MenuSelect" + control))
-            {
-                CanPress = true;
-            }
         }
 
         OnUpdate();
@@ -164,7 +144,6 @@ public class M_Screen : MonoBehaviour
     {
         Invoke("Activate", 0.2f);
         HighlightDefaultButton();
-        CanPress = true;
 
         M_Screen[] subScreens = transform.GetComponentsInChildren<M_Screen>();
 
@@ -218,12 +197,6 @@ public class M_Screen : MonoBehaviour
 
         CanSelect = true;
     }
-    IEnumerator ResetCanPress()
-    {
-        yield return new WaitForSeconds(pressDelay);
-
-        canPress = true;
-    }
     void HighlightDefaultButton()
     {
         if (entryButton == null)
@@ -237,17 +210,21 @@ public class M_Screen : MonoBehaviour
     }
     bool Press()
     {
-        if (!CanPress || currentButton == null)
-            return false;
+        //if (!CanPress || currentButton == null)
+        //    return false;
 
-        CanPress = false;
+        //CanPress = false;
+        if (currentButton == null)
+            return false;
         return SendEventToCurrentButton(Event.OnPress);
     }
     bool Return()
     {
-        if (!CanPress || currentButton == null)
+        //if (!CanPress || currentButton == null)
+        //    return false;
+        //CanPress = false;
+        if (currentButton == null)
             return false;
-        CanPress = false;
         return SendEventToCurrentButton(Event.OnReturn);
     }
     void Activate()
@@ -255,10 +232,6 @@ public class M_Screen : MonoBehaviour
         active = true;
     }
 
-    public void SetCanPressValue(bool value)
-    {
-        CanPress = value;
-    }
     public void SwitchButton(M_Button targetButton)
     {
         if (SendEventToCurrentButton(Event.OnDeSelect))
@@ -274,10 +247,9 @@ public class M_Screen : MonoBehaviour
     }
     public void PressButton(M_Button targetButton)
     {
-        if (!CanPress || targetButton == null)
+        if (targetButton == null)
             return;
 
-        CanPress = false;
         SendEventToObject(Event.OnPress, targetButton.gameObject);
         StopCoroutine("UnPressButton");
         StartCoroutine(UnPressButton(targetButton));

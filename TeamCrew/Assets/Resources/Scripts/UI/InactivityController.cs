@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class InactivityController : MonoBehaviour 
 {
     //Data
-    public float inactivitySecondLimit = 6;
-    private float inactivityTimer;
-    private bool started;
+    public float signLimit;
+    public float frogInactivityLimit = 6;
+    private float signTimer;
+    public bool active;
 
     //Components
 
@@ -31,27 +32,26 @@ public class InactivityController : MonoBehaviour
         gameManager = transform.parent.GetComponent<GameManager>();
         respawn = transform.parent.GetComponent<Respawn>();
 
-        inactivityTimer = inactivitySecondLimit * 1.5f;
-
         ResetVariables();
 	}
+
     private void ResetVariables()
     {
+        signTimer = signLimit;
+
         for (int i = 0; i < inactivityScripts.Length; i++)
         {
             inactivityScripts[i].frog = "P" + (i + 1).ToString();
-            inactivityScripts[i].inactivityLimit = inactivitySecondLimit;
-            inactivityScripts[i].inactivityTimer = inactivitySecondLimit;
+            inactivityScripts[i].limit = frogInactivityLimit;
         }
     }
-
     public void OnGameStart()
     {
         for (int i = 0; i < GameManager.players.Length; i++)
         {
             if (GameManager.players[i] != null)
             {
-                inactivityScripts[i].inactivityTimer = 0;
+                inactivityScripts[i].timer = 0;
             }
         }
     }
@@ -68,39 +68,41 @@ public class InactivityController : MonoBehaviour
             gameManager.DestroyFrogs();
             gameManager.DestroyTopFrog();
             gameManager.ResetGameVariables();
-            //gameObject.SetActive(false);
+            gameManager.DestroyCurrentLevel(true);
             return;
         }
 
-        if (!gameManager.gameActive || gameManager.designTestingEnabled)
+        if (!active)
             return;
 
         //Search for how many frogs are inactive
         int inactivityFrogCounter = 0;
         for (int i = 0; i < inactivityScripts.Length; i++)
         {
-            if (inactivityScripts[i] != null)
-            {
-                inactivityScripts[i].inactivityTimer += Time.deltaTime;
+            if (inactivityScripts[i] == null)
+                continue;
 
-                if (inactivityScripts[i].IsInactive)
-                {
-                    inactivityFrogCounter++;
-                }
+            InactivityFrog frog = inactivityScripts[i];
+            frog.timer += Time.deltaTime;
+
+            if (frog.IsInactive)
+            {
+                inactivityFrogCounter++;
             }
         }
 
+        //If all frogs are inactive
         if (inactivityFrogCounter >= inactivityScripts.Length)
         {
             //Activate inactivity text
             inactivityText.transform.parent.gameObject.SetActive(true);
-            inactivityTimer -= Time.deltaTime;
+            signTimer -= Time.deltaTime;
 
             //Update inactivity text
-            inactivityText.text = "Inactivity! \n Returning to main menu in " + Mathf.RoundToInt(inactivityTimer) + "...";
+            inactivityText.text = "Inactivity! \n Returning to main menu in " + Mathf.RoundToInt(signTimer) + "...";
 
             //Return to menu
-            if (inactivityTimer <= 0)
+            if (signTimer <= 1)
             {
                 for (int i = 0; i < inactivityScripts.Length; i++)
                 {
@@ -112,10 +114,10 @@ public class InactivityController : MonoBehaviour
         {
             //Disable inactivity text
             inactivityText.transform.parent.gameObject.SetActive(false);
-            inactivityTimer = 5;
+            signTimer = signLimit;
         }
 
-
+            
         //Deactivate inactivity with input from players
         for (int i = 0; i < inactivityScripts.Length; i++)
         {
@@ -134,22 +136,27 @@ public class InactivityController : MonoBehaviour
         Vector3 input2 = GameManager.GetInput(player + "HR", player + "VR");
         bool button = GameManager.GetGrip(player + "GL");
         bool button2 = GameManager.GetGrip(player + "GR");
-        if (input != Vector3.zero || input2 != Vector3.zero || button || button2 || (GameManager.Hacks && Input.GetMouseButton(0)))
+        bool button3 = Input.GetButtonDown(player + "MenuSelectX");
+        bool button4 = Input.GetButtonDown(player + "MenuReturnX");
+
+        if (input != Vector3.zero || input2 != Vector3.zero || button || button2 || button3 || button4 || (GameManager.Hacks && Input.GetMouseButton(0)))
         {
             string sub = player.Split('P').Last();
             int frog = int.Parse(sub) - 1;
 
-            if (!gameManager.tutorialComplete)
-            {
-                if (GameManager.players[frog] != null)
-                {
-                    inactivityScripts[frog].inactivityTimer = 0;
-                }
-            }
-            else
-            {
-                inactivityScripts[frog].inactivityTimer = 0;
-            }
+            inactivityScripts[frog].timer = 0;
+        }
+    }
+    public void SetActiveValue(bool value, float newLimit)
+    {
+        frogInactivityLimit = newLimit;
+        active = value;
+
+        if (!active)
+        {
+            ResetVariables();
+            OnGameStart();
+            inactivityText.transform.parent.gameObject.SetActive(false);
         }
     }
 }
