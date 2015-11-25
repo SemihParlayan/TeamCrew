@@ -1571,9 +1571,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109486}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.080694899, y: -.0315848589, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -.598263144, w: .801299691}
+  m_LocalPosition: {x: -.023, y: .0170000009, z: 0}
+  m_LocalScale: {x: -.818567395, y: .818567276, z: .818567276}
   m_Children:
   - {fileID: 471616}
   m_Father: {fileID: 464556}
@@ -1891,7 +1891,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.6893559, y: -28.2900009, z: 0}
+  m_LocalPosition: {x: 250.762344, y: 52.9186974, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 413434}
@@ -1915,9 +1915,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120290}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.080694899, y: -.0315848589, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -.49806875, w: .867137611}
+  m_LocalPosition: {x: -2.76789069e-06, y: -.0239948593, z: 0}
+  m_LocalScale: {x: -.732207298, y: .732207298, z: .732207298}
   m_Children:
   - {fileID: 431068}
   m_Father: {fileID: 426372}
@@ -2753,7 +2753,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143918}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3082,7 +3082,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120290}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3093,14 +3093,14 @@ MonoBehaviour:
   - {fileID: 11461732}
   connectedBody: {fileID: 5045482}
   anchor: {x: 0, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: P2
 --- !u!114 &11477794
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169116}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3208,7 +3208,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109486}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -3219,7 +3219,7 @@ MonoBehaviour:
   - {fileID: 11411762}
   connectedBody: {fileID: 5042910}
   anchor: {x: -.0799999982, y: 0}
-  parentedPlayer: P1
+  parentedPlayer: P2
 --- !u!114 &11498450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8689,7 +8689,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120290}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -8707,7 +8707,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1825891293
   m_SortingOrder: -2
-  m_Sprite: {fileID: 21300018, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eecacf9325e99e04a9a0d32352900128, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21211276
 SpriteRenderer:
@@ -9079,7 +9079,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109486}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -9097,7 +9097,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1825891293
   m_SortingOrder: -2
-  m_Sprite: {fileID: 21300018, guid: fe451e2b9b035ee419955b81d94e4b13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eecacf9325e99e04a9a0d32352900128, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21276776
 SpriteRenderer:
