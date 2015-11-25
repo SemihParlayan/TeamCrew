@@ -99,14 +99,14 @@ public class FrogPrototype : MonoBehaviour
 
 
         leftHandSoundChooser = leftGripScript.GetComponentInChildren<RandomSoundFromList>();
-        if (leftHandSoundChooser == null) { Debug.Log("leftHandSoundChooser is null"); }
+        //if (leftHandSoundChooser == null) { Debug.Log("leftHandSoundChooser is null"); }
 
         velVolLeft = leftGripScript.GetComponentInChildren<VelocityVolume>();
-        if (velVolLeft == null) { Debug.Log("velVolLeft is null"); }
+        //if (velVolLeft == null) { Debug.Log("velVolLeft is null"); }
 
 
         rightHandSoundChooser = rightGripScript.GetComponentInChildren<RandomSoundFromList>();
-        if (rightHandSoundChooser == null) { Debug.Log("rightHandSoundChooser is null"); }
+        //if (rightHandSoundChooser == null) { Debug.Log("rightHandSoundChooser is null"); }
 
         velVolRight = rightGripScript.GetComponentInChildren<VelocityVolume>();
 

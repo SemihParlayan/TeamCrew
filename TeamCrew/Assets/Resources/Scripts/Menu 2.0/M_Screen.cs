@@ -65,8 +65,8 @@ public class M_Screen : MonoBehaviour
         }
         set
         {
-            if (!value && canPress)
-                StartCoroutine(ResetCanPress());
+            //if (!value && canPress)
+            //    StartCoroutine(ResetCanPress());
 
             canPress = value;
         }
@@ -142,12 +142,21 @@ public class M_Screen : MonoBehaviour
             Return();
         }
 
+
+        //Reset can press
+        if (!CanPress)
+        {
+            if (Input.GetButtonUp(playerControl + "MenuSelect" + control))
+            {
+                CanPress = true;
+            }
+        }
+
         OnUpdate();
     }
 
     protected virtual void OnUpdate()
     {
-
     }
 
     //Events
@@ -155,6 +164,7 @@ public class M_Screen : MonoBehaviour
     {
         Invoke("Activate", 0.2f);
         HighlightDefaultButton();
+        CanPress = true;
 
         M_Screen[] subScreens = transform.GetComponentsInChildren<M_Screen>();
 
@@ -245,6 +255,10 @@ public class M_Screen : MonoBehaviour
         active = true;
     }
 
+    public void SetCanPressValue(bool value)
+    {
+        CanPress = value;
+    }
     public void SwitchButton(M_Button targetButton)
     {
         if (SendEventToCurrentButton(Event.OnDeSelect))

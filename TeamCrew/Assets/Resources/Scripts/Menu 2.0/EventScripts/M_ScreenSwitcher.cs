@@ -30,6 +30,10 @@ public class M_ScreenSwitcher : M_EventBase
                     break;
 
                 screen.SwitchScreen(targetScreen);
+                if (e == Event.OnPress)
+                {
+                    targetScreen.SetCanPressValue(false);
+                }
             }
         }
     }
