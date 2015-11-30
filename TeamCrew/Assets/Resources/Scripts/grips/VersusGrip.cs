@@ -3,7 +3,7 @@ using System.Collections;
 
 public class VersusGrip : MovingGrip 
 {
-    public string parentedPlayer;
+    public int parentedPlayer;
 
 	void Start () 
     {

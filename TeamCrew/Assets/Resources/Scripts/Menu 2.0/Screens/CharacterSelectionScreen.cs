@@ -61,7 +61,7 @@ public class CharacterSelectionScreen : M_Screen
 
         if (CanContinue)
         {
-            if (Input.GetButtonDown("StartX") || Input.GetButtonDown("StartPS"))
+            if (GameManager.GetButtonPress(XboxButton.Start))
             {
                 bigReadyAnimator.SetBool("PlayersReady", false);    
                 ContinueToModeSelection();
@@ -209,7 +209,7 @@ public class CharacterSelectionScreen : M_Screen
 
                 FrogPrototype frog = prefabFrogs[testIndex];
                 FrogPrototype topFrog = frog.topPrefab.FindChild("body").GetComponent<FrogPrototype>();
-                frog.player = topFrog.player = "P" + (i + 1).ToString();
+                frog.player = topFrog.player = i;
 
                 respawn.respawnScripts[i].prefab = frog.transform.parent;
                 respawn.respawnScripts[i].arrow.color = frog.respawnArrowColor;
@@ -218,7 +218,7 @@ public class CharacterSelectionScreen : M_Screen
 
             FrogPrototype frogScript = prefabFrogs[selectedFrogs[i].index];
             FrogPrototype topFrogScript = frogScript.topPrefab.FindChild("body").GetComponent<FrogPrototype>();
-            frogScript.player = topFrogScript.player =  "P" + (i + 1).ToString();
+            frogScript.player = topFrogScript.player =  i;
 
             respawn.respawnScripts[i].prefab = frogScript.transform.parent;
             respawn.respawnScripts[i].arrow.color = frogScript.respawnArrowColor;
@@ -246,7 +246,7 @@ public class CharacterSelectionScreen : M_Screen
 
         for (int i = 0; i < prefabFrogs.Count; i++)
         {
-            prefabFrogs[i].player = string.Empty;
+            prefabFrogs[i].player = int.MaxValue;
             Transform t = Instantiate(prefabFrogs[i].characterSelectPrefab, Vector3.zero, Quaternion.identity) as Transform;
             t.gameObject.SetActive(false);
             availableFrogs.Add(t);

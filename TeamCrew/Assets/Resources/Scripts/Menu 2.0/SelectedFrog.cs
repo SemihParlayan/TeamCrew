@@ -11,11 +11,11 @@ public class SelectedFrog : MonoBehaviour
     public Transform spawnPosition;
 
     public int index;
-    private string player = "";
+    private int player = int.MaxValue;
 
     void Awake()
     {
-        player = GetComponent<M_Screen>().playerControl;
+        player = GetComponent<M_Screen>().player;
     }
     void Start()
     {

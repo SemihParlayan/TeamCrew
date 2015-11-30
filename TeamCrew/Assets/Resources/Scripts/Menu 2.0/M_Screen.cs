@@ -29,7 +29,7 @@ public class M_Screen : MonoBehaviour
     [HideInInspector]
     public bool active;
     public bool subScreen;
-    public string playerControl = "P1";
+    public int player = 1;
     public M_Button entryButton;
     public ScreenMovementProperties movementProperties;
 
@@ -86,7 +86,7 @@ public class M_Screen : MonoBehaviour
             return;
 
         //Stick input
-        Vector2 input = GameManager.GetInput(playerControl + "HL", playerControl + "VL");
+        Vector2 input = GameManager.GetThumbStick(XboxThumbStick.Left, player);
         if (CanSelect)
         {
             if (input.x < -0.9f)
@@ -115,14 +115,8 @@ public class M_Screen : MonoBehaviour
         }
 
         //Button select input
-        string control = string.Empty;
-        if (GameManager.Xbox)
-            control = "X";
-        else if (GameManager.PS4)
-            control = "PS";
-
-        bool selectPress = Input.GetButtonDown(playerControl + "MenuSelect" + control);
-        bool returnPress = Input.GetButtonDown(playerControl + "MenuReturn" + control);
+        bool selectPress = GameManager.GetButtonPress(XboxButton.A, player);
+        bool returnPress = GameManager.GetButtonPress(XboxButton.B, player);
         if (selectPress)
         {
             Press();

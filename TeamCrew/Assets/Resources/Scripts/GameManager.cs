@@ -3,52 +3,248 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
+using XInputDotNetPure;
 
+public enum GripSide
+{
+    Both,
+    Left,
+    Right
+}
+public enum XboxButton
+{
+    A,
+    B,
+    Back,
+    Guide,
+    LeftShoulder,
+    LeftStick,
+    RightShoulder,
+    RightStick,
+    Start,
+    X,
+    Y
+}
+public enum XboxThumbStick
+{
+    Left,
+    Right
+}
+public class Controller
+{
+    public PlayerIndex player;
+    public GamePadState currentState;
+    public GamePadState previousState;
+
+    public Controller(GamePadState state, PlayerIndex player)
+    {
+        this.currentState = state;
+        this.player = player;
+    }
+
+    public bool GetButtonPress(XboxButton button)
+    {
+        switch (button)
+        {
+            case XboxButton.A:
+                return previousState.Buttons.A == ButtonState.Released && currentState.Buttons.A == ButtonState.Pressed;
+            case XboxButton.B:
+                return previousState.Buttons.B == ButtonState.Released && currentState.Buttons.B == ButtonState.Pressed;
+            case XboxButton.Back:
+                return previousState.Buttons.Back == ButtonState.Released && currentState.Buttons.Back == ButtonState.Pressed;
+            case XboxButton.Guide:
+                return previousState.Buttons.Guide == ButtonState.Released && currentState.Buttons.Guide == ButtonState.Pressed;
+            case XboxButton.LeftShoulder:
+                return previousState.Buttons.LeftShoulder == ButtonState.Released && currentState.Buttons.LeftShoulder == ButtonState.Pressed;
+            case XboxButton.LeftStick:
+                return previousState.Buttons.LeftStick == ButtonState.Released && currentState.Buttons.LeftStick == ButtonState.Pressed;
+            case XboxButton.RightShoulder:
+                return previousState.Buttons.RightShoulder == ButtonState.Released && currentState.Buttons.RightShoulder == ButtonState.Pressed;
+            case XboxButton.RightStick:
+                return previousState.Buttons.RightStick == ButtonState.Released && currentState.Buttons.RightStick == ButtonState.Pressed;
+            case XboxButton.Start:
+                return previousState.Buttons.Start == ButtonState.Released && currentState.Buttons.Start == ButtonState.Pressed;
+            case XboxButton.X:
+                return previousState.Buttons.X == ButtonState.Released && currentState.Buttons.X == ButtonState.Pressed;
+            case XboxButton.Y:
+                return previousState.Buttons.Y == ButtonState.Released && currentState.Buttons.Y == ButtonState.Pressed;
+            default:
+                return false;
+        }
+    }
+    public bool GetButtonRelease(XboxButton button)
+    {
+        switch (button)
+        {
+            case XboxButton.A:
+                return previousState.Buttons.A == ButtonState.Pressed && currentState.Buttons.A == ButtonState.Released;
+            case XboxButton.B:
+                return previousState.Buttons.B == ButtonState.Pressed && currentState.Buttons.B == ButtonState.Released;
+            case XboxButton.Back:
+                return previousState.Buttons.Back == ButtonState.Pressed && currentState.Buttons.Back == ButtonState.Released;
+            case XboxButton.Guide:
+                return previousState.Buttons.Guide == ButtonState.Pressed && currentState.Buttons.Guide == ButtonState.Released;
+            case XboxButton.LeftShoulder:
+                return previousState.Buttons.LeftShoulder == ButtonState.Pressed && currentState.Buttons.LeftShoulder == ButtonState.Released;
+            case XboxButton.LeftStick:
+                return previousState.Buttons.LeftStick == ButtonState.Pressed && currentState.Buttons.LeftStick == ButtonState.Released;
+            case XboxButton.RightShoulder:
+                return previousState.Buttons.RightShoulder == ButtonState.Pressed && currentState.Buttons.RightShoulder == ButtonState.Released;
+            case XboxButton.RightStick:
+                return previousState.Buttons.RightStick == ButtonState.Pressed && currentState.Buttons.RightStick == ButtonState.Released;
+            case XboxButton.Start:
+                return previousState.Buttons.Start == ButtonState.Pressed && currentState.Buttons.Start == ButtonState.Released;
+            case XboxButton.X:
+                return previousState.Buttons.X == ButtonState.Pressed && currentState.Buttons.X == ButtonState.Released;
+            case XboxButton.Y:
+                return previousState.Buttons.Y == ButtonState.Pressed && currentState.Buttons.Y == ButtonState.Released;
+            default:
+                return false;
+        }
+    }
+}
 public class GameManager : MonoBehaviour
 {
-    //Static variables and properties
-    public static Vector3 GetInput(string horizontalInput, string verticalInput)
+    //Xinput
+    public static bool controllersAreSet;
+    public static Controller[] controllers = new Controller[4];
+    public static Vector2 GetThumbStick(XboxThumbStick stick, int playerNumber = -1)
     {
-        if (!horizontalInput.Contains("P") || !verticalInput.Contains("P"))
-            return Vector3.zero;
+        if (playerNumber < -1 || playerNumber > controllers.Length - 1)
+        {
+            Debug.Log("Tried to access controller: " + playerNumber + ", out of range");
+            return Vector2.zero;
+        }
 
-        if (Xbox)
+        if (playerNumber == -1)
         {
-            horizontalInput += "X";
-            verticalInput += "X";
+            for (int i = 0; i < controllers.Length; i++)
+            {
+                if (controllers[i] == null)
+                    continue;
+
+                if (stick == XboxThumbStick.Left)
+                {
+                    return new Vector2(controllers[i].currentState.ThumbSticks.Left.X, controllers[i].currentState.ThumbSticks.Left.Y);
+                }
+                else
+                {
+                    return new Vector2(controllers[i].currentState.ThumbSticks.Right.X, controllers[i].currentState.ThumbSticks.Right.Y);
+                }
+            }
         }
-        else if (PS4)
+        else
         {
-            horizontalInput += "PS";
-            verticalInput += "PS";
+            if (controllers[playerNumber] != null)
+            {
+                if (stick == XboxThumbStick.Left)
+                {
+                    return new Vector2(controllers[playerNumber].currentState.ThumbSticks.Left.X, controllers[playerNumber].currentState.ThumbSticks.Left.Y);
+                }
+                else
+                {
+                    return new Vector2(controllers[playerNumber].currentState.ThumbSticks.Right.X, controllers[playerNumber].currentState.ThumbSticks.Right.Y);
+                }
+            }
         }
-        Vector3 input = new Vector3(Input.GetAxis(horizontalInput), Input.GetAxis(verticalInput));
-        return input;
+
+        return Vector2.zero;
     }
-    public static bool GetGrip(string axis)
+    public static bool GetButtonPress(XboxButton button, int playerNumber = -1)
     {
-        
-        if (!axis.Contains("P"))
-            return false;
-        bool button = Input.GetButton(axis);
-        if (button)
+        if (playerNumber < -1 || playerNumber > controllers.Length - 1)
         {
-            return true;
+            Debug.Log("Tried to access controller: " + playerNumber + ", out of range");
+            return false;
         }
 
-        float trigger = 0.0f;
-        if (Xbox)
-            trigger = Input.GetAxis(axis + "X");
-        else if (PS4)
-            trigger = Input.GetAxis(axis + "PS");
-
-        if (trigger >= 0.2f)
-            return true;
-
+        if (playerNumber == -1)
+        {
+            for (int i = 0; i < controllers.Length; i++)
+            {
+                if (controllers[i] != null)
+                {
+                    if (controllers[i].GetButtonPress(button))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (controllers[playerNumber] != null)
+            {
+                return controllers[playerNumber].GetButtonPress(button);
+            }
+        }
 
         return false;
     }
+    public static bool GetButtonRelease(XboxButton button, int playerNumber = -1)
+    {
+        if (playerNumber < -1 || playerNumber > controllers.Length - 1)
+        {
+            Debug.Log("Tried to access controller: " + playerNumber + ", out of range");
+            return false;
+        }
 
+        if (playerNumber == -1)
+        {
+            for (int i = 0; i < controllers.Length; i++)
+            {
+                if (controllers[i] != null)
+                {
+                    if (controllers[i].GetButtonRelease(button))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (controllers[playerNumber] != null)
+            {
+                return controllers[playerNumber].GetButtonRelease(button);
+            }
+        }
+
+        return false;
+    }
+    public static bool GetGrip(int player, GripSide button = GripSide.Both)
+    {
+        if (controllers[player] == null)
+            return false;
+        Controller c = controllers[player];
+
+        switch (button)
+        {
+            case GripSide.Left:
+                return (c.currentState.Buttons.LeftShoulder == ButtonState.Pressed || c.currentState.Triggers.Left > 0);
+
+            case GripSide.Right:
+                return (c.currentState.Buttons.RightShoulder == ButtonState.Pressed || c.currentState.Triggers.Right > 0);
+
+            case GripSide.Both:
+                {
+                    bool gripped = false;
+                    if (c.currentState.Buttons.LeftShoulder == ButtonState.Pressed || c.currentState.Buttons.RightShoulder == ButtonState.Pressed)
+                        gripped = true;
+                    if (c.currentState.Triggers.Left > 0 || c.currentState.Triggers.Right > 0)
+                        gripped = true;
+
+                    return gripped;
+                }
+
+            default:
+                return false;
+        }
+    }
+
+    
+    
+    //Static variables and properties
     public static bool GetButtonDown(string buttonName)
     {
         if (Xbox)
@@ -67,7 +263,7 @@ public class GameManager : MonoBehaviour
         if (!Hacks)
             return false;
 
-        return ((Xbox && Input.GetButtonDown("SelectX")) || (PS4 && Input.GetButtonDown("SelectPS")) || (Input.GetKeyDown(KeyCode.B)));
+        return (GetButtonPress(XboxButton.Back));
     }
     public static bool Hacks;
     public static bool Xbox;
@@ -204,6 +400,7 @@ public class GameManager : MonoBehaviour
     //Update method
     void Update()
     {
+        UpdateControllers();
         RestartGame();
         CheckForTutorialComplete();
         //CheckForCameraPanComplete();
@@ -549,23 +746,62 @@ public class GameManager : MonoBehaviour
 
 
     //Methods called from Update constantly
+    public void UpdateControllers()
+    {
+        //SET CONTROLLERS
+        if (!controllersAreSet)
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                PlayerIndex player = (PlayerIndex)(i);
+                GamePadState state = GamePad.GetState(player);
+                if (state.IsConnected)
+                {
+                    controllers[i] = new Controller(state, player);
+                    Debug.Log("GamePad '" + player.ToString() + "' found & registered!");
+                }
+            }
+            controllersAreSet = true;
+        }
+
+
+
+        //UPDATE CONTROLLERS
+        for (int i = 0; i < controllers.Length; i++)
+        {
+            if (controllers[i] == null)
+                continue;
+            Controller c = controllers[i];
+
+            //Set previous state
+            c.previousState = c.currentState;
+
+            //Get new state
+            c.currentState = GamePad.GetState(c.player);
+        }
+
+    }
+
     /// <summary>
     /// Reloads the current scene loaded.
     /// </summary>
     private void RestartGame()
     {
+        if (!Hacks)
+            return;
+
         //Restart game with Xbox 360 Controller
         if (GameManager.Xbox)
         {
-            if (Input.GetButtonDown("RestartX"))
+            if (GetButtonPress(XboxButton.Y))
                 Application.LoadLevel(Application.loadedLevel);
         }
-        //Restart game with PS4 controller
-        else if (GameManager.PS4)
-        {
-            if (Input.GetButtonDown("StartPS"))
-                Application.LoadLevel(Application.loadedLevel);
-        }
+        ////Restart game with PS4 controller
+        //else if (GameManager.PS4)
+        //{
+        //    if (Input.GetButtonDown("StartPS"))
+        //        Application.LoadLevel(Application.loadedLevel);
+        //}
     }
 
     /// <summary>

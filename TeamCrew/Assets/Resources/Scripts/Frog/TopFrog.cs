@@ -46,8 +46,8 @@ public class TopFrog : MonoBehaviour
                 champagne.gameObject.SetActive(true);
             }
         }
-        ControlHand(GameManager.GetInput(player + "HL", player + "VL"), leftBody, leftHand, leftHandNeutral, leftHandOrigin);
-        ControlHand(GameManager.GetInput(player + "HR", player + "VR"), rightBody, rightHand, rightHandNeutral, rightHandOrigin);
+        //ControlHand(GameManager.GetInput(player + "HL", player + "VL"), leftBody, leftHand, leftHandNeutral, leftHandOrigin);
+        //ControlHand(GameManager.GetInput(player + "HR", player + "VR"), rightBody, rightHand, rightHandNeutral, rightHandOrigin);
 	}
 
     void ControlHand(Vector3 input, Rigidbody2D body, Transform hand, Transform handNeutral, Transform handOrigin)

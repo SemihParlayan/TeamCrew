@@ -22,7 +22,8 @@ public class HandGrip : MonoBehaviour
     public float lastGripTime;
 
     //Axis of which to grip with
-    public string axis;
+    public int player = int.MaxValue;
+    public GripSide hand;
 
     //Sprites for different hand states
     private SpriteRenderer spriteRenderer;
@@ -94,7 +95,7 @@ public class HandGrip : MonoBehaviour
         versusGripController = GetComponent<VersusGripController>();
 
         //Set correct axis controller
-        axis = transform.parent.parent.FindChild("body").GetComponent<FrogPrototype>().player + axis;
+        player = transform.parent.parent.FindChild("body").GetComponent<FrogPrototype>().player;
 	}
 
 	void Update ()
@@ -112,7 +113,7 @@ public class HandGrip : MonoBehaviour
         }
 
         isGripping = false;
-        if (GameManager.GetGrip(axis) || hackGrip) //Grip button down is down
+        if (GameManager.GetGrip(player, hand) || hackGrip) //Grip button down is down
         {
             //Set gripping to true
             isGripping = true;
@@ -124,7 +125,7 @@ public class HandGrip : MonoBehaviour
                 gripAnimation.Activate("air");
             }
         }
-        else if (lastGripValue && ! (GameManager.GetGrip(axis) || hackGrip)) //Grip button goes up
+        else if (lastGripValue && !(GameManager.GetGrip(player, hand) || hackGrip)) //Grip button goes up
         {
             if (!handIsLocked)
             {
@@ -145,7 +146,7 @@ public class HandGrip : MonoBehaviour
             }
         }
 
-        lastGripValue = GameManager.GetGrip(axis) || hackGrip;
+        lastGripValue = GameManager.GetGrip(player, hand) || hackGrip;
 	}
     bool AllowGrip(Grip newGrip)
     {
@@ -154,11 +155,8 @@ public class HandGrip : MonoBehaviour
             return false;
         }
 
-        //Find name of the hand
-        string holdername = axis.Substring(0, 2);
-
         //Check for grip input
-        if ((GameManager.GetGrip(axis) || hackGrip) && !isOnGrip)
+        if ((GameManager.GetGrip(player, hand) || hackGrip) && !isOnGrip)
         {
             //Aquire grip point
             gripPoint = newGrip.GetClosestGrip(transform.position);
@@ -171,7 +169,7 @@ public class HandGrip : MonoBehaviour
                     VersusGrip versusGrip = newGrip as VersusGrip;
 
                     //VERSUS GRIP
-                    if (versusGrip.parentedPlayer != holdername)
+                    if (versusGrip.parentedPlayer != player)
                     {
                         if (allowVersusGrab)
                         {
@@ -217,8 +215,7 @@ public class HandGrip : MonoBehaviour
                     {
                         if (gameManager)
                         {
-                            int frogNumber = int.Parse(axis[1].ToString());
-                            gameManager.Win(transform.parent.parent.GetComponentInChildren<FrogPrototype>().topPrefab, frogNumber);
+                            gameManager.Win(transform.parent.parent.GetComponentInChildren<FrogPrototype>().topPrefab, player);
                         }
                     }
                     else if (newGrip.tutorialStart)

@@ -27,7 +27,7 @@ public class GripMagnet : MonoBehaviour
 	void Update () 
     {
         magnetDir = Vector3.zero;
-        if (grip && GameManager.GetGrip(gripScript.axis))
+        if (grip && gripScript.isGripping)
         {
             magnetDir = grip.position - transform.position;
             magnetDir.Normalize();

@@ -121,7 +121,7 @@ public class InactivityController : MonoBehaviour
         //Deactivate inactivity with input from players
         for (int i = 0; i < inactivityScripts.Length; i++)
         {
-            DeactivateOnInput("P" + (i + 1));
+            DeactivateOnInput(i);
         }
 
         //Set respawn script values
@@ -130,21 +130,19 @@ public class InactivityController : MonoBehaviour
             respawn.respawnScripts[i].inactive = inactivityScripts[i].IsInactive;
         }
 	}
-    private void DeactivateOnInput(string player)
+    private void DeactivateOnInput(int player)
     {
-        Vector3 input = GameManager.GetInput(player + "HL", player + "VL");
-        Vector3 input2 = GameManager.GetInput(player + "HR", player + "VR");
-        bool button = GameManager.GetGrip(player + "GL");
-        bool button2 = GameManager.GetGrip(player + "GR");
-        bool button3 = Input.GetButtonDown(player + "MenuSelectX");
-        bool button4 = Input.GetButtonDown(player + "MenuReturnX");
+        Vector3 leftStick = GameManager.GetThumbStick(XboxThumbStick.Left, player);
+        Vector3 rightStick = GameManager.GetThumbStick(XboxThumbStick.Right, player);
+        bool button = GameManager.GetGrip(player);
+        bool button2 = GameManager.GetGrip(player);
+        bool button3 = GameManager.GetButtonPress(XboxButton.A, player);
+        bool button4 = GameManager.GetButtonPress(XboxButton.B, player);
+        bool button5 = GameManager.GetButtonPress(XboxButton.Start, player);
 
-        if (input != Vector3.zero || input2 != Vector3.zero || button || button2 || button3 || button4 || (GameManager.Hacks && Input.GetMouseButton(0)))
+        if (leftStick != Vector3.zero || rightStick != Vector3.zero || button || button2 || button3 || button4 || button5 || (GameManager.Hacks && Input.GetMouseButton(0)))
         {
-            string sub = player.Split('P').Last();
-            int frog = int.Parse(sub) - 1;
-
-            inactivityScripts[frog].timer = 0;
+            inactivityScripts[player].timer = 0;
         }
     }
     public void SetActiveValue(bool value, float newLimit)

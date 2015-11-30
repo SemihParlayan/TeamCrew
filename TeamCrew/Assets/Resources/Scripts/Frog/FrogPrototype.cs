@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class FrogPrototype : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class FrogPrototype : MonoBehaviour
     public float speed;
     public float yVelocityClamp = 10;
 
-    public string player;
+    public int player;
     public Emotions emotionsScript;
     public HandGrip[] gripScript;
 
@@ -170,8 +171,8 @@ public class FrogPrototype : MonoBehaviour
             
 
         //Control Hands
-        ControlHand(leftGripScript, GameManager.GetInput(player + "HL", player + "VL"), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
-        ControlHand(rightGripScript, GameManager.GetInput(player + "HR", player +"VR"), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
+        ControlHand(leftGripScript, GameManager.GetThumbStick(XboxThumbStick.Left, player), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
+        ControlHand(rightGripScript, GameManager.GetThumbStick(XboxThumbStick.Right, player), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
 
         //Shake loose body
         ShakeLooseBody();
@@ -298,7 +299,7 @@ public class FrogPrototype : MonoBehaviour
             return;
 
 
-        float vertical = GameManager.GetInput("P1HL", player + "VL").y;
+        float vertical = GameManager.GetThumbStick(XboxThumbStick.Left).y;
 
         if (leftGripScript.isOnWall && vertical != 0)
         {
@@ -306,7 +307,7 @@ public class FrogPrototype : MonoBehaviour
         }
 
 
-        vertical = GameManager.GetInput("P1HL", player + "VR").y;
+        vertical = GameManager.GetThumbStick(XboxThumbStick.Right).y;
 
         if (rightGripScript.isOnWall && vertical != 0) 
         {
