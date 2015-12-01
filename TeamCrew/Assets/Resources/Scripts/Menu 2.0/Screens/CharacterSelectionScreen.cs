@@ -10,12 +10,12 @@ public class CharacterSelectionScreen : M_Screen
 
     //References
     private Animator bigReadyAnimator;
-    public List<Transform> availableFrogs = new List<Transform>();
+    private List<Transform> availableFrogs = new List<Transform>();
     public List<FrogPrototype> prefabFrogs = new List<FrogPrototype>();
 
     //Data
-    public bool[] joinArray = new bool[4];
-    public bool[] readyArray = new bool[4];
+    private bool[] joinArray = new bool[4];
+    private bool[] readyArray = new bool[4];
     public bool CanContinue
     {
         get

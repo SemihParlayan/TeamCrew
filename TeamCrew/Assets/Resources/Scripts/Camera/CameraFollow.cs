@@ -54,15 +54,38 @@ public class CameraFollow : MonoBehaviour
         //Move towards target
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * movementSpeed);
 
-        if (transform.position.y > maxYReached)
-            maxYReached = transform.position.y;
+        //Set maximum Y reached
+        //if (transform.position.y > maxYReached)
+        //    maxYReached = transform.position.y;
 
-        if (transform.position.y < maxYReached - 2)
+
+        //Lock camera from going downwards
+        bool lockCamera = true;
+        for (int i = 0; i < GameManager.players.Length; i++)
         {
-            Vector3 p = transform.position;
-            p.y = targetPosition.y = maxYReached - 2;
+            if (GameManager.players[i] == null)
+                continue;
 
-            transform.position = p;
+            FrogPrototype frog = GameManager.players[i].GetComponent<FrogPrototype>();
+            if (frog.leftGripScript.isOnGrip || frog.rightGripScript.isOnGrip)
+            {
+                lockCamera = false;
+                break;
+            }
+        }
+        if (lockCamera)
+        {
+            if (transform.position.y < maxYReached - 2)
+            {
+                Vector3 p = transform.position;
+                p.y = targetPosition.y = maxYReached - 2;
+
+                transform.position = p;
+            }
+        }
+        else
+        {
+            maxYReached = transform.position.y;
         }
 
         //Set target size

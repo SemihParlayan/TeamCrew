@@ -21,7 +21,7 @@ public class TopFrogSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(timeUntilSpawn);
 
-        float bandageCount = respawnScript.respawnScripts[victoryFrogNumber - 1].deathCount;
+        //float bandageCount = respawnScript.respawnScripts[victoryFrogNumber - 1].deathCount;
         currentTopFrog = Instantiate(topfrogPrefab, spawnPosition, Quaternion.identity) as Transform;
 
         if (currentTopFrog)

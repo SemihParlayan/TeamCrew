@@ -245,19 +245,6 @@ public class GameManager : MonoBehaviour
     
     
     //Static variables and properties
-    public static bool GetButtonDown(string buttonName)
-    {
-        if (Xbox)
-        {
-            return Input.GetButtonDown(buttonName + "X");
-        }
-        else if (PS4)
-        {
-            return Input.GetButtonDown(buttonName + "PS");
-        }
-
-        return false;
-    }
     public static bool GetCheatButton()
     {
         if (!Hacks)
@@ -298,6 +285,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject fireWorks;
 
+    private BandageManager bandageManager;
     public InactivityController inactivityController;
     public PoffMountain poffMountainScript;
     private TutorialBubbles tutorialBubbles;
@@ -388,6 +376,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Can't find a TutorialBubbles script on GameManager object");
         }
 
+        bandageManager = GetComponent<BandageManager>();
+
         readySetGo = GetComponent<ReadySetGo>();
 
         //menuMusicController = ;
@@ -420,7 +410,7 @@ public class GameManager : MonoBehaviour
         DestroyFrogs();
 
         //Reset the bandage counter.
-        GetComponent<BandageManager>().ResetBandages();
+        bandageManager.ResetBandages();
 
         int frogSpawnCount = 0;
         for (int i = 0; i < players.Length; i++)
@@ -561,6 +551,7 @@ public class GameManager : MonoBehaviour
         GoBackToMenu();
 
         //Fade out finalmusic
+        finalStretchMusic.SetStarted(false);
         finalStretchMusic.SetFadeState(FadeState.OUT);
 
         ResetGameVariables();
@@ -850,7 +841,7 @@ public class GameManager : MonoBehaviour
             return;
 
         //Play finalstretch animation if we have climbed 80% of the mountain.
-        bool reachedStretchMarker = (Camera.main.transform.position.y >= LevelHeight - 3);
+        bool reachedStretchMarker = (Camera.main.transform.position.y >= LevelHeight - 15f);
         cameraFollowScript.absoluteFinalStretchZoom = reachedStretchMarker;
 
         if(reachedStretchMarker)
@@ -859,6 +850,7 @@ public class GameManager : MonoBehaviour
             { 
                 playerFinalStretchAnimation = true;
                 finalStretch.SetTrigger("Play");
+                finalStretchMusic.SetStarted(true);
             }
             finalStretchMusic.SetFadeState(FadeState.IN);
         }

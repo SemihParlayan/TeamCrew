@@ -30,9 +30,7 @@ public class LevelGeneration : MonoBehaviour
             if (!menuTutorialBlock)
                 return 0;
 
-            //-16 är 8 på tom top och 8 på tom tutorial
-            return (level.Last().GetEndPosition - menuTutorialBlock.GetComponent<Block>().GetStartCenterPosition).y - 16;
-            //return (menuTutorialBlock.transform.position.y - tut.size.y / 2) + 7.2f;
+            return (level.Last().GetEndCenterPosition).y;
         } 
     }
 
@@ -53,13 +51,6 @@ public class LevelGeneration : MonoBehaviour
         gameManager = GetComponent<GameManager>();
 	}
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            GenerateFullMountain();
-        }
-    }
     public void GenerateFullMountain(bool keepTutorial = false)
     {
         //Remove previouslevel
@@ -129,66 +120,18 @@ public class LevelGeneration : MonoBehaviour
         block = CreateNewBlock(block, BlockDifficulty.Top);
         level.Add(block);
 
-        FixSigns();
-
         //Save current level inside previousLevel
         previousLevel.Clear();
         previousLevel.AddRange(level);
     }
-    public void GenerateMountainSlotmachineStyle()
-    {
-        GenerateFullMountain(true);
-        lockComplete = false;
-        minimumSlotIndex = 1;
-        currentSlotIndex = 1;
 
-        for (int i = 0; i < level.Count; i++)
-        {
-            tmpBlocks.Add(level[i]);
-            level[i].gameObject.SetActive(false);
-        }
-        level[0].gameObject.SetActive(true);
-
-        //SetLevelHeight();
-        InvokeRepeating("IncrementSlotMachine", 0, 0.05f);
-        InvokeRepeating("LockSlotMachine", 0, 2f);
-    }
-    private void IncrementSlotMachine()
-    {
-
-        Block prev = tmpBlocks[currentSlotIndex - 1];
-        Block newBlock = CreateNewBlock(prev, tmpBlocks[currentSlotIndex].difficulty);
-
-        DestroyImmediate(tmpBlocks[currentSlotIndex].gameObject);
-        tmpBlocks[currentSlotIndex] = newBlock;
-
-        currentSlotIndex++;
-        if (currentSlotIndex >= level.Count)
-            currentSlotIndex = minimumSlotIndex;
-    }
-    private void LockSlotMachine()
-    {
-        minimumSlotIndex++;
-
-        if (minimumSlotIndex >= level.Count)
-        {
-            CancelInvoke();
-            level.Clear();
-            level.AddRange(tmpBlocks);
-            tmpBlocks.Clear();
-
-            previousLevel.Clear();
-            previousLevel.AddRange(level);
-            lockComplete = true;
-        }
-    }
     private void FixSigns()
     {
         GameObject[] signs = GameObject.FindGameObjectsWithTag("Sign");
 
         for (int i = 0; i < signs.Length; i++)
         {
-            float y = Mathf.RoundToInt(Mathf.Abs(signs[i].transform.position.y));
+            float y = Mathf.Abs(Mathf.RoundToInt(Mathf.Abs(signs[i].transform.position.y) - LevelHeight));
 
             if (signs[i].transform.childCount == 0)
                 Debug.LogError("Sign is missing a textmesh at: " + signs[i].transform.parent.name);
@@ -394,6 +337,7 @@ public class LevelGeneration : MonoBehaviour
     public void SetLevelHeight()
     {
         GameManager.LevelHeight = LevelHeight;
+        FixSigns();
     }
     public Vector3 GetTopPosition()
     {

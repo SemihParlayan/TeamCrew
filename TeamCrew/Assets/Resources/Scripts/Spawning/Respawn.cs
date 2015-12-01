@@ -70,7 +70,7 @@ public class Respawn : MonoBehaviour
                     script.deathCount++;
                     Destroy(GameManager.players[i].parent.gameObject);
                     GameManager.players[i] = null;
-                    //bandageManager.PlayerOneRespawned();
+                    bandageManager.PlayerRespawned(i);
 
                     if (!screamSource.isPlaying)
                     {

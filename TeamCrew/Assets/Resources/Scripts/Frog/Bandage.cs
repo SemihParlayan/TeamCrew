@@ -13,7 +13,10 @@ public class Bandage : MonoBehaviour
         for (int i = 0; i < numberOfBandages; i++ )
         {
             if (bandageIndex < bandages.Count)
-                bandages[bandageIndex++].SetActive(true);
+            {
+                if (bandages[bandageIndex] != null)
+                    bandages[bandageIndex++].SetActive(true);
+            }
             else
                 break;
         }
@@ -24,7 +27,8 @@ public class Bandage : MonoBehaviour
         bandageIndex = 0;
         for (int i = 0; i < bandages.Count; i++)
         {
-            bandages[i].SetActive(false);
+            if (bandages[i] != null)
+                bandages[i].SetActive(false);
         }
     }
 }
