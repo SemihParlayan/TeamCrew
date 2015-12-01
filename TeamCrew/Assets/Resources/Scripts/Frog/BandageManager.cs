@@ -20,10 +20,6 @@ public class BandageManager : MonoBehaviour
         }
 	}
 
-    public void GameStart()
-    {
-        
-    }
 
     public void PlayerRespawned(int player)
     {
