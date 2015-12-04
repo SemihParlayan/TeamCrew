@@ -16,7 +16,8 @@ public class Respawn : MonoBehaviour
 
     //private CameraFollow follow; // never used
     private AudioSource screamSource;
-    private BandageManager bandageManager;
+    [HideInInspector]
+    public BandageManager bandageManager;
     public InactivityController inactivityController;
 
     //Camera minHeight

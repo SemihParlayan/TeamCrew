@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using XInputDotNetPure;
 
 
 public enum Emotion { neutral, angry, panic, satisfied, taunt }
@@ -18,7 +19,6 @@ public class EmotionController : MonoBehaviour
                 continue;
 
             scripts.Add(GameManager.players[i].GetComponent<FrogPrototype>());
-
         }
 
 
@@ -63,93 +63,11 @@ public class EmotionController : MonoBehaviour
                 satisfied = true;
             }
 
-
             s.emotionsScript.SetGeneralEmotion(currentEmotion);
             if (satisfied)
             {
                 s.emotionsScript.SetSituationalEmotion(Emotion.satisfied, 0.5f);
             }
-
-
-
-
-
-
-
-
-            ////Panic
-            //if (!s.leftGripScript.isOnGrip && !s.rightGripScript.isOnGrip)
-            //{
-            //    if (s.body)
-            //    {
-            //        if (s.body.velocity.y < -2f)
-            //        {
-            //            s.emotionsScript.SetGeneralEmotion(Emotion.panic);
-            //        }
-            //    }
-            //}
-
-            ////Versus and stone grip
-            //if (s.leftGripScript.JustGripped || s.rightGripScript.JustGripped)
-            //{
-            //    if (s.leftGripScript.isVersusGripping || s.rightGripScript.isVersusGripping)
-            //    {
-            //        s.emotionsScript.SetGeneralEmotion(Emotion.taunt);
-            //    }
-            //    else
-            //    {
-            //        s.emotionsScript.SetGeneralEmotion(Emotion.neutral);
-            //        s.emotionsScript.SetSituationalEmotion(Emotion.satisfied, 0.5f);
-            //    }
-            //}
-
-            ////Angry
-            //if (s.versusHands > 0)
-            //{
-            //    s.emotionsScript.SetGeneralEmotion(Emotion.angry);
-            //}
-            //else
-            //{
-            //    if (s.emotionsScript.GetCurrentEmotion().name.Contains(Emotion.angry.ToString()))
-            //    {
-            //        s.emotionsScript.SetGeneralEmotion(Emotion.neutral);
-            //    }
-            //}
         }
-
-
-
-
-
-
-
-        /////////////////////////////////////////////////////////////////////////////
-        ////          Reset angry when other player releases versus grip
-        /////////////////////////////////////////////////////////////////////////////
-        //if (playerOneScript != null && playerTwoScript != null)
-        //{
-        //    if (playerOneScript.emotionsScript.isAngry)
-        //    {
-        //        if (!playerTwoScript.leftGripScript.isVersusGripping && !playerTwoScript.rightGripScript.isVersusGripping)
-        //        {
-        //            playerOneScript.emotionsScript.isAngry = false;
-        //            playerOneScript.emotionsScript.SetGeneralEmotion("neutral");
-        //            playerTwoScript.emotionsScript.SetGeneralEmotion("neutral");
-        //        }
-        //    }
-
-        //    if (playerTwoScript.emotionsScript.isAngry)
-        //    {
-        //        if (!playerOneScript.leftGripScript.isVersusGripping && !playerOneScript.rightGripScript.isVersusGripping)
-        //        {
-        //            playerTwoScript.emotionsScript.isAngry = false;
-        //            playerTwoScript.emotionsScript.SetGeneralEmotion("neutral");
-        //            playerOneScript.emotionsScript.SetGeneralEmotion("neutral");
-        //        }
-        //    }
-        //}
-
-        
-        
 	}
 }

@@ -45,8 +45,10 @@ public class EndgameScreen : M_Screen
         Invoke("Fade", 0.5f);
 
         GameManager gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-        gameManager.DestroyFrogs();
-        gameManager.SpawnTopFrog();
+
+        gameManager.SpawnHangingFrogs();
+
+
         Invoke("OnMenu", danceTime);
     }
     private void Fade()

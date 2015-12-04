@@ -15,7 +15,7 @@ public class HandGrip : MonoBehaviour
     public bool isVersusGripping;
     public bool hackGrip;
 
-    private bool allowNewGrip = true;
+    public bool allowNewGrip = true;
     private bool allowVersusGrab = true;
 
     //Time of last grip
@@ -36,8 +36,9 @@ public class HandGrip : MonoBehaviour
     private HingeJoint2D joint;
 
     //Locked
-    private bool handIsLocked;
-    private float handLockTimer;
+    public bool handIsLocked;
+    public bool forcedGrip;
+    public bool allowStoneGrip = true;
 
     //Sound
     public AudioSource gripSoundSource;
@@ -81,6 +82,7 @@ public class HandGrip : MonoBehaviour
         //Aquire joint and disable it
         joint = transform.parent.GetComponent<HingeJoint2D>();
         joint.enabled = false;
+        allowStoneGrip = true;
 
         //Aquire game manager
         GameObject game = GameObject.FindWithTag("GameManager");
@@ -102,18 +104,24 @@ public class HandGrip : MonoBehaviour
     {
         if (gameManager)
         {
-            if (!gameManager.gameActive)
+            if (!gameManager.gameActive && !forcedGrip)
                 return;
+        }
+        if (GameManager.GetButtonPress(XboxButton.X, player))
+        {
+            SetForcedGrip(true);
+            LockHand(int.MaxValue);
         }
 
         //Set last grip time
         if (JustGripped)
         {
+            Vibration.instance.SetVibration(player, 0.4f, 0.4f, 0.1f);
             lastGripTime = Time.timeSinceLevelLoad;
         }
 
         isGripping = false;
-        if (GameManager.GetGrip(player, hand) || hackGrip) //Grip button down is down
+        if (GameManager.GetGrip(player, hand) || forcedGrip || hackGrip) //Grip button down is down
         {
             //Set gripping to true
             isGripping = true;
@@ -135,17 +143,6 @@ public class HandGrip : MonoBehaviour
 
         lastIsOngrip = isOnGrip;
 
-        if (handLockTimer > 0)
-        {
-            handLockTimer -= Time.deltaTime;
-
-            if (handLockTimer <= 0)
-            {
-                handLockTimer = 0;
-                DeLockHand();
-            }
-        }
-
         lastGripValue = GameManager.GetGrip(player, hand) || hackGrip;
 	}
     bool AllowGrip(Grip newGrip)
@@ -156,7 +153,7 @@ public class HandGrip : MonoBehaviour
         }
 
         //Check for grip input
-        if ((GameManager.GetGrip(player, hand) || hackGrip) && !isOnGrip)
+        if ((GameManager.GetGrip(player, hand) || forcedGrip || hackGrip) && !isOnGrip)
         {
             //Aquire grip point
             gripPoint = newGrip.GetClosestGrip(transform.position);
@@ -185,7 +182,7 @@ public class HandGrip : MonoBehaviour
                         }
                     }
                 }
-                else
+                else if (allowStoneGrip)
                 {
                     //NORMAL AND MOVING GRIP
 
@@ -232,7 +229,7 @@ public class HandGrip : MonoBehaviour
     {
         if (gameManager)
         {
-            if (!gameManager.gameActive)
+            if (!gameManager.gameActive && !forcedGrip)
                 return;
         }
 
@@ -287,9 +284,17 @@ public class HandGrip : MonoBehaviour
                     if (c.transform.tag == "VersusGrip")
                     {
                         isVersusGripping = true;
-                        versusGripController.ActivateBlink();
+                        if (!forcedGrip)
+                            versusGripController.ActivateBlink();
+
+                        bool vibrate = (versusFrog == null);
                         versusFrog = FindVersusBody(c.transform).GetComponent<FrogPrototype>();
                         versusFrog.versusHands++;
+
+                        if (versusFrog && vibrate && versusFrog.versusHands <= 1)
+                        {
+                            Vibration.instance.SetVibration(versusFrog.player, 0.4f, 0.4f, 0.7f);
+                        }
 
                         //HERE IS CODE:
                         if (scream)
@@ -324,21 +329,33 @@ public class HandGrip : MonoBehaviour
         }
     }
 
-    void DeLockHand()
+    IEnumerator DeLockHand(float time)
     {
+        yield return new WaitForSeconds(time);
+
         handIsLocked = false;
         if (!isGripping)
         {
             ReleaseGrip();
         }
     }
-    void LockHand(float time)
+    public void LockHand(float time)
     {
+        Debug.Log("LOCKING HAND: " + time);
         handIsLocked = true;
-        handLockTimer = time;
+        StartCoroutine(DeLockHand(time));
+    }
+    public void SetForcedGrip(bool value, bool allowStoneGrip = true)
+    {
+        this.allowStoneGrip = allowStoneGrip;
+        Debug.Log("FORCING GRIP: " + value);
+        forcedGrip = value;
     }
     public void ReleaseGrip(float newGripDelay = 0)
     {
+        if (forcedGrip)
+            return;
+
         //Reset hand sprite
         if (isOnGrip)
             spriteRenderer.color = Color.white;

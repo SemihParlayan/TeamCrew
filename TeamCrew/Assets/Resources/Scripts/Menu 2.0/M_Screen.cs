@@ -86,7 +86,12 @@ public class M_Screen : MonoBehaviour
             return;
 
         //Stick input
-        Vector2 input = GameManager.GetThumbStick(XboxThumbStick.Left, player);
+        Vector2 input = Vector2.zero;
+
+        if (!subScreen)
+            input = GameManager.GetThumbStick(XboxThumbStick.Left);
+        else
+            input = GameManager.GetThumbStick(XboxThumbStick.Left, player);
         if (CanSelect)
         {
             if (input.x < -0.9f)
@@ -115,8 +120,20 @@ public class M_Screen : MonoBehaviour
         }
 
         //Button select input
-        bool selectPress = GameManager.GetButtonPress(XboxButton.A, player);
-        bool returnPress = GameManager.GetButtonPress(XboxButton.B, player);
+        bool selectPress = false;
+        bool returnPress = false;
+
+        if(!subScreen)
+        {
+            selectPress = GameManager.GetButtonPress(XboxButton.A);
+            returnPress = GameManager.GetButtonPress(XboxButton.B);
+        }
+        else
+        {
+            selectPress = GameManager.GetButtonPress(XboxButton.A, player);
+            returnPress = GameManager.GetButtonPress(XboxButton.B, player);
+        }
+
         if (selectPress)
         {
             Press();

@@ -242,6 +242,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void TurnOffVibration()
+    {
+        GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
+        GamePad.SetVibration(PlayerIndex.Two, 0f, 0f);
+        GamePad.SetVibration(PlayerIndex.Three, 0f, 0f);
+        GamePad.SetVibration(PlayerIndex.Four, 0f, 0f);
+    }
     
     
     //Static variables and properties
@@ -285,6 +292,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject fireWorks;
 
+    private List<Transform> hangingFrogs = new List<Transform>();
     private BandageManager bandageManager;
     public InactivityController inactivityController;
     public PoffMountain poffMountainScript;
@@ -390,6 +398,10 @@ public class GameManager : MonoBehaviour
     //Update method
     void Update()
     {
+        if (GetButtonPress(XboxButton.Guide))
+        {
+            TurnOffVibration();
+        }
         UpdateControllers();
         RestartGame();
         CheckForTutorialComplete();
@@ -401,6 +413,75 @@ public class GameManager : MonoBehaviour
 
 
     //Single use methods
+    public void SpawnHangingFrogs()
+    {
+        Debug.Log("SpawnHangingFrogs");
+        List<Transform> order = new List<Transform>();
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i] == null)
+                continue;
+
+            order.Add(players[i]);
+        }
+
+
+
+        bool changed = true;
+        while (changed)
+        {
+            changed = false;
+            for (int i = 0; i < order.Count - 1; i++)
+            {
+                float y = order[i].position.y;
+                float nY = order[i + 1].position.y;
+
+                if (nY > y)
+                {
+                    Transform tmp = order[i];
+                    order[i] = order[i + 1];
+                    order[i + 1] = tmp;
+                    changed = true;
+                }
+            }
+        }
+
+        int spawnedFrogs = 0;
+        Vector3 topPosition = generatorScript.GetTopPosition() - new Vector3(0, 2.7f, 0);
+        Vector3 spawnPosition = Vector3.zero;
+        for (int i = 0; i < order.Count; i++)
+        {
+            FrogPrototype frog = order[i].GetComponent<FrogPrototype>();
+            if (frog.player == victoryFrogNumber)
+                continue;
+            
+
+            if (spawnedFrogs == 0)
+            {
+                spawnPosition = topPosition;
+            }
+            else
+            {
+                spawnPosition += new Vector3(1.8f, -3, 0);
+            }
+            Transform t = Instantiate(respawnScript.respawnScripts[frog.player].prefab, spawnPosition, Quaternion.identity) as Transform;
+
+            Transform body = t.FindChild("body");
+            body.GetComponent<Line>().Remove();
+            FrogPrototype newFrog = body.GetComponent<FrogPrototype>();
+
+            bool gripStone = (spawnedFrogs == 0);
+            newFrog.leftGripScript.LockHand(int.MaxValue);
+            newFrog.leftGripScript.SetForcedGrip(true, gripStone);
+            spawnedFrogs++;
+
+            hangingFrogs.Add(t);
+        }
+
+        DestroyFrogs();
+        SpawnTopFrog();
+    }
+
     /// <summary>
     /// Deletes old frogs and creates either one or two new frogs depending on which game mode the game is currently in.
     /// </summary>
@@ -444,6 +525,17 @@ public class GameManager : MonoBehaviour
     public void DestroyTopFrog()
     {
         topfrogSpawnerScript.RemoveFrog();
+        DestroyHangingFrogs();
+    }
+
+    private void DestroyHangingFrogs()
+    {
+        for (int i = 0; i < hangingFrogs.Count; i++)
+        {
+            Destroy(hangingFrogs[i].gameObject);
+        }
+
+        hangingFrogs.Clear();
     }
 
     /// <summary>
