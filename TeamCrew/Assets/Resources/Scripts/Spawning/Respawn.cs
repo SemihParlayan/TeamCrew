@@ -42,7 +42,8 @@ public class Respawn : MonoBehaviour
             respawnScripts[i].timer = respawnTime;
         }
 	}
-	
+
+
 	void Update () 
     {
         for (int i = 0; i < respawnScripts.Count; i++)

@@ -128,7 +128,7 @@ public class Block : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawCube(GetEndPosition, new Vector3(0.1f, 0.1f));
 
-        Gizmos.color = Color.green;
+        Gizmos.color = new Color(0f, 1f, 0f, 1f);
         Gizmos.DrawCube(GetStartPosition, new Vector3(0.1f, 0.1f));
 
         Gizmos.color = Color.cyan;

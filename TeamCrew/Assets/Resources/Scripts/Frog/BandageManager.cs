@@ -19,12 +19,28 @@ public class BandageManager : MonoBehaviour
         }
 	}
 
+    public Bandage GetBandage(int player)
+    {
+        for (int i = 0; i < bandages.Length; i++)
+        {
+            FrogPrototype frog = bandages[i].transform.GetComponent<FrogPrototype>();
 
+            if (frog.player == player)
+            {
+                return bandages[i];
+            }
+        }
+
+        return null;
+    }
     public void PlayerRespawned(int player)
     {
-        if (bandages[player] != null)
-            bandages[player].AddBandage(2);
+        Bandage b = GetBandage(player);
+
+        if (b != null)
+            b.AddBandage(2);
     }
+
     public void ResetBandages()
     {
         for (int i = 0; i < bandages.Length; i++)
