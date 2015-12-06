@@ -17,6 +17,7 @@ public class Vibration : MonoBehaviour
 
     public void SetVibration(int index, float leftMotor, float rightMotor, float time)
     {
+        return;
         if (vibrating[index])
         {
             return;

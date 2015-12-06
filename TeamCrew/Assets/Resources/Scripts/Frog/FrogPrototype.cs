@@ -70,9 +70,6 @@ public class FrogPrototype : MonoBehaviour
     private AudioSource boilSounder;
     private AudioSource shhSounder;
 
-
-    private bool uberHax = false;
-
     void Start()
     {
         if (leftHandMagnet != null)
@@ -130,28 +127,6 @@ public class FrogPrototype : MonoBehaviour
             if (GameManager.GetCheatButton())
             {
                 body.AddForce(new Vector2(0, 100000));
-            }
-            if (uberHax)
-            {
-                if(Input.GetMouseButton(0))
-                {
-                    body.isKinematic = false;
-                    body.velocity = Vector2.zero;
-                    body.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    handBody[0].position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector3(0,2.5f,0);
-                }
-                if(Input.GetMouseButtonDown(1))
-                {
-                    leftGripScript.hackGrip = true;
-                }
-                else if(Input.GetMouseButtonUp(1))
-                {
-                    leftGripScript.hackGrip = false;
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.H))
-            {
-                uberHax = true;
             }
         }
     }
@@ -241,10 +216,9 @@ public class FrogPrototype : MonoBehaviour
 
     void ShakeLooseBody()
     {
-        if (leftGripScript.isVersusGripping || rightGripScript.isVersusGripping)
+        if ((leftGripScript.isVersusGripping || rightGripScript.isVersusGripping) && !leftGripScript.forcedGrip && !rightGripScript.forcedGrip)
         {
             versusGripTimer -= Time.deltaTime;
-
 
             if (boilSounder != null)
             {
@@ -261,6 +235,7 @@ public class FrogPrototype : MonoBehaviour
 
             leftGripScript.versusGripController.blinkTime = versusGripTimer / maxVersusGripTime;
             rightGripScript.versusGripController.blinkTime = versusGripTimer / maxVersusGripTime;
+
             //Release versus grips
             if (versusGripTimer <= 0)
             {

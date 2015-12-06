@@ -317,6 +317,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public string singlePlayerStarted;
     public bool IsInMultiplayerMode { get { return (singlePlayerStarted == string.Empty); } }
+    private bool hangingFrogsSpawned;
 
     void Awake()
     {
@@ -415,14 +416,20 @@ public class GameManager : MonoBehaviour
     //Single use methods
     public void SpawnHangingFrogs()
     {
-        Debug.Log("SpawnHangingFrogs");
-        List<Transform> order = new List<Transform>();
+        if (hangingFrogsSpawned)
+            return;
+
+        hangingFrogsSpawned = true;
+        List<FrogPrototype> order = new List<FrogPrototype>();
+        List<int> playersAdded = new List<int>();
+
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i] == null)
                 continue;
 
-            order.Add(players[i]);
+            order.Add(players[i].GetComponent<FrogPrototype>());
+            playersAdded.Add(players[i].GetComponent<FrogPrototype>().player);
         }
 
 
@@ -433,12 +440,12 @@ public class GameManager : MonoBehaviour
             changed = false;
             for (int i = 0; i < order.Count - 1; i++)
             {
-                float y = order[i].position.y;
-                float nY = order[i + 1].position.y;
+                float y = order[i].transform.position.y;
+                float nY = order[i + 1].transform.position.y;
 
                 if (nY > y)
                 {
-                    Transform tmp = order[i];
+                    FrogPrototype tmp = order[i];
                     order[i] = order[i + 1];
                     order[i + 1] = tmp;
                     changed = true;
@@ -446,12 +453,27 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        for (int i = 0; i < frogsReady.Length; i++)
+        {
+            if (frogsReady[i])
+            {
+                FrogPrototype frog = respawnScript.respawnScripts[i].prefab.FindChild("body").GetComponent<FrogPrototype>();
+
+                if (!playersAdded.Contains(frog.player))
+                {
+                    order.Add(frog);
+                }
+                
+            }
+        }
+
+
         int spawnedFrogs = 0;
         Vector3 topPosition = generatorScript.GetTopPosition() - new Vector3(0, 2.7f, 0);
         Vector3 spawnPosition = Vector3.zero;
         for (int i = 0; i < order.Count; i++)
         {
-            FrogPrototype frog = order[i].GetComponent<FrogPrototype>();
+            FrogPrototype frog = order[i];
             if (frog.player == victoryFrogNumber)
                 continue;
             
@@ -462,8 +484,9 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                spawnPosition += new Vector3(1.8f, -3, 0);
+                spawnPosition += new Vector3(0.8f, -2.2f, 0);
             }
+
             Transform t = Instantiate(respawnScript.respawnScripts[frog.player].prefab, spawnPosition, Quaternion.identity) as Transform;
 
             Transform body = t.FindChild("body");
@@ -659,6 +682,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
+        hangingFrogsSpawned = false;
+
         //Enables respawning
         respawnScript.enabled = true;
 

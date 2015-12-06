@@ -116,7 +116,7 @@ public class HandGrip : MonoBehaviour
         //Set last grip time
         if (JustGripped)
         {
-            Vibration.instance.SetVibration(player, 0.4f, 0.4f, 0.1f);
+            Vibration.instance.SetVibration(player, 0.6f, 0.6f, 0.1f);
             lastGripTime = Time.timeSinceLevelLoad;
         }
 

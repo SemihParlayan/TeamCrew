@@ -11,7 +11,6 @@ public class BandageManager : MonoBehaviour
 
         Respawn respawn = GetComponent<Respawn>();
 
-        Debug.Log("Count: " + respawn.respawnScripts.Count);
         for (int i = 0; i < respawn.respawnScripts.Count; i++)
         {
             Transform body = respawn.respawnScripts[i].prefab.FindChild("body");
