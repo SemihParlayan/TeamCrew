@@ -8,15 +8,16 @@ public class Line : MonoBehaviour
     public Transform hook;
 
     SpringJoint2D joint;
-    //Rigidbody2D body; //Never used
+
 
     float maxY;
     Vector2 startPosition;
     public float tutorialLength;
+    private FrogPrototype frog;
 
 	void Start ()
     {
-        //body = GetComponent<Rigidbody2D>(); //Never used
+        frog = GetComponent<FrogPrototype>();
         joint = GetComponent<SpringJoint2D>();
 
         joint.connectedAnchor = new Vector2(hinge.position.x, hinge.position.y + tutorialLength);
@@ -33,10 +34,20 @@ public class Line : MonoBehaviour
         float distance = Vector2.Distance(hinge.position, joint.connectedAnchor);
         float startDistance = Vector2.Distance(startPosition, joint.connectedAnchor);
 
-        if (distance + 1f < maxY)
+        bool isGripping = frog.leftGripScript.isOnGrip || frog.rightGripScript.isOnGrip;
+        if (distance + 1f < maxY && isGripping)
         {
             maxY = distance;
             joint.distance = maxY;
+        }
+        
+        if (isGripping)
+        {
+            joint.frequency = 0.2f;
+        }
+        else
+        {
+            joint.frequency = 2f;
         }
 
         //Scale rope
