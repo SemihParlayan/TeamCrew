@@ -527,7 +527,7 @@ public class GameManager : MonoBehaviour
                 players[i] = (Instantiate(respawnScript.respawnScripts[i].prefab, spawnPosition, Quaternion.identity) as Transform).FindChild("body");
             }
         }
-
+        TutorialBubbleEnabler();
         readySetGo.ResetLights();
     }
 
@@ -564,6 +564,18 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Sets the tutorial to complete and more such as disabling tutorial bubbles, remove safety lines etc...
     /// </summary>
+    /// 
+    //Seb code, may break the universe
+    // Enables tutorial if there are 2 or fewer players. 
+    public void TutorialBubbleEnabler()
+    {
+        if (GetFrogReadyCount() <= 2)
+        {
+            tutorialBubbles.EnableScript();
+
+        }
+    }
+
     public void TutorialComplete()
     {
         if (tutorialComplete)
