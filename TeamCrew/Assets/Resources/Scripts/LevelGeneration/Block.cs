@@ -42,17 +42,38 @@ public class Block : MonoBehaviour
             Vector3 pos = Vector3.zero;
             if (difficulty == BlockDifficulty.Top)
             {
-                pos = transform.position;
-                pos.x -= size.x / 2;
-                pos.x += pixelsFromLeftEnd / 100.0f;
-                pos.y += (size.y / 2) - 8;
+                if (renderer != null)
+                {
+                    pos = transform.position;
+                    pos.x -= size.x / 2;
+                    pos.x += pixelsFromLeftEnd / 100.0f;
+                    pos.y += (size.y / 2) - 8;
+                }
+                else
+                {
+                    pos = transform.position;
+                    pos.x -= size.x / 2;
+                    pos.x += pixelsFromLeftEnd / 100.0f;
+                    pos.y += blockheightTop;
+                }
             }
             else
             {
-                pos = transform.position;
-                pos.x -= size.x / 2;
-                pos.x += pixelsFromLeftEnd / 100.0f;
-                pos.y += size.y / 2;
+                if (renderer != null)
+                {
+                    pos = transform.position;
+                    pos.x -= size.x / 2;
+                    pos.x += pixelsFromLeftEnd / 100.0f;
+                    pos.y += size.y / 2;
+                }
+                else
+                {
+                    Debug.Log("Rawr");
+                    pos = transform.position;
+                    pos.x -= size.x / 2;
+                    pos.x += pixelsFromLeftEnd / 100.0f;
+                    pos.y += blockheightTop;
+                }
             }
 
             return pos;
@@ -77,11 +98,21 @@ public class Block : MonoBehaviour
     public Vector3 GetStartPosition
     {
         get
-        {
-            Vector3 pos = transform.position;
-            pos.x -= size.x / 2;
-            pos.x += pixelsFromLeftStart / 100.0f;
-            pos.y -= size.y / 2;
+        { 
+            Vector3 pos = Vector3.zero;
+            if (renderer != null)
+            {
+                pos = transform.position;
+                pos.x -= size.x / 2;
+                pos.x += pixelsFromLeftStart / 100.0f;
+                pos.y -= size.y / 2;
+            }
+            else
+            {
+                pos = transform.position;
+                pos.x += pixelsFromLeftStart / 100.0f;
+                pos.y -= blockheightBottom;
+            }
             return pos;
         }
     }
@@ -101,17 +132,31 @@ public class Block : MonoBehaviour
         }
     }
 
+    public float blockheightTop;
+    public float blockheightBottom;
+    public  float gizmoSize = 0.2f;
+    private new SpriteRenderer renderer;
+
     public Vector3 size
     {
         get
         {
-            return GetComponent<SpriteRenderer>().sprite.bounds.size;
+            if(renderer != null)
+            {
+                return renderer.sprite.bounds.size;
+            }
+            else
+            {
+                return Vector3.zero;
+            }
         }
     }
 
     void Start()
     {
+        renderer = GetComponent<SpriteRenderer>();
     }
+
 
     void OnBecameVisible()
     {
@@ -126,14 +171,14 @@ public class Block : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawCube(GetEndPosition, new Vector3(0.1f, 0.1f));
+        Gizmos.DrawCube(GetEndPosition, new Vector3(gizmoSize, gizmoSize));
 
         Gizmos.color = new Color(0f, 1f, 0f, 1f);
-        Gizmos.DrawCube(GetStartPosition, new Vector3(0.1f, 0.1f));
+        Gizmos.DrawCube(GetStartPosition, new Vector3(gizmoSize, gizmoSize));
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawCube(GetStartCenterPosition, new Vector3(0.2f, 0.2f));
-        Gizmos.DrawCube(GetEndCenterPosition, new Vector3(0.2f, 0.2f));
+        Gizmos.DrawCube(GetStartCenterPosition, new Vector3(gizmoSize, gizmoSize));
+        Gizmos.DrawCube(GetEndCenterPosition, new Vector3(gizmoSize, gizmoSize));
     }
 }
 
