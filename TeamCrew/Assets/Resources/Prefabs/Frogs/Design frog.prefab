@@ -2230,7 +2230,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.12, y: -15.6, z: 0}
+  m_LocalPosition: {x: 37.22, y: -40.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 448190}
@@ -3747,6 +3747,8 @@ MonoBehaviour:
   handNeutral: []
   hand: []
   handMagnet: []
+  tutorialSymbolLeft: {fileID: 0}
+  tutorialSymbolRight: {fileID: 0}
   leftGripScript: {fileID: 11424850}
   rightGripScript: {fileID: 11458810}
   leftJoint: {fileID: 23391462}
@@ -3780,7 +3782,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11430016}
   connectedBody: {fileID: 5030100}
-  anchor: {x: 0, y: 0}
+  staticMovement: 0
   parentedPlayer: 0
 --- !u!114 &11411668
 MonoBehaviour:
@@ -3897,6 +3899,7 @@ MonoBehaviour:
   open: {fileID: 21300004, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
   semiOpen: {fileID: 21300016, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
   closed: {fileID: 21300014, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
+  movingGrip: {fileID: 0}
   gripPoint: {fileID: 0}
   handIsLocked: 0
   forcedGrip: 0
@@ -3989,7 +3992,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11482876}
   connectedBody: {fileID: 5011294}
-  anchor: {x: 0.01282597, y: -1.361982}
+  staticMovement: 0
   parentedPlayer: 0
 --- !u!114 &11445808
 MonoBehaviour:
@@ -4018,7 +4021,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11422358}
   connectedBody: {fileID: 5052086}
-  anchor: {x: 0, y: 0}
+  staticMovement: 0
   parentedPlayer: 0
 --- !u!114 &11450572
 MonoBehaviour:
@@ -4074,7 +4077,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11473988}
   connectedBody: {fileID: 5011294}
-  anchor: {x: -0.08, y: 0}
+  staticMovement: 0
   parentedPlayer: 0
 --- !u!114 &11458810
 MonoBehaviour:
@@ -4102,6 +4105,7 @@ MonoBehaviour:
   open: {fileID: 21300004, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
   semiOpen: {fileID: 21300016, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
   closed: {fileID: 21300014, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
+  movingGrip: {fileID: 0}
   gripPoint: {fileID: 0}
   handIsLocked: 0
   forcedGrip: 0
@@ -4259,7 +4263,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11481300}
   connectedBody: {fileID: 5052086}
-  anchor: {x: 0.01282597, y: -1.361982}
+  staticMovement: 0
   parentedPlayer: 0
 --- !u!114 &11494108
 MonoBehaviour:
@@ -11815,7 +11819,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0.8519672, y: 0.018267155}
-  m_ConnectedAnchor: {x: 0.012825966, y: -1.3619823}
+  m_ConnectedAnchor: {x: -0.051059723, y: -1.2832832}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0

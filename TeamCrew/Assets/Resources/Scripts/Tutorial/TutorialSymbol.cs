@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum SymbolState { NoInput, HandUp, Gripping}
+public enum SymbolState { NoInput, HandUp, Gripping, PullingDown}
 public class TutorialSymbol : MonoBehaviour 
 {
     //Publics
@@ -11,16 +11,14 @@ public class TutorialSymbol : MonoBehaviour
 
     //Locals
     private GameObject[] children;
-    private SymbolState currentState;
     private FrogPrototype frog;
-    private SpriteRenderer renderer;
+    private SymbolState currentState;
 
 
     void Start()
     {
         currentState = SymbolState.NoInput;
         frog = transform.parent.GetComponentInChildren<FrogPrototype>();
-        renderer = GetComponent<SpriteRenderer>();
 
         children = new GameObject[transform.childCount];
         for (int i = 0; i < transform.childCount; i++)
@@ -41,6 +39,12 @@ public class TutorialSymbol : MonoBehaviour
 
         if (Gripping())
         {
+            if (HandIsDown())
+            {
+                SwitchState(SymbolState.PullingDown);
+                return;
+            }
+
             SwitchState(SymbolState.Gripping);
             return;
         }
@@ -68,20 +72,31 @@ public class TutorialSymbol : MonoBehaviour
             return;
         currentState = state;
 
-        ActivateChild(state.ToString());
+        if (state == SymbolState.NoInput)
+        {
+            DeactivateAllChildren();
+        }
+        else
+        {
+            ActivateChild(state.ToString());
+        }
     }
     void ActivateChild(string nameOfChild)
     {
+        DeactivateAllChildren();
         for (int i = 0; i < children.Length; i++)
         {
             if (children[i].name.Contains(nameOfChild))
             {
                 children[i].SetActive(true);
             }
-            else
-            {
-                children[i].SetActive(false);
-            }
+        }
+    }
+    void DeactivateAllChildren()
+    {
+        for (int i = 0; i < children.Length; i++)
+        {
+            children[i].SetActive(false);
         }
     }
     bool Gripping()
@@ -98,8 +113,15 @@ public class TutorialSymbol : MonoBehaviour
     bool HandIsUp()
     {
         XboxThumbStick stick = (arm == GripSide.Left) ? XboxThumbStick.Left : XboxThumbStick.Right;
-        Vector2 direction = GameManager.GetThumbStick(stick);
+        Vector2 direction = GameManager.GetThumbStick(stick, frog.player);
 
         return direction.y > 0;
+    }
+    bool HandIsDown()
+    {
+        XboxThumbStick stick = (arm == GripSide.Left) ? XboxThumbStick.Left : XboxThumbStick.Right;
+        Vector2 direction = GameManager.GetThumbStick(stick, frog.player);
+
+        return direction.y < 0;
     }
 }

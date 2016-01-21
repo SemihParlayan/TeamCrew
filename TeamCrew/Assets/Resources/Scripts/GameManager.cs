@@ -389,8 +389,6 @@ public class GameManager : MonoBehaviour
 
         readySetGo = GetComponent<ReadySetGo>();
 
-        //menuMusicController = ;
-
         //Enable menu music
         menuMusicController.Play();
         menuMusicController.ChangeFadeState(FadeState.IN);
@@ -527,7 +525,6 @@ public class GameManager : MonoBehaviour
                 players[i] = (Instantiate(respawnScript.respawnScripts[i].prefab, spawnPosition, Quaternion.identity) as Transform).FindChild("body");
             }
         }
-        TutorialBubbleEnabler();
         readySetGo.ResetLights();
     }
 
@@ -565,17 +562,6 @@ public class GameManager : MonoBehaviour
     /// Sets the tutorial to complete and more such as disabling tutorial bubbles, remove safety lines etc...
     /// </summary>
     /// 
-    //Seb code, may break the universe
-    // Enables tutorial if there are 2 or fewer players. 
-    public void TutorialBubbleEnabler()
-    {
-        if (GetFrogReadyCount() <= 2)
-        {
-            tutorialBubbles.EnableScript();
-
-        }
-    }
-
     public void TutorialComplete()
     {
         if (tutorialComplete)
@@ -586,7 +572,7 @@ public class GameManager : MonoBehaviour
         cameraFollowScript.enabled = true;
 
         //Disable tutorial bubbles;
-        tutorialBubbles.DisableScript();
+        tutorialBubbles.Disable(playerScripts);
 
         //Remove players safety line
         for (int i = 0; i < players.Length; i++)
@@ -725,7 +711,7 @@ public class GameManager : MonoBehaviour
         fireWorks.SetActive(false);
 
         //Enable tutorial bubbles
-        //tutorialBubbles.EnableScript();
+        tutorialBubbles.Enable(playerScripts);
 
         readySetGo.lights = generatorScript.GetReadySetGoSpriteRenderes();
     }

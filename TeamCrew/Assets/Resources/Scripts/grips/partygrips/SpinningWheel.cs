@@ -3,26 +3,39 @@ using System.Collections;
 
 public class SpinningWheel : MonoBehaviour 
 {
-    public bool spinRight = true;
     [Range(0, 500)]
     public float spinSpeed = 25f;
+    public bool spinRight = true;
 
     private Rigidbody2D body;
+    private HingeJoint2D joint;
 	void Start () 
 	{
         body = GetComponent<Rigidbody2D>();
-        GetComponent<HingeJoint2D>().connectedAnchor = transform.position;
+        joint = GetComponent<HingeJoint2D>();
 
-        for (int i = 0; i < transform.childCount; i++)
+        if (joint.connectedBody == null)
         {
-            MovingGrip g = transform.GetChild(i).GetComponent<MovingGrip>();
-
-            if (g)
-            {
-                g.GetComponent<HingeJoint2D>().connectedAnchor = g.transform.localPosition;
-            }
+            joint.connectedAnchor = transform.position;
         }
+
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    Debug.Log("Rawr");
+        //    MovingGrip g = transform.GetChild(i).GetComponent<MovingGrip>();
+
+        //    if (g)
+        //    {
+        //        g.GetComponent<HingeJoint2D>().connectedAnchor = g.transform.localPosition;
+        //    }
+        //}
 	}
+
+    void Update()
+    {
+        if (joint.connectedBody != null)
+            joint.connectedAnchor = transform.parent.localPosition;
+    }
 
 	void FixedUpdate () 
 	{

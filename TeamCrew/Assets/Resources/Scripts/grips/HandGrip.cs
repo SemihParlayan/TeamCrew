@@ -32,6 +32,7 @@ public class HandGrip : MonoBehaviour
     public Sprite closed;
 
     //Current grip and joint
+    public MovingGrip movingGrip;
     public GripPoint gripPoint;
     private HingeJoint2D joint;
 
@@ -107,10 +108,18 @@ public class HandGrip : MonoBehaviour
             if (!gameManager.gameActive && !forcedGrip)
                 return;
         }
-        if (GameManager.GetButtonPress(XboxButton.X, player))
+
+        if (movingGrip != null && gripPoint != null)
         {
-            SetForcedGrip(true);
-            LockHand(int.MaxValue);
+            if (joint.connectedBody != movingGrip.connectedBody)
+                joint.connectedBody = movingGrip.connectedBody;
+
+            Vector3 newPos = movingGrip.connectedBody.transform.InverseTransformPoint(gripPoint.transform.position);
+            float distance = Vector3.Distance(joint.connectedAnchor, newPos);
+            if (distance > 0.5f)
+            {
+                joint.connectedAnchor = newPos;
+            }
         }
 
         //Set last grip time
@@ -151,7 +160,6 @@ public class HandGrip : MonoBehaviour
         {
             return false;
         }
-
         //Check for grip input
         if ((GameManager.GetGrip(player, hand) || forcedGrip || hackGrip) && !isOnGrip)
         {
@@ -185,8 +193,10 @@ public class HandGrip : MonoBehaviour
                 else if (allowStoneGrip)
                 {
                     //NORMAL AND MOVING GRIP
-
-
+                    if (newGrip is MovingGrip)
+                    {
+                        movingGrip = (MovingGrip)newGrip;
+                    }
                     //Play animation and stone particles
                     stoneParticles.Play();
                     gripAnimation.Activate("normal");
@@ -246,7 +256,7 @@ public class HandGrip : MonoBehaviour
                         if (AllowGrip(movingGrip))
                         {
                             joint.connectedBody = movingGrip.connectedBody;
-                            joint.connectedAnchor = movingGrip.anchor;
+                            joint.connectedAnchor = gripPoint.transform.localPosition;
                             insectScript.AddHand();
                             LockHand(1.5f);
                             isGrippingInsect = true;
@@ -279,7 +289,7 @@ public class HandGrip : MonoBehaviour
                 if (AllowGrip(movingGrip))
                 {
                     joint.connectedBody = movingGrip.connectedBody;
-                    joint.connectedAnchor = movingGrip.anchor;
+                    joint.connectedAnchor = movingGrip.connectedBody.transform.InverseTransformPoint(gripPoint.transform.position);
 
                     if (c.transform.tag == "VersusGrip")
                     {
@@ -377,6 +387,7 @@ public class HandGrip : MonoBehaviour
 
             //Disable grip point
             gripPoint = null;
+            movingGrip = null;
 
             //Play release sound
             randSoundGen.GenerateRelease();

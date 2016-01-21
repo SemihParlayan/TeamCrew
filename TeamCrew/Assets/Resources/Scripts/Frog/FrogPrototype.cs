@@ -26,6 +26,8 @@ public class FrogPrototype : MonoBehaviour
     private Rigidbody2D[] handBody = new Rigidbody2D[2];
     public GripMagnet[] handMagnet;
 
+    public GameObject tutorialSymbolLeft;
+    public GameObject tutorialSymbolRight;
     public HandGrip leftGripScript;
     public HandGrip rightGripScript;
 
@@ -488,6 +490,18 @@ public class FrogPrototype : MonoBehaviour
         angle *= Mathf.Deg2Rad;
 
         return angle;
+    }
+
+
+    public void EnableTutorial()
+    {
+        tutorialSymbolLeft.SetActive(true);
+        tutorialSymbolRight.SetActive(true);
+    }
+    public void DisableTutorial()
+    {
+        tutorialSymbolLeft.SetActive(false);
+        tutorialSymbolRight.SetActive(false);
     }
 }
 

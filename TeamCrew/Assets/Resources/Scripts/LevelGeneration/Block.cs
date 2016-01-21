@@ -109,9 +109,6 @@ public class Block : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-    }
 
     void OnBecameVisible()
     {
