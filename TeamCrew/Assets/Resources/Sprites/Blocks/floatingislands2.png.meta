@@ -1,9 +1,11 @@
 fileFormatVersion: 2
-guid: 34a306bbb382fab42a5e9415165874a7
-timeCreated: 1429685871
+guid: 27a3c3ac8e13bd34cad37f0ec327a000
+timeCreated: 1453370310
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: f_top_thick
+    21300002: f_bottom_thick
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,14 +32,15 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  allowsAlphaSplitting: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +51,27 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: f_top_thick
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 912
+        width: 1826
+        height: 1008
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: f_bottom_thick
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1826
+        height: 461
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 
