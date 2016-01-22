@@ -151,7 +151,7 @@ public class Block : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         renderer = GetComponent<SpriteRenderer>();
     }

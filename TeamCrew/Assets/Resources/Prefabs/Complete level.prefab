@@ -9524,6 +9524,7 @@ GameObject:
   - 82: {fileID: 8239382}
   - 114: {fileID: 11447818}
   - 114: {fileID: 11402224}
+  - 114: {fileID: 11438836}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -24767,7 +24768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a518fd21e0cbd25488cb7f6ecaac0d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  designTestingEnabled: 1
+  designTestingEnabled: 0
   gameActive: 0
   tutorialComplete: 0
   hacks: 1
@@ -26569,6 +26570,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aboveLayer: {fileID: 405728}
+--- !u!114 &11438836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 182752}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3309686a9fbbe6e42a182d5e0257704c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intensity: 0.57
+  threshold: 0
+  blurSpread: 3.68
+  separableBlurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
+  contrastCompositeShader: {fileID: 4800000, guid: 273404942eede4ea1883ca1fb2942507,
+    type: 3}
 --- !u!114 &11439028
 MonoBehaviour:
   m_ObjectHideFlags: 1
