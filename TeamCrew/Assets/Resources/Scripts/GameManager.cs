@@ -993,4 +993,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// This methods quits the whole game.
+    /// </summary>
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }

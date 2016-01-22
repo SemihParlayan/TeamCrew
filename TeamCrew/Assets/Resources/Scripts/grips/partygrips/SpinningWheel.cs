@@ -4,42 +4,44 @@ using System.Collections;
 public class SpinningWheel : MonoBehaviour 
 {
     [Range(0, 500)]
-    public float spinSpeed = 25f;
+    public float spinSpeed = 75f;
     public bool spinRight = true;
 
-    private Rigidbody2D body;
-    private HingeJoint2D joint;
+    protected Rigidbody2D body;
+
 	void Start () 
 	{
         body = GetComponent<Rigidbody2D>();
-        joint = GetComponent<HingeJoint2D>();
+        HingeJoint2D joint = GetComponent<HingeJoint2D>();
 
         if (joint.connectedBody == null)
         {
             joint.connectedAnchor = transform.position;
         }
 
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    Debug.Log("Rawr");
-        //    MovingGrip g = transform.GetChild(i).GetComponent<MovingGrip>();
-
-        //    if (g)
-        //    {
-        //        g.GetComponent<HingeJoint2D>().connectedAnchor = g.transform.localPosition;
-        //    }
-        //}
+        BaseStart();
 	}
+    protected virtual void BaseStart()
+    {
+
+    }
 
     void Update()
     {
-        if (joint.connectedBody != null)
-            joint.connectedAnchor = transform.parent.localPosition;
+        BaseUpdate();
+    }
+    protected virtual void BaseUpdate()
+    {
+
     }
 
 	void FixedUpdate () 
 	{
+        BaseFixedUpdate();
+	}
+    protected virtual void BaseFixedUpdate()
+    {
         int dir = (spinRight) ? -1 : 1;
         body.angularVelocity = spinSpeed * dir;
-	}
+    }
 }
