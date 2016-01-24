@@ -10,7 +10,9 @@ GameObject:
   - 4: {fileID: 430124}
   - 212: {fileID: 21293302}
   - 60: {fileID: 6018562}
-  m_Layer: 0
+  - 50: {fileID: 5034434}
+  - 114: {fileID: 11470926}
+  m_Layer: 8
   m_Name: f_Albertina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,11 +26,28 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -448.291504, y: -254.137558, z: 0}
+  m_LocalPosition: {x: -396.17526, y: -245.09947, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &5034434
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167220}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!60 &6018562
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -36,25 +55,40 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167220}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -3.20950317, y: -4.04286194}
-      - {x: -1.89099121, y: -4.83183289}
-      - {x: .83770752, y: -3.43873596}
-      - {x: 3.57876587, y: 2.00141907}
-      - {x: 3.45236206, y: 4.20323181}
-      - {x: 1.99737549, y: 4.8260498}
-      - {x: -2.95791626, y: 3.91601562}
-      - {x: -3.71499991, y: 1.80499995}
-      - {x: -3.70499992, y: 1.71500003}
-      - {x: -2.70245361, y: -1.10664368}
-    - - {x: -.335235596, y: 3.87686157}
-      - {x: -1.00030518, y: 3.66386414}
-      - {x: -.848114014, y: 4.21913147}
+    - - {x: -3.2095032, y: -4.042862}
+      - {x: -1.8909912, y: -4.831833}
+      - {x: 0.8377075, y: -3.438736}
+      - {x: 3.5787659, y: 2.001419}
+      - {x: 3.452362, y: 4.203232}
+      - {x: 1.9973755, y: 4.82605}
+      - {x: -2.9579163, y: 3.9160156}
+      - {x: -3.715, y: 1.805}
+      - {x: -3.705, y: 1.715}
+      - {x: -2.7024536, y: -1.1066437}
+    - - {x: -0.3352356, y: 3.8768616}
+      - {x: -1.0003052, y: 3.6638641}
+      - {x: -0.848114, y: 4.2191315}
+--- !u!114 &11470926
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1925d89dbb2e1bc43aa6ebcabb5c61e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frequency: 0.5
+  magnitude: 1
+  time: 0
 --- !u!212 &21293302
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -76,13 +110,15 @@ SpriteRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1367655561
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300006, guid: 1e12b04485d921944bfda3b9564305f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

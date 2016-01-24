@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 452834}
   - 212: {fileID: 21209090}
   - 60: {fileID: 6015598}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: f_bottom_thin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -441.728119, y: -267.031494, z: 0}
+  m_LocalPosition: {x: -372.56384, y: -264.04492, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -36,22 +36,23 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197214}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -9.19076538, y: -2.2164917}
-      - {x: -8.68566895, y: -1.0317688}
-      - {x: -6.0899353, y: -1.29931641}
-      - {x: -4.36431885, y: -1.54855347}
-      - {x: -3.51217651, y: -.717041016}
-      - {x: -1.03582764, y: -.385375977}
-      - {x: .547393799, y: 1.58432007}
-      - {x: 1.93612671, y: 2.16949463}
-      - {x: 3.29931641, y: -.0606079102}
-      - {x: 3.15539551, y: -2.09240723}
+    - - {x: -9.190765, y: -2.2164917}
+      - {x: -8.685669, y: -1.0317688}
+      - {x: -6.0899353, y: -1.2993164}
+      - {x: -4.364319, y: -1.5485535}
+      - {x: -3.5121765, y: -0.717041}
+      - {x: -1.0358276, y: -0.38537598}
+      - {x: 0.5473938, y: 1.5843201}
+      - {x: 1.9361267, y: 2.1694946}
+      - {x: 3.2993164, y: -0.06060791}
+      - {x: 3.1553955, y: -2.0924072}
 --- !u!212 &21209090
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -73,13 +74,15 @@ SpriteRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1367655561
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300002, guid: 1e12b04485d921944bfda3b9564305f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
