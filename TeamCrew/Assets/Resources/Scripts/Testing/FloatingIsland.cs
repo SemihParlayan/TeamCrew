@@ -16,6 +16,7 @@ public class FloatingIsland : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         body.mass = int.MaxValue;
         body.isKinematic = true;
+        body.freezeRotation = true;
 
         pos = transform.position;
     }
