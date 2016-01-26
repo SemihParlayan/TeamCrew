@@ -7,30 +7,18 @@ public enum BlockEnding
     Thick,
     None
 }
-public enum BlockDifficulty
-{
-    Easy,
-    Medium,
-    Hard,
-    Top,
-    Tutorial_1player,
-    Tutorial_2player,
-    Tutorial_3player,
-    Tutorial_4player,
-    Converter
-}
 public class Block : MonoBehaviour 
 {
     public static float ThinWidth = 12.26f;
     public static float ThickWidth = 18.26f;
 
-    public BlockEnding end;
-    public int pixelsFromLeftEnd;
+    public TagCollection tagCollection;
+    public uint pixelsFromLeftStart;
+    public uint pixelsFromLeftEnd;
+    public BlockEnding startSize;
+    public BlockEnding endSize;
 
-    public BlockEnding start;
-    public int pixelsFromLeftStart;
 
-    public BlockDifficulty difficulty;
 
     [HideInInspector]
     public int blockIndex;
@@ -40,7 +28,7 @@ public class Block : MonoBehaviour
         get
         {
             Vector3 pos = Vector3.zero;
-            if (difficulty == BlockDifficulty.Top)
+            if (tagCollection.ContainsTag(BlockTag.Top))
             {
                 if (renderer != null)
                 {
@@ -86,7 +74,7 @@ public class Block : MonoBehaviour
 
             float pixelWidth = 913;
 
-            if (end == BlockEnding.Thin || end == BlockEnding.None)
+            if (endSize == BlockEnding.Thin || endSize == BlockEnding.None)
                 pixelWidth = 613;
 
             pos.x += pixelWidth / 100.0f;
@@ -123,7 +111,7 @@ public class Block : MonoBehaviour
 
             float pixelWidth = 913;
 
-            if (start == BlockEnding.Thin)
+            if (startSize == BlockEnding.Thin)
                 pixelWidth = 613;
 
             pos.x += pixelWidth / 100.0f;
@@ -153,9 +141,12 @@ public class Block : MonoBehaviour
 
     void Awake()
     {
+        OnAwake();
+    }
+    protected virtual void OnAwake()
+    {
         renderer = GetComponent<SpriteRenderer>();
     }
-
 
     void OnBecameVisible()
     {

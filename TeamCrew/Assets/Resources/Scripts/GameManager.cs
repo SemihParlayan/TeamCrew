@@ -278,6 +278,7 @@ public class GameManager : MonoBehaviour
             return levelHeight;
         }
     }
+    public static GameMode CurrentGameMode;
 
     //////////////////////////
 

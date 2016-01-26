@@ -34,7 +34,7 @@ public class GameScreen : M_Screen
             if (Vector3.Distance(cameraPos, screenPos) < 0.3f)
             {
                 reachedBottom = true;
-                gameManager.GetComponent<LevelGeneration>().DeactivateEasyBlock();
+                gameManager.GetComponent<LevelGeneration>().DeactivateFirstBlock();
             }
         }
 

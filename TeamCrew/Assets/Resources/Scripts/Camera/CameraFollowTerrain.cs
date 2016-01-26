@@ -22,15 +22,15 @@ public class CameraFollowTerrain : MonoBehaviour
             Block b = hit.transform.GetComponent<Block>();
             if (b)
             {
-                if (b.difficulty == BlockDifficulty.Tutorial_1player)
-                {
-                    targetX = hit.transform.position.x;
-                }
-                else
-                {
-                    //Set target X position to blocks bottomleft corner + 700pixels to center it
+                //if (b.difficulty == BlockDifficulty.Tutorial_1player)
+                //{
+                //    targetX = hit.transform.position.x;
+                //}
+                //else
+                //{
+                //    //Set target X position to blocks bottomleft corner + 700pixels to center it
+                //}
                     targetX = b.GetStartCenterPosition.x;
-                }
             }
             else
             {

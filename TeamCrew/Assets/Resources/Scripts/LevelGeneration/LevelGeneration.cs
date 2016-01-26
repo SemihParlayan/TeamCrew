@@ -6,22 +6,12 @@ using System.Linq;
 public class LevelGeneration : MonoBehaviour 
 {
     public Transform menuTutorialBlock;
-    private List<Block> blockList = new List<Block>();
-    public List<Block> level = new List<Block>();
-    private List<Block> previousLevel = new List<Block>();
+    private List<Block> globalBlockCollection = new List<Block>();
+    private List<Block> level = new List<Block>();
 
-    private GameObject easyBlock;
-    private TutorialBlock tutorialBlock;
     private GameManager gameManager;
-
-    public int numberOfHardBlocks = 1;
-    public int numberOfMediumBlocks = 1;
-    public int numberOfEasyBlocks = 1;
-
-    public bool lockComplete;
-    private int minimumSlotIndex = 1;
-    private int currentSlotIndex = 1;
-    public List<Block> tmpBlocks = new List<Block>();
+    private GameObject firstBlock;
+    private TutorialBlock tutorialBlock;
 
     public float LevelHeight 
     { 
@@ -38,21 +28,27 @@ public class LevelGeneration : MonoBehaviour
     {
         LoadLevelBlocks();
 
-
+        //Make sure we have a menu block assigned
         if (menuTutorialBlock == null)
         {
             Debug.LogError("Assign menu tutorial block to levelgeneration");
         }
-        for (int i = 0; i < blockList.Count; i++)
-        {
-            blockList[i].blockIndex = i;
-        }
 
+        //Aquire gamemanager
         gameManager = GetComponent<GameManager>();
 	}
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            GenerateFullMountain(false);
+        }
+    }
     public void GenerateFullMountain(bool keepTutorial = false)
     {
+        GameMode mode = GameManager.CurrentGameMode;
+
         //Remove previouslevel
         DestroyLevel(keepTutorial);
 
@@ -60,8 +56,8 @@ public class LevelGeneration : MonoBehaviour
         Block block = null;
         if (!keepTutorial)
         {
-            block = CreateNewBlock(null, GetTutorialDifficulty());
-            block.transform.parent = transform; level.Add(block);
+            block = FindBlock(mode.tutorialBlock);
+            level.Add(block);
             tutorialBlock = block as TutorialBlock;
         }
         else
@@ -69,60 +65,34 @@ public class LevelGeneration : MonoBehaviour
             block = tutorialBlock;
         }
 		
-
-        //Spawn Easy Blocks
-        for (int i = 0; i < numberOfEasyBlocks; i++)
+        //Spawn climbing blocks
+        for (int i = 0; i < mode.climbingBlocks.Count; i++)
         {
+            //Find a climbing block
+            TagCollection climbingBlock = mode.climbingBlocks[i];
+            block = FindBlock(climbingBlock);
+
+            //Add Converter if neccesary
             if (i == 0)
             {
-                block = CreateNewBlock(block, BlockDifficulty.Easy, true);
-                
-                if (block.start == BlockEnding.Thin)
-                {
-                    block.transform.position = Vector3.zero;
+                firstBlock = block.gameObject;
 
-                    Block converter = CreateNewBlock(level[0], BlockDifficulty.Converter, true);
+                if (block.startSize != tutorialBlock.endSize)
+                {
+                    TagCollection c = new TagCollection(); c.tags.Add(BlockTag.Converter);
+                    Block converter = FindBlock(c);
                     level.Add(converter);
-
                     ConnectBlocks(block, converter);
-
-                    easyBlock = converter.gameObject;
                 }
-                else
-                {
-                    easyBlock = block.gameObject;
-                }
-                level.Add(block);
-            }
-            else
-            {
-                block = CreateNewBlock(block, BlockDifficulty.Easy);
-                level.Add(block);
             }
 
-        }
-
-        //Spawn Medium Blocks
-        for (int i = 0; i < numberOfMediumBlocks; i++)
-        {
-            block = CreateNewBlock(block, BlockDifficulty.Medium);
-            level.Add(block);
-        }
-
-        //Spawn Hard Blocks
-        for (int i = 0; i < numberOfHardBlocks; i++)
-        {
-            block = CreateNewBlock(block, BlockDifficulty.Hard);
+            //Add climbing block
             level.Add(block);
         }
 
         //Spawn top block
-        block = CreateNewBlock(block, BlockDifficulty.Top);
+        block = FindBlock(mode.topBlock);
         level.Add(block);
-
-        //Save current level inside previousLevel
-        previousLevel.Clear();
-        previousLevel.AddRange(level);
     }
 
     private void FixSigns()
@@ -143,84 +113,108 @@ public class LevelGeneration : MonoBehaviour
             }
         }
     }
-
-    public Block CreateNewBlock(Block previousBlock, BlockDifficulty difficulty, bool overrideBlockmatch = false)
+    public Block FindBlock(TagCollection minimumRequiredTags)
     {
         List<Block> availableBlocks = new List<Block>();
+        Block previousBlock = (level.Count > 0) ? level.Last() : null;
+        bool searchingForTutorial = minimumRequiredTags.ContainsTag(BlockTag.Tutorial);
 
-        for (int i = 0; i < blockList.Count; i++)
+        //Find blocks that contain the required tags
+        foreach(Block block in globalBlockCollection)
         {
-            //If the searched difficulty matches
-            if (blockList[i].difficulty == difficulty)
+            if (block.tagCollection.ContainsTags(minimumRequiredTags))
             {
-                Block newBlock = blockList[i];
-
-                //Does it fit with previousblock
-                if (!overrideBlockmatch && previousBlock != null)
+                //Are we searching for a tutorial block?
+                if (searchingForTutorial && block is TutorialBlock)
                 {
-                    if (newBlock.start != previousBlock.end)
+                    TutorialBlock tutorial = block as TutorialBlock;
+
+                    if (tutorial.frogCount == GetTutorialFrogCount())
                     {
-                        continue;
+                        availableBlocks.Add(block);
                     }
                 }
-
-
-                bool add = true;
-                for (int j = 0; j < level.Count; j++)
+                else
                 {
-                    if (level[j].blockIndex == newBlock.blockIndex)
-                    {
-                        add = false;
-                        break;
-                    }
-                }
-                if (add)
-                {
-                    availableBlocks.Add(newBlock);
+                    availableBlocks.Add(block);
                 }
             }
         }
 
-
-
-
-        if (availableBlocks.Count == 0)
+        //Sort through so that size fits except for tutorial and first block
+        if (!searchingForTutorial && level.Count > 2)
         {
-            Debug.LogError("Could not find a " + difficulty.ToString() + " block to generate!");
-            return null;
-        }
+            List<Block> tmpBlocks = new List<Block>();
+            tmpBlocks.AddRange(availableBlocks);
+            availableBlocks.Clear();
 
-        //Remove blocks that was in previous level
-        for (int i = 0; i < availableBlocks.Count; i++)
-        {
-            if (availableBlocks[i].difficulty.ToString().Contains("Tutorial"))
+            for (int i = 0; i < tmpBlocks.Count; i++)
             {
-                continue;
-            }
-
-            for (int j = 0; j < previousLevel.Count; j++)
-            {
-                if (availableBlocks[i].blockIndex == previousLevel[j].blockIndex)
+                Block block = tmpBlocks[i];
+                if (block.startSize == previousBlock.endSize)
                 {
-                    availableBlocks.Remove(availableBlocks[i]);
-                    break;
+                    availableBlocks.Add(block);
                 }
             }
         }
 
-        if (availableBlocks.Count == 0)
-        {
-            Debug.LogError("Could not find a " + difficulty.ToString() + " block to generate. Reason: All available blocks deleted because they were in previous level!");
-            return null;
-        }
+        Block randomBlock = availableBlocks[Random.Range(0, availableBlocks.Count)];
+        Transform newBlock = Instantiate(randomBlock.transform, Vector3.zero, Quaternion.identity) as Transform;
+        Block spawnedBlock = newBlock.GetComponent<Block>();
+
+        ConnectBlocks(spawnedBlock, previousBlock);
+        spawnedBlock.transform.parent = transform;
+        return spawnedBlock;
+
+        //for (int i = 0; i < globalBlockCollection.Count; i++)
+        //{
+        //    If the searched difficulty matches
+        //    if (globalBlockCollection[i].difficulty == difficulty)
+        //    {
+        //        Block newBlock = globalBlockCollection[i];
+
+        //        Does it fit with previousblock
+        //        if (!overrideBlockmatch && previousBlock != null)
+        //        {
+        //            if (newBlock.start != previousBlock.end)
+        //            {
+        //                continue;
+        //            }
+        //        }
 
 
-        Transform t = Instantiate(availableBlocks[Random.Range(0, availableBlocks.Count)].transform, Vector3.zero, Quaternion.identity) as Transform;
-        Block b = t.GetComponent<Block>();
+        //        bool add = true;
+        //        for (int j = 0; j < level.Count; j++)
+        //        {
+        //            if (level[j].blockIndex == newBlock.blockIndex)
+        //            {
+        //                add = false;
+        //                break;
+        //            }
+        //        }
+        //        if (add)
+        //        {
+        //            availableBlocks.Add(newBlock);
+        //        }
+        //    }
+        //}
 
-        ConnectBlocks(b, previousBlock);
-        b.transform.parent = transform;
-        return b;
+
+
+
+        //if (availableBlocks.Count == 0)
+        //{
+        //    Debug.LogError("Could not find a " + difficulty.ToString() + " block to generate!");
+        //    return null;
+        //}
+
+
+        //Transform t = Instantiate(availableBlocks[Random.Range(0, availableBlocks.Count)].transform, Vector3.zero, Quaternion.identity) as Transform;
+        //Block b = t.GetComponent<Block>();
+
+        //ConnectBlocks(b, previousBlock);
+        //b.transform.parent = transform;
+        return null;
     }
     private void ConnectBlocks(Block block, Block previousBlock)
     {
@@ -237,7 +231,6 @@ public class LevelGeneration : MonoBehaviour
         }
         
     }
-
     public Vector3 GetPlayerSpawnPosition(int player)
     {
         if (tutorialBlock)
@@ -254,28 +247,28 @@ public class LevelGeneration : MonoBehaviour
 
         return renderers;
     }
-    public void ActivateEasyBlock()
+    public void ActivateFirstBlock()
     {
-        easyBlock.SetActive(true);
+        firstBlock.SetActive(true);
     }
-    public void DeactivateEasyBlock()
+    public void DeactivateFirstBlock()
     {
-        easyBlock.SetActive(false);
+        firstBlock.SetActive(false);
     }
-    private BlockDifficulty GetTutorialDifficulty()
+    private TutorialFrogCount GetTutorialFrogCount()
     {
-        switch(gameManager.GetFrogReadyCount())
+        switch (gameManager.GetFrogReadyCount())
         {
             case 1:
-                return BlockDifficulty.Tutorial_1player;
+                return TutorialFrogCount.One;
             case 2:
-                return BlockDifficulty.Tutorial_2player;
+                return TutorialFrogCount.Two;
             case 3:
-                return BlockDifficulty.Tutorial_3player;
+                return TutorialFrogCount.Three;
             case 4:
-                return BlockDifficulty.Tutorial_4player;
+                return TutorialFrogCount.Four;
             default:
-                return BlockDifficulty.Tutorial_1player;
+                return TutorialFrogCount.Invalid;
         }
     }
 
@@ -284,54 +277,51 @@ public class LevelGeneration : MonoBehaviour
         Block[] blocks = null;
 
         //Load easy blocks
-        if (numberOfEasyBlocks > 0)
+        blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Easy blocks");
+        for (int i = 0; i < blocks.Length; i++)
         {
-           blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Easy blocks");
-           for (int i = 0; i < blocks.Length; i++)
-           {
-               blockList.Add(blocks[i]);
-           }
+            globalBlockCollection.Add(blocks[i]);
         }
 
         //Load medium blocks
-        if (numberOfMediumBlocks > 0)
+        blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Medium blocks");
+        for (int i = 0; i < blocks.Length; i++)
         {
-            blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Medium blocks");
-            for (int i = 0; i < blocks.Length; i++)
-            {
-                blockList.Add(blocks[i]);
-            }
+            globalBlockCollection.Add(blocks[i]);
         }
 
         //Load hard blocks
-        if (numberOfHardBlocks > 0)
+        blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Hard blocks");
+        for (int i = 0; i < blocks.Length; i++)
         {
-            blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Hard blocks");
-            for (int i = 0; i < blocks.Length; i++)
-            {
-                blockList.Add(blocks[i]);
-            }
+            globalBlockCollection.Add(blocks[i]);
         }
 
         //Load top blocks
         blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Top blocks");
         for (int i = 0; i < blocks.Length; i++)
         {
-            blockList.Add(blocks[i]);
+            globalBlockCollection.Add(blocks[i]);
         }
 
         //Load tutorial blocks
         blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Tutorial blocks");
         for (int i = 0; i < blocks.Length; i++)
         {
-            blockList.Add(blocks[i]);
+            globalBlockCollection.Add(blocks[i]);
         }
 
         //Load converter blocks
         blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Converter blocks");
         for (int i = 0; i < blocks.Length; i++)
         {
-            blockList.Add(blocks[i]);
+            globalBlockCollection.Add(blocks[i]);
+        }
+
+        //Assign indexes for each block
+        for (int i = 0; i < globalBlockCollection.Count; i++)
+        {
+            globalBlockCollection[i].blockIndex = i;
         }
     }
     public void SetLevelHeight()
@@ -352,7 +342,7 @@ public class LevelGeneration : MonoBehaviour
         {
             if (keepTutorial)
             {
-                Block block = CreateNewBlock(null, GetTutorialDifficulty());
+                Block block = FindBlock(GameManager.CurrentGameMode.tutorialBlock);
                 block.transform.parent = transform; level.Add(block);
                 tutorialBlock = block as TutorialBlock;
             }
