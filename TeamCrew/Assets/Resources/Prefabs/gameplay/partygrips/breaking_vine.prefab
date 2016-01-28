@@ -59,8 +59,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .734344482, y: -.655914307, z: 0}
-  m_LocalScale: {x: -.862499774, y: .850000203, z: 1}
+  m_LocalPosition: {x: -0.011, y: -0.42, z: 0}
+  m_LocalScale: {x: -0.8624998, y: 0.8500002, z: 1}
   m_Children: []
   m_Father: {fileID: 457278}
   m_RootOrder: 1
@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -388.24234, y: -265.079071, z: 0}
+  m_LocalPosition: {x: 9.954, y: -246.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 492534}
@@ -85,8 +85,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .73135376, y: -.240936279, z: 0}
-  m_LocalScale: {x: 1, y: .825000763, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.82500076, z: 1}
   m_Children: []
   m_Father: {fileID: 457278}
   m_RootOrder: 0
@@ -97,9 +97,10 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166622}
+  m_UseAutoMass: 0
   m_Mass: 40
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0.05
   m_GravityScale: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -113,9 +114,10 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102874}
+  m_UseAutoMass: 0
   m_Mass: 40
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0.05
   m_GravityScale: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -133,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f3b766913566b4c9a2c7dcfaa51933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: .5
+  delay: 0.5
   breakAudio: {fileID: 0}
   snappingGrips: []
 --- !u!212 &21214066
@@ -157,13 +159,15 @@ SpriteRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 335131837
   m_SortingOrder: -5
   m_Sprite: {fileID: 21300012, guid: 82b17d7fc265da8459471a2f933bee11, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!212 &21235064
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -185,13 +189,15 @@ SpriteRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 335131837
   m_SortingOrder: -5
   m_Sprite: {fileID: 21300014, guid: 82b17d7fc265da8459471a2f933bee11, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!233 &23311136
 HingeJoint2D:
   m_ObjectHideFlags: 1
@@ -199,10 +205,13 @@ HingeJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102874}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 0}
-  m_Anchor: {x: .00131225586, y: .234734461}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0.0013122559, y: 0.23473446}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_UseMotor: 0
   m_Motor:
@@ -219,11 +228,14 @@ HingeJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166622}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 5007572}
-  m_Anchor: {x: -.00193248596, y: .257416487}
-  m_ConnectedAnchor: {x: .00311279297, y: -.236826405}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: -0.001932486, y: 0.2574165}
+  m_ConnectedAnchor: {x: 0.003112793, y: -0.2368264}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
