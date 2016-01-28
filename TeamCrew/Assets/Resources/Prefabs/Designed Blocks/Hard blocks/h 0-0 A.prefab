@@ -1780,7 +1780,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 160850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -696.14954, y: -188.74039, z: 0}
+  m_LocalPosition: {x: 27.95447, y: -33.838036, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 403150}
@@ -3579,12 +3579,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716bf17363f6d724caf636a937c34652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end: 0
-  pixelsFromLeftEnd: -527
-  start: 0
-  pixelsFromLeftStart: -533
-  difficulty: 0
-  blockIndex: 14
+  tagCollection:
+    tags: 0500000002000000
+  pixelsFromLeftStart: 960
+  pixelsFromLeftEnd: 960
+  startSize: 0
+  endSize: 0
+  blockIndex: 23
   blockheightTop: 9.59
   blockheightBottom: 9.53
   gizmoSize: -0.48
@@ -5166,7 +5167,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.008737375, y: -0.00057407503}
-  m_ConnectedAnchor: {x: 0.061882056, y: 3.04241}
+  m_ConnectedAnchor: {x: 0.06189547, y: 3.0424402}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -5258,7 +5259,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.008737375, y: -0.00057407503}
-  m_ConnectedAnchor: {x: -0.009246287, y: -3.101799}
+  m_ConnectedAnchor: {x: -0.009239322, y: -3.1017525}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -5373,7 +5374,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.008737375, y: -0.00057407503}
-  m_ConnectedAnchor: {x: 0.08554055, y: -0.5065394}
+  m_ConnectedAnchor: {x: 0.085608914, y: -0.50652486}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -5672,7 +5673,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.008737375, y: -0.00057407503}
-  m_ConnectedAnchor: {x: 0.08554119, y: -0.50652385}
+  m_ConnectedAnchor: {x: 0.085608825, y: -0.5065267}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -5687,7 +5688,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: tagCollection.tags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tagCollection.tags.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tagCollection.tags.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 160850}

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using System.Linq;
 
 public enum BlockTag
@@ -27,6 +28,9 @@ public class GameModes : MonoBehaviour
 public class GameMode
 {
     public string name;
+    public Sprite picture;
+    [TextArea(1, 10)]
+    public string description;
     public TagCollection topBlock;
     public List<TagCollection> climbingBlocks = new List<TagCollection>();
     public TagCollection tutorialBlock;

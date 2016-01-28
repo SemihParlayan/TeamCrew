@@ -48,7 +48,7 @@ public class LevelGeneration : MonoBehaviour
     public void GenerateFullMountain(bool keepTutorial = false)
     {
         GameMode mode = GameManager.CurrentGameMode;
-
+        Debug.Log(mode.name);
         //Remove previouslevel
         DestroyLevel(keepTutorial);
 
@@ -142,7 +142,7 @@ public class LevelGeneration : MonoBehaviour
         }
 
         //Sort through so that size fits except for tutorial and first block
-        if (!searchingForTutorial && level.Count > 2)
+        if (!searchingForTutorial)
         {
             List<Block> tmpBlocks = new List<Block>();
             tmpBlocks.AddRange(availableBlocks);
@@ -151,7 +151,11 @@ public class LevelGeneration : MonoBehaviour
             for (int i = 0; i < tmpBlocks.Count; i++)
             {
                 Block block = tmpBlocks[i];
-                if (block.startSize == previousBlock.endSize)
+                if (level.Count <= 1)
+                {
+                    availableBlocks.Add(block);
+                }
+                else if (block.startSize == previousBlock.endSize)
                 {
                     availableBlocks.Add(block);
                 }

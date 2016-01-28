@@ -9935,12 +9935,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716bf17363f6d724caf636a937c34652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end: 0
-  pixelsFromLeftEnd: 750
-  start: 1
+  tagCollection:
+    tags: 0500000002000000
   pixelsFromLeftStart: -2080
-  difficulty: 2
-  blockIndex: 0
+  pixelsFromLeftEnd: 750
+  startSize: 1
+  endSize: 0
+  blockIndex: 28
   blockheightTop: 14.67
   blockheightBottom: 6.14
   gizmoSize: 0.73
@@ -18412,7 +18413,23 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: tagCollection.tags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tagCollection.tags.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tagCollection.tags.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: startSize
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 147452}
