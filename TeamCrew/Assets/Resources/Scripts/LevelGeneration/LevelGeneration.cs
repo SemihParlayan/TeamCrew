@@ -48,7 +48,7 @@ public class LevelGeneration : MonoBehaviour
     public void GenerateFullMountain(bool keepTutorial = false)
     {
         GameMode mode = GameManager.CurrentGameMode;
-        Debug.Log(mode.name);
+
         //Remove previouslevel
         DestroyLevel(keepTutorial);
 

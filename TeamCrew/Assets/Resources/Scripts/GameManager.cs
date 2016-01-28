@@ -402,6 +402,11 @@ public class GameManager : MonoBehaviour
         {
             TurnOffVibration();
         }
+
+        if (GetButtonPress(XboxButton.Guide))
+        {
+            Vibration.instance.SetVibration(0, 0f, 0f, 0f);
+        }
         UpdateControllers();
         RestartGame();
         CheckForTutorialComplete();

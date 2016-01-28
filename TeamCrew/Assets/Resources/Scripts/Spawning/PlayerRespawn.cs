@@ -44,6 +44,7 @@ public class PlayerRespawn : MonoBehaviour
     public bool respawning;
     [HideInInspector]
     public bool inactive;
+    public bool allowRespawn = true;
 
     void Start()
     {
@@ -68,6 +69,15 @@ public class PlayerRespawn : MonoBehaviour
         return false;
     }
 
+    public void DisableRespawn(float howLong)
+    {
+        allowRespawn = false;
+        Invoke("EnableRespawn", howLong);
+    }
+    private void EnableRespawn()
+    {
+        allowRespawn = true;
+    }
     public void UpdateRespawn(float targetX)
     {
         if (Respawning)

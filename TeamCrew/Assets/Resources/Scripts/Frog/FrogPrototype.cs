@@ -13,6 +13,7 @@ public class FrogPrototype : MonoBehaviour
     public bool characterSelectFrog;
     public float speed;
     public float yVelocityClamp = 10;
+    public bool forceArmsUp = true;
 
     public int player;
     public Emotions emotionsScript;
@@ -277,6 +278,8 @@ public class FrogPrototype : MonoBehaviour
 
 
         float vertical = GameManager.GetThumbStick(XboxThumbStick.Left).y;
+        if (forceArmsUp)
+            vertical = 1f;
 
         if (leftGripScript.isOnWall && vertical != 0)
         {
@@ -285,7 +288,8 @@ public class FrogPrototype : MonoBehaviour
 
 
         vertical = GameManager.GetThumbStick(XboxThumbStick.Right).y;
-
+        if (forceArmsUp)
+            vertical = 1f;
         if (rightGripScript.isOnWall && vertical != 0) 
         {
             rightParticle.enableEmission = true;
@@ -372,6 +376,15 @@ public class FrogPrototype : MonoBehaviour
     }
     void ControlHand(HandGrip handScript, Vector3 input, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin, HandGrip otherGripScript)
     {
+        if (input == Vector3.zero)
+        {
+            if (forceArmsUp)
+                input = new Vector3(0, 0.75f, 0);
+        }
+        else
+        {
+            forceArmsUp = false;
+        }
         ///////////////////////////////////////////////////////////////////////////
         //                      Is hand gripping or not?
         ///////////////////////////////////////////////////////////////////////////

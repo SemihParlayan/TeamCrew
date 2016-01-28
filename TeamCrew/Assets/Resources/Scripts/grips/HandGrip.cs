@@ -351,14 +351,12 @@ public class HandGrip : MonoBehaviour
     }
     public void LockHand(float time)
     {
-        Debug.Log("LOCKING HAND: " + time);
         handIsLocked = true;
         StartCoroutine(DeLockHand(time));
     }
     public void SetForcedGrip(bool value, bool allowStoneGrip = true)
     {
         this.allowStoneGrip = allowStoneGrip;
-        Debug.Log("FORCING GRIP: " + value);
         forcedGrip = value;
     }
     public void ReleaseGrip(float newGripDelay = 0)

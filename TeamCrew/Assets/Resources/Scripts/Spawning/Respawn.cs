@@ -9,6 +9,8 @@ public class Respawn : MonoBehaviour
 {
     //Respawn scripts
     public List<PlayerRespawn> respawnScripts = new List<PlayerRespawn>();
+    [HideInInspector]
+    public ConnectFrogs connectFrogs;
 
     //Components
     private Camera cam;
@@ -58,15 +60,15 @@ public class Respawn : MonoBehaviour
         }
 
         minHeight = cam.transform.position.y - cam.orthographicSize;
-
         for (int i = 0; i < respawnScripts.Count; i++)
         {
             PlayerRespawn script = respawnScripts[i];
 
             if (GameManager.players[i] != null)
             {
-                if (GameManager.players[i].position.y < minHeight - 2.5f)
+                if (GameManager.players[i].position.y < minHeight - 2.5f && script.allowRespawn)
                 {
+                    script.DisableRespawn(5f);
                     script.Respawning = true;
                     script.deathPositionX = GameManager.players[i].position.x;
                     script.deathCount++;
@@ -97,14 +99,11 @@ public class Respawn : MonoBehaviour
     }
     Transform RespawnPlayer(PlayerRespawn player)
     {
-        Vector3 pos = cam.ScreenToWorldPoint(player.arrow.rectTransform.position);
-        pos.z = 0;
-        pos.y -= 3;
-        Transform t = Instantiate(player.prefab, pos, Quaternion.identity) as Transform;
+        Vector3 pos = cam.ScreenToWorldPoint(player.arrow.rectTransform.position); pos.z = 0; pos.y -= 10;
+        pos.y += GetSpawnOffset(player);
 
+        Transform t = connectFrogs.SpawnFrog(player.prefab, pos, false);
         Transform body = t.FindChild("body");
-        body.GetComponent<Line>().Remove();
-
         Rigidbody2D b = body.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
         b.AddForce(Vector2.up * 650000);
@@ -150,6 +149,26 @@ public class Respawn : MonoBehaviour
         }
 
         return cam.transform.position;
+    }
+    float GetSpawnOffset(PlayerRespawn player)
+    {
+        float camY = cam.ScreenToWorldPoint(player.arrow.rectTransform.position).y;
+        Transform bottomFrog = GameManager.GetBottomFrog();
+
+        if (bottomFrog == null)
+            return 10f;
+
+        float bottomY = bottomFrog.position.y;
+
+        float offset = bottomY - camY;
+        offset -= 2f;
+
+        if (offset < 1f)
+        {
+            offset = 1f;
+        }
+
+        return offset;
     }
 
     void playBoing()
