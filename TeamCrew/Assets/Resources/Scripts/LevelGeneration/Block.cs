@@ -13,8 +13,8 @@ public class Block : MonoBehaviour
     public static float ThickWidth = 18.26f;
 
     public TagCollection tagCollection;
-    public uint pixelsFromLeftStart;
-    public uint pixelsFromLeftEnd;
+    public int pixelsFromLeftStart;
+    public int pixelsFromLeftEnd;
     public BlockEnding startSize;
     public BlockEnding endSize;
 

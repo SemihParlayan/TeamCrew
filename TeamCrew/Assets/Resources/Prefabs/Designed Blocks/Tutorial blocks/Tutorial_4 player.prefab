@@ -13486,12 +13486,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagCollection:
-    tags: 030000000100000002000000
+    tags: 03000000010000000200000000000000
   pixelsFromLeftStart: 0
   pixelsFromLeftEnd: 368
   startSize: 0
   endSize: 1
-  blockIndex: 39
+  blockIndex: 41
   blockheightTop: 0
   blockheightBottom: 0
   gizmoSize: 0.2
@@ -17663,7 +17663,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: tagCollection.tags.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: difficulty
@@ -17688,6 +17688,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: frogCount
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tagCollection.tags.Array.data[3]
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
