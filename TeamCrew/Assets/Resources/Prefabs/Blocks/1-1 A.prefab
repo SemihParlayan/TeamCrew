@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.3578568, y: 12.7004242, z: 0}
+  m_LocalPosition: {x: 352.9752, y: -226.04463, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -37,22 +37,23 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167642}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -7.24868011, y: -9.59699154}
-      - {x: -4.65607452, y: -6.98300457}
-      - {x: -4.63375092, y: -1.58597469}
-      - {x: -4.49098969, y: 4.06278181}
-      - {x: -6.03564453, y: 9.59733391}
-      - {x: 7.51168823, y: 9.55178356}
-      - {x: 3.86090851, y: 5.28358698}
-      - {x: 3.93042755, y: .569145203}
-      - {x: 4.34640503, y: -5.92845821}
-      - {x: 7.91274261, y: -9.60692883}
+    - - {x: -7.24868, y: -9.596992}
+      - {x: -4.6560745, y: -6.9830046}
+      - {x: -4.633751, y: -1.5859747}
+      - {x: -4.4909897, y: 4.062782}
+      - {x: -6.0356445, y: 9.597334}
+      - {x: 7.511688, y: 9.551784}
+      - {x: 3.8609085, y: 5.283587}
+      - {x: 3.9304276, y: 0.5691452}
+      - {x: 4.346405, y: -5.928458}
+      - {x: 7.9127426, y: -9.606929}
 --- !u!114 &11432824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,12 +65,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716bf17363f6d724caf636a937c34652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end: 1
-  pixelsFromLeftEnd: 0
-  start: 1
+  tagCollection:
+    tags: 
   pixelsFromLeftStart: 0
-  difficulty: 0
+  pixelsFromLeftEnd: 0
+  startSize: 0
+  endSize: 0
   blockIndex: 0
+  blockheightTop: 0
+  blockheightBottom: 0
+  gizmoSize: 0.2
 --- !u!212 &21230704
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -88,14 +93,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1367655561
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 83a4d6f4fd137c042b52316bee4368d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ffba2b13ffb283441979819c70de6467, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

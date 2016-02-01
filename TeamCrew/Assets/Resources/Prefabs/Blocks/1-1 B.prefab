@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131306}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -451.299988, y: -290.399994, z: 0}
+  m_LocalPosition: {x: 379.93158, y: -229.4986, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -37,44 +37,45 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131306}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: 15.480011, y: -8.41650391}
-      - {x: 14.1190796, y: -5.54824829}
-      - {x: 11.0900002, y: -1.62}
-      - {x: 8.14999962, y: -.600000024}
-      - {x: 8.02999973, y: -.589999974}
-      - {x: 7.88999987, y: -.579999983}
-      - {x: -2.33496094, y: -1.57073975}
-      - {x: -4.80000019, y: -.0599999987}
-      - {x: -5.58792114, y: 1.72677612}
-      - {x: -3.68041992, y: 3.14709473}
-      - {x: 1.60000002, y: 2.63000011}
-      - {x: 1.73000002, y: 2.6500001}
-      - {x: 4.92000008, y: 4.17999983}
-      - {x: 6.32999992, y: 8.32999992}
-      - {x: 6.28999996, y: 8.36999989}
-      - {x: -12.0183105, y: 8.46154785}
-      - {x: -13.9700003, y: 2.75}
-      - {x: -13.3500004, y: -.920000017}
-      - {x: -12.25, y: -2.91000009}
-      - {x: -11.8400002, y: -3.33999991}
-      - {x: -9.0718689, y: -4.63238525}
-      - {x: -5.78771973, y: -4.30767822}
-      - {x: -4, y: -5.05000019}
-      - {x: -2.75, y: -6.78000021}
-      - {x: -2.71000004, y: -7.17999983}
-      - {x: -2.69000006, y: -7.36999989}
-      - {x: -2.71893311, y: -8.30337524}
-    - - {x: -3.6400001, y: -6.94000006}
-      - {x: -3.6099999, y: -6.92999983}
-      - {x: -3.6099999, y: -6.9000001}
-      - {x: -3.6400001, y: -6.88999987}
-      - {x: -3.66000009, y: -6.90999985}
+    - - {x: 15.480011, y: -8.416504}
+      - {x: 14.11908, y: -5.5482483}
+      - {x: 11.09, y: -1.62}
+      - {x: 8.15, y: -0.6}
+      - {x: 8.03, y: -0.59}
+      - {x: 7.89, y: -0.58}
+      - {x: -2.334961, y: -1.5707397}
+      - {x: -4.8, y: -0.06}
+      - {x: -5.587921, y: 1.7267761}
+      - {x: -3.68042, y: 3.1470947}
+      - {x: 1.6, y: 2.63}
+      - {x: 1.73, y: 2.65}
+      - {x: 4.92, y: 4.18}
+      - {x: 6.33, y: 8.33}
+      - {x: 6.29, y: 8.37}
+      - {x: -12.018311, y: 8.461548}
+      - {x: -13.97, y: 2.75}
+      - {x: -13.35, y: -0.92}
+      - {x: -12.25, y: -2.91}
+      - {x: -11.84, y: -3.34}
+      - {x: -9.071869, y: -4.6323853}
+      - {x: -5.7877197, y: -4.307678}
+      - {x: -4, y: -5.05}
+      - {x: -2.75, y: -6.78}
+      - {x: -2.71, y: -7.18}
+      - {x: -2.69, y: -7.37}
+      - {x: -2.718933, y: -8.303375}
+    - - {x: -3.64, y: -6.94}
+      - {x: -3.61, y: -6.93}
+      - {x: -3.61, y: -6.9}
+      - {x: -3.64, y: -6.89}
+      - {x: -3.66, y: -6.91}
 --- !u!114 &11485070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,12 +87,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716bf17363f6d724caf636a937c34652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end: 1
-  pixelsFromLeftEnd: 400
-  start: 1
+  tagCollection:
+    tags: 
   pixelsFromLeftStart: 1330
-  difficulty: 0
+  pixelsFromLeftEnd: 400
+  startSize: 0
+  endSize: 0
   blockIndex: 0
+  blockheightTop: 0
+  blockheightBottom: 0
+  gizmoSize: 0.2
 --- !u!212 &21282742
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -110,14 +115,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1367655561
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 19cbcda1f1eb09d419d6eb439a7bd46d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 711029c7150d2b3438c0b60994259268, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
