@@ -125,11 +125,15 @@ public class GameManager : MonoBehaviour
 
                 if (stick == XboxThumbStick.Left)
                 {
-                    return new Vector2(controllers[i].currentState.ThumbSticks.Left.X, controllers[i].currentState.ThumbSticks.Left.Y);
+                    Vector2 dir = new Vector2(controllers[i].currentState.ThumbSticks.Left.X, controllers[i].currentState.ThumbSticks.Left.Y);
+                    if (dir != Vector2.zero)
+                        return dir;
                 }
                 else
                 {
-                    return new Vector2(controllers[i].currentState.ThumbSticks.Right.X, controllers[i].currentState.ThumbSticks.Right.Y);
+                    Vector2 dir = new Vector2(controllers[i].currentState.ThumbSticks.Right.X, controllers[i].currentState.ThumbSticks.Right.Y);
+                    if (dir != Vector2.zero)
+                        return dir;
                 }
             }
         }
@@ -310,6 +314,7 @@ public class GameManager : MonoBehaviour
     public bool[] frogsReady = new bool[4];
     public EndgameScreen endGameScreen;
     public ReadySetGo readySetGo;
+    private ConnectFrogs connectFrogs;
 
     private bool playerFinalStretchAnimation = true;
     private Transform topFrogPrefab;
@@ -387,6 +392,7 @@ public class GameManager : MonoBehaviour
         }
 
         bandageManager = GetComponent<BandageManager>();
+        connectFrogs = GetComponent<ConnectFrogs>();
 
         readySetGo = GetComponent<ReadySetGo>();
 
@@ -403,10 +409,6 @@ public class GameManager : MonoBehaviour
             TurnOffVibration();
         }
 
-        if (GetButtonPress(XboxButton.Guide))
-        {
-            Vibration.instance.SetVibration(0, 0f, 0f, 0f);
-        }
         UpdateControllers();
         RestartGame();
         CheckForTutorialComplete();
@@ -422,8 +424,8 @@ public class GameManager : MonoBehaviour
     {
         if (hangingFrogsSpawned)
             return;
-
         hangingFrogsSpawned = true;
+
         List<FrogPrototype> order = new List<FrogPrototype>();
         List<int> playersAdded = new List<int>();
 
@@ -438,6 +440,7 @@ public class GameManager : MonoBehaviour
 
 
 
+        //Sort by Y value
         bool changed = true;
         while (changed)
         {
@@ -474,35 +477,29 @@ public class GameManager : MonoBehaviour
 
         int spawnedFrogs = 0;
         Vector3 topPosition = generatorScript.GetTopPosition() - new Vector3(0, 2.7f, 0);
-        Vector3 spawnPosition = Vector3.zero;
+        Transform previousFrog = null;
         for (int i = 0; i < order.Count; i++)
         {
             FrogPrototype frog = order[i];
             if (frog.player == victoryFrogNumber)
                 continue;
-            
 
             if (spawnedFrogs == 0)
             {
-                spawnPosition = topPosition;
+                previousFrog = connectFrogs.SpawnFrog(respawnScript.respawnScripts[frog.player].prefab, topPosition, false);
+                Transform body = previousFrog.FindChild("body");
+                FrogPrototype newFrog = body.GetComponent<FrogPrototype>();
+                newFrog.leftGripScript.LockHand(int.MaxValue);
+                newFrog.leftGripScript.SetForcedGrip(true, false);
             }
             else
             {
-                spawnPosition += new Vector3(0.8f, -2.2f, 0);
+                Hand hand = (i % 2 == 0) ? Hand.Right : Hand.Left;
+                previousFrog = connectFrogs.SpawnFrogConnected(respawnScript.respawnScripts[frog.player].prefab, previousFrog, hand, VersusGripPoint.Foot);
             }
 
-            Transform t = Instantiate(respawnScript.respawnScripts[frog.player].prefab, spawnPosition, Quaternion.identity) as Transform;
-
-            Transform body = t.FindChild("body");
-            body.GetComponent<Line>().Remove();
-            FrogPrototype newFrog = body.GetComponent<FrogPrototype>();
-
-            bool gripStone = (spawnedFrogs == 0);
-            newFrog.leftGripScript.LockHand(int.MaxValue);
-            newFrog.leftGripScript.SetForcedGrip(true, gripStone);
+            hangingFrogs.Add(previousFrog);
             spawnedFrogs++;
-
-            hangingFrogs.Add(t);
         }
 
         DestroyFrogs();

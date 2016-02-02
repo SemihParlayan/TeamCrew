@@ -13,7 +13,7 @@ public class FrogPrototype : MonoBehaviour
     public bool characterSelectFrog;
     public float speed;
     public float yVelocityClamp = 10;
-    public bool forceArmsUp = true;
+    public bool forceArmsUp = false;
 
     public int player;
     public Emotions emotionsScript;
@@ -111,7 +111,6 @@ public class FrogPrototype : MonoBehaviour
 
         velVolRight = rightGripScript.GetComponentInChildren<VelocityVolume>();
 
-
         //Sound Stuff
         if (!characterSelectFrog)
         {
@@ -121,6 +120,8 @@ public class FrogPrototype : MonoBehaviour
             boilSounder.clip = Resources.Load("kettle") as AudioClip;
             shhSounder.clip = Resources.Load("shh") as AudioClip;
         }
+
+        forceArmsUp = false;
     }
 
     private void Update()
@@ -217,6 +218,14 @@ public class FrogPrototype : MonoBehaviour
     private float maxVersusGripTime = 8.0f;
     public float versusGripTimer = 8.0f;
 
+    public void ForceArmsUp()
+    {
+        Invoke("ArmsUp", 0.2f);
+    }
+    private void ArmsUp()
+    {
+        forceArmsUp = true;
+    }
     void ShakeLooseBody()
     {
         if ((leftGripScript.isVersusGripping || rightGripScript.isVersusGripping) && !leftGripScript.forcedGrip && !rightGripScript.forcedGrip)
@@ -376,14 +385,12 @@ public class FrogPrototype : MonoBehaviour
     }
     void ControlHand(HandGrip handScript, Vector3 input, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin, HandGrip otherGripScript)
     {
-        if (input == Vector3.zero)
+        if (forceArmsUp)
         {
-            if (forceArmsUp)
+            if (input == Vector3.zero)
                 input = new Vector3(0, 0.75f, 0);
-        }
-        else
-        {
-            forceArmsUp = false;
+            else
+                forceArmsUp = false;
         }
         ///////////////////////////////////////////////////////////////////////////
         //                      Is hand gripping or not?

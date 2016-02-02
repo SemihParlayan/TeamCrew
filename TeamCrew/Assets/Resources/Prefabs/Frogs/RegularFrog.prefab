@@ -159,7 +159,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 472788}
   - 58: {fileID: 5816620}
-  - 114: {fileID: 11416798}
+  - 114: {fileID: 11458232}
   m_Layer: 0
   m_Name: grip
   m_TagString: VersusGrip
@@ -1190,7 +1190,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 419614}
   - 58: {fileID: 5836730}
-  - 114: {fileID: 11419808}
+  - 114: {fileID: 11422094}
   m_Layer: 0
   m_Name: grip
   m_TagString: VersusGrip
@@ -2342,7 +2342,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.1606383, y: -16.529861, z: 0}
+  m_LocalPosition: {x: 15.26, y: -15.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 441890}
@@ -4249,7 +4249,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109668}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -4259,7 +4259,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11408912}
   connectedBody: {fileID: 5070556}
-  parentedPlayer: 0
+  parentedPlayer: 1
 --- !u!114 &11408912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4320,23 +4320,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 681034f8f5aa8c840ae0463f28c553ad, type: 3}
   - {fileID: 8300000, guid: 458044745883a1941addd4a0afde97b4, type: 3}
   - {fileID: 8300000, guid: 8d30a5d72e04ceb40a87fc35239c7cfb, type: 3}
---- !u!114 &11416798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 113248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winningGrip: 0
-  tutorialStart: 0
-  gripPoints:
-  - {fileID: 11458988}
-  connectedBody: {fileID: 5072998}
-  parentedPlayer: 0
 --- !u!114 &11418734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4348,23 +4331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a740067a4159a7649a86ef53d4e0e711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11419808
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winningGrip: 0
-  tutorialStart: 0
-  gripPoints:
-  - {fileID: 11437508}
-  connectedBody: {fileID: 5015550}
-  parentedPlayer: 0
 --- !u!114 &11420468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4387,6 +4353,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6550c904c68ba6940b4b71874113e41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11422094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc6a281dd0376b4fb830b4d5c8a6873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winningGrip: 0
+  tutorialStart: 0
+  gripPoints:
+  - {fileID: 11437508}
+  connectedBody: {fileID: 5015550}
+  parentedPlayer: 1
+  handScript: {fileID: 11475224}
 --- !u!114 &11423166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4403,7 +4387,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11434882}
   connectedBody: {fileID: 5044424}
-  parentedPlayer: 0
+  parentedPlayer: 1
 --- !u!114 &11423260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4420,7 +4404,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11487020}
   connectedBody: {fileID: 5091674}
-  parentedPlayer: 0
+  parentedPlayer: 1
 --- !u!114 &11425722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4565,6 +4549,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de0ece074c0a604b8fc427747c6c5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11458232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc6a281dd0376b4fb830b4d5c8a6873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winningGrip: 0
+  tutorialStart: 0
+  gripPoints:
+  - {fileID: 11458988}
+  connectedBody: {fileID: 5072998}
+  parentedPlayer: 1
+  handScript: {fileID: 11491440}
 --- !u!114 &11458988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4631,14 +4633,14 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11451346}
   connectedBody: {fileID: 5070556}
-  parentedPlayer: 0
+  parentedPlayer: 1
 --- !u!114 &11464632
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176140}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -4648,7 +4650,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11431950}
   connectedBody: {fileID: 5044424}
-  parentedPlayer: 0
+  parentedPlayer: 1
 --- !u!114 &11465930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4682,8 +4684,8 @@ MonoBehaviour:
   characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
-  forceArmsUp: 1
-  player: 0
+  forceArmsUp: 0
+  player: 1
   emotionsScript: {fileID: 11469082}
   gripScript: []
   joints: []
@@ -4784,6 +4786,8 @@ MonoBehaviour:
   gripSoundSource: {fileID: 8210878}
   scream: {fileID: 0}
   insectScript: {fileID: 0}
+  ownVersusHand: {fileID: 11422094}
+  versusHand: {fileID: 0}
   stoneParticles: {fileID: 19838064}
   gripAnimation: {fileID: 11420774}
   versusGripController: {fileID: 0}
@@ -4916,6 +4920,8 @@ MonoBehaviour:
   gripSoundSource: {fileID: 8283366}
   scream: {fileID: 0}
   insectScript: {fileID: 0}
+  ownVersusHand: {fileID: 11458232}
+  versusHand: {fileID: 0}
   stoneParticles: {fileID: 19894260}
   gripAnimation: {fileID: 11467436}
   versusGripController: {fileID: 0}
@@ -12815,6 +12821,10 @@ Prefab:
       objectReference: {fileID: 416414, guid: c7c4254f227d6964ab57a62a30e7eaa5, type: 2}
     - target: {fileID: 0}
       propertyPath: player
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: forceArmsUp
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

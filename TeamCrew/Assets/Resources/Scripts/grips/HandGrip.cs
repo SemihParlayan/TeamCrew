@@ -6,6 +6,7 @@ public class HandGrip : MonoBehaviour
 {
     //Hand states
     public bool JustGripped { get { return (!lastIsOngrip && isOnGrip); } }
+    public bool JustReleased { get { return (lastIsOngrip && !isOnGrip); } }
     public bool isOnGrip;
     public bool lastIsOngrip;
     public bool isOnWall;
@@ -53,7 +54,9 @@ public class HandGrip : MonoBehaviour
     private GameManager gameManager;
 
     //Versus frog reference
+    public VersusHandGrip ownVersusHand;
     private FrogPrototype versusFrog;
+    public HandGrip versusHand;
 
     public ParticleSystem stoneParticles;
 
@@ -122,6 +125,17 @@ public class HandGrip : MonoBehaviour
             }
         }
 
+        
+        //Release versus hand
+        if (versusHand != null)
+        {
+            if (versusHand.JustReleased)
+            {
+                versusHand.ReleaseGrip();
+                ReleaseGrip();
+            }
+        }
+
         //Set last grip time
         if (JustGripped)
         {
@@ -169,7 +183,33 @@ public class HandGrip : MonoBehaviour
             //Do we have a grip point?
             if (gripPoint != null)
             {
-                if (newGrip is VersusGrip)
+                if (newGrip is VersusHandGrip)
+                {
+                    VersusHandGrip versusHandGrip = newGrip as VersusHandGrip;
+
+                    if (versusHandGrip.handScript.isGripping && !versusHandGrip.handScript.isOnGrip && versusHandGrip.handScript.player != player)
+                    {
+                        versusHand = versusHandGrip.handScript;
+                        isOnGrip = true;
+                        gripPoint.numberOfHands++;
+                        spriteRenderer.sprite = closed;
+                        joint.enabled = true;
+
+                        randSoundGen.GenerateGrip();
+                        gripSoundSource.Play();
+
+                        versusHandGrip.handScript.versusHand = this;
+                        versusHandGrip.handScript.isOnGrip = true;
+                        versusHandGrip.handScript.spriteRenderer.sprite = versusHandGrip.handScript.closed;
+                        versusHandGrip.handScript.joint.enabled = true;
+
+                        //versusHandGrip.handScript.LockHand(int.MaxValue);
+                        //LockHand(int.MaxValue);
+                        return true;
+                    }
+                    return false;
+                }
+                else if (newGrip is VersusGrip)
                 {
                     VersusGrip versusGrip = newGrip as VersusGrip;
 
@@ -285,8 +325,20 @@ public class HandGrip : MonoBehaviour
 
             if (movingGrip)
             {
-                //Attach to moving grip if possible
-                if (AllowGrip(movingGrip))
+                if (movingGrip is VersusHandGrip)
+                {
+                    VersusHandGrip versusHandGrip = movingGrip as VersusHandGrip;
+                    if (AllowGrip(movingGrip))
+                    {
+                        joint.connectedBody = movingGrip.connectedBody;
+                        joint.connectedAnchor = movingGrip.connectedBody.transform.InverseTransformPoint(gripPoint.transform.position);
+
+                        versusHandGrip.handScript.gripPoint = ownVersusHand.GetClosestGrip(ownVersusHand.transform.position);
+                        versusHandGrip.handScript.joint.connectedBody = ownVersusHand.connectedBody;
+                        versusHandGrip.handScript.joint.connectedAnchor = ownVersusHand.connectedBody.transform.InverseTransformPoint(versusHandGrip.handScript.gripPoint.transform.position);
+                    }
+                }
+                else if (AllowGrip(movingGrip))
                 {
                     joint.connectedBody = movingGrip.connectedBody;
                     joint.connectedAnchor = movingGrip.connectedBody.transform.InverseTransformPoint(gripPoint.transform.position);
@@ -317,7 +369,7 @@ public class HandGrip : MonoBehaviour
                         {
                             Debug.LogError("ERROR: Scream sound is missing!");
                         }
-                    }   
+                    }
                 }
             }
         }
@@ -364,6 +416,12 @@ public class HandGrip : MonoBehaviour
         if (forcedGrip)
             return;
 
+        if (versusHand != null)
+        {
+            versusHand.versusHand = null;
+            versusHand.ReleaseGrip();
+            versusHand = null;
+        }
         //Reset hand sprite
         if (isOnGrip)
             spriteRenderer.color = Color.white;
@@ -372,6 +430,7 @@ public class HandGrip : MonoBehaviour
         //If hand is on a grip
         if (isOnGrip)
         {
+
             //Reset on grip
             isOnGrip = false;
 

@@ -45,7 +45,6 @@ public class Respawn : MonoBehaviour
         }
 	}
 
-
 	void Update () 
     {
         for (int i = 0; i < respawnScripts.Count; i++)
@@ -104,6 +103,8 @@ public class Respawn : MonoBehaviour
 
         Transform t = connectFrogs.SpawnFrog(player.prefab, pos, false);
         Transform body = t.FindChild("body");
+        FrogPrototype frog = body.GetComponent<FrogPrototype>();
+        frog.ForceArmsUp();
         Rigidbody2D b = body.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
         b.AddForce(Vector2.up * 650000);

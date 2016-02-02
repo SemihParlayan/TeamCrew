@@ -82,16 +82,18 @@ public class M_Screen : MonoBehaviour
     }
     void Update()
     {
+        OnUpdate();
+    }
+
+    protected virtual void OnUpdate()
+    {
         if (!active)
             return;
 
         //Stick input
         Vector2 input = Vector2.zero;
+        input = GameManager.GetThumbStick(XboxThumbStick.Left, player);
 
-        if (!subScreen)
-            input = GameManager.GetThumbStick(XboxThumbStick.Left);
-        else
-            input = GameManager.GetThumbStick(XboxThumbStick.Left, player);
         if (CanSelect)
         {
             if (input.x < -0.9f)
@@ -123,7 +125,7 @@ public class M_Screen : MonoBehaviour
         bool selectPress = false;
         bool returnPress = false;
 
-        if(!subScreen)
+        if (!subScreen)
         {
             selectPress = GameManager.GetButtonPress(XboxButton.A);
             returnPress = GameManager.GetButtonPress(XboxButton.B);
@@ -142,12 +144,6 @@ public class M_Screen : MonoBehaviour
         {
             Return();
         }
-
-        OnUpdate();
-    }
-
-    protected virtual void OnUpdate()
-    {
     }
 
     //Events
@@ -221,9 +217,6 @@ public class M_Screen : MonoBehaviour
     }
     bool Press()
     {
-        //if (!CanPress || currentButton == null)
-        //    return false;
-
         //CanPress = false;
         if (currentButton == null)
             return false;
@@ -231,8 +224,6 @@ public class M_Screen : MonoBehaviour
     }
     bool Return()
     {
-        //if (!CanPress || currentButton == null)
-        //    return false;
         //CanPress = false;
         if (currentButton == null)
             return false;

@@ -27,13 +27,11 @@ public class ModeSelectionScreen : M_Screen
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
-        canPressPlay = false;
+        Invoke("CreateFrogs", 1f);
         DisplayMode();
 
         gameManager.DestroyTopFrog();
-        poff.SetMenuMountainState(false, 2.5f);
-        CancelInvoke("CreateFrogs");
-        Invoke("CreateFrogs", 2.6f);
+        poff.SetMenuMountainState(false, 0.0f);
     }
     public override void OnSwitchedFrom()
     {
@@ -96,8 +94,9 @@ public class ModeSelectionScreen : M_Screen
 
     private void DisplayMode()
     {
-        GameMode mode = gameModes.gameModes[gamemodeIndex];
+        poff.SetPoffState(true);
 
+        GameMode mode = gameModes.gameModes[gamemodeIndex];
         GameManager.CurrentGameMode = mode;
         gamemodePicture.sprite = mode.picture;
         gamemodeDescription.text = mode.description;

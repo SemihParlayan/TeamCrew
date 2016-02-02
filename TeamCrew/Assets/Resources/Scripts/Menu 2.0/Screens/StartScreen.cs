@@ -12,10 +12,6 @@ public class StartScreen : M_Screen
         base.OnAwake();
         gameManagerReference = GameObject.FindWithTag("GameManager").transform.GetComponent<GameManager>();
     }
-    protected override void OnUpdate()
-    {
-        base.OnUpdate();
-    }
 
     public override void OnSwitchedTo()
     {

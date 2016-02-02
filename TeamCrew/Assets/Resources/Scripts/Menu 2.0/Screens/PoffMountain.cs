@@ -35,36 +35,30 @@ public class PoffMountain : MonoBehaviour
     //Methods
     public void SetPoffState(bool state)
     {
+        CancelInvoke("PoffRepeating");
         poffing = state;
 
-        if (!poffing)
-        {
-            CancelInvoke("PoffRepeating");
-        }
-        else
+        if (poffing)
         {
             InvokeRepeating("PoffRepeating", 0f, poffRepeatRate);
         }
     }
-
     public void PoffRepeating()
     {
         Poff();
 
         generator.GenerateFullMountain(true);
     }
-    public void Poff()
+    private void Poff()
     {
     }
 
-    public IEnumerator SetMenuMountainStateTime(bool value, float time)
+    private IEnumerator SetMenuMountainStateTime(bool value, float time)
     {
         yield return new WaitForSeconds(time);
 
         Poff();
         menuMountain.SetActive(value);
-
-        SetPoffState(!value);
     }
     public void SetMenuMountainState(bool value, float time)
     {

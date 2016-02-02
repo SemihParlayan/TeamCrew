@@ -151,11 +151,20 @@ public class LevelGeneration : MonoBehaviour
             for (int i = 0; i < tmpBlocks.Count; i++)
             {
                 Block block = tmpBlocks[i];
-                if (level.Count <= 1)
+
+                bool existsInLevel = false;
+                for (int m = 0; m < level.Count; m++)
                 {
-                    availableBlocks.Add(block);
+                    if (block.blockIndex ==level[m].blockIndex)
+                    {
+                        existsInLevel = true;
+                        break;
+                    }
                 }
-                else if (block.startSize == previousBlock.endSize)
+                if (existsInLevel)
+                    continue;
+
+                if (block.startSize == previousBlock.endSize)
                 {
                     availableBlocks.Add(block);
                 }
