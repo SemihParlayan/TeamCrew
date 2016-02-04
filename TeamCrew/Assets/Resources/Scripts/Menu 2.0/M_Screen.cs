@@ -26,7 +26,6 @@ public struct ScreenMovementProperties
 public class M_Screen : MonoBehaviour 
 {
     //Inspector
-    [HideInInspector]
     public bool active;
     public bool subScreen;
     public int player = 1;

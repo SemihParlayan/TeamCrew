@@ -50,6 +50,7 @@ public class M_ScreenManager : MonoBehaviour
         for (int i = 0; i < screens.Length; i++)
         {
             screens[i].enabled = false;
+            screens[i].active = false;
         }
     }
     public static void SetActive(bool state)

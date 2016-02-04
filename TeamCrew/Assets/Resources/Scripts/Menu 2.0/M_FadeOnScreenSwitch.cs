@@ -5,6 +5,7 @@ using System.Collections;
 public class M_FadeOnScreenSwitch : MonoBehaviour 
 {
     //Components
+    public float fadeMultiplier = 1.0f;
     private M_Screen screen;
 
 	void Start () 
@@ -14,6 +15,11 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
 
 	void Update () 
     {
+        float delta = Time.deltaTime;
+        if (delta == 0.0f)
+            delta = 1 / 60f;
+        delta *= fadeMultiplier;
+
         if (!screen.active)
         {
             //Spriterenderers
@@ -25,7 +31,7 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
 
                 if (c.a > 0)
                 {
-                    c.a = Mathf.MoveTowards(c.a, 0, Time.deltaTime);
+                    c.a = Mathf.MoveTowards(c.a, 0, delta);
                     r.color = c;
                 }
             }
@@ -39,7 +45,7 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
 
                 if (c.a > 0)
                 {
-                    c.a = Mathf.MoveTowards(c.a, 0, Time.deltaTime);
+                    c.a = Mathf.MoveTowards(c.a, 0, delta);
                     t.color = c;
                 }
             }
@@ -55,7 +61,7 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
 
                 if (c.a < 1)
                 {
-                    c.a = Mathf.MoveTowards(c.a, 1, Time.deltaTime);
+                    c.a = Mathf.MoveTowards(c.a, 1, delta);
                     r.color = c;
                 }
             }
@@ -69,7 +75,7 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
 
                 if (c.a < 1)
                 {
-                    c.a = Mathf.MoveTowards(c.a, 1, Time.deltaTime);
+                    c.a = Mathf.MoveTowards(c.a, 1, delta);
                     t.color = c;
                 }
             }
