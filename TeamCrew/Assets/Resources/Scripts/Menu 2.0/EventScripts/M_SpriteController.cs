@@ -9,6 +9,7 @@ public class SpriteConnection
     public Event eventType;
     public SpriteRenderer spriteRenderer;
     public bool activate;
+    public bool loop;
 }
 
 public class M_SpriteController : M_EventBase 
@@ -46,7 +47,10 @@ public class M_SpriteController : M_EventBase
                 if (r == null)
                     break;
 
-                r.enabled = state;
+                if (eventList[i].loop)
+                    r.enabled = !r.enabled;
+                else
+                    r.enabled = state;
             }
         }
     }

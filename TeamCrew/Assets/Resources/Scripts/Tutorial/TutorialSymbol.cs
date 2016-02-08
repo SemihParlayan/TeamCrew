@@ -14,7 +14,6 @@ public class TutorialSymbol : MonoBehaviour
     private FrogPrototype frog;
     private SymbolState currentState;
 
-
     void Start()
     {
         currentState = SymbolState.NoInput;
