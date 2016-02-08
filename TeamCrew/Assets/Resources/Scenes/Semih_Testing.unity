@@ -1160,7 +1160,7 @@ GameObject:
   - 212: {fileID: 43124525}
   - 114: {fileID: 43124526}
   m_Layer: 0
-  m_Name: Sprite - Mode description
+  m_Name: Sprite - Blue Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1179,7 +1179,7 @@ Transform:
   - {fileID: 272004576}
   - {fileID: 943389282}
   m_Father: {fileID: 1120934290}
-  m_RootOrder: 3
+  m_RootOrder: 1
 --- !u!212 &43124525
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1224,6 +1224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifierParent: {fileID: 272004576}
   descriptionParent: {fileID: 943389282}
+  informationText: {fileID: 970471315}
   fadeToMod: 0
   fadeModifier: {fileID: 1120934288}
 --- !u!1 &45506380
@@ -1585,11 +1586,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 71058093}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -79.7, y: 10.400003, z: 0}
-  m_LocalScale: {x: 7.2679043, y: 7.2679086, z: 7.2679086}
+  m_LocalPosition: {x: 3.801054, y: -5.751549, z: 0}
+  m_LocalScale: {x: 0.91804314, y: 0.9180434, z: 0.9180434}
   m_Children:
   - {fileID: 1933913381}
-  m_Father: {fileID: 1120934290}
+  m_Father: {fileID: 272004576}
   m_RootOrder: 0
 --- !u!95 &71058095
 Animator:
@@ -2401,7 +2402,7 @@ Transform:
   - {fileID: 547176975}
   - {fileID: 1858625610}
   m_Father: {fileID: 272004576}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!95 &100237576
 Animator:
   serializedVersion: 3
@@ -7133,7 +7134,7 @@ Transform:
   - {fileID: 1463155530}
   - {fileID: 870662325}
   m_Father: {fileID: 1120934290}
-  m_RootOrder: 4
+  m_RootOrder: 2
 --- !u!212 &240841939
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7833,7 +7834,7 @@ GameObject:
   - 4: {fileID: 257694166}
   - 212: {fileID: 257694167}
   m_Layer: 0
-  m_Name: Sprite - Mode
+  m_Name: Sprite - Information panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7851,7 +7852,7 @@ Transform:
   m_Children:
   - {fileID: 970471314}
   m_Father: {fileID: 1120934290}
-  m_RootOrder: 5
+  m_RootOrder: 3
 --- !u!212 &257694167
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8656,6 +8657,7 @@ Transform:
   m_LocalPosition: {x: -3.94, y: 2.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 71058094}
   - {fileID: 1348124368}
   - {fileID: 100237575}
   - {fileID: 1893237841}
@@ -8962,12 +8964,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 280078085}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -79.3, y: 54.033493, z: 0}
-  m_LocalScale: {x: 7.4233074, y: 6.340029, z: 6.340029}
+  m_LocalPosition: {x: -0.08842087, y: 2.2400002, z: 0}
+  m_LocalScale: {x: 0.93767285, y: 0.80083853, z: 0.80083853}
   m_Children:
   - {fileID: 1365512176}
-  m_Father: {fileID: 1120934290}
-  m_RootOrder: 1
+  m_Father: {fileID: 943389282}
+  m_RootOrder: 0
 --- !u!114 &280078093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10612,7 +10614,7 @@ Transform:
   - {fileID: 1290369277}
   - {fileID: 1373274065}
   m_Father: {fileID: 272004576}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!95 &334889017
 Animator:
   serializedVersion: 3
@@ -13523,7 +13525,7 @@ Transform:
   - {fileID: 1755013146}
   - {fileID: 812348566}
   m_Father: {fileID: 272004576}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!95 &387678913
 Animator:
   serializedVersion: 3
@@ -16175,7 +16177,7 @@ Transform:
   m_Children:
   - {fileID: 2135721596}
   m_Father: {fileID: 943389282}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!1 &494168597
 GameObject:
   m_ObjectHideFlags: 0
@@ -30241,7 +30243,7 @@ Transform:
   - {fileID: 956108041}
   - {fileID: 848592117}
   m_Father: {fileID: 272004576}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!95 &716303903
 Animator:
   serializedVersion: 3
@@ -36407,7 +36409,7 @@ Transform:
   - {fileID: 271722041}
   - {fileID: 1584059159}
   m_Father: {fileID: 272004576}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!95 &862354355
 Animator:
   serializedVersion: 3
@@ -37041,7 +37043,7 @@ Transform:
   m_Children:
   - {fileID: 918114166}
   m_Father: {fileID: 943389282}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1 &876490211
 GameObject:
   m_ObjectHideFlags: 0
@@ -39287,6 +39289,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 280078092}
   - {fileID: 488721280}
   - {fileID: 1064094558}
   - {fileID: 873264427}
@@ -43967,7 +43970,7 @@ Transform:
   m_Children:
   - {fileID: 578345373}
   m_Father: {fileID: 943389282}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &1070423799
 GameObject:
   m_ObjectHideFlags: 0
@@ -46607,8 +46610,6 @@ Transform:
   m_LocalPosition: {x: -0.3, y: -12.82, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 71058094}
-  - {fileID: 280078092}
   - {fileID: 1633404837}
   - {fileID: 43124524}
   - {fileID: 240841938}
@@ -51080,7 +51081,7 @@ Transform:
   - {fileID: 1250547232}
   - {fileID: 2034719515}
   m_Father: {fileID: 272004576}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!95 &1244829454
 Animator:
   serializedVersion: 3
@@ -51720,7 +51721,7 @@ Transform:
   - {fileID: 13520493}
   - {fileID: 1297129410}
   m_Father: {fileID: 272004576}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!95 &1267415730
 Animator:
   serializedVersion: 3
@@ -53462,7 +53463,7 @@ Transform:
   - {fileID: 1222034759}
   - {fileID: 518970432}
   m_Father: {fileID: 272004576}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!95 &1348124369
 Animator:
   serializedVersion: 3
@@ -65639,7 +65640,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1120934290}
-  m_RootOrder: 2
+  m_RootOrder: 0
 --- !u!1 &1640510637
 GameObject:
   m_ObjectHideFlags: 0
@@ -72820,7 +72821,7 @@ Transform:
   - {fileID: 780991611}
   - {fileID: 2004689540}
   m_Father: {fileID: 272004576}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!95 &1893237842
 Animator:
   serializedVersion: 3
@@ -73435,7 +73436,7 @@ Transform:
   m_LocalScale: {x: 0.32669026, y: 0.3266902, z: 0.3266902}
   m_Children: []
   m_Father: {fileID: 943389282}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!23 &1924504192
 MeshRenderer:
   m_ObjectHideFlags: 0

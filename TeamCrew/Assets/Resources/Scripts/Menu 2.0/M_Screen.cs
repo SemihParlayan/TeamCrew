@@ -35,8 +35,6 @@ public class M_Screen : MonoBehaviour
     //References
     private M_Button currentButton;
 
-
-
     //Data
     private bool CanSelect
     {
@@ -89,9 +87,17 @@ public class M_Screen : MonoBehaviour
         if (!active)
             return;
 
+        if (currentButton != null)
+            Debug.Log(currentButton.gameObject.name);
+
         //Stick input
         Vector2 input = Vector2.zero;
         input = GameManager.GetThumbStick(XboxThumbStick.Left, player);
+
+        if (input == Vector2.zero)
+        {
+            input = GameManager.GetDPad(player);
+        }
 
         if (CanSelect)
         {
@@ -183,7 +189,7 @@ public class M_Screen : MonoBehaviour
         bool canSend = (currentButton != null);
 
         if (canSend)
-            currentButton.SendMessage(e.ToString());
+            currentButton.SendMessage(e.ToString(), SendMessageOptions.DontRequireReceiver);
 
         return canSend;
     }

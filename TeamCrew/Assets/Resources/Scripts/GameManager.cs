@@ -154,6 +154,46 @@ public class GameManager : MonoBehaviour
 
         return Vector2.zero;
     }
+    public static Vector2 GetDPad(int playerNumber = -1)
+    {
+        if (playerNumber < -1 || playerNumber > controllers.Length - 1)
+        {
+            Debug.Log("Tried to access controller: " + playerNumber + ", out of range");
+            return Vector2.zero;
+        }
+
+        if (playerNumber == -1)
+        {
+            for (int i = 0; i < controllers.Length; i++)
+            {
+                if (controllers[i] == null)
+                    continue;
+
+                int left = (controllers[i].currentState.DPad.Left == ButtonState.Pressed) ? -1 : 0;
+                int right = (controllers[i].currentState.DPad.Right == ButtonState.Pressed) ? 1 : 0;
+                int down = (controllers[i].currentState.DPad.Down == ButtonState.Pressed) ? -1 : 0;
+                int up = (controllers[i].currentState.DPad.Up == ButtonState.Pressed) ? 1 : 0;
+
+                Vector2 dir = new Vector2(left + right, up + down);
+                return dir;
+            }
+        }
+        else
+        {
+            if (controllers[playerNumber] != null)
+            {
+                int left = (controllers[playerNumber].currentState.DPad.Left == ButtonState.Pressed) ? -1 : 0;
+                int right = (controllers[playerNumber].currentState.DPad.Right == ButtonState.Pressed) ? 1 : 0;
+                int down = (controllers[playerNumber].currentState.DPad.Down == ButtonState.Pressed) ? -1 : 0;
+                int up = (controllers[playerNumber].currentState.DPad.Up == ButtonState.Pressed) ? 1 : 0;
+
+                Vector2 dir = new Vector2(left + right, up + down);
+                return dir;
+            }
+        }
+
+        return Vector2.zero;
+    }
     public static bool GetButtonPress(XboxButton button, int playerNumber = -1)
     {
         if (playerNumber < -1 || playerNumber > controllers.Length - 1)
