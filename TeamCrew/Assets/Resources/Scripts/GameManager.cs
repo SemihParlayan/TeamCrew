@@ -337,6 +337,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject fireWorks;
 
+    public GameModifiers gameModifier;
     private List<Transform> hangingFrogs = new List<Transform>();
     private BandageManager bandageManager;
     public InactivityController inactivityController;
@@ -723,6 +724,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
+        gameModifier.OnGameStart();
         hangingFrogsSpawned = false;
 
         //Enables respawning
