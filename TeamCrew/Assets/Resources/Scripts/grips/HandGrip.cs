@@ -59,6 +59,7 @@ public class HandGrip : MonoBehaviour
     public HandGrip versusHand;
 
     public ParticleSystem stoneParticles;
+    private BurningHands burningHand;
 
     //Grip animations
     public GripAnimation gripAnimation;
@@ -76,9 +77,12 @@ public class HandGrip : MonoBehaviour
     }
     private bool lastGripValue;
 
+
+    private FrogPrototype parentFrog;
 	void Start () 
     {
         //Aquire spriterenderer and sound
+        burningHand = GetComponent<BurningHands>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (gripSoundSource != null)
             randSoundGen = gripSoundSource.GetComponent<RandomSoundFromList>();
@@ -101,7 +105,8 @@ public class HandGrip : MonoBehaviour
         versusGripController = GetComponent<VersusGripController>();
 
         //Set correct axis controller
-        player = transform.parent.parent.FindChild("body").GetComponent<FrogPrototype>().player;
+        parentFrog = transform.parent.parent.FindChild("body").GetComponent<FrogPrototype>();
+        player = parentFrog.player;
 	}
 
 	void Update ()
@@ -163,6 +168,12 @@ public class HandGrip : MonoBehaviour
                 ReleaseGrip();
             }
         }
+        if (versusGripController.Complete())
+        {
+            ReleaseGrip(1f);
+        }
+
+        burningHand.OnUpdate(JustGripped, JustReleased);
 
         lastIsOngrip = isOnGrip;
 
@@ -347,7 +358,7 @@ public class HandGrip : MonoBehaviour
                     {
                         isVersusGripping = true;
                         if (!forcedGrip)
-                            versusGripController.ActivateBlink();
+                            versusGripController.Activate(4.5f, parentFrog);
 
                         bool vibrate = (versusFrog == null);
                         versusFrog = FindVersusBody(c.transform).GetComponent<FrogPrototype>();
@@ -455,7 +466,7 @@ public class HandGrip : MonoBehaviour
         isGripping = false;
         isVersusGripping = false;
         isGrippingTutorial = false;
-        versusGripController.DeActivateBlink();
+        versusGripController.DeActivate();
 
         if (versusFrog)
         {

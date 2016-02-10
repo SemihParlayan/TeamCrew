@@ -87,9 +87,6 @@ public class M_Screen : MonoBehaviour
         if (!active)
             return;
 
-        if (currentButton != null)
-            Debug.Log(currentButton.gameObject.name);
-
         //Stick input
         Vector2 input = Vector2.zero;
         input = GameManager.GetThumbStick(XboxThumbStick.Left, player);

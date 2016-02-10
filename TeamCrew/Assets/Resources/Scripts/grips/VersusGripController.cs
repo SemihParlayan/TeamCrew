@@ -12,28 +12,72 @@ public class VersusGripController : MonoBehaviour
 
     //Blink
     private bool blink = false;
-    public float blinkTime = 0;
-    public float blinkTimer = 0;
+    private float blinkTime = 0;
+    private float blinkTimer = 0;
     private float lastBlinkTimer;
     private SpriteRenderer spriteRenderer;
+
+    //Sound
+    public AudioSource boilerSound;
+    public AudioSource releaseSound;
 
     
 
     //Components
     public GripAnimation gripAnimation;
+    public float timer;
+    public float maxTimer;
+    public bool active;
+    private bool complete;
+    private FrogPrototype frog;
 
-    void Start()
+    void Awake()
     {
-
-
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalStartPosition = transform.localPosition;
 
-        
+
+        boilerSound = gameObject.AddComponent<AudioSource>();
+        releaseSound = gameObject.AddComponent<AudioSource>();
+
+        boilerSound.clip = Resources.Load("Audio/Sound/Frog/kettle") as AudioClip;
+        releaseSound.clip = Resources.Load("Audio/Sound/Frog/shh") as AudioClip;
+
+        if (boilerSound != null && releaseSound != null)
+        {
+            boilerSound.playOnAwake = false;
+            releaseSound.playOnAwake = false;
+
+            boilerSound.volume = 1f;
+            releaseSound.volume = 0.1f;
+        }
     }
 
     void Update()
     {
+        if (!active)
+            return;        
+        if (!frog)
+        {
+            timer -= Time.deltaTime;
+            blinkTime = timer / maxTimer;
+        }
+        else
+        {
+            timer -= Time.deltaTime;
+            frog.leftGripScript.versusGripController.SetTime(timer, maxTimer);
+        }
+
+        if (timer <= 0)
+        {
+            DeActivate();
+
+            if (releaseSound != null && !releaseSound.isPlaying)
+            {
+                releaseSound.Play();
+            }
+        }
+
         //Shake
         if (shake)
         {
@@ -60,8 +104,11 @@ public class VersusGripController : MonoBehaviour
             {
                 DeActivateShake();
             }
+
+
             blinkTimer += Time.deltaTime;
 
+            //Blink red and white
             if (blinkTimer >= blinkTime / 2)
             {
                 if (lastBlinkTimer < blinkTime / 2)
@@ -76,6 +123,7 @@ public class VersusGripController : MonoBehaviour
                     spriteRenderer.color = Color.white;
             }
 
+            //Stay white
             if (blinkTime > 0.6f)
                 spriteRenderer.color = Color.white;
 
@@ -84,17 +132,79 @@ public class VersusGripController : MonoBehaviour
                 blinkTimer = 0;
             }
         }
-        
 
         lastBlinkTimer = blinkTimer;
     }
-    public void ActivateBlink()
+
+    public void Activate(float time, FrogPrototype frog = null)
     {
+        if (active)
+            return;
+
+        this.frog = frog;
+        ActivateBlink();
+        active = true;
+        complete = false;
+        maxTimer = time;
+        timer = maxTimer;
+    }
+    public void DeActivate()
+    {
+        if (!active)
+            return;
+
+        if (frog)
+        {
+            if (frog.leftGripScript.versusGripController.frog == null)
+            {
+                frog.leftGripScript.versusGripController.frog = frog;
+            }
+            if (frog.rightGripScript.versusGripController.frog == null)
+            {
+                frog.rightGripScript.versusGripController.frog = frog;
+            }
+            frog = null;
+        }
+        spriteRenderer.color = Color.white;
+        active = false;
+        complete = true;
+        timer = maxTimer = 0;
+
+        if (boilerSound != null && boilerSound.isPlaying)
+        {
+            boilerSound.Stop();
+        }
+    }
+    public void SetTime(float time, float maxTime)
+    {
+        timer = time;
+        maxTimer = maxTime;
+    }
+    public bool Complete()
+    {
+        bool result = complete;
+
+        if (result)
+            complete = false;
+
+        return result;
+    }
+    private void ActivateBlink()
+    {
+        if (!boilerSound.isPlaying)
+        {
+            boilerSound.time = 3.0f;
+            boilerSound.Play();
+        }
         blink = true;
         DeActivateShake();
     }
-    public void DeActivateBlink()
+    private void DeActivateBlink()
     {
+        if (boilerSound.isPlaying)
+        {
+            boilerSound.Stop();
+        }
         blink = false;
         DeActivateShake();
     }

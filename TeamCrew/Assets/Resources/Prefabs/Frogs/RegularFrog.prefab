@@ -1347,6 +1347,7 @@ GameObject:
   - 58: {fileID: 5886410}
   - 114: {fileID: 11451620}
   - 82: {fileID: 8204470}
+  - 114: {fileID: 11421822}
   m_Layer: 12
   m_Name: right_hand_sprite
   m_TagString: Untagged
@@ -1480,6 +1481,7 @@ GameObject:
   - 58: {fileID: 5856296}
   - 114: {fileID: 11410826}
   - 82: {fileID: 8257562}
+  - 114: {fileID: 11473256}
   m_Layer: 12
   m_Name: left_hand_sprite
   m_TagString: Untagged
@@ -2342,7 +2344,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.26, y: -15.12, z: 0}
+  m_LocalPosition: {x: -62.002197, y: -18.56731, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 441890}
@@ -3590,7 +3592,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3612,7 +3614,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &8210878
 AudioSource:
   m_ObjectHideFlags: 1
@@ -4259,7 +4261,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11408912}
   connectedBody: {fileID: 5070556}
-  parentedPlayer: 1
+  parentedPlayer: 0
 --- !u!114 &11408912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4283,9 +4285,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1987f5290de29e4ead5182da101ef80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkTime: 0
-  blinkTimer: 0
+  boilerSound: {fileID: 0}
+  releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11420774}
+  timer: 0
+  maxTimer: 0
+  active: 0
 --- !u!114 &11411614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4353,6 +4358,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6550c904c68ba6940b4b71874113e41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11421822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183922}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripLimit: 2.5
 --- !u!114 &11422094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4369,7 +4386,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11437508}
   connectedBody: {fileID: 5015550}
-  parentedPlayer: 1
+  parentedPlayer: 0
   handScript: {fileID: 11475224}
 --- !u!114 &11423166
 MonoBehaviour:
@@ -4387,7 +4404,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11434882}
   connectedBody: {fileID: 5044424}
-  parentedPlayer: 1
+  parentedPlayer: 0
 --- !u!114 &11423260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4404,7 +4421,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11487020}
   connectedBody: {fileID: 5091674}
-  parentedPlayer: 1
+  parentedPlayer: 0
 --- !u!114 &11425722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4522,9 +4539,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1987f5290de29e4ead5182da101ef80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkTime: 0
-  blinkTimer: 0
+  boilerSound: {fileID: 0}
+  releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11467436}
+  timer: 0
+  maxTimer: 0
+  active: 0
 --- !u!114 &11453794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4565,7 +4585,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11458988}
   connectedBody: {fileID: 5072998}
-  parentedPlayer: 1
+  parentedPlayer: 0
   handScript: {fileID: 11491440}
 --- !u!114 &11458988
 MonoBehaviour:
@@ -4633,7 +4653,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11451346}
   connectedBody: {fileID: 5070556}
-  parentedPlayer: 1
+  parentedPlayer: 0
 --- !u!114 &11464632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4650,7 +4670,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11431950}
   connectedBody: {fileID: 5044424}
-  parentedPlayer: 1
+  parentedPlayer: 0
 --- !u!114 &11465930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4741,6 +4761,18 @@ MonoBehaviour:
   - {fileID: 488048}
   - {fileID: 442208}
   inSituational: 0
+--- !u!114 &11473256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192596}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripLimit: 2.5
 --- !u!114 &11473458
 MonoBehaviour:
   m_ObjectHideFlags: 1

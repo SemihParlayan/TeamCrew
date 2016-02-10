@@ -134,6 +134,7 @@ GameObject:
   - 58: {fileID: 5883678}
   - 114: {fileID: 11425996}
   - 82: {fileID: 8215384}
+  - 114: {fileID: 11456864}
   m_Layer: 12
   m_Name: left_hand_sprite
   m_TagString: Untagged
@@ -489,6 +490,7 @@ GameObject:
   - 58: {fileID: 5822692}
   - 114: {fileID: 11427144}
   - 82: {fileID: 8283576}
+  - 114: {fileID: 11415208}
   m_Layer: 12
   m_Name: right_hand_sprite
   m_TagString: Untagged
@@ -2012,7 +2014,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.47, y: -14.86, z: 0}
+  m_LocalPosition: {x: -55.87, y: -18.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 462612}
@@ -3563,7 +3565,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3585,7 +3587,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &8226100
 AudioSource:
   m_ObjectHideFlags: 1
@@ -3785,7 +3787,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3807,7 +3809,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &8286528
 AudioSource:
   m_ObjectHideFlags: 1
@@ -4281,6 +4283,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfHands: 0
+--- !u!114 &11415208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128684}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripLimit: 2.5
 --- !u!114 &11417486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4408,9 +4422,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1987f5290de29e4ead5182da101ef80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkTime: 0
-  blinkTimer: 0
+  boilerSound: {fileID: 0}
+  releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11490304}
+  timer: 0
+  maxTimer: 0
+  active: 0
 --- !u!114 &11426684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4427,7 +4444,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11460114}
   connectedBody: {fileID: 5080694}
-  parentedPlayer: 0
+  parentedPlayer: 1
 --- !u!114 &11427144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4439,9 +4456,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1987f5290de29e4ead5182da101ef80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkTime: 0
-  blinkTimer: 0
+  boilerSound: {fileID: 0}
+  releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11484126}
+  timer: 0
+  maxTimer: 0
+  active: 0
 --- !u!114 &11428320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4522,7 +4542,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11461644}
   connectedBody: {fileID: 5025542}
-  parentedPlayer: 0
+  parentedPlayer: 1
 --- !u!114 &11441618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4594,6 +4614,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46eeee19f87b55c428236396b38cf804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11456864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106494}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripLimit: 2.5
 --- !u!114 &11458864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4610,7 +4642,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11436822}
   connectedBody: {fileID: 5030964}
-  parentedPlayer: 0
+  parentedPlayer: 1
   handScript: {fileID: 11435566}
 --- !u!114 &11460114
 MonoBehaviour:
@@ -4701,7 +4733,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11422402}
   connectedBody: {fileID: 5080694}
-  parentedPlayer: 0
+  parentedPlayer: 1
 --- !u!114 &11475316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4730,7 +4762,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11413718}
   connectedBody: {fileID: 5049100}
-  parentedPlayer: 0
+  parentedPlayer: 1
 --- !u!114 &11480848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4747,7 +4779,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11470826}
   connectedBody: {fileID: 5003224}
-  parentedPlayer: 0
+  parentedPlayer: 1
   handScript: {fileID: 11423240}
 --- !u!114 &11483748
 MonoBehaviour:
@@ -4866,7 +4898,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11475316}
   connectedBody: {fileID: 5025542}
-  parentedPlayer: 0
+  parentedPlayer: 1
 --- !u!114 &11497188
 MonoBehaviour:
   m_ObjectHideFlags: 1

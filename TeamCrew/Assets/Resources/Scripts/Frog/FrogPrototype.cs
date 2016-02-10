@@ -100,26 +100,13 @@ public class FrogPrototype : MonoBehaviour
 
 
         leftHandSoundChooser = leftGripScript.GetComponentInChildren<RandomSoundFromList>();
-        //if (leftHandSoundChooser == null) { Debug.Log("leftHandSoundChooser is null"); }
 
         velVolLeft = leftGripScript.GetComponentInChildren<VelocityVolume>();
-        //if (velVolLeft == null) { Debug.Log("velVolLeft is null"); }
 
 
         rightHandSoundChooser = rightGripScript.GetComponentInChildren<RandomSoundFromList>();
-        //if (rightHandSoundChooser == null) { Debug.Log("rightHandSoundChooser is null"); }
 
         velVolRight = rightGripScript.GetComponentInChildren<VelocityVolume>();
-
-        //Sound Stuff
-        if (!characterSelectFrog)
-        {
-            boilSounder = gameObject.AddComponent<AudioSource>();
-            shhSounder = gameObject.AddComponent<AudioSource>();
-
-            boilSounder.clip = Resources.Load("kettle") as AudioClip;
-            shhSounder.clip = Resources.Load("shh") as AudioClip;
-        }
 
         forceArmsUp = false;
     }
@@ -152,9 +139,6 @@ public class FrogPrototype : MonoBehaviour
         //Control Hands
         ControlHand(leftGripScript, GameManager.GetThumbStick(XboxThumbStick.Left, player), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
         ControlHand(rightGripScript, GameManager.GetThumbStick(XboxThumbStick.Right, player), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
-
-        //Shake loose body
-        ShakeLooseBody();
 
         //Limit y velocity for body
         Vector2 velocity = body.velocity;
@@ -226,57 +210,7 @@ public class FrogPrototype : MonoBehaviour
     {
         forceArmsUp = true;
     }
-    void ShakeLooseBody()
-    {
-        if ((leftGripScript.isVersusGripping || rightGripScript.isVersusGripping) && !leftGripScript.forcedGrip && !rightGripScript.forcedGrip)
-        {
-            versusGripTimer -= Time.deltaTime;
 
-            if (boilSounder != null)
-            {
-                if (!boilSounder.isPlaying)
-                {
-                    boilSounder.time = Mathf.Clamp(8.0f - versusGripTimer, 0, 8.0f);
-                    boilSounder.volume = 1;
-                    boilSounder.Play();
-                }
-            }
-            
-
-            
-
-            leftGripScript.versusGripController.blinkTime = versusGripTimer / maxVersusGripTime;
-            rightGripScript.versusGripController.blinkTime = versusGripTimer / maxVersusGripTime;
-
-            //Release versus grips
-            if (versusGripTimer <= 0)
-            {
-                versusGripTimer = maxVersusGripTime;
-
-                leftGripScript.ReleaseVersusGrip(1.0f);
-                rightGripScript.ReleaseVersusGrip(1.0f);
-
-                //Release sound
-                shhSounder.volume = .1f;
-                shhSounder.Play();
-            }
-        }
-        else
-        {
-            if (versusGripTimer < maxVersusGripTime)
-            {
-                versusGripTimer += Time.deltaTime * 1.5f;
-            }
-            if (boilSounder != null)
-            {
-                if (boilSounder.isPlaying)
-                {
-                    boilSounder.Stop();
-                }
-            }
-           
-        }
-    }
     void ControlScratch()
     {
         if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
