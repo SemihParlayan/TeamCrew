@@ -445,7 +445,8 @@ public class HandGrip : MonoBehaviour
             isOnGrip = false;
 
             //Decrease number of hands on grip point
-            gripPoint.numberOfHands--;
+            if (gripPoint != null)
+                gripPoint.numberOfHands--;
 
 
             //Disable connected hand joint

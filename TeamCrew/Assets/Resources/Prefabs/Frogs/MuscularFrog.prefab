@@ -1815,7 +1815,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -49.747192, y: -18.692677, z: 0}
+  m_LocalPosition: {x: -15.492448, y: 91.42972, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 435438}
@@ -4237,7 +4237,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11430830}
   connectedBody: {fileID: 5065176}
-  parentedPlayer: 2
+  parentedPlayer: 0
   handScript: {fileID: 11418254}
 --- !u!114 &11411678
 MonoBehaviour:
@@ -4255,7 +4255,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11439070}
   connectedBody: {fileID: 5065358}
-  parentedPlayer: 2
+  parentedPlayer: 0
   handScript: {fileID: 11496182}
 --- !u!114 &11414904
 MonoBehaviour:
@@ -4313,7 +4313,7 @@ MonoBehaviour:
   gripSoundSource: {fileID: 8252136}
   scream: {fileID: 0}
   insectScript: {fileID: 0}
-  ownVersusHand: {fileID: 0}
+  ownVersusHand: {fileID: 11408140}
   versusHand: {fileID: 0}
   stoneParticles: {fileID: 19823684}
   gripAnimation: {fileID: 11439084}
@@ -4413,7 +4413,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11469868}
   connectedBody: {fileID: 5082980}
-  parentedPlayer: 2
+  parentedPlayer: 0
 --- !u!114 &11436492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4449,7 +4449,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11464190}
   connectedBody: {fileID: 5007860}
-  parentedPlayer: 2
+  parentedPlayer: 0
 --- !u!114 &11439070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4652,7 +4652,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11442952}
   connectedBody: {fileID: 5009806}
-  parentedPlayer: 2
+  parentedPlayer: 0
 --- !u!114 &11463926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4672,7 +4672,7 @@ MonoBehaviour:
   speed: 10
   yVelocityClamp: 10
   forceArmsUp: 0
-  player: 2
+  player: 0
   emotionsScript: {fileID: 11427476}
   gripScript: []
   joints: []
@@ -4743,7 +4743,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11442850}
   connectedBody: {fileID: 5009806}
-  parentedPlayer: 2
+  parentedPlayer: 0
 --- !u!114 &11466730
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4926,7 +4926,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11497822}
   connectedBody: {fileID: 5007860}
-  parentedPlayer: 2
+  parentedPlayer: 0
 --- !u!114 &11496182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4961,7 +4961,7 @@ MonoBehaviour:
   gripSoundSource: {fileID: 8274342}
   scream: {fileID: 0}
   insectScript: {fileID: 0}
-  ownVersusHand: {fileID: 0}
+  ownVersusHand: {fileID: 11411678}
   versusHand: {fileID: 0}
   stoneParticles: {fileID: 19825252}
   gripAnimation: {fileID: 11478424}
