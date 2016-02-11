@@ -171,6 +171,7 @@ public class HandGrip : MonoBehaviour
         if (versusGripController.Complete())
         {
             ReleaseGrip(1f);
+            parentFrog.ResetVersusTimer();
         }
 
         burningHand.OnUpdate(JustGripped, JustReleased);
@@ -213,9 +214,6 @@ public class HandGrip : MonoBehaviour
                         versusHandGrip.handScript.isOnGrip = true;
                         versusHandGrip.handScript.spriteRenderer.sprite = versusHandGrip.handScript.closed;
                         versusHandGrip.handScript.joint.enabled = true;
-
-                        //versusHandGrip.handScript.LockHand(int.MaxValue);
-                        //LockHand(int.MaxValue);
                         return true;
                     }
                     return false;
@@ -358,7 +356,7 @@ public class HandGrip : MonoBehaviour
                     {
                         isVersusGripping = true;
                         if (!forcedGrip)
-                            versusGripController.Activate(4.5f, parentFrog);
+                            parentFrog.ActivateVersusController(this);
 
                         bool vibrate = (versusFrog == null);
                         versusFrog = FindVersusBody(c.transform).GetComponent<FrogPrototype>();
@@ -466,7 +464,7 @@ public class HandGrip : MonoBehaviour
         isGripping = false;
         isVersusGripping = false;
         isGrippingTutorial = false;
-        versusGripController.DeActivate();
+        versusGripController.SetState(false, 0f, 0f);
 
         if (versusFrog)
         {

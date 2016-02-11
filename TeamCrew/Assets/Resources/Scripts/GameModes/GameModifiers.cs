@@ -65,7 +65,7 @@ public class LowGravityMod : Mod
 }
 public class BurningHandsMod : Mod
 {
-    private float gripLimit = 2.5f;
+    private float gripLimit = 3.0f;
 
     public BurningHandsMod(Modifier name) : base(name)
     {

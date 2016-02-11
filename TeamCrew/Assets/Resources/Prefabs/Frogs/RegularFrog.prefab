@@ -4288,6 +4288,8 @@ MonoBehaviour:
   boilerSound: {fileID: 0}
   releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11420774}
+  blinkTimer: 0
+  blinkDelay: 0
   timer: 0
   maxTimer: 0
   active: 0
@@ -4364,12 +4366,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183922}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gripLimit: 2.5
+  gripLimit: 3
 --- !u!114 &11422094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4542,6 +4544,8 @@ MonoBehaviour:
   boilerSound: {fileID: 0}
   releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11467436}
+  blinkTimer: 0
+  blinkDelay: 0
   timer: 0
   maxTimer: 0
   active: 0
@@ -4705,7 +4709,7 @@ MonoBehaviour:
   speed: 10
   yVelocityClamp: 10
   forceArmsUp: 0
-  player: 0
+  player: 1
   emotionsScript: {fileID: 11469082}
   gripScript: []
   joints: []
@@ -4731,6 +4735,7 @@ MonoBehaviour:
   motorSpeed: 450
   versusMotorBoost: 600
   versusHands: 0
+  maxVersusGripTime: 8
   versusGripTimer: 6
 --- !u!114 &11467436
 MonoBehaviour:
@@ -4767,12 +4772,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 192596}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gripLimit: 2.5
+  gripLimit: 3
 --- !u!114 &11473458
 MonoBehaviour:
   m_ObjectHideFlags: 1

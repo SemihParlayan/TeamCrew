@@ -68,10 +68,6 @@ public class FrogPrototype : MonoBehaviour
 
     private VelocityVolume velVolLeft;
     private VelocityVolume velVolRight;
-        
-    //Sound Stuff
-    private AudioSource boilSounder;
-    private AudioSource shhSounder;
 
     void Start()
     {
@@ -134,7 +130,8 @@ public class FrogPrototype : MonoBehaviour
             leftParticle.enableEmission = false;
             ControlScratch();
         }
-            
+
+        ControlVersusGripController();
 
         //Control Hands
         ControlHand(leftGripScript, GameManager.GetThumbStick(XboxThumbStick.Left, player), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
@@ -199,8 +196,7 @@ public class FrogPrototype : MonoBehaviour
         }
     }
 
-    private float maxVersusGripTime = 8.0f;
-    public float versusGripTimer = 8.0f;
+   
 
     public void ForceArmsUp()
     {
@@ -209,6 +205,36 @@ public class FrogPrototype : MonoBehaviour
     private void ArmsUp()
     {
         forceArmsUp = true;
+    }
+
+
+    public float maxVersusGripTime = 8.0f;
+    public float versusGripTimer = 8.0f;
+    void ControlVersusGripController()
+    {
+        if ((leftGripScript.isVersusGripping || rightGripScript.isVersusGripping) && (!leftGripScript.forcedGrip && !rightGripScript.forcedGrip))
+        {
+            versusGripTimer -= Time.deltaTime;
+
+            leftGripScript.versusGripController.SetTime(versusGripTimer, maxVersusGripTime, true);
+            rightGripScript.versusGripController.SetTime(versusGripTimer, maxVersusGripTime, true);
+        }
+        else
+        {
+            if (versusGripTimer < maxVersusGripTime)
+            {
+                versusGripTimer += Time.deltaTime * 1.5f;
+            }
+        }
+    }
+    public void ActivateVersusController(HandGrip grip)
+    {
+        grip.versusGripController.SetState(true, versusGripTimer, maxVersusGripTime);
+        grip.versusGripController.ActivateBoiler(maxVersusGripTime - versusGripTimer);
+    }
+    public void ResetVersusTimer()
+    {
+        versusGripTimer = maxVersusGripTime / 4;
     }
 
     void ControlScratch()

@@ -10,26 +10,25 @@ public class VersusGripController : MonoBehaviour
     private float shakeTurnDelay = 0.05f;
     private Vector3 originalStartPosition;
 
-    //Blink
-    private bool blink = false;
-    private float blinkTime = 0;
-    private float blinkTimer = 0;
-    private float lastBlinkTimer;
     private SpriteRenderer spriteRenderer;
 
     //Sound
     public AudioSource boilerSound;
     public AudioSource releaseSound;
 
-    
-
     //Components
     public GripAnimation gripAnimation;
+
+
+    public float blinkTimer;
+    public float blinkDelay;
+
     public float timer;
     public float maxTimer;
-    public bool active;
+    private float normal;
+    private bool isVersusGripping;
     private bool complete;
-    private FrogPrototype frog;
+    public bool active;
 
     void Awake()
     {
@@ -46,35 +45,33 @@ public class VersusGripController : MonoBehaviour
         if (boilerSound != null && releaseSound != null)
         {
             boilerSound.playOnAwake = false;
+            boilerSound.spatialBlend = 0.0f;
+
             releaseSound.playOnAwake = false;
+            releaseSound.spatialBlend = 0.0f;
 
             boilerSound.volume = 1f;
-            releaseSound.volume = 0.1f;
+            releaseSound.volume = 0.2f;
         }
+
+        SetState(false, 0f, 0f);
     }
 
     void Update()
     {
         if (!active)
-            return;        
-        if (!frog)
-        {
-            timer -= Time.deltaTime;
-            blinkTime = timer / maxTimer;
-        }
-        else
-        {
-            timer -= Time.deltaTime;
-            frog.leftGripScript.versusGripController.SetTime(timer, maxTimer);
-        }
+            return;
 
-        if (timer <= 0)
-        {
-            DeActivate();
+        normal = timer / maxTimer;
 
-            if (releaseSound != null && !releaseSound.isPlaying)
+        if (normal <= 0)
+        {
+            complete = true;
+            active = false;
+            if (!releaseSound.isPlaying)
             {
                 releaseSound.Play();
+                boilerSound.Stop();
             }
         }
 
@@ -94,119 +91,65 @@ public class VersusGripController : MonoBehaviour
             transform.localPosition += dir * shakeDir * Time.deltaTime * 4.5f;
         }
 
-        if (blink)
+
+        //Blink red and white
+        blinkTimer += Time.deltaTime;
+        if (blinkTimer >= blinkDelay)
         {
-            if (blinkTime < 0.15f && !shake)
-            {
-                ActivateShake();
-            }
-            else
-            {
-                DeActivateShake();
-            }
-
-
-            blinkTimer += Time.deltaTime;
-
-            //Blink red and white
-            if (blinkTimer >= blinkTime / 2)
-            {
-                if (lastBlinkTimer < blinkTime / 2)
-                    gripAnimation.Activate("red");
-
-                if (blinkTime <= 0.6f)
-                    spriteRenderer.color = Color.red;
-            }
-            else
-            {
-                if (blinkTime <= 0.6f)
-                    spriteRenderer.color = Color.white;
-            }
-
-            //Stay white
-            if (blinkTime > 0.6f)
-                spriteRenderer.color = Color.white;
-
-            if (blinkTimer >= blinkTime)
-            {
-                blinkTimer = 0;
-            }
+            blinkTimer = 0;
+            blinkDelay = (maxTimer / 4) * normal;
+            spriteRenderer.color = (spriteRenderer.color == Color.red) ? Color.white : Color.red;
         }
-
-        lastBlinkTimer = blinkTimer;
     }
 
-    public void Activate(float time, FrogPrototype frog = null)
+
+    public void SetState(bool state, float time, float maxTime)
     {
-        if (active)
-            return;
+        active = state;
 
-        this.frog = frog;
-        ActivateBlink();
-        active = true;
-        complete = false;
-        maxTimer = time;
-        timer = maxTimer;
+        blinkDelay = 0f;
+        blinkTimer = 0f;
+        timer = 0f;
+        maxTimer = 0f;
+
+        if (active)
+        {
+            this.timer = time;
+            this.maxTimer = maxTime;
+
+            blinkTimer = 0;
+            blinkDelay = (maxTimer / 4);
+        }
+        else
+        {
+            boilerSound.Stop();
+        }
     }
-    public void DeActivate()
+    public void ActivateBoiler(float startTime)
+    {
+        boilerSound.Stop();
+
+        boilerSound.Play();
+        boilerSound.time = Mathf.Abs(startTime);
+    }
+    public void SetTime(float time, float maxTime, bool isVersusGripping = false)
     {
         if (!active)
             return;
 
-        if (frog)
-        {
-            if (frog.leftGripScript.versusGripController.frog == null)
-            {
-                frog.leftGripScript.versusGripController.frog = frog;
-            }
-            if (frog.rightGripScript.versusGripController.frog == null)
-            {
-                frog.rightGripScript.versusGripController.frog = frog;
-            }
-            frog = null;
-        }
-        spriteRenderer.color = Color.white;
-        active = false;
-        complete = true;
-        timer = maxTimer = 0;
-
-        if (boilerSound != null && boilerSound.isPlaying)
-        {
-            boilerSound.Stop();
-        }
-    }
-    public void SetTime(float time, float maxTime)
-    {
-        timer = time;
-        maxTimer = maxTime;
+        this.timer = time;
+        this.maxTimer = maxTime;
+        this.isVersusGripping = isVersusGripping;
     }
     public bool Complete()
     {
-        bool result = complete;
-
-        if (result)
+        if (complete)
+        {
             complete = false;
-
-        return result;
-    }
-    private void ActivateBlink()
-    {
-        if (!boilerSound.isPlaying)
-        {
-            boilerSound.time = 3.0f;
-            boilerSound.Play();
+            return true;
         }
-        blink = true;
-        DeActivateShake();
-    }
-    private void DeActivateBlink()
-    {
-        if (boilerSound.isPlaying)
-        {
-            boilerSound.Stop();
-        }
-        blink = false;
-        DeActivateShake();
+        else
+            return false;
     }
     private void ActivateShake()
     {
