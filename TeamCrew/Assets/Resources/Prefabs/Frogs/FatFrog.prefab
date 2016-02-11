@@ -413,6 +413,7 @@ GameObject:
   - 58: {fileID: 5842090}
   - 114: {fileID: 11496822}
   - 82: {fileID: 8200922}
+  - 114: {fileID: 11408932}
   m_Layer: 12
   m_Name: left_hand_sprite
   m_TagString: Untagged
@@ -694,6 +695,7 @@ GameObject:
   - 58: {fileID: 5894200}
   - 114: {fileID: 11476958}
   - 82: {fileID: 8212868}
+  - 114: {fileID: 11422882}
   m_Layer: 12
   m_Name: right_hand_sprite
   m_TagString: Untagged
@@ -3787,7 +3789,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3809,7 +3811,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &8291748
 AudioSource:
   m_ObjectHideFlags: 1
@@ -4223,7 +4225,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11448118}
   connectedBody: {fileID: 5027864}
-  parentedPlayer: 3
+  parentedPlayer: 1
 --- !u!114 &11401816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4252,7 +4254,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11477636}
   connectedBody: {fileID: 5030016}
-  parentedPlayer: 3
+  parentedPlayer: 1
 --- !u!114 &11404452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4265,6 +4267,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakLimit: 6
+--- !u!114 &11408932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117736}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripLimit: 3
 --- !u!114 &11410580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4319,7 +4333,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11401816}
   connectedBody: {fileID: 5087976}
-  parentedPlayer: 3
+  parentedPlayer: 1
 --- !u!114 &11420884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4349,6 +4363,18 @@ MonoBehaviour:
   - {fileID: 445418}
   - {fileID: 406942}
   inSituational: 0
+--- !u!114 &11422882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139494}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripLimit: 3
 --- !u!114 &11425706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4388,7 +4414,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11425706}
   connectedBody: {fileID: 5061706}
-  parentedPlayer: 3
+  parentedPlayer: 1
   handScript: {fileID: 11458382}
 --- !u!114 &11437872
 MonoBehaviour:
@@ -4495,7 +4521,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11465052}
   connectedBody: {fileID: 5064848}
-  parentedPlayer: 3
+  parentedPlayer: 1
   handScript: {fileID: 11456172}
 --- !u!114 &11453138
 MonoBehaviour:
@@ -4513,7 +4539,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11470430}
   connectedBody: {fileID: 5087976}
-  parentedPlayer: 3
+  parentedPlayer: 1
 --- !u!114 &11453216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4662,7 +4688,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11414370}
   connectedBody: {fileID: 5030016}
-  parentedPlayer: 3
+  parentedPlayer: 1
 --- !u!114 &11465052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4720,6 +4746,7 @@ MonoBehaviour:
   motorSpeed: 450
   versusMotorBoost: 600
   versusHands: 0
+  maxVersusGripTime: 8
   versusGripTimer: 6
 --- !u!114 &11467836
 MonoBehaviour:
@@ -4791,6 +4818,8 @@ MonoBehaviour:
   boilerSound: {fileID: 0}
   releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11453216}
+  blinkTimer: 0
+  blinkDelay: 0
   timer: 0
   maxTimer: 0
   active: 0
@@ -4958,6 +4987,8 @@ MonoBehaviour:
   boilerSound: {fileID: 0}
   releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11410580}
+  blinkTimer: 0
+  blinkDelay: 0
   timer: 0
   maxTimer: 0
   active: 0

@@ -1086,6 +1086,7 @@ GameObject:
   - 58: {fileID: 5841838}
   - 114: {fileID: 11448676}
   - 82: {fileID: 8222868}
+  - 114: {fileID: 11433814}
   m_Layer: 12
   m_Name: right_hand_sprite
   m_TagString: Untagged
@@ -1319,6 +1320,7 @@ GameObject:
   - 58: {fileID: 5839784}
   - 114: {fileID: 11436492}
   - 82: {fileID: 8289786}
+  - 114: {fileID: 11479964}
   m_Layer: 12
   m_Name: left_hand_sprite
   m_TagString: Untagged
@@ -4383,6 +4385,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfHands: 0
+--- !u!114 &11433814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167896}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripLimit: 3
 --- !u!114 &11434438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4414,6 +4428,8 @@ MonoBehaviour:
   boilerSound: {fileID: 0}
   releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11478424}
+  blinkTimer: 0
+  blinkDelay: 0
   timer: 0
   maxTimer: 0
   active: 0
@@ -4532,6 +4548,8 @@ MonoBehaviour:
   boilerSound: {fileID: 0}
   releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11439084}
+  blinkTimer: 0
+  blinkDelay: 0
   timer: 0
   maxTimer: 0
   active: 0
@@ -4680,6 +4698,7 @@ MonoBehaviour:
   motorSpeed: 450
   versusMotorBoost: 600
   versusHands: 0
+  maxVersusGripTime: 8
   versusGripTimer: 6
 --- !u!114 &11464190
 MonoBehaviour:
@@ -4817,6 +4836,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6550c904c68ba6940b4b71874113e41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11479964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180412}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripLimit: 3
 --- !u!114 &11482882
 MonoBehaviour:
   m_ObjectHideFlags: 1

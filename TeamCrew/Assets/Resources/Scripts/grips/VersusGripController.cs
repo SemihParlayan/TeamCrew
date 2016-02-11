@@ -99,6 +99,8 @@ public class VersusGripController : MonoBehaviour
             blinkTimer = 0;
             blinkDelay = (maxTimer / 4) * normal;
             spriteRenderer.color = (spriteRenderer.color == Color.red) ? Color.white : Color.red;
+
+            gripAnimation.Activate("red");
         }
     }
 
