@@ -463,6 +463,7 @@ GameObject:
   - 58: {fileID: 5807360}
   - 114: {fileID: 11430950}
   - 82: {fileID: 8293304}
+  - 114: {fileID: 11476976}
   m_Layer: 12
   m_Name: right_hand_sprite
   m_TagString: Untagged
@@ -1154,6 +1155,7 @@ GameObject:
   - 58: {fileID: 5894004}
   - 114: {fileID: 11429726}
   - 82: {fileID: 8261160}
+  - 114: {fileID: 11498560}
   m_Layer: 12
   m_Name: left_hand_sprite
   m_TagString: Untagged
@@ -1877,7 +1879,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149174}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.299, y: 0.236, z: 0}
+  m_LocalPosition: {x: -0.177, y: 0.236, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 436148}
@@ -2069,7 +2071,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 126630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.299, y: 0.236, z: 0}
+  m_LocalPosition: {x: 0.177, y: 0.236, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 436148}
@@ -2742,7 +2744,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 324.2653, y: -246.48349, z: 0}
+  m_LocalPosition: {x: -5.7830734, y: -21.30626, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436148}
@@ -2880,7 +2882,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: dc713923a4d5a0249af4eb527c8dfd0a, type: 2}
+  - {fileID: 2100000, guid: 796d349ff7b0cb94fad42763840a038d, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -2906,7 +2908,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 30be0503713897140841b24974c1349b, type: 2}
+  - {fileID: 2100000, guid: 44e191fe67b5c3d4e9a6e80e2da3a846, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -2932,7 +2934,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: dc713923a4d5a0249af4eb527c8dfd0a, type: 2}
+  - {fileID: 2100000, guid: 796d349ff7b0cb94fad42763840a038d, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -2958,7 +2960,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 30be0503713897140841b24974c1349b, type: 2}
+  - {fileID: 2100000, guid: 44e191fe67b5c3d4e9a6e80e2da3a846, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -4248,7 +4250,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11415488}
   connectedBody: {fileID: 5065462}
-  parentedPlayer: 0
+  parentedPlayer: 2147483647
   handScript: {fileID: 11498248}
 --- !u!114 &11407944
 MonoBehaviour:
@@ -4368,7 +4370,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11498862}
   connectedBody: {fileID: 5007472}
-  parentedPlayer: 0
+  parentedPlayer: 2147483647
 --- !u!114 &11428426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4392,9 +4394,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1987f5290de29e4ead5182da101ef80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkTime: 0
-  blinkTimer: 0
+  boilerSound: {fileID: 0}
+  releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11496268}
+  blinkTimer: 0
+  blinkDelay: 0
+  timer: 0
+  maxTimer: 0
+  active: 0
 --- !u!114 &11430950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4406,9 +4413,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1987f5290de29e4ead5182da101ef80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkTime: 0
-  blinkTimer: 0
+  boilerSound: {fileID: 0}
+  releaseSound: {fileID: 0}
   gripAnimation: {fileID: 11466106}
+  blinkTimer: 0
+  blinkDelay: 0
+  timer: 0
+  maxTimer: 0
+  active: 0
 --- !u!114 &11433868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4454,15 +4466,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316e5b5f4cbb3ed4c857c15970787929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topPrefab: {fileID: 416414, guid: c7c4254f227d6964ab57a62a30e7eaa5, type: 2}
-  characterSelectPrefab: {fileID: 421668, guid: 7d9dd4fcd089b0f4bbdbe673d0043045,
-    type: 2}
-  respawnArrowColor: {r: 0.99264705, g: 0.42136472, b: 0.021896647, a: 1}
+  topPrefab: {fileID: 488298}
+  characterSelectPrefab: {fileID: 488298}
+  respawnArrowColor: {r: 0, g: 1, b: 0.006896496, a: 1}
   characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
   forceArmsUp: 0
-  player: 0
+  player: 2147483647
   emotionsScript: {fileID: 11451358}
   gripScript: []
   joints: []
@@ -4488,6 +4499,7 @@ MonoBehaviour:
   motorSpeed: 450
   versusMotorBoost: 600
   versusHands: 0
+  maxVersusGripTime: 8
   versusGripTimer: 6
 --- !u!114 &11440106
 MonoBehaviour:
@@ -4516,7 +4528,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11498924}
   connectedBody: {fileID: 5054954}
-  parentedPlayer: 0
+  parentedPlayer: 2147483647
   handScript: {fileID: 11416718}
 --- !u!114 &11446312
 MonoBehaviour:
@@ -4704,7 +4716,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11428426}
   connectedBody: {fileID: 5029920}
-  parentedPlayer: 0
+  parentedPlayer: 2147483647
 --- !u!114 &11472482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4721,7 +4733,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11400512}
   connectedBody: {fileID: 5008506}
-  parentedPlayer: 0
+  parentedPlayer: 2147483647
 --- !u!114 &11473974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4748,6 +4760,18 @@ MonoBehaviour:
   offset: {x: -0.06, y: -0.07}
   sortingLayerName: Frog
   sortingOrder: 9
+--- !u!114 &11476976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127646}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripLimit: 0
 --- !u!114 &11478116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4764,7 +4788,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11495636}
   connectedBody: {fileID: 5029920}
-  parentedPlayer: 0
+  parentedPlayer: 2147483647
 --- !u!114 &11480650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4818,7 +4842,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11437260}
   connectedBody: {fileID: 5008506}
-  parentedPlayer: 0
+  parentedPlayer: 2147483647
 --- !u!114 &11494326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4909,6 +4933,18 @@ MonoBehaviour:
   stoneParticles: {fileID: 19801786}
   gripAnimation: {fileID: 11466106}
   versusGripController: {fileID: 0}
+--- !u!114 &11498560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167856}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripLimit: 0
 --- !u!114 &11498862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12599,7 +12635,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.13800001, y: 0}
-  m_ConnectedAnchor: {x: 0.11401367, y: 0.34500122}
+  m_ConnectedAnchor: {x: 0.11399984, y: 0.3449993}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -12622,7 +12658,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.13800001, y: 0}
-  m_ConnectedAnchor: {x: -0.09799194, y: 0.34100342}
+  m_ConnectedAnchor: {x: -0.09800005, y: 0.3409996}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0

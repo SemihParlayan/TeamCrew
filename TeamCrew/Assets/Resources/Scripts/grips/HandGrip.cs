@@ -174,7 +174,8 @@ public class HandGrip : MonoBehaviour
             parentFrog.ResetVersusTimer();
         }
 
-        burningHand.OnUpdate(JustGripped, JustReleased);
+        if (burningHand != null)
+            burningHand.OnUpdate(JustGripped, JustReleased);
 
         lastIsOngrip = isOnGrip;
 
