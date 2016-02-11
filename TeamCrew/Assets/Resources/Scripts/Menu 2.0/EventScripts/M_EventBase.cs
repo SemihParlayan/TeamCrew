@@ -5,38 +5,38 @@ public class M_EventBase : MonoBehaviour
 {
     public virtual void OnStickLeft()
     {
-        OnEvent(Event.OnStickLeft);
+        OnEvent(XboxEvent.OnStickLeft);
     }
     public virtual void OnStickRight()
     {
-        OnEvent(Event.OnStickRight);
+        OnEvent(XboxEvent.OnStickRight);
     }
     public virtual void OnStickUp()
     {
-        OnEvent(Event.OnStickUp);
+        OnEvent(XboxEvent.OnStickUp);
     }
     public virtual void OnStickDown()
     {
-        OnEvent(Event.OnStickDown);
+        OnEvent(XboxEvent.OnStickDown);
     }
     public virtual void OnPress()
     {
-        OnEvent(Event.OnPress);
+        OnEvent(XboxEvent.OnPress);
     }
     public virtual void OnReturn()
     {
-        OnEvent(Event.OnReturn);
+        OnEvent(XboxEvent.OnReturn);
     }
     public virtual void OnSelect()
     {
-        OnEvent(Event.OnSelect);
+        OnEvent(XboxEvent.OnSelect);
     }
     public virtual void OnDeSelect()
     {
-        OnEvent(Event.OnDeSelect);
+        OnEvent(XboxEvent.OnDeSelect);
     }
 
-    public virtual void OnEvent(Event e)
+    public virtual void OnEvent(XboxEvent e)
     {
 
     }

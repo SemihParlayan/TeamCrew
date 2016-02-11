@@ -18,51 +18,35 @@ public class Block : MonoBehaviour
     public BlockEnding startSize;
     public BlockEnding endSize;
 
-
-
     [HideInInspector]
     public int blockIndex;
+
+    public Vector3 noRendererStartOffset;
+    public Vector3 noRendererEndOffset;
 
     public Vector3 GetEndPosition
     {
         get
         {
             Vector3 pos = Vector3.zero;
-            if (tagCollection.ContainsTag(BlockTag.Top))
+
+            if (renderer != null)
             {
-                if (renderer != null)
-                {
-                    pos = transform.position;
-                    pos.x -= size.x / 2;
-                    pos.x += pixelsFromLeftEnd / 100.0f;
-                    pos.y += (size.y / 2) - 8;
-                }
-                else
-                {
-                    pos = transform.position;
-                    pos.x -= size.x / 2;
-                    pos.x += pixelsFromLeftEnd / 100.0f;
-                    pos.y += blockheightTop;
-                }
+                pos = transform.position;
+                pos.x -= size.x / 2;
+                pos.x += pixelsFromLeftEnd / 100.0f;
+                pos.y += (size.y / 2);
+                
             }
             else
             {
-                if (renderer != null)
-                {
-                    pos = transform.position;
-                    pos.x -= size.x / 2;
-                    pos.x += pixelsFromLeftEnd / 100.0f;
-                    pos.y += size.y / 2;
-                }
-                else
-                {
-                    pos = transform.position;
-                    pos.x -= size.x / 2;
-                    pos.x += pixelsFromLeftEnd / 100.0f;
-                    pos.y += blockheightTop;
-                }
+                pos = transform.position - noRendererEndOffset;
             }
 
+            if (tagCollection.ContainsTag(BlockTag.Top))
+            {
+                pos.y -= 8;
+            }
             return pos;
         }
     }
@@ -96,9 +80,7 @@ public class Block : MonoBehaviour
             }
             else
             {
-                pos = transform.position;
-                pos.x += pixelsFromLeftStart / 100.0f;
-                pos.y -= blockheightBottom;
+                pos = transform.position - noRendererStartOffset;
             }
             return pos;
         }
@@ -119,8 +101,6 @@ public class Block : MonoBehaviour
         }
     }
 
-    public float blockheightTop;
-    public float blockheightBottom;
     public  float gizmoSize = 0.2f;
     private new SpriteRenderer renderer;
 
@@ -152,23 +132,30 @@ public class Block : MonoBehaviour
     {
         enabled = true;
     }
-
     void OnBecameInvisible()
     {
         enabled = false;
     }
     
+    public void SetStartPosition(Vector3 worldposition)
+    {
+        noRendererStartOffset = transform.position - worldposition;
+    }
+    public void SetEndPosition(Vector3 worldposition)
+    {
+        noRendererEndOffset = transform.position - worldposition;
+    }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawCube(GetEndPosition, new Vector3(gizmoSize, gizmoSize));
+        Gizmos.DrawWireSphere(GetEndPosition, gizmoSize);
 
         Gizmos.color = new Color(0f, 1f, 0f, 1f);
-        Gizmos.DrawCube(GetStartPosition, new Vector3(gizmoSize, gizmoSize));
+        Gizmos.DrawWireSphere(GetStartPosition, gizmoSize);
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawCube(GetStartCenterPosition, new Vector3(gizmoSize, gizmoSize));
-        Gizmos.DrawCube(GetEndCenterPosition, new Vector3(gizmoSize, gizmoSize));
+        Gizmos.DrawWireSphere(GetStartCenterPosition, gizmoSize);
+        Gizmos.DrawWireSphere(GetEndCenterPosition, gizmoSize);
     }
 }
 

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class SpriteConnection
 {
-    public Event eventType;
+    public XboxEvent eventType;
     public SpriteRenderer spriteRenderer;
     public bool activate;
     public bool loop;
@@ -33,7 +33,7 @@ public class M_SpriteController : M_EventBase
 	}
 
     //Events
-    public override void OnEvent(Event e)
+    public override void OnEvent(XboxEvent e)
     {
         base.OnEvent(e);
 

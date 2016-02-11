@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public enum Event 
+public enum XboxEvent 
 { 
     OnStickLeft,
     OnStickRight,
@@ -100,19 +100,19 @@ public class M_Screen : MonoBehaviour
         {
             if (input.x < -0.9f)
             {
-                CanSelect = !SendEventToCurrentButton(Event.OnStickLeft);
+                CanSelect = !SendEventToCurrentButton(XboxEvent.OnStickLeft);
             }
             else if (input.x > 0.9f)
             {
-                CanSelect = !SendEventToCurrentButton(Event.OnStickRight);
+                CanSelect = !SendEventToCurrentButton(XboxEvent.OnStickRight);
             }
             else if (input.y > 0.9f)
             {
-                CanSelect = !SendEventToCurrentButton(Event.OnStickUp);
+                CanSelect = !SendEventToCurrentButton(XboxEvent.OnStickUp);
             }
             else if (input.y < -0.9f)
             {
-                CanSelect = !SendEventToCurrentButton(Event.OnStickDown);
+                CanSelect = !SendEventToCurrentButton(XboxEvent.OnStickDown);
             }
         }
         else
@@ -181,7 +181,7 @@ public class M_Screen : MonoBehaviour
     }
 
     //Methods
-    bool SendEventToCurrentButton(Event e)
+    bool SendEventToCurrentButton(XboxEvent e)
     {
         bool canSend = (currentButton != null);
 
@@ -190,7 +190,7 @@ public class M_Screen : MonoBehaviour
 
         return canSend;
     }
-    bool SendEventToObject(Event e, GameObject o)
+    bool SendEventToObject(XboxEvent e, GameObject o)
     {
         bool canSend = (o != null);
 
@@ -213,23 +213,23 @@ public class M_Screen : MonoBehaviour
 
         //Select
         if (currentButton)
-            SendEventToCurrentButton(Event.OnDeSelect);
+            SendEventToCurrentButton(XboxEvent.OnDeSelect);
         currentButton = entryButton;
-        SendEventToCurrentButton(Event.OnSelect);
+        SendEventToCurrentButton(XboxEvent.OnSelect);
     }
     bool Press()
     {
         //CanPress = false;
         if (currentButton == null)
             return false;
-        return SendEventToCurrentButton(Event.OnPress);
+        return SendEventToCurrentButton(XboxEvent.OnPress);
     }
     bool Return()
     {
         //CanPress = false;
         if (currentButton == null)
             return false;
-        return SendEventToCurrentButton(Event.OnReturn);
+        return SendEventToCurrentButton(XboxEvent.OnReturn);
     }
     void Activate()
     {
@@ -238,15 +238,15 @@ public class M_Screen : MonoBehaviour
 
     public void SwitchButton(M_Button targetButton)
     {
-        if (SendEventToCurrentButton(Event.OnDeSelect))
+        if (SendEventToCurrentButton(XboxEvent.OnDeSelect))
         {
             currentButton = targetButton;
-            SendEventToCurrentButton(Event.OnSelect);
+            SendEventToCurrentButton(XboxEvent.OnSelect);
         }
     }
     public void SwitchScreen(M_Screen targetScreen)
     {
-        SendEventToCurrentButton(Event.OnDeSelect);
+        SendEventToCurrentButton(XboxEvent.OnDeSelect);
         M_ScreenManager.SwitchScreen(targetScreen);
     }
     public void PressButton(M_Button targetButton)
@@ -254,13 +254,13 @@ public class M_Screen : MonoBehaviour
         if (targetButton == null)
             return;
 
-        SendEventToObject(Event.OnPress, targetButton.gameObject);
+        SendEventToObject(XboxEvent.OnPress, targetButton.gameObject);
         StopCoroutine("UnPressButton");
         StartCoroutine(UnPressButton(targetButton));
     }
     IEnumerator UnPressButton(M_Button button)
     {
         yield return new WaitForSeconds(M_Button.pressDelay);
-        SendEventToObject(Event.OnDeSelect, button.gameObject);
+        SendEventToObject(XboxEvent.OnDeSelect, button.gameObject);
     }
 }

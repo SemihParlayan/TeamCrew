@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class ButtonConnection
 {
-    public Event eventType;
+    public XboxEvent eventType;
     public M_Button targetButton;
 }
 
@@ -16,7 +16,7 @@ public class M_ButtonSwitcher : M_EventBase
     public List<ButtonConnection> eventList = new List<ButtonConnection>();
 
     //Events
-    public override void OnEvent(Event e)
+    public override void OnEvent(XboxEvent e)
     {
         base.OnEvent(e);
 

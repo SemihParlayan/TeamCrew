@@ -171,6 +171,11 @@ public class LevelGeneration : MonoBehaviour
             }
         }
 
+        if (availableBlocks.Count <= 0)
+        {
+            Debug.LogError("Available block count is 0");
+            return null;
+        }
         Block randomBlock = availableBlocks[Random.Range(0, availableBlocks.Count)];
         Transform newBlock = Instantiate(randomBlock.transform, Vector3.zero, Quaternion.identity) as Transform;
         Block spawnedBlock = newBlock.GetComponent<Block>();
@@ -178,56 +183,6 @@ public class LevelGeneration : MonoBehaviour
         ConnectBlocks(spawnedBlock, previousBlock);
         spawnedBlock.transform.parent = transform;
         return spawnedBlock;
-
-        //for (int i = 0; i < globalBlockCollection.Count; i++)
-        //{
-        //    If the searched difficulty matches
-        //    if (globalBlockCollection[i].difficulty == difficulty)
-        //    {
-        //        Block newBlock = globalBlockCollection[i];
-
-        //        Does it fit with previousblock
-        //        if (!overrideBlockmatch && previousBlock != null)
-        //        {
-        //            if (newBlock.start != previousBlock.end)
-        //            {
-        //                continue;
-        //            }
-        //        }
-
-
-        //        bool add = true;
-        //        for (int j = 0; j < level.Count; j++)
-        //        {
-        //            if (level[j].blockIndex == newBlock.blockIndex)
-        //            {
-        //                add = false;
-        //                break;
-        //            }
-        //        }
-        //        if (add)
-        //        {
-        //            availableBlocks.Add(newBlock);
-        //        }
-        //    }
-        //}
-
-
-
-
-        //if (availableBlocks.Count == 0)
-        //{
-        //    Debug.LogError("Could not find a " + difficulty.ToString() + " block to generate!");
-        //    return null;
-        //}
-
-
-        //Transform t = Instantiate(availableBlocks[Random.Range(0, availableBlocks.Count)].transform, Vector3.zero, Quaternion.identity) as Transform;
-        //Block b = t.GetComponent<Block>();
-
-        //ConnectBlocks(b, previousBlock);
-        //b.transform.parent = transform;
-        return null;
     }
     private void ConnectBlocks(Block block, Block previousBlock)
     {
@@ -326,6 +281,13 @@ public class LevelGeneration : MonoBehaviour
 
         //Load converter blocks
         blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Converter blocks");
+        for (int i = 0; i < blocks.Length; i++)
+        {
+            globalBlockCollection.Add(blocks[i]);
+        }
+
+        //Load converter blocks
+        blocks = Resources.LoadAll<Block>("Prefabs/Designed Blocks/Hjulafton");
         for (int i = 0; i < blocks.Length; i++)
         {
             globalBlockCollection.Add(blocks[i]);

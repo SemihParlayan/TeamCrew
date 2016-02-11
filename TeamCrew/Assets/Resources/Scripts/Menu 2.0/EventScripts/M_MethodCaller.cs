@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class MethodConnection
 {
-    public Event eventType;
+    public XboxEvent eventType;
     public GameObject reciever;
     public string methodName;
 }
@@ -17,7 +17,7 @@ public class M_MethodCaller : M_EventBase
     public List<MethodConnection> eventList = new List<MethodConnection>();
 
     //Events
-    public override void OnEvent(Event e)
+    public override void OnEvent(XboxEvent e)
     {
         base.OnEvent(e);
 

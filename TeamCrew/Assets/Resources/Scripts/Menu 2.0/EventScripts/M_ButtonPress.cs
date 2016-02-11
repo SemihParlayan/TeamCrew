@@ -16,7 +16,7 @@ public class M_ButtonPress : M_EventBase
     }
 
     //Events
-    public override void OnEvent(Event e)
+    public override void OnEvent(XboxEvent e)
     {
         base.OnEvent(e);
 
