@@ -356,6 +356,9 @@ public class GameManager : MonoBehaviour
     public EndgameScreen endGameScreen;
     public ReadySetGo readySetGo;
     private ConnectFrogs connectFrogs;
+    private TopNumbers topNumbers;
+    [HideInInspector]
+    public List<Transform> transformOrder = new List<Transform>();
 
     private bool playerFinalStretchAnimation = true;
     private Transform topFrogPrefab;
@@ -436,6 +439,7 @@ public class GameManager : MonoBehaviour
         connectFrogs = GetComponent<ConnectFrogs>();
 
         readySetGo = GetComponent<ReadySetGo>();
+        topNumbers = GetComponent<TopNumbers>();
 
         //Enable menu music
         menuMusicController.Play();
@@ -443,8 +447,10 @@ public class GameManager : MonoBehaviour
 	}
 
     //Update method
+    public float volume = 1f;
     void Update()
     {
+        AudioListener.volume = volume;
         if (GetButtonPress(XboxButton.Guide))
         {
             TurnOffVibration();
@@ -461,6 +467,10 @@ public class GameManager : MonoBehaviour
 
 
     //Single use methods
+    public void ActivateTopNumbers()
+    {
+        topNumbers.ActivateNumbers(transformOrder.ToArray());
+    }
     public void SpawnHangingFrogs()
     {
         if (hangingFrogsSpawned)
@@ -519,9 +529,11 @@ public class GameManager : MonoBehaviour
         int spawnedFrogs = 0;
         Vector3 topPosition = generatorScript.GetTopPosition() - new Vector3(0, 2.7f, 0);
         Transform previousFrog = null;
+        transformOrder.Clear();
         for (int i = 0; i < order.Count; i++)
         {
             FrogPrototype frog = order[i];
+            
             if (frog.player == victoryFrogNumber)
                 continue;
 
@@ -539,9 +551,13 @@ public class GameManager : MonoBehaviour
                 previousFrog = connectFrogs.SpawnFrogConnected(respawnScript.respawnScripts[frog.player].prefab, previousFrog, hand, VersusGripPoint.Foot);
             }
 
+            Transform b = previousFrog.FindChild("body");
+            transformOrder.Add(b);
+
             hangingFrogs.Add(previousFrog);
             spawnedFrogs++;
         }
+
 
         DestroyFrogs();
         SpawnTopFrog();

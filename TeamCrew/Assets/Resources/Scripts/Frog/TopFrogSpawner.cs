@@ -4,7 +4,7 @@ using System.Collections;
 public class TopFrogSpawner : MonoBehaviour 
 {
     public Vector3 spawnPosition;
-    private Transform currentTopFrog;
+    public Transform currentTopFrog;
     private Respawn respawnScript;
 
     void Start()
@@ -24,6 +24,9 @@ public class TopFrogSpawner : MonoBehaviour
         if (currentTopFrog == null)
         {
             currentTopFrog = Instantiate(topfrogPrefab, spawnPosition, Quaternion.identity) as Transform;
+            GameManager gameManager = GetComponent<GameManager>();
+            gameManager.transformOrder.Insert(0, currentTopFrog.FindChild("body"));
+            gameManager.ActivateTopNumbers();
 
             if (currentTopFrog)
             {

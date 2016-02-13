@@ -16,6 +16,7 @@ public class HandGrip : MonoBehaviour
     public bool isVersusGripping;
     public bool hackGrip;
 
+    public bool disabled = false;
     public bool allowNewGrip = true;
     private bool allowVersusGrab = true;
 
@@ -111,6 +112,9 @@ public class HandGrip : MonoBehaviour
 
 	void Update ()
     {
+        if (disabled)
+            return;
+
         if (gameManager)
         {
             if (!gameManager.gameActive && !forcedGrip)
@@ -287,6 +291,9 @@ public class HandGrip : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D c)
     {
+        if (disabled)
+            return;
+
         if (gameManager)
         {
             if (!gameManager.gameActive && !forcedGrip)
