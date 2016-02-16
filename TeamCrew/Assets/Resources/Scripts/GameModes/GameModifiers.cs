@@ -115,7 +115,58 @@ public class BurningHandsMod : Mod
         }
     }
 }
+public class OneArm : Mod
+{
+    public OneArm(Modifier name) : base(name)
+    {
+        CanControllArms(true);
+    }
 
+    public override void OnStart()
+    {
+        base.OnStart();
+    }
+
+    public void OnPress()
+    {
+        CanControllArms();
+    }
+    private void CanControllArms(bool forceArmsActive = false)
+    {
+        GameManager gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        Respawn respawn = gameManager.transform.GetComponent<Respawn>();
+
+        List<OneArmController> frogScripts = new List<OneArmController>();
+
+        foreach (PlayerRespawn script in respawn.respawnScripts)
+        {
+            frogScripts.AddRange(script.prefab.GetComponentsInChildren<OneArmController>());
+        }
+
+        foreach (FrogPrototype frog in gameManager.playerScripts)
+        {
+            if (frog != null)
+                frogScripts.AddRange(frog.transform.parent.GetComponentsInChildren<OneArmController>());
+        }
+
+        foreach (OneArmController controller in frogScripts)
+        {
+            controller.SetDisabledArmState(false);
+        }
+
+        if (forceArmsActive)
+            return;
+
+        if (IsActive)
+        {
+            foreach (OneArmController controller in frogScripts)
+            {
+                int arm = Random.Range(0, 2);
+                controller.SetDisabledArmState(true, arm);
+            }
+        }
+    }
+}
 
 public class GameModifiers : MonoBehaviour 
 {
@@ -126,7 +177,7 @@ public class GameModifiers : MonoBehaviour
         mods.Clear();
         mods.Add(new LowGravityMod(Modifier.LowGravity));
         mods.Add(new BurningHandsMod(Modifier.BurningHands));
-        mods.Add(new Mod(Modifier.OneArm));
+        mods.Add(new OneArm(Modifier.OneArm));
         mods.Add(new Mod(Modifier.ClingyFrogs));
         mods.Add(new Mod(Modifier.NoBugs));
         mods.Add(new Mod(Modifier.NoLegs));
@@ -175,5 +226,10 @@ public class GameModifiers : MonoBehaviour
     public void OnBurningHands()
     {
         ActivateModifier(Modifier.BurningHands);
+    }
+    public void OnOneArms()
+    {
+        ActivateModifier(Modifier.OneArm);
+        ((OneArm)GetMod(Modifier.OneArm)).OnPress();
     }
 }

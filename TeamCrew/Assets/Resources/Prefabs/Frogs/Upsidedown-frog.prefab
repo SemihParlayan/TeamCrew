@@ -4466,14 +4466,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316e5b5f4cbb3ed4c857c15970787929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topPrefab: {fileID: 488298}
-  characterSelectPrefab: {fileID: 488298}
+  topPrefab: {fileID: 418366, guid: 467194fa1b496d142a73fd34ea71d238, type: 2}
+  characterSelectPrefab: {fileID: 460776, guid: b95c6141a1cce454dbffda4314aa5e03,
+    type: 2}
   respawnArrowColor: {r: 0, g: 1, b: 0.006896496, a: 1}
   characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
   forceArmsUp: 0
-  player: 2147483647
+  player: 0
   emotionsScript: {fileID: 11451358}
   gripScript: []
   joints: []
@@ -12834,7 +12835,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: topPrefab
+      value: 
+      objectReference: {fileID: 418366, guid: 467194fa1b496d142a73fd34ea71d238, type: 2}
+    - target: {fileID: 0}
+      propertyPath: characterSelectPrefab
+      value: 
+      objectReference: {fileID: 460776, guid: b95c6141a1cce454dbffda4314aa5e03, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 161404}

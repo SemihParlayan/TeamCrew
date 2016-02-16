@@ -13,6 +13,7 @@ public class FrogPrototype : MonoBehaviour
     public bool characterSelectFrog;
     public float speed;
     public float yVelocityClamp = 10;
+
     public bool forceArmsUp = false;
 
     public int player;
@@ -196,7 +197,6 @@ public class FrogPrototype : MonoBehaviour
         }
     }
 
-   
 
     public void ForceArmsUp()
     {
@@ -345,6 +345,9 @@ public class FrogPrototype : MonoBehaviour
     }
     void ControlHand(HandGrip handScript, Vector3 input, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin, HandGrip otherGripScript)
     {
+        if (handScript.disabled)
+            return;
+
         if (forceArmsUp)
         {
             if (input == Vector3.zero)
