@@ -14,14 +14,17 @@ public class PoffMountain : MonoBehaviour
     public GameObject menuMountain;
     public LevelGeneration generator;
     public ParallaxConnection[] parallaxConnections;
+    public Transform poffparticleParent;
 
     //Data
     public float poffRepeatRate = 3.0f;
     public bool poffing;
+    private ParticleSystem[] poffParticles;
 
 
     void Start()
     {
+        poffParticles = poffparticleParent.GetComponentsInChildren<ParticleSystem>();
         for (int i = 0; i < parallaxConnections.Length; i++)
         {
             ParallaxConnection c = parallaxConnections[i];
@@ -51,6 +54,10 @@ public class PoffMountain : MonoBehaviour
     }
     private void Poff()
     {
+        for (int i = 0; i < poffParticles.Length; i++)
+        {
+            poffParticles[i].Play();
+        }
     }
 
     private IEnumerator SetMenuMountainStateTime(bool value, float time)

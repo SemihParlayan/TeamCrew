@@ -7095,8 +7095,8 @@ MonoBehaviour:
   pixelsFromLeftStart: 600
   pixelsFromLeftEnd: 0
   startSize: 0
-  endSize: 0
-  blockIndex: 0
+  endSize: 1
+  blockIndex: 25
   noRendererStartOffset: {x: 3.1348114, y: 9.599991, z: 0}
   noRendererEndOffset: {x: 9.129974, y: -9.600006, z: 0}
   gizmoSize: 0.2
@@ -11947,7 +11947,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: endSize
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 146036}

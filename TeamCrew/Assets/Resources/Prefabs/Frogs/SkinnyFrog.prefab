@@ -162,6 +162,7 @@ GameObject:
   - 114: {fileID: 11491028}
   - 114: {fileID: 11400682}
   - 58: {fileID: 5855028}
+  - 114: {fileID: 11446324}
   m_Layer: 0
   m_Name: body
   m_TagString: Frog
@@ -2014,7 +2015,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -55.87, y: -18.61, z: 0}
+  m_LocalPosition: {x: 33.592655, y: -27.659363, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 462612}
@@ -4290,7 +4291,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 128684}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
   m_Name: 
@@ -4587,6 +4588,23 @@ MonoBehaviour:
   offset: {x: 0.03, y: -0.05}
   sortingLayerName: Frog
   sortingOrder: 9
+--- !u!114 &11446324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb643667a2466634785fda279547590d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftUpper: {fileID: 180640}
+  leftLower: {fileID: 193596}
+  leftHand: {fileID: 164680}
+  rightUpper: {fileID: 162034}
+  rightLower: {fileID: 122902}
+  rightHand: {fileID: 151434}
 --- !u!114 &11447694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4627,7 +4645,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 106494}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
   m_Name: 

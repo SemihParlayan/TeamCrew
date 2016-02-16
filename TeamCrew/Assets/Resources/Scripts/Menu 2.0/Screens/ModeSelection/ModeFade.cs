@@ -56,6 +56,7 @@ public class FadeCollection
 }
 public class ModeFade : MonoBehaviour 
 {
+    public ModeSelectionScreen modeSelectionScreen;
     public Transform modifierParent;
     public Transform descriptionParent;
     public TextMesh informationText;
@@ -80,6 +81,7 @@ public class ModeFade : MonoBehaviour
     }
     public void FadeToMod()
     {
+        modeSelectionScreen.SetPoffState(false);
         informationText.text = "Modifiers";
         modifierParent.gameObject.SetActive(true);
         descriptionParent.gameObject.SetActive(false);
@@ -87,6 +89,7 @@ public class ModeFade : MonoBehaviour
     }
     public void FadeToDesc()
     {
+        modeSelectionScreen.SetPoffState(true);
         informationText.text = "Game modes";
         modifierParent.gameObject.SetActive(false);
         descriptionParent.gameObject.SetActive(true);

@@ -6579,11 +6579,11 @@ MonoBehaviour:
     tags: 0700000005000000
   pixelsFromLeftStart: 50
   pixelsFromLeftEnd: 1450
-  startSize: 0
+  startSize: 1
   endSize: 0
-  blockIndex: 0
-  blockheightTop: 0
-  blockheightBottom: 0
+  blockIndex: 56
+  noRendererStartOffset: {x: 0, y: 0, z: 0}
+  noRendererEndOffset: {x: 0, y: 0, z: 0}
   gizmoSize: 0.2
 --- !u!114 &11402944
 MonoBehaviour:
@@ -11673,7 +11673,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: startSize
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 175200}

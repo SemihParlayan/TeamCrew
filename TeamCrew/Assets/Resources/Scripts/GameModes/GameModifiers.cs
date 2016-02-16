@@ -127,6 +127,10 @@ public class OneArm : Mod
         base.OnStart();
     }
 
+    public void OnModifierSelection()
+    {
+        CanControllArms();
+    }
     public void OnPress()
     {
         CanControllArms();
@@ -217,6 +221,11 @@ public class GameModifiers : MonoBehaviour
     }
 
 
+
+    public void OnModifierSelection()
+    {
+        ((OneArm)GetMod(Modifier.OneArm)).OnModifierSelection();
+    }
 
 
     public void OnLowGravity()

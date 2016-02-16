@@ -13,6 +13,7 @@ public class ModeSelectionScreen : M_Screen
 
     //References
     public M_Screen gameScreenReference;
+    private GameModifiers gameModifiers;
     private PoffMountain poff;
     private GameManager gameManager;
     private M_FadeOnScreenSwitch fadeModifier;
@@ -26,14 +27,25 @@ public class ModeSelectionScreen : M_Screen
         fadeModifier = GetComponent<M_FadeOnScreenSwitch>();
         poff = GetComponent<PoffMountain>();
         gameManager = GameObject.FindWithTag("GameManager"). GetComponent<GameManager>();
+
+        gameModifiers = gameModes.transform.GetComponent<GameModifiers>();
     }
     protected override void OnUpdate()
     {
         base.OnUpdate();
+
+        if (!poff.poffing)
+        {
+            if (GameManager.GetButtonPress(XboxButton.LeftShoulder) || GameManager.GetButtonPress(XboxButton.RightShoulder))
+            {
+                poff.PoffRepeating();
+            }
+        }
     }
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
+        gameModifiers.OnModifierSelection();
         modeFade.FadeToDesc();
         Invoke("CreateFrogs", 1f);
         DisplayMode();
@@ -44,14 +56,17 @@ public class ModeSelectionScreen : M_Screen
     public override void OnSwitchedFrom()
     {
         base.OnSwitchedFrom();
-        poff.SetPoffState(false);
+        SetPoffState(false);
     }
     private void CreateFrogs()
     {
         gameManager.CreateNewFrogs();
         canPressPlay = true;
     }
-
+    public void SetPoffState(bool state)
+    {
+        poff.SetPoffState(state);
+    }
     public void LockParallaxes()
     {
         gameManager.LockParallaxes(true);

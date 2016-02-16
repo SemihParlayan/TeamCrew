@@ -1421,6 +1421,7 @@ GameObject:
   - 114: {fileID: 11446312}
   - 114: {fileID: 11449110}
   - 58: {fileID: 5808252}
+  - 114: {fileID: 11480456}
   m_Layer: 0
   m_Name: body
   m_TagString: Frog
@@ -2744,7 +2745,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.7830734, y: -21.30626, z: 0}
+  m_LocalPosition: {x: 33.918106, y: -27.540295, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436148}
@@ -4323,6 +4324,7 @@ MonoBehaviour:
   isGrippingInsect: 0
   isVersusGripping: 0
   hackGrip: 0
+  disabled: 0
   allowNewGrip: 1
   lastGripTime: 0
   player: 2147483647
@@ -4474,7 +4476,7 @@ MonoBehaviour:
   speed: 10
   yVelocityClamp: 10
   forceArmsUp: 0
-  player: 0
+  player: 2147483647
   emotionsScript: {fileID: 11451358}
   gripScript: []
   joints: []
@@ -4790,6 +4792,23 @@ MonoBehaviour:
   - {fileID: 11495636}
   connectedBody: {fileID: 5029920}
   parentedPlayer: 2147483647
+--- !u!114 &11480456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb643667a2466634785fda279547590d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftUpper: {fileID: 156360}
+  leftLower: {fileID: 110868}
+  leftHand: {fileID: 173334}
+  rightUpper: {fileID: 129998}
+  rightLower: {fileID: 142586}
+  rightHand: {fileID: 133208}
 --- !u!114 &11480650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4914,6 +4933,7 @@ MonoBehaviour:
   isGrippingInsect: 0
   isVersusGripping: 0
   hackGrip: 0
+  disabled: 0
   allowNewGrip: 1
   lastGripTime: 0
   player: 2147483647
@@ -12636,7 +12656,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.13800001, y: 0}
-  m_ConnectedAnchor: {x: 0.11399984, y: 0.3449993}
+  m_ConnectedAnchor: {x: 0.11399841, y: 0.3449993}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -12659,7 +12679,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.13800001, y: 0}
-  m_ConnectedAnchor: {x: -0.09800005, y: 0.3409996}
+  m_ConnectedAnchor: {x: -0.09799957, y: 0.3409996}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
