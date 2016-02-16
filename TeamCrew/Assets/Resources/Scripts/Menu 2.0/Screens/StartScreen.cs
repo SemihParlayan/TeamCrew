@@ -23,6 +23,11 @@ public class StartScreen : M_Screen
     public override void OnSwitchedFrom()
     {
         base.OnSwitchedFrom();
+        //soundManager.StopMenuMusic();
+    }
+
+    public void StopMenuMusic()
+    {
         soundManager.StopMenuMusic();
     }
 }

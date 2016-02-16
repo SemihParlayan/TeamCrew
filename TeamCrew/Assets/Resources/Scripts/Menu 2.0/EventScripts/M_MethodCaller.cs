@@ -30,7 +30,7 @@ public class M_MethodCaller : M_EventBase
                 if (reciever == null)
                     break;
 
-                reciever.SendMessage(eventList[i].methodName);
+                reciever.SendMessage(eventList[i].methodName, SendMessageOptions.DontRequireReceiver);
             }
         }
     }

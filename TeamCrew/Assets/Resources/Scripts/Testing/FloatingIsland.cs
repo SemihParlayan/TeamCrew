@@ -24,6 +24,7 @@ public class FloatingIsland : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
+        pos.x = transform.position.x;
         Vector3 newPos = pos + Vector3.up * Mathf.Sin(time * frequency) * magnitude;
 
         body.MovePosition(newPos);

@@ -447,10 +447,8 @@ public class GameManager : MonoBehaviour
 	}
 
     //Update method
-    public float volume = 1f;
     void Update()
     {
-        AudioListener.volume = volume;
         if (GetButtonPress(XboxButton.Guide))
         {
             TurnOffVibration();

@@ -195,7 +195,7 @@ public class M_Screen : MonoBehaviour
         bool canSend = (o != null);
 
         if (canSend)
-            o.SendMessage(e.ToString());
+            o.SendMessage(e.ToString(), SendMessageOptions.DontRequireReceiver);
 
         return canSend;
     }

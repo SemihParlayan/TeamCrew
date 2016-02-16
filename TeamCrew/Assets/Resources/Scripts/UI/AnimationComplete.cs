@@ -9,6 +9,6 @@ public class AnimationComplete : MonoBehaviour
 
     public void CallFunction()
     {
-        functionHolder.SendMessage(methodName);
+        functionHolder.SendMessage(methodName, SendMessageOptions.DontRequireReceiver);
     }
 }

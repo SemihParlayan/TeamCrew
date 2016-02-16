@@ -9,6 +9,7 @@ public class ModeSelectionScreen : M_Screen
     public TextMesh gamemodeText;
     public TextMesh gamemodeDescription;
     public SpriteRenderer gamemodePicture;
+    public ModeFade modeFade;
 
     //References
     public M_Screen gameScreenReference;
@@ -33,6 +34,7 @@ public class ModeSelectionScreen : M_Screen
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
+        modeFade.FadeToDesc();
         Invoke("CreateFrogs", 1f);
         DisplayMode();
 

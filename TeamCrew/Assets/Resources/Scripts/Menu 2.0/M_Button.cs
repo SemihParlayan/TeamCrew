@@ -81,8 +81,6 @@ public class M_Button : MonoBehaviour
             StartCoroutine(UnPress());
             renderer.sprite = pressedSprite;
         }
-
-        
     }
     public virtual void OnSelect()
     {

@@ -32,6 +32,9 @@ public class M_Sounds : MonoBehaviour
 
     public void StartMenuMusic()
     {
+        if (playMenuMusic)
+            return;
+
         playMenuMusic = true;
         menuMusic.Play();
     }
