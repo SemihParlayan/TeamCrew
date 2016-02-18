@@ -9,7 +9,7 @@ public enum Modifier
     BurningHands, 
     OneArm, 
     ClingyFrogs, 
-    NoBugs, 
+    KOTH, 
     NoLegs, 
     PartyHats, 
     KingOfTheHill, 
@@ -32,6 +32,11 @@ public class Mod
     public void Activate()
     {
         active = !active;
+        OnActivate();
+    }
+    public virtual void OnActivate()
+    {
+
     }
 
     public virtual void OnStart()
@@ -171,6 +176,33 @@ public class OneArm : Mod
         }
     }
 }
+public class KingOfTheHill : Mod
+{
+    private KOTH koth;
+
+    public KingOfTheHill(Modifier name, KOTH koth) : base(name)
+    {
+        this.koth = koth;
+        this.koth.enabled = IsActive;
+        this.koth.KOTHParent.gameObject.SetActive(false);
+    }
+
+    public void OnModifierSelection()
+    {
+        koth.KOTHParent.gameObject.SetActive(false);
+    }
+    public override void OnStart()
+    {
+        base.OnStart();
+
+        koth.OnGameStart();
+    }
+    public override void OnActivate()
+    {
+        base.OnActivate();
+        koth.enabled = IsActive;
+    }
+}
 
 public class GameModifiers : MonoBehaviour 
 {
@@ -183,7 +215,7 @@ public class GameModifiers : MonoBehaviour
         mods.Add(new BurningHandsMod(Modifier.BurningHands));
         mods.Add(new OneArm(Modifier.OneArm));
         mods.Add(new Mod(Modifier.ClingyFrogs));
-        mods.Add(new Mod(Modifier.NoBugs));
+        mods.Add(new KingOfTheHill(Modifier.KOTH, GetComponent<KOTH>()));
         mods.Add(new Mod(Modifier.NoLegs));
         mods.Add(new Mod(Modifier.PartyHats));
         mods.Add(new Mod(Modifier.KingOfTheHill));
@@ -225,6 +257,7 @@ public class GameModifiers : MonoBehaviour
     public void OnModifierSelection()
     {
         ((OneArm)GetMod(Modifier.OneArm)).OnModifierSelection();
+        ((KingOfTheHill)GetMod(Modifier.KOTH)).OnModifierSelection();
     }
 
 
@@ -240,5 +273,9 @@ public class GameModifiers : MonoBehaviour
     {
         ActivateModifier(Modifier.OneArm);
         ((OneArm)GetMod(Modifier.OneArm)).OnPress();
+    }
+    public void OnKOTH()
+    {
+        ActivateModifier(Modifier.KOTH);
     }
 }
