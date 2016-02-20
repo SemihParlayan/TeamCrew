@@ -4241,11 +4241,12 @@ MonoBehaviour:
   characterSelectPrefab: {fileID: 439836, guid: 2e06b4cec0d9a9c4aabbcfcc445a0f43,
     type: 2}
   respawnArrowColor: {r: 0.8161765, g: 0.07201559, b: 0.32796887, a: 1}
+  glowColor: {r: 1, g: 0.19852942, b: 0.709085, a: 1}
   characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
   forceArmsUp: 0
-  player: 0
+  player: 2
   emotionsScript: {fileID: 11403396}
   gripScript: []
   joints: []
@@ -12885,6 +12886,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: forceArmsUp
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.g
+      value: 0.19852942
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.b
+      value: 0.709085
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

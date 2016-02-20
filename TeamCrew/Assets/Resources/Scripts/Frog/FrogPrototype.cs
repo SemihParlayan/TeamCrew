@@ -7,6 +7,7 @@ public class FrogPrototype : MonoBehaviour
     public Transform topPrefab;
     public Transform characterSelectPrefab;
     public Color respawnArrowColor;
+    public Color glowColor;
     private ParticleSystem rightParticle;
     private ParticleSystem leftParticle;
 
@@ -216,8 +217,10 @@ public class FrogPrototype : MonoBehaviour
         {
             versusGripTimer -= Time.deltaTime;
 
-            leftGripScript.versusGripController.SetTime(versusGripTimer, maxVersusGripTime, true);
-            rightGripScript.versusGripController.SetTime(versusGripTimer, maxVersusGripTime, true);
+            if (leftGripScript != null && leftGripScript.versusGripController != null)
+                leftGripScript.versusGripController.SetTime(versusGripTimer, maxVersusGripTime, true);
+            if (rightGripScript != null && rightGripScript.versusGripController != null)
+                rightGripScript.versusGripController.SetTime(versusGripTimer, maxVersusGripTime, true);
         }
         else
         {
@@ -432,8 +435,11 @@ public class FrogPrototype : MonoBehaviour
             // Move towards other hand when neutral
             else if (otherGripScript.isOnGrip && otherJoint.useMotor && handScript.isGripping)
             {
-                Vector3 targetPosition = otherGripScript.gripPoint.transform.position;
-                body.velocity = (targetPosition - hand.position) * speed;
+                if (otherGripScript.gripPoint)
+                {
+                    Vector3 targetPosition = otherGripScript.gripPoint.transform.position;
+                    body.velocity = (targetPosition - hand.position) * speed;
+                }
             }
             //Move towards neutral position
             else

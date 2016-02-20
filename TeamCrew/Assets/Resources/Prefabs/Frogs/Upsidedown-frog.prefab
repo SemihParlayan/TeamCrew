@@ -538,7 +538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &131186
 GameObject:
   m_ObjectHideFlags: 1
@@ -586,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &133514
 GameObject:
   m_ObjectHideFlags: 1
@@ -768,7 +768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &143166
 GameObject:
   m_ObjectHideFlags: 1
@@ -4472,6 +4472,7 @@ MonoBehaviour:
   characterSelectPrefab: {fileID: 460776, guid: b95c6141a1cce454dbffda4314aa5e03,
     type: 2}
   respawnArrowColor: {r: 0, g: 1, b: 0.006896496, a: 1}
+  glowColor: {r: 0.6097364, g: 1, b: 0.2352941, a: 1}
   characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
@@ -4769,12 +4770,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127646}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gripLimit: 0
+  gripLimit: 3
 --- !u!114 &11478116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4960,12 +4961,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167856}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gripLimit: 0
+  gripLimit: 3
 --- !u!114 &11498862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12864,6 +12865,22 @@ Prefab:
       propertyPath: characterSelectPrefab
       value: 
       objectReference: {fileID: 460776, guid: b95c6141a1cce454dbffda4314aa5e03, type: 2}
+    - target: {fileID: 0}
+      propertyPath: glowColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.b
+      value: 0.2352941
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.r
+      value: 0.6097364
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 161404}

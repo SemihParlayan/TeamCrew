@@ -47,6 +47,7 @@ public class EndgameScreen : M_Screen
         GameManager gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         gameManager.SpawnHangingFrogs();
+        gameManager.gameModifier.GetComponent<KOTH>().DisableKeepers();
 
 
         Invoke("OnMenu", danceTime);

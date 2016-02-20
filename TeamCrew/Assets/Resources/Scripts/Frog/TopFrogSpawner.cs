@@ -32,7 +32,12 @@ public class TopFrogSpawner : MonoBehaviour
             {
                 currentTopFrog.position += Vector3.up;
 
-                int bandageCount = respawnScript.bandageManager.GetBandage(victoryFrogNumber).bandageCount;
+                Bandage bandage = respawnScript.bandageManager.GetBandage(victoryFrogNumber);
+                int bandageCount = 0;
+                if (bandage)
+                {
+                    bandageCount = bandage.bandageCount;
+                }
 
                 Bandage b = currentTopFrog.FindChild("body").GetComponent<Bandage>();
                 for (int i = 0; i < bandageCount; i++)

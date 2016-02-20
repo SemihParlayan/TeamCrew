@@ -473,6 +473,8 @@ public class GameManager : MonoBehaviour
     {
         if (hangingFrogsSpawned)
             return;
+
+        KOTH koth = gameModifier.GetComponent<KOTH>();
         hangingFrogsSpawned = true;
 
         List<FrogPrototype> order = new List<FrogPrototype>();
@@ -490,21 +492,45 @@ public class GameManager : MonoBehaviour
 
 
         //Sort by Y value
-        bool changed = true;
-        while (changed)
+        if (koth.enabled)
         {
-            changed = false;
-            for (int i = 0; i < order.Count - 1; i++)
+            bool changed = true;
+            while (changed)
             {
-                float y = order[i].transform.position.y;
-                float nY = order[i + 1].transform.position.y;
-
-                if (nY > y)
+                changed = false;
+                for (int i = 0; i < order.Count - 1; i++)
                 {
-                    FrogPrototype tmp = order[i];
-                    order[i] = order[i + 1];
-                    order[i + 1] = tmp;
-                    changed = true;
+                    ScoreKeeper keeper = koth.keepers[order[i].player];
+                    ScoreKeeper nextKeeper = koth.keepers[order[i + 1].player];
+
+                    if (nextKeeper.targetScore > keeper.targetScore)
+                    {
+                        FrogPrototype tmp = order[i];
+                        order[i] = order[i + 1];
+                        order[i + 1] = tmp;
+                        changed = true; 
+                    }
+                }
+            }
+        }
+        else
+        {
+            bool changed = true;
+            while (changed)
+            {
+                changed = false;
+                for (int i = 0; i < order.Count - 1; i++)
+                {
+                    float y = order[i].transform.position.y;
+                    float nY = order[i + 1].transform.position.y;
+
+                    if (nY > y)
+                    {
+                        FrogPrototype tmp = order[i];
+                        order[i] = order[i + 1];
+                        order[i + 1] = tmp;
+                        changed = true;
+                    }
                 }
             }
         }
@@ -660,13 +686,6 @@ public class GameManager : MonoBehaviour
 
         //Set menu music to start fading out
         menuMusicController.ChangeFadeState(FadeState.OUT);
-           
-        //Activate cameraPan script
-        //cameraPanScript.enabled = true;
-        //cameraFollowTerrainScript.enabled = true;
-
-        //Set the start zoom value for the camera when panning down.
-        //Camera.main.orthographicSize = 7.5f;
     }
 
     /// <summary>
