@@ -109,7 +109,8 @@ public class Respawn : MonoBehaviour
         b.isKinematic = false;
         b.AddForce(Vector2.up * 650000);
 
-        stoneDisabler.DisableStoneAt(pos);
+        body.GetComponent<FrogColliderDisabler>().DisableRockColliders();
+        //stoneDisabler.DisableStoneAt(pos);
 
         return body;
     }
@@ -153,6 +154,8 @@ public class Respawn : MonoBehaviour
     }
     float GetSpawnOffset(PlayerRespawn player)
     {
+        return 7.5f;
+
         float camY = cam.ScreenToWorldPoint(player.arrow.rectTransform.position).y;
         Transform bottomFrog = GameManager.GetBottomFrog();
 

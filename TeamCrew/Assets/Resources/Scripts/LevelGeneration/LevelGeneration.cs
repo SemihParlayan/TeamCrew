@@ -38,13 +38,6 @@ public class LevelGeneration : MonoBehaviour
         gameManager = GetComponent<GameManager>();
 	}
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            GenerateFullMountain(false);
-        }
-    }
     public void GenerateFullMountain(bool keepTutorial = false)
     {
         GameMode mode = GameManager.CurrentGameMode;
