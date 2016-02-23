@@ -918,6 +918,11 @@ public class GameManager : MonoBehaviour
         return frog;
     }
 
+    public static float GetClimbedHeight()
+    {
+        return Mathf.Clamp((Camera.main.transform.position.y / LevelHeight), 0, 1f);
+    }
+
     public void LockParallaxes(bool value)
     {
         for (int i = 0; i < poffMountainScript.parallaxConnections.Length; i++)
