@@ -7,7 +7,6 @@ public class FrogPrototype : MonoBehaviour
     public Transform topPrefab;
     public Transform characterSelectPrefab;
     public Color respawnArrowColor;
-    public Color glowColor;
     private ParticleSystem rightParticle;
     private ParticleSystem leftParticle;
 

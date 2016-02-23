@@ -687,7 +687,9 @@ public class GameManager : MonoBehaviour
                     line.Remove();
                 }
             }
-        }   
+        }
+
+        gameModifier.transform.GetComponent<KOTH>().ActivateKeepers();
     }
 
     /// <summary>
@@ -765,6 +767,10 @@ public class GameManager : MonoBehaviour
         fireWorks.transform.position = generatorScript.GetTopPosition() + new Vector3(0, -18, 0);
         fireWorks.SetActive(true);
         fireWorks.GetComponent<Fireworks>().Reset();
+
+        //KOTH
+        KOTH koth = gameModifier.GetComponent<KOTH>();
+        koth.IncreaseScore(victoryFrogNumber, 300);
     }
 
     /// <summary>

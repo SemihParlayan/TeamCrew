@@ -209,7 +209,6 @@ public class KingOfTheHill : Mod
         {
             FrogPrototype frogPrototype = respawn.respawnScripts[i].prefab.GetComponentInChildren<FrogPrototype>();
             koth.keepers[i].frogColor = frogPrototype.respawnArrowColor;
-            koth.keepers[i].glowColor = frogPrototype.glowColor;
         }
     }
 }
