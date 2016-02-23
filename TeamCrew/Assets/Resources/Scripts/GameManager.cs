@@ -469,6 +469,10 @@ public class GameManager : MonoBehaviour
     {
         topNumbers.ActivateNumbers(transformOrder.ToArray());
     }
+    public void DeActivateNumbers()
+    {
+        topNumbers.DeActivateNumbers();
+    }
     public void SpawnHangingFrogs()
     {
         if (hangingFrogsSpawned)
@@ -494,6 +498,11 @@ public class GameManager : MonoBehaviour
         //Sort by Y value
         if (koth.enabled)
         {
+            //koth.keepers[0].targetScore = 1000;
+            //koth.keepers[1].targetScore = 3000;
+            //koth.keepers[2].targetScore = 500;
+            //koth.keepers[3].targetScore = 10000;
+
             bool changed = true;
             while (changed)
             {
@@ -554,10 +563,16 @@ public class GameManager : MonoBehaviour
         Vector3 topPosition = generatorScript.GetTopPosition() - new Vector3(0, 2.7f, 0);
         Transform previousFrog = null;
         transformOrder.Clear();
+
+        if (koth.enabled)
+        {
+            this.topFrogPrefab = respawnScript.respawnScripts[order[0].player].prefab.GetComponentInChildren<FrogPrototype>().topPrefab;
+            this.victoryFrogNumber = order[0].player;
+        }
         for (int i = 0; i < order.Count; i++)
         {
             FrogPrototype frog = order[i];
-            
+
             if (frog.player == victoryFrogNumber)
                 continue;
 

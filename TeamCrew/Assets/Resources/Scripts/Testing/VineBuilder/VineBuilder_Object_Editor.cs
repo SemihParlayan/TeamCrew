@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
@@ -74,3 +75,4 @@ public class VineBuilder_Object_Editor : Editor
         SceneView.RepaintAll();
     }
 }
+#endif
