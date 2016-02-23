@@ -24,6 +24,8 @@ public class FinalMusic : MonoBehaviour
 
     void Update()
     {
+        if (!enabled)
+            return;
         switch (fade)
         {
             case FadeState.IN:
@@ -51,6 +53,8 @@ public class FinalMusic : MonoBehaviour
     }
     public void SetFadeState(FadeState state)
     {
+        if (!enabled)
+            return;
         if (finalsound == null)
         {
             finalsound = GetComponent<AudioSource>();

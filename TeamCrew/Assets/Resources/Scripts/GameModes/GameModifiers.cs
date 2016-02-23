@@ -201,6 +201,16 @@ public class KingOfTheHill : Mod
     {
         base.OnActivate();
         koth.enabled = IsActive;
+
+        GameManager gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        Respawn respawn = gameManager.transform.GetComponent<Respawn>();
+
+        for (int i = 0; i < koth.keepers.Length; i++)
+        {
+            FrogPrototype frogPrototype = respawn.respawnScripts[i].prefab.GetComponentInChildren<FrogPrototype>();
+            koth.keepers[i].frogColor = frogPrototype.respawnArrowColor;
+            koth.keepers[i].glowColor = frogPrototype.glowColor;
+        }
     }
 }
 

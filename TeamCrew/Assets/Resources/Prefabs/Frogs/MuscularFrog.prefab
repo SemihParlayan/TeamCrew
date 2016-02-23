@@ -1167,6 +1167,7 @@ GameObject:
   - 114: {fileID: 11403520}
   - 58: {fileID: 5839458}
   - 114: {fileID: 11435918}
+  - 114: {fileID: 11431550}
   m_Layer: 0
   m_Name: body
   m_TagString: Frog
@@ -1816,7 +1817,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.45771, y: -27.587923, z: 0}
+  m_LocalPosition: {x: 66.28661, y: -32.31049, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 435438}
@@ -4387,6 +4388,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfHands: 0
+--- !u!114 &11431550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddabc3b2fcc8afc4aba82c9f5608c4bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &11433814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4687,6 +4702,7 @@ MonoBehaviour:
   characterSelectPrefab: {fileID: 453544, guid: 19b354de0d3be3f4cb3f05b1d00b4ecb,
     type: 2}
   respawnArrowColor: {r: 0.22794116, g: 0.17398869, b: 0.05363321, a: 1}
+  glowColor: {r: 0.46323532, g: 0.34402034, b: 0.088559695, a: 1}
   characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
@@ -12921,6 +12937,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: forceArmsUp
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.r
+      value: 0.46323532
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.g
+      value: 0.34402034
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.b
+      value: 0.088559695
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

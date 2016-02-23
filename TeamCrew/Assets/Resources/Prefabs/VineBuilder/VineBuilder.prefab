@@ -50,7 +50,14 @@ MonoBehaviour:
     joint: {fileID: 0}
   closest: {fileID: 0}
   vines:
+  - {fileID: 11419684, guid: 015502c667f5b5f46a6ed7796ab6ff4d, type: 2}
   - {fileID: 11457396, guid: 1cb7a1d018be66240bdf31aeea486292, type: 2}
+  - {fileID: 11452106, guid: f812d18a4e0799542af8b08c632fb356, type: 2}
+  - {fileID: 11436768, guid: 37a1d5cb3b3cfad44871adb5f9427204, type: 2}
+  - {fileID: 11477740, guid: 85adfe16fb1cdf045adf7079fc3c512f, type: 2}
+  - {fileID: 11444296, guid: 37926197fbb6c00469a0cfd142edfe12, type: 2}
+  - {fileID: 11419636, guid: b00b3c16df523b44a9375fdc38cc9db5, type: 2}
+  - {fileID: 11480752, guid: b466582b480669644a621447c066e54a, type: 2}
   - {fileID: 11423838, guid: 5e7e8b433a50ead4885b1b48384d1806, type: 2}
 --- !u!1001 &100100000
 Prefab:
@@ -58,7 +65,51 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: vines.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: vines.Array.data[0]
+      value: 
+      objectReference: {fileID: 11419684, guid: 015502c667f5b5f46a6ed7796ab6ff4d,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: vines.Array.data[1]
+      value: 
+      objectReference: {fileID: 11457396, guid: 1cb7a1d018be66240bdf31aeea486292,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: vines.Array.data[2]
+      value: 
+      objectReference: {fileID: 11452106, guid: f812d18a4e0799542af8b08c632fb356,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: vines.Array.data[3]
+      value: 
+      objectReference: {fileID: 11436768, guid: 37a1d5cb3b3cfad44871adb5f9427204,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: vines.Array.data[4]
+      value: 
+      objectReference: {fileID: 11477740, guid: 85adfe16fb1cdf045adf7079fc3c512f,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: vines.Array.data[5]
+      value: 
+      objectReference: {fileID: 11444296, guid: 37926197fbb6c00469a0cfd142edfe12,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: vines.Array.data[6]
+      value: 
+      objectReference: {fileID: 11419636, guid: b00b3c16df523b44a9375fdc38cc9db5,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: vines.Array.data[7]
+      value: 
+      objectReference: {fileID: 11480752, guid: b466582b480669644a621447c066e54a,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 171198}

@@ -469,10 +469,16 @@ public class GameManager : MonoBehaviour
     {
         topNumbers.ActivateNumbers(transformOrder.ToArray());
     }
+    public void DeActivateNumbers()
+    {
+        topNumbers.DeActivateNumbers();
+    }
     public void SpawnHangingFrogs()
     {
         if (hangingFrogsSpawned)
             return;
+
+        KOTH koth = gameModifier.GetComponent<KOTH>();
         hangingFrogsSpawned = true;
 
         List<FrogPrototype> order = new List<FrogPrototype>();
@@ -490,21 +496,50 @@ public class GameManager : MonoBehaviour
 
 
         //Sort by Y value
-        bool changed = true;
-        while (changed)
+        if (koth.enabled)
         {
-            changed = false;
-            for (int i = 0; i < order.Count - 1; i++)
-            {
-                float y = order[i].transform.position.y;
-                float nY = order[i + 1].transform.position.y;
+            //koth.keepers[0].targetScore = 1000;
+            //koth.keepers[1].targetScore = 3000;
+            //koth.keepers[2].targetScore = 500;
+            //koth.keepers[3].targetScore = 10000;
 
-                if (nY > y)
+            bool changed = true;
+            while (changed)
+            {
+                changed = false;
+                for (int i = 0; i < order.Count - 1; i++)
                 {
-                    FrogPrototype tmp = order[i];
-                    order[i] = order[i + 1];
-                    order[i + 1] = tmp;
-                    changed = true;
+                    ScoreKeeper keeper = koth.keepers[order[i].player];
+                    ScoreKeeper nextKeeper = koth.keepers[order[i + 1].player];
+
+                    if (nextKeeper.targetScore > keeper.targetScore)
+                    {
+                        FrogPrototype tmp = order[i];
+                        order[i] = order[i + 1];
+                        order[i + 1] = tmp;
+                        changed = true; 
+                    }
+                }
+            }
+        }
+        else
+        {
+            bool changed = true;
+            while (changed)
+            {
+                changed = false;
+                for (int i = 0; i < order.Count - 1; i++)
+                {
+                    float y = order[i].transform.position.y;
+                    float nY = order[i + 1].transform.position.y;
+
+                    if (nY > y)
+                    {
+                        FrogPrototype tmp = order[i];
+                        order[i] = order[i + 1];
+                        order[i + 1] = tmp;
+                        changed = true;
+                    }
                 }
             }
         }
@@ -528,10 +563,16 @@ public class GameManager : MonoBehaviour
         Vector3 topPosition = generatorScript.GetTopPosition() - new Vector3(0, 2.7f, 0);
         Transform previousFrog = null;
         transformOrder.Clear();
+
+        if (koth.enabled)
+        {
+            this.topFrogPrefab = respawnScript.respawnScripts[order[0].player].prefab.GetComponentInChildren<FrogPrototype>().topPrefab;
+            this.victoryFrogNumber = order[0].player;
+        }
         for (int i = 0; i < order.Count; i++)
         {
             FrogPrototype frog = order[i];
-            
+
             if (frog.player == victoryFrogNumber)
                 continue;
 
@@ -660,13 +701,6 @@ public class GameManager : MonoBehaviour
 
         //Set menu music to start fading out
         menuMusicController.ChangeFadeState(FadeState.OUT);
-           
-        //Activate cameraPan script
-        //cameraPanScript.enabled = true;
-        //cameraFollowTerrainScript.enabled = true;
-
-        //Set the start zoom value for the camera when panning down.
-        //Camera.main.orthographicSize = 7.5f;
     }
 
     /// <summary>
@@ -882,6 +916,11 @@ public class GameManager : MonoBehaviour
         }
 
         return frog;
+    }
+
+    public static float GetClimbedHeight()
+    {
+        return Mathf.Clamp((Camera.main.transform.position.y / LevelHeight), 0, 1f);
     }
 
     public void LockParallaxes(bool value)

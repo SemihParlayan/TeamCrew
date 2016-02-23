@@ -141,7 +141,6 @@ public class CharacterSelectionScreen : M_Screen
 
         if (selectedFrogs == 4)
         {
-            Debug.Log("Rawr");
             return null;
         }
         int startIndex = index;

@@ -199,7 +199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &115454
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +304,7 @@ GameObject:
   - 114: {fileID: 11479472}
   - 58: {fileID: 5857172}
   - 114: {fileID: 11447412}
+  - 114: {fileID: 11492690}
   m_Layer: 0
   m_Name: body
   m_TagString: Frog
@@ -728,7 +729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &144822
 GameObject:
   m_ObjectHideFlags: 1
@@ -1301,7 +1302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &180086
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,7 +2346,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.513866, y: -27.393867, z: 0}
+  m_LocalPosition: {x: 35.854435, y: -35.78596, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 441890}
@@ -4252,7 +4253,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109668}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -4397,7 +4398,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151172}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -4665,7 +4666,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 196768}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -4682,7 +4683,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176140}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -4723,11 +4724,12 @@ MonoBehaviour:
   characterSelectPrefab: {fileID: 421668, guid: 7d9dd4fcd089b0f4bbdbe673d0043045,
     type: 2}
   respawnArrowColor: {r: 0.99264705, g: 0.42136472, b: 0.021896647, a: 1}
+  glowColor: {r: 1, g: 0.8482759, b: 0, a: 1}
   characterSelectFrog: 0
   speed: 10
   yVelocityClamp: 10
   forceArmsUp: 0
-  player: 1
+  player: 0
   emotionsScript: {fileID: 11469082}
   gripScript: []
   joints: []
@@ -5004,6 +5006,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de0ece074c0a604b8fc427747c6c5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11492690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddabc3b2fcc8afc4aba82c9f5608c4bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!198 &19838064
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -12883,6 +12899,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: forceArmsUp
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.g
+      value: 0.8482759
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glowColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
