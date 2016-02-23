@@ -54,6 +54,12 @@ public class KOTH : MonoBehaviour
     {
         InvokeRepeating("Pulse", 0.0f, 0.75f);
         KOTHParent.gameObject.SetActive(enabled);
+
+        for (int i = 0; i < keepers.Length; i++)
+        {
+            keepers[i].score = keepers[i].targetScore = 0;
+            keepers[i].percent = 0;
+        }
     }
     public void DisableKeepers()
     {

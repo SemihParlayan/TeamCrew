@@ -52,6 +52,8 @@ public class TopFrogSpawner : MonoBehaviour
         if (currentTopFrog)
         {
             Destroy(currentTopFrog.gameObject);
+            GameManager gameManager = GetComponent<GameManager>();
+            gameManager.DeActivateNumbers();
         }
     }
 }
