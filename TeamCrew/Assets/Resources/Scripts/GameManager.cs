@@ -920,6 +920,7 @@ public class GameManager : MonoBehaviour
 
     public static float GetClimbedHeight()
     {
+        Debug.Log("Climb percentage: " + Mathf.Clamp((Camera.main.transform.position.y / LevelHeight), 0, 1f));
         return Mathf.Clamp((Camera.main.transform.position.y / LevelHeight), 0, 1f);
     }
 

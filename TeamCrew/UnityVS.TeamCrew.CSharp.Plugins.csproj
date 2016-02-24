@@ -5,16 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B7C042DF-7FF6-5C51-3E4E-CCC4AFD02477}</ProjectGuid>
+    <ProjectGuid>{CDFA6351-B29D-1E00-4E1E-77D5D783CE06}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.1.1f1</UnityVersion>
     <RootNamespace></RootNamespace>
@@ -77,120 +77,44 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="UnityVS.TeamCrew.CSharp.Plugins.csproj">
-      <Project>{CDFA6351-B29D-1E00-4E1E-77D5D783CE06}</Project>
-      <Name>UnityVS.TeamCrew.CSharp.Plugins</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\Resources\Prefabs\GameModifiers\DestroyAfterTime.cs" />
-    <Compile Include="Assets\Resources\Scripts\BackgroundParallax.cs" />
-    <Compile Include="Assets\Resources\Scripts\Camera\CameraFollow.cs" />
-    <Compile Include="Assets\Resources\Scripts\Camera\CameraFollowTerrain.cs" />
-    <Compile Include="Assets\Resources\Scripts\Camera\CameraPan.cs" />
-    <Compile Include="Assets\Resources\Scripts\Camera\ClampCamera.cs" />
-    <Compile Include="Assets\Resources\Scripts\CompleteLevel.cs" />
-    <Compile Include="Assets\Resources\Scripts\Frog\Bandage.cs" />
-    <Compile Include="Assets\Resources\Scripts\Frog\BandageManager.cs" />
-    <Compile Include="Assets\Resources\Scripts\Frog\EmotionController.cs" />
-    <Compile Include="Assets\Resources\Scripts\Frog\Emotions.cs" />
-    <Compile Include="Assets\Resources\Scripts\Frog\FrogPrototype.cs" />
-    <Compile Include="Assets\Resources\Scripts\Frog\InactivityFrog.cs" />
-    <Compile Include="Assets\Resources\Scripts\Frog\StretchController.cs" />
-    <Compile Include="Assets\Resources\Scripts\Frog\TopFrog.cs" />
-    <Compile Include="Assets\Resources\Scripts\Frog\TopFrogSpawner.cs" />
-    <Compile Include="Assets\Resources\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Resources\Scripts\GameModes\BurningHands.cs" />
-    <Compile Include="Assets\Resources\Scripts\GameModes\GameModes.cs" />
-    <Compile Include="Assets\Resources\Scripts\GameModes\GameModifiers.cs" />
-    <Compile Include="Assets\Resources\Scripts\GameModes\KOTH.cs" />
-    <Compile Include="Assets\Resources\Scripts\GameModes\OneArmController.cs" />
-    <Compile Include="Assets\Resources\Scripts\HandStruct.cs" />
-    <Compile Include="Assets\Resources\Scripts\Insect.cs" />
-    <Compile Include="Assets\Resources\Scripts\LevelGeneration\Block.cs" />
-    <Compile Include="Assets\Resources\Scripts\LevelGeneration\BlockEditor.cs" />
-    <Compile Include="Assets\Resources\Scripts\LevelGeneration\LevelGeneration.cs" />
-    <Compile Include="Assets\Resources\Scripts\LevelGeneration\TutorialBlock.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\EventScripts\M_ButtonPress.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\EventScripts\M_ButtonSwitcher.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\EventScripts\M_EventBase.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\EventScripts\M_MethodCaller.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\EventScripts\M_ScreenSwitcher.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\EventScripts\M_SpriteController.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\M_Button.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\M_ButtonEditor.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\M_FadeOnScreenSwitch.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\M_FadeToColor.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\M_Screen.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\M_ScreenManager.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\M_SliderButton.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\M_Sounds.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\CharacterSelectionScreen.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\EndgameMenuScreen.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\EndgameScreen.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\GameScreen.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\ModeSelection\ModeFade.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\ModeSelection\ModeSelectionScreen.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\ModeSelection\PoffMountain.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\OptionScreen.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\StartScreen.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu 2.0\SelectedFrog.cs" />
-    <Compile Include="Assets\Resources\Scripts\Parallax.cs" />
-    <Compile Include="Assets\Resources\Scripts\PauseController.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\FallSound.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\FallSoundCam.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\FinalMusic.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\Fireworks.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\ImpactSound.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\Johan\MusicManager.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\MenuMusicController.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\RandomSoundFromList.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\SoundMaster.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\VelocityPitch.cs" />
-    <Compile Include="Assets\Resources\Scripts\Sound\VelocityVolume.cs" />
-    <Compile Include="Assets\Resources\Scripts\Spawning\ButterflySpawner.cs" />
-    <Compile Include="Assets\Resources\Scripts\Spawning\ConnectFrogs.cs" />
-    <Compile Include="Assets\Resources\Scripts\Spawning\FrogColliderDisabler.cs" />
-    <Compile Include="Assets\Resources\Scripts\Spawning\LadybugSpawner.cs" />
-    <Compile Include="Assets\Resources\Scripts\Spawning\PlayerRespawn.cs" />
-    <Compile Include="Assets\Resources\Scripts\Spawning\Respawn.cs" />
-    <Compile Include="Assets\Resources\Scripts\Spawning\StoneDisabler.cs" />
-    <Compile Include="Assets\Resources\Scripts\Testing\FloatingIsland.cs" />
-    <Compile Include="Assets\Resources\Scripts\Testing\SpriteManipulator.cs" />
-    <Compile Include="Assets\Resources\Scripts\Testing\TopNumberBubble.cs" />
-    <Compile Include="Assets\Resources\Scripts\Testing\TopNumbers.cs" />
-    <Compile Include="Assets\Resources\Scripts\Testing\VineBuilder\VineBuilder.cs" />
-    <Compile Include="Assets\Resources\Scripts\Testing\VineBuilder\VineBuilderEditor.cs" />
-    <Compile Include="Assets\Resources\Scripts\Testing\VineBuilder\VineBuilder_Object.cs" />
-    <Compile Include="Assets\Resources\Scripts\Testing\VineBuilder\VineBuilder_Object_Editor.cs" />
-    <Compile Include="Assets\Resources\Scripts\Tutorial\Line.cs" />
-    <Compile Include="Assets\Resources\Scripts\Tutorial\ReadySetGo.cs" />
-    <Compile Include="Assets\Resources\Scripts\Tutorial\TutorialBubbles.cs" />
-    <Compile Include="Assets\Resources\Scripts\Tutorial\TutorialSymbol.cs" />
-    <Compile Include="Assets\Resources\Scripts\UI\AnimationComplete.cs" />
-    <Compile Include="Assets\Resources\Scripts\UI\CenterOfMass.cs" />
-    <Compile Include="Assets\Resources\Scripts\UI\InactivityController.cs" />
-    <Compile Include="Assets\Resources\Scripts\UI\MainMenu.cs" />
-    <Compile Include="Assets\Resources\Scripts\UI\PlayerReadyInput.cs" />
-    <Compile Include="Assets\Resources\Scripts\UI\SetLayerOrder.cs" />
-    <Compile Include="Assets\Resources\Scripts\UI\XboxPs4Switcher.cs" />
-    <Compile Include="Assets\Resources\Scripts\Vibration.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\BreakingVine.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\Grip.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\GripAnimation.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\GripMagnet.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\GripPoint.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\HandGrip.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\MovingGrip.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\VersusGrip.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\VersusGripController.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\VersusHandGrip.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\partygrips\Plank.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\partygrips\SpinningWheel.cs" />
-    <Compile Include="Assets\Resources\Scripts\grips\partygrips\SpinningWheelAngle.cs" />
-    <Compile Include="Assets\Resources\Scripts\parallaxPart.cs" />
-    <Compile Include="Assets\Resources\Scripts\unused\EatInsect.cs" />
-    <Compile Include="Assets\Resources\XInput\XInputDotNet\Examples\XInputTestCS.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\BloomAndFlares.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\BloomOptimized.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Blur.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\BlurOptimized.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\CameraMotionBlur.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionCurves.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionLookup.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionRamp.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ContrastEnhance.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ContrastStretch.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\CreaseShading.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\DepthOfField.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\DepthOfFieldDeprecated.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\EdgeDetection.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Fisheye.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\GlobalFog.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Grayscale.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ImageEffectBase.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ImageEffects.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\MotionBlur.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndGrain.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndScratches.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsHelper.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Quads.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ScreenOverlay.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\SepiaTone.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Tonemapping.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Triangles.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\XInput\XInputDotNet\MITLicense.txt" />
