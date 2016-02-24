@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &142142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 475228}
+  - 114: {fileID: 11419824}
+  m_Layer: 0
+  m_Name: MusicManager - Johan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &475228
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 471.5882, y: 205.68628, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11419824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d532c4c11539740afb66d688847f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_defaultFadeTime: 1
+  m_layerData:
+  - playOnLevels: 0000000001000000020000000300000004000000
+    audioClip: {fileID: 8300000, guid: 51b02833697911e4a92f75e43ac6ef4b, type: 3}
+  - playOnLevels: 01000000020000000300000004000000
+    audioClip: {fileID: 8300000, guid: 6fe52b93dc7ff5946a0e9dd78fd0ab8b, type: 3}
+  - playOnLevels: 020000000300000004000000
+    audioClip: {fileID: 8300000, guid: 4f37739cdfc247d49bd4ea83460cb9fe, type: 3}
+  - playOnLevels: 0300000004000000
+    audioClip: {fileID: 8300000, guid: 57e8be37cf4f2214f8bf490d150015b1, type: 3}
+  - playOnLevels: 04000000
+    audioClip: {fileID: 8300000, guid: 63094e5266885d9429fbed5404ba6c6e, type: 3}
+  levels:
+  - name: 'Level: 0'
+    activationPercent: 0.3
+  - name: 'Level: 1'
+    activationPercent: 0.243
+  - name: 'Level: 2'
+    activationPercent: 0.451
+  - name: 'Level: 3'
+    activationPercent: 0.58
+  - name: 'Level: 4'
+    activationPercent: 0.72
+  m_currentLevel: -1
+  percentageClimbed: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 142142}
+  m_IsPrefabParent: 1

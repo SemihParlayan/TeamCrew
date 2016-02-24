@@ -9395,22 +9395,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &174856
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 460594}
-  - 114: {fileID: 11434092}
-  m_Layer: 0
-  m_Name: MusicManager - Johan
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &174986
 GameObject:
   m_ObjectHideFlags: 1
@@ -12980,7 +12964,7 @@ Transform:
   - {fileID: 404770}
   - {fileID: 429346}
   m_Father: {fileID: 463300}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!4 &400654
 Transform:
   m_ObjectHideFlags: 1
@@ -14303,7 +14287,7 @@ Transform:
   - {fileID: 411006}
   - {fileID: 494794}
   m_Father: {fileID: 463300}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!4 &416632
 Transform:
   m_ObjectHideFlags: 1
@@ -15869,7 +15853,7 @@ Transform:
   - {fileID: 473060}
   - {fileID: 495820}
   m_Father: {fileID: 463300}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!4 &430056
 Transform:
   m_ObjectHideFlags: 1
@@ -17178,7 +17162,7 @@ Transform:
   - {fileID: 460630}
   - {fileID: 439902}
   m_Father: {fileID: 463300}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!4 &443474
 Transform:
   m_ObjectHideFlags: 1
@@ -17637,7 +17621,7 @@ Transform:
   m_Children:
   - {fileID: 22494392}
   m_Father: {fileID: 463300}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!4 &448238
 Transform:
   m_ObjectHideFlags: 1
@@ -17931,7 +17915,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0186042, y: -0.34529182, z: 0}
+  m_LocalPosition: {x: 1.0185745, y: -0.3452984, z: 0}
   m_LocalScale: {x: 0.9175192, y: 0.917519, z: 0.917519}
   m_Children: []
   m_Father: {fileID: 442260}
@@ -17986,7 +17970,7 @@ Transform:
   - {fileID: 498126}
   - {fileID: 462398}
   m_Father: {fileID: 463300}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!4 &451756
 Transform:
   m_ObjectHideFlags: 1
@@ -18834,18 +18818,6 @@ Transform:
   - {fileID: 469772}
   m_Father: {fileID: 419920}
   m_RootOrder: 14
---- !u!4 &460594
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174856}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64.16716, y: -71.078094, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 463300}
-  m_RootOrder: 2
 --- !u!4 &460630
 Transform:
   m_ObjectHideFlags: 1
@@ -19234,12 +19206,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.18, y: 40.53, z: 0}
+  m_LocalPosition: {x: 407.42102, y: 276.76437, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 433224}
   - {fileID: 413530}
-  - {fileID: 460594}
   - {fileID: 416604}
   - {fileID: 451648}
   - {fileID: 400370}
@@ -20628,7 +20599,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 463300}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!4 &478286
 Transform:
   m_ObjectHideFlags: 1
@@ -22273,7 +22244,7 @@ Transform:
   - {fileID: 417812}
   - {fileID: 493304}
   m_Father: {fileID: 463300}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!4 &497284
 Transform:
   m_ObjectHideFlags: 1
@@ -22455,7 +22426,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 463300}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!4 &499178
 Transform:
   m_ObjectHideFlags: 1
@@ -30177,42 +30148,6 @@ MonoBehaviour:
   - eventType: 4
     reciever: {fileID: 148786}
     methodName: ExitGame
---- !u!114 &11434092
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d532c4c11539740afb66d688847f95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_defaultFadeTime: 1
-  m_layerData:
-  - playOnLevels: 0000000001000000020000000300000004000000
-    audioClip: {fileID: 8300000, guid: 51b02833697911e4a92f75e43ac6ef4b, type: 3}
-  - playOnLevels: 01000000020000000300000004000000
-    audioClip: {fileID: 8300000, guid: 6fe52b93dc7ff5946a0e9dd78fd0ab8b, type: 3}
-  - playOnLevels: 020000000300000004000000
-    audioClip: {fileID: 8300000, guid: 4f37739cdfc247d49bd4ea83460cb9fe, type: 3}
-  - playOnLevels: 0300000004000000
-    audioClip: {fileID: 8300000, guid: 57e8be37cf4f2214f8bf490d150015b1, type: 3}
-  - playOnLevels: 04000000
-    audioClip: {fileID: 8300000, guid: 63094e5266885d9429fbed5404ba6c6e, type: 3}
-  levels:
-  - name: 'Level: 0'
-    activationPercent: 0.07
-  - name: 'Level: 1'
-    activationPercent: 0.243
-  - name: 'Level: 2'
-    activationPercent: 0.451
-  - name: 'Level: 3'
-    activationPercent: 0.58
-  - name: 'Level: 4'
-    activationPercent: 0.72
-  m_currentLevel: -1
-  percentageClimbed: 0
 --- !u!114 &11434254
 MonoBehaviour:
   m_ObjectHideFlags: 1
