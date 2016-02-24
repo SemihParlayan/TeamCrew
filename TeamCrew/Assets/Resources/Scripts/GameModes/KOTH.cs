@@ -7,9 +7,8 @@ public class ScoreKeeper
 {
     [HideInInspector]
     public Color frogColor;
-    [HideInInspector]
-    public Color glowColor;
     public Image image;
+    public Text scoreText;
     public float targetScore;
     public float score;
     public float percent;
@@ -18,16 +17,18 @@ public class ScoreKeeper
 public class KOTH : MonoBehaviour 
 {
     //Public
-    public float height = 4f;
-    public float bottomOffset = 0f;
-    public int scoreIncreaseAmount = 100;
+    public float maximumBarWidth = 4f;
+    public float minimumBarWidth = 0.75f;
+    public float scoreIncreaseInterval = 0.25f;
+    public int scoreIncreaseAmount = 10;
+
     public Transform KOTHParent;
+    public ParticleSystem particleSystem;
     public TextMesh scoreAdditionPrefab;
     public ScoreKeeper[] keepers;
 
     //Private
     private GameManager gameManager;
-    private bool glowing;
     private float scoreTimer;
 
     void Awake()
@@ -47,18 +48,23 @@ public class KOTH : MonoBehaviour
             return;
 
         IncreaseTopFrogScore();
-        Glow();
     }
 
     public void OnGameStart()
     {
-        InvokeRepeating("Pulse", 0.0f, 0.75f);
+    }
+    public void ActivateKeepers()
+    {
         KOTHParent.gameObject.SetActive(enabled);
 
-        for (int i = 0; i < keepers.Length; i++)
+
+        for (int i = 0; i < gameManager.frogsReady.Length; i++)
         {
-            keepers[i].score = keepers[i].targetScore = 0;
-            keepers[i].percent = 0;
+            keepers[i].active = gameManager.frogsReady[i];
+
+            keepers[i].score = keepers[i].targetScore = 1;
+            keepers[i].image.gameObject.SetActive(keepers[i].active);
+            keepers[i].scoreText.gameObject.SetActive(keepers[i].active);
         }
     }
     public void DisableKeepers()
@@ -77,20 +83,40 @@ public class KOTH : MonoBehaviour
         if (frog == null)
             return;
 
+        SetParticlePosition(frog.player);
+
         scoreTimer += Time.deltaTime;
-        if (scoreTimer >= 2.0f)
+        if (scoreTimer >= scoreIncreaseInterval)
         {
-            scoreTimer -= 2.0f;
+            scoreTimer -= scoreIncreaseInterval;
             IncreaseScore(frog.player);
         }
 
         UpdateColumns();
     }
-    private void IncreaseScore(int player)
+    public void IncreaseScore(int player, float amount = -1)
     {
-        keepers[player].targetScore += scoreIncreaseAmount;
+        if (amount == -1)
+            amount = scoreIncreaseAmount;
+        keepers[player].targetScore += amount;
 
         //Spawn text prefab
+        SpawnTextComponent(player);
+    }
+
+    private void SetParticlePosition(int player)
+    {
+        //Set particles position and color
+        Vector3 pos = keepers[player].image.rectTransform.position;
+        float width = (keepers[player].image.rectTransform.localScale.y * 100);
+        pos.x += width * 0.95f;
+
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
+        particleSystem.transform.position = worldPos;
+        particleSystem.startColor = keepers[player].frogColor;
+    }
+    private void SpawnTextComponent(int player)
+    {
         Vector3 spawnPos = Vector3.zero;
         FrogPrototype frog = gameManager.playerScripts[player];
         if (frog !=null)
@@ -98,119 +124,74 @@ public class KOTH : MonoBehaviour
             spawnPos = frog.transform.position;
         }
 
-
         scoreAdditionPrefab.color = keepers[player].frogColor;
         scoreAdditionPrefab.text = scoreIncreaseAmount.ToString();
         GameObject o = Instantiate(scoreAdditionPrefab.gameObject, spawnPos, Quaternion.identity) as GameObject;
 
-        int xDir = (Random.Range(0, 2) == 0) ? -1 : 1;
-        o.GetComponent<Rigidbody2D>().AddForce(new Vector2(xDir * 150, 1 * 300));
-    }
+        //o.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1 * 200, 300));
 
-    private void Pulse()
-    {
-        glowing = !glowing;
-    }
-    private void Glow()
-    {
-        ScoreKeeper topKeeper = null;
-        float maxScore = -1;
-        for (int i = 0; i < keepers.Length; i++)
-        {
-            if (keepers[i].targetScore > maxScore)
-            {
-                maxScore = keepers[i].targetScore;
-                topKeeper = keepers[i];
-            }
-        }
-
-        for (int i = 0; i < keepers.Length; i++)
-        {
-            ScoreKeeper keeper = keepers[i];
-            if (keeper == topKeeper && glowing)
-            {
-                keeper.image.color = Color.Lerp(keeper.image.color, keeper.glowColor, Time.deltaTime * 7.0f);
-            }
-            else
-            {
-                keeper.image.color = Color.Lerp(keeper.image.color, keeper.frogColor, Time.deltaTime * 7.0f);
-            }
-        }
+        //Set target position of object
+        
+        o.GetComponent<ScoreAdditionMove>().SetTargetPosition(keepers[player].image);
     }
     private void UpdateColumns()
     {
+        //Activate frogs that are playing
         float totalScore = 0;
-        for (int i = 0; i < keepers.Length; i++)
+        if (gameManager != null)
         {
-            if (!keepers[i].active)
-                continue;
-
-            keepers[i].score = Mathf.MoveTowards(keepers[i].score, keepers[i].targetScore, Time.deltaTime * 500);
-        }
-
-        for (int i = 0; i < gameManager.frogsReady.Length; i++)
-        {
-            keepers[i].active = gameManager.frogsReady[i];
-            if (keepers[i].active)
+            for (int i = 0; i < gameManager.frogsReady.Length; i++)
             {
-                keepers[i].image.gameObject.SetActive(true);
+                keepers[i].active = gameManager.frogsReady[i];
+
+                keepers[i].image.gameObject.SetActive(keepers[i].active);
+                keepers[i].scoreText.gameObject.SetActive(keepers[i].active);
+
+                if (keepers[i].active)
+                {
+                    //Add to totalscore
+                    totalScore += keepers[i].score;
+
+                    //Move towards target score
+                    keepers[i].score = Mathf.MoveTowards(keepers[i].score, keepers[i].targetScore, Time.deltaTime * 150.0f);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < keepers.Length; i++)
+            {
                 totalScore += keepers[i].score;
             }
-            else
-            {
-                keepers[i].image.gameObject.SetActive(false);
-            }
         }
 
+
+        //Set width of bar to current score
         for (int i = 0; i < keepers.Length; i++)
         {
             if (!keepers[i].active)
                 continue;
 
-            float percent = 0;
-            if (totalScore > 0)
-                percent = (float)keepers[i].score / (float)totalScore;
-
+            //Calculate percent of total
+            float percent = Mathf.Clamp((float)keepers[i].score / (float)totalScore, 0f, 1f);
             keepers[i].percent = percent;
 
+            //Set width to percent
             Vector3 scale = keepers[i].image.rectTransform.localScale;
-            scale.y = height * keepers[i].percent;
+            scale.y = minimumBarWidth + maximumBarWidth * keepers[i].percent;
             keepers[i].image.rectTransform.localScale = scale;
+
+            //Set score into text
+            keepers[i].scoreText.text = (keepers[i].targetScore - 1).ToString();
+
+            //Set text to center of bar
+            Vector3 textPos = keepers[i].scoreText.rectTransform.position;
+            Vector3 imagePos = keepers[i].image.rectTransform.position;
+
+            textPos.x = imagePos.x + (scale.y * 100) / 2;
+            textPos.y = imagePos.y;
+            keepers[i].scoreText.rectTransform.position = textPos;
         }
-
-
-        Image prev = null;
-        int startIndex = 0;
-        for (int i = 0; i < keepers.Length; i++)
-        {
-            if (!keepers[i].active)
-                continue;
-
-            startIndex = i;
-            prev = keepers[i].image;
-            break;
-        }
-
-        float y = bottomOffset;
-        SetRectY(prev.rectTransform, y);
-        for (int i = startIndex + 1; i < keepers.Length; i++)
-        {
-            if (!keepers[i].active)
-                continue;
-
-            y += prev.rectTransform.localScale.y * 100;
-            SetRectY(keepers[i].image.rectTransform, y);
-
-            prev = keepers[i].image;
-
-        }
-    }
-
-    private void SetRectY(RectTransform rect, float y)
-    {
-        Vector3 pos = rect.localPosition;
-        pos.y = y;
-        rect.localPosition = pos;
     }
 
     void OnValidate()
@@ -219,6 +200,13 @@ public class KOTH : MonoBehaviour
         keepers[1].targetScore = Mathf.Clamp(keepers[1].targetScore, 1, float.MaxValue);
         keepers[2].targetScore = Mathf.Clamp(keepers[2].targetScore, 1, float.MaxValue);
         keepers[3].targetScore = Mathf.Clamp(keepers[3].targetScore, 1, float.MaxValue);
+
+        keepers[0].score = Mathf.Clamp(keepers[0].targetScore, 1, float.MaxValue);
+        keepers[1].score = Mathf.Clamp(keepers[1].targetScore, 1, float.MaxValue);
+        keepers[2].score = Mathf.Clamp(keepers[2].targetScore, 1, float.MaxValue);
+        keepers[3].score = Mathf.Clamp(keepers[3].targetScore, 1, float.MaxValue);
+
+        UpdateColumns();
     }
 
 }
