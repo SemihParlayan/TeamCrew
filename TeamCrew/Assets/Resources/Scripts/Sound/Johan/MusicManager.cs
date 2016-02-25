@@ -47,16 +47,6 @@ public class MusicLayer
         m_goalVolume = goalVolume;
     }
 
-    /*public IEnumerator FadeVolume(float goalVolume)
-    {
-        float startVolume = m_audioSource.volume;
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / m_layerFadeTime)
-        {
-            Mathf.Lerp(startVolume, goalVolume, t);
-            yield return null;
-        }
-    }*/
-
     public void UpdateLayer()
     {
         if (Mathf.Abs(m_audioSource.volume - m_goalVolume) > 0.01f)
@@ -109,7 +99,7 @@ public class MusicManager : MonoBehaviour
 
 	void SetLevel(int level)
 	{
-		if (level == m_currentLevel || level > (m_musicLayers.Count - 1))
+		if (level <= m_currentLevel || level > (m_musicLayers.Count - 1)) // ändra till "==" om musiken ska gå tillbaka till ett lägre lager
 			return;
 
         if (level < 0)
@@ -146,16 +136,17 @@ public class MusicManager : MonoBehaviour
 		//TestMusic();
 
         int maxLevel = -1;
-		for (int i = 0; i < m_musicLayers.Count; i++) 
-		{
-			m_musicLayers[i].UpdateLayer();
+        for (int i = 0; i < m_musicLayers.Count; i++)
+        {
+            m_musicLayers[i].UpdateLayer();
 
             if (gameManager.gameActive && percentageClimbed > levels[i].activationPercent)
             {
                 maxLevel = i;
             }
-		}
-
+        }
+        if (!gameManager.tutorialComplete || !gameManager.gameActive)
+            maxLevel = 0;
         SetLevel(maxLevel);
 	}
 
