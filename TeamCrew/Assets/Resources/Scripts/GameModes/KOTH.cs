@@ -30,6 +30,7 @@ public class KOTH : MonoBehaviour
     //Private
     private GameManager gameManager;
     private float scoreTimer;
+    private bool spawnedWinningScore;
 
     void Awake()
     {
@@ -52,6 +53,7 @@ public class KOTH : MonoBehaviour
 
     public void OnGameStart()
     {
+        spawnedWinningScore = false;
     }
     public void ActivateKeepers()
     {
@@ -64,6 +66,7 @@ public class KOTH : MonoBehaviour
 
             keepers[i].score = keepers[i].targetScore = 1;
             keepers[i].image.gameObject.SetActive(keepers[i].active);
+            keepers[i].image.color = keepers[i].frogColor;
             keepers[i].scoreText.gameObject.SetActive(keepers[i].active);
         }
     }
@@ -94,14 +97,37 @@ public class KOTH : MonoBehaviour
 
         UpdateColumns();
     }
-    public void IncreaseScore(int player, float amount = -1)
+    public void IncreaseScore(int player, float amount = -1, bool winningScore = false)
     {
         if (amount == -1)
             amount = scoreIncreaseAmount;
-        keepers[player].targetScore += amount;
 
         //Spawn text prefab
-        SpawnTextComponent(player);
+
+        if (winningScore)
+        {
+            ScoreKeeper maxScoreKeeper = keepers[0];
+            for (int i = 1; i < keepers.Length; i++)
+            {
+                if (keepers[i].targetScore > maxScoreKeeper.targetScore)
+                {
+                    maxScoreKeeper = keepers[i];
+                }
+            }
+
+            amount = Mathf.RoundToInt(maxScoreKeeper.targetScore * 0.2f);
+        }
+        SpawnTextComponent(player, amount, winningScore);
+    }
+
+    public void AddScoreToUI(int player, float amount)
+    {
+        keepers[player].targetScore += amount;
+
+        //Set score into text
+        keepers[player].scoreText.text = (keepers[player].targetScore - 1).ToString();
+
+        UpdateColumns();
     }
 
     private void SetParticlePosition(int player)
@@ -115,8 +141,12 @@ public class KOTH : MonoBehaviour
         particleSystem.transform.position = worldPos;
         particleSystem.startColor = keepers[player].frogColor;
     }
-    private void SpawnTextComponent(int player)
+    private void SpawnTextComponent(int player, float scoreAmount, bool winningScore)
     {
+        if (spawnedWinningScore)
+            return;
+        spawnedWinningScore = winningScore;
+
         Vector3 spawnPos = Vector3.zero;
         FrogPrototype frog = gameManager.playerScripts[player];
         if (frog !=null)
@@ -125,14 +155,11 @@ public class KOTH : MonoBehaviour
         }
 
         scoreAdditionPrefab.color = keepers[player].frogColor;
-        scoreAdditionPrefab.text = scoreIncreaseAmount.ToString();
+        scoreAdditionPrefab.text = scoreAmount.ToString();
         GameObject o = Instantiate(scoreAdditionPrefab.gameObject, spawnPos, Quaternion.identity) as GameObject;
 
-        //o.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1 * 200, 300));
-
         //Set target position of object
-        
-        o.GetComponent<ScoreAdditionMove>().SetTargetPosition(keepers[player].image);
+        o.GetComponent<ScoreAdditionMove>().Initialize(this, keepers[player].image, scoreAmount, player, winningScore);
     }
     private void UpdateColumns()
     {
@@ -180,9 +207,6 @@ public class KOTH : MonoBehaviour
             Vector3 scale = keepers[i].image.rectTransform.localScale;
             scale.y = minimumBarWidth + maximumBarWidth * keepers[i].percent;
             keepers[i].image.rectTransform.localScale = scale;
-
-            //Set score into text
-            keepers[i].scoreText.text = (keepers[i].targetScore - 1).ToString();
 
             //Set text to center of bar
             Vector3 textPos = keepers[i].scoreText.rectTransform.position;

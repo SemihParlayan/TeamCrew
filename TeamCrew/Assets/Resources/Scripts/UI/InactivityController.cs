@@ -129,6 +129,14 @@ public class InactivityController : MonoBehaviour
         {
             respawn.respawnScripts[i].inactive = inactivityScripts[i].IsInactive;
         }
+
+        if(gameManager.gameActive)
+        {
+            for (int i = 0; i < gameManager.frogsReady.Length; i++)
+            {
+                gameManager.frogsReady[i] = !inactivityScripts[i].IsInactive;
+            }
+        }
 	}
     private void DeactivateOnInput(int player)
     {

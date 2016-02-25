@@ -351,7 +351,7 @@ public class GameManager : MonoBehaviour
     public FinalMusic finalStretchMusic;
     public Animator finalStretch;
     public FrogPrototype[] playerScripts = new FrogPrototype[4];
-    [HideInInspector]
+    //[HideInInspector]
     public bool[] frogsReady = new bool[4];
     public EndgameScreen endGameScreen;
     public ReadySetGo readySetGo;
@@ -720,7 +720,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject.FindWithTag("MenuManager").GetComponent<M_ScreenManager>().enabled = true;
         M_ScreenManager.SwitchScreen(endGameScreen);
-        endGameScreen.OnEnter(generatorScript.GetTopPosition());
+        endGameScreen.OnEnter(generatorScript.GetTopPosition(), victoryFrogNumber);
     }
 
     /// <summary>
@@ -767,10 +767,6 @@ public class GameManager : MonoBehaviour
         fireWorks.transform.position = generatorScript.GetTopPosition() + new Vector3(0, -18, 0);
         fireWorks.SetActive(true);
         fireWorks.GetComponent<Fireworks>().Reset();
-
-        //KOTH
-        KOTH koth = gameModifier.GetComponent<KOTH>();
-        koth.IncreaseScore(victoryFrogNumber, 300);
     }
 
     /// <summary>
@@ -926,7 +922,6 @@ public class GameManager : MonoBehaviour
 
     public static float GetClimbedHeight()
     {
-        Debug.Log("Climb percentage: " + Mathf.Clamp((Camera.main.transform.position.y / LevelHeight), 0, 1f));
         return Mathf.Clamp((Camera.main.transform.position.y / LevelHeight), 0, 1f);
     }
 

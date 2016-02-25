@@ -4,10 +4,14 @@ using UnityEngine.UI;
 
 public class ScoreAdditionMove : MonoBehaviour 
 {
+    private KOTH koth;
     private Rigidbody2D body;
     private Image targetImage;
     private bool move;
     private float movementSpeed;
+    private float score = 0;
+    private int player = -1;
+    private bool winningScore = false;
 
     void Awake()
     {
@@ -18,9 +22,18 @@ public class ScoreAdditionMove : MonoBehaviour
         StartMoving();
     }
 
-    public void SetTargetPosition(Image image)
+    public void Initialize(KOTH koth, Image image, float score, int player, bool winningScore = false)
     {
-        targetImage = image;
+        this.winningScore = winningScore;
+        this.koth = koth;
+        this.player = player;
+        this.score = score;
+        this.targetImage = image;
+
+        if (winningScore)
+        {
+            transform.localScale = Vector3.one * 2f;
+        }
     }
     void StartMoving()
     {
@@ -37,17 +50,27 @@ public class ScoreAdditionMove : MonoBehaviour
         Vector3 target = Camera.main.ScreenToWorldPoint(barCenter);
         target.z = transform.position.z;
 
-        movementSpeed += 0.1f;
+        
         Vector3 targetDir = (target - transform.position);
-        Vector3 vel = body.velocity;
-        vel = Vector3.MoveTowards(vel, targetDir * movementSpeed, Time.deltaTime * 100.0f);
-        body.velocity = vel;
+        movementSpeed += 0.1f;
+
+        if (!winningScore)
+        {
+            Vector3 vel = body.velocity;
+            vel = Vector3.MoveTowards(vel, targetDir * movementSpeed, Time.deltaTime * 100.0f);
+            body.velocity = vel;
+        }
+        else
+        {
+            transform.position += targetDir.normalized * 0.15f;
+        }
 
         float dist = Vector3.Distance(target, transform.position);
         if (dist < 1f)
         {
             body.velocity = Vector3.zero;
             move = false;
+            koth.AddScoreToUI(player, score);
             Destroy(gameObject);
         }
     }

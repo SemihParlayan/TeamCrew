@@ -194,6 +194,19 @@ public class LevelGeneration : MonoBehaviour
     }
     public Vector3 GetPlayerSpawnPosition(int player)
     {
+        if (tutorialBlock.frogCount != GetTutorialFrogCount())
+        {
+            TutorialBlock tmp = tutorialBlock;
+
+            GameMode mode = GameManager.CurrentGameMode;
+            Block b = FindBlock(mode.tutorialBlock);
+            tutorialBlock = (TutorialBlock)b;
+            tutorialBlock.transform.position = tmp.transform.position;
+
+            Destroy(tmp.gameObject);
+            level[0] = tutorialBlock;
+        }
+
         if (tutorialBlock)
             return tutorialBlock.playerStartPosition[player - 1].position;
         return Vector3.zero;
