@@ -9,6 +9,7 @@ public class ScoreKeeper
     public Color frogColor;
     public Image image;
     public Text scoreText;
+    public Animator anim;
     public float targetScore;
     public float score;
     public float percent;
@@ -21,6 +22,9 @@ public class KOTH : MonoBehaviour
     public float minimumBarWidth = 0.75f;
     public float scoreIncreaseInterval = 0.25f;
     public int scoreIncreaseAmount = 10;
+
+    [Range(0, 1f)]
+    public float winningGripPercent;
 
     public Transform KOTHParent;
     public ParticleSystem particleSystem;
@@ -45,6 +49,9 @@ public class KOTH : MonoBehaviour
 
     void Update()
     {
+        if (this.enabled)
+            UpdateColumns();
+
         if (!gameManager.gameActive || !gameManager.tutorialComplete)
             return;
 
@@ -56,7 +63,7 @@ public class KOTH : MonoBehaviour
         spawnedWinningScore = false;
     }
     public void ActivateKeepers()
-    {
+    {        
         KOTHParent.gameObject.SetActive(enabled);
 
 
@@ -68,6 +75,8 @@ public class KOTH : MonoBehaviour
             keepers[i].image.gameObject.SetActive(keepers[i].active);
             keepers[i].image.color = keepers[i].frogColor;
             keepers[i].scoreText.gameObject.SetActive(keepers[i].active);
+            keepers[i].scoreText.text = "0";
+            keepers[i].percent = 1.0f / 4.0f;
         }
     }
     public void DisableKeepers()
@@ -94,8 +103,6 @@ public class KOTH : MonoBehaviour
             scoreTimer -= scoreIncreaseInterval;
             IncreaseScore(frog.player);
         }
-
-        UpdateColumns();
     }
     public void IncreaseScore(int player, float amount = -1, bool winningScore = false)
     {
@@ -115,7 +122,7 @@ public class KOTH : MonoBehaviour
                 }
             }
 
-            amount = Mathf.RoundToInt(maxScoreKeeper.targetScore * 0.2f);
+            amount = Mathf.RoundToInt(maxScoreKeeper.targetScore * winningGripPercent);
         }
         SpawnTextComponent(player, amount, winningScore);
     }
@@ -123,6 +130,7 @@ public class KOTH : MonoBehaviour
     public void AddScoreToUI(int player, float amount)
     {
         keepers[player].targetScore += amount;
+        keepers[player].anim.SetTrigger("score");
 
         //Set score into text
         keepers[player].scoreText.text = (keepers[player].targetScore - 1).ToString();
@@ -180,7 +188,8 @@ public class KOTH : MonoBehaviour
                     totalScore += keepers[i].score;
 
                     //Move towards target score
-                    keepers[i].score = Mathf.MoveTowards(keepers[i].score, keepers[i].targetScore, Time.deltaTime * 150.0f);
+                    keepers[i].score = Mathf.MoveTowards(keepers[i].score, keepers[i].targetScore, ((spawnedWinningScore) ? 0.02f : Time.deltaTime) * 30.0f);
+                    keepers[i].scoreText.text = Mathf.RoundToInt(keepers[i].score - 1).ToString();
                 }
             }
         }

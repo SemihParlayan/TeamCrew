@@ -51,7 +51,7 @@ public class EndgameScreen : M_Screen
             Invoke("OnExplosion", 1f);
         else
         {
-            Invoke("OnExplosion", 3.0f);
+            Invoke("OnExplosion", 4.0f);
             decreaseTime = true;
             StartCoroutine(LastGripScore(victoryFrogPlayer, 0.5f));
         }
