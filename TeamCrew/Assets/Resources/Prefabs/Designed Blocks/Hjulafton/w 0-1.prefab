@@ -2367,7 +2367,7 @@ GameObject:
   - 4: {fileID: 479484}
   - 114: {fileID: 11441760}
   m_Layer: 8
-  m_Name: w f 0-1
+  m_Name: w 0-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12022,7 +12022,7 @@ MonoBehaviour:
   pixelsFromLeftEnd: -604
   startSize: 0
   endSize: 1
-  blockIndex: 62
+  blockIndex: 68
   noRendererStartOffset: {x: 6.29113, y: 2.5406952, z: 0}
   noRendererEndOffset: {x: 6.0500717, y: -26.880981, z: 0}
   gizmoSize: 0.1
@@ -22411,7 +22411,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: w 0-1 f
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 143358}
