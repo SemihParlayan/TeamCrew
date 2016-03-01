@@ -4186,7 +4186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8198d0ccca85cc4b811f7b8917e688a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  breakLimit: 6
+  breakLimit: 5
 --- !u!114 &11401332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12916,6 +12916,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: glowColor.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: breakLimit
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

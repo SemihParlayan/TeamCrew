@@ -94,6 +94,7 @@ public class M_Button : MonoBehaviour
     }
     public virtual void OnDeSelect()
     {
+        AudioSource.PlayClipAtPoint(soundManager.buttonSwitch, transform.position, 0.5f);
         if (animated)
         {
             anim.SetBool("Selected", false);

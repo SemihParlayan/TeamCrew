@@ -2010,7 +2010,7 @@ GameObject:
   - 224: {fileID: 22406338}
   - 222: {fileID: 22264462}
   - 114: {fileID: 11458220}
-  - 95: {fileID: 9578248}
+  - 95: {fileID: 9549766}
   m_Layer: 5
   m_Name: Player_4_Score
   m_TagString: Untagged
@@ -4989,7 +4989,7 @@ GameObject:
   - 224: {fileID: 22401440}
   - 222: {fileID: 22287074}
   - 114: {fileID: 11495944}
-  - 95: {fileID: 9528314}
+  - 95: {fileID: 9561758}
   m_Layer: 5
   m_Name: Player_3_Score
   m_TagString: Untagged
@@ -7295,7 +7295,7 @@ GameObject:
   - 224: {fileID: 22499870}
   - 222: {fileID: 22249810}
   - 114: {fileID: 11485902}
-  - 95: {fileID: 9550524}
+  - 95: {fileID: 9530774}
   m_Layer: 5
   m_Name: Player_2_Score
   m_TagString: Untagged
@@ -11286,7 +11286,7 @@ GameObject:
   - 224: {fileID: 22471952}
   - 222: {fileID: 22206588}
   - 114: {fileID: 11469692}
-  - 95: {fileID: 9528668}
+  - 95: {fileID: 9581972}
   m_Layer: 5
   m_Name: Player_1_Score
   m_TagString: Untagged
@@ -17345,7 +17345,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.7, y: -9.3, z: -5.3}
+  m_LocalPosition: {x: -26.7, y: -9.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 430022}
@@ -17781,7 +17781,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.5, y: 14.8, z: -10}
+  m_LocalPosition: {x: 7.5, y: 14.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436714}
@@ -25996,23 +25996,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &9528314
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 139736}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8481a68aecb23dc41b8124ae40f6753a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9528434
 Animator:
   serializedVersion: 3
@@ -26023,23 +26006,6 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e0d59b6d8381937459e99b8d042fbade, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &9528668
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 188650}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8481a68aecb23dc41b8124ae40f6753a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -26091,6 +26057,23 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8c692207c06f2af4ba094fdba3c0f3db, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &9530774
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156566}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8481a68aecb23dc41b8124ae40f6753a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -26251,13 +26234,13 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &9550524
+--- !u!95 &9549766
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156566}
+  m_GameObject: {fileID: 115716}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8481a68aecb23dc41b8124ae40f6753a, type: 2}
@@ -26404,6 +26387,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &9561758
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139736}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8481a68aecb23dc41b8124ae40f6753a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9563376
 Animator:
   serializedVersion: 3
@@ -26540,23 +26540,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &9578248
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 115716}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8481a68aecb23dc41b8124ae40f6753a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9581898
 Animator:
   serializedVersion: 3
@@ -26567,6 +26550,23 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8c692207c06f2af4ba094fdba3c0f3db, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &9581972
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188650}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8481a68aecb23dc41b8124ae40f6753a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -28817,7 +28817,7 @@ MonoBehaviour:
   - frogColor: {r: 0.13570876, g: 0.021896647, b: 0.99264705, a: 1}
     image: {fileID: 11425230}
     scoreText: {fileID: 11469692}
-    anim: {fileID: 9528668}
+    anim: {fileID: 9581972}
     targetScore: 1
     score: 1
     percent: 0.25
@@ -28825,7 +28825,7 @@ MonoBehaviour:
   - frogColor: {r: 1, g: 0, b: 0.93103456, a: 0}
     image: {fileID: 11456832}
     scoreText: {fileID: 11485902}
-    anim: {fileID: 9550524}
+    anim: {fileID: 9530774}
     targetScore: 1
     score: 1
     percent: 0.25
@@ -28833,7 +28833,7 @@ MonoBehaviour:
   - frogColor: {r: 0, g: 0, b: 0, a: 0}
     image: {fileID: 11442624}
     scoreText: {fileID: 11495944}
-    anim: {fileID: 9528314}
+    anim: {fileID: 9561758}
     targetScore: 1
     score: 1
     percent: 0.25
@@ -28841,7 +28841,7 @@ MonoBehaviour:
   - frogColor: {r: 0, g: 0, b: 0, a: 0}
     image: {fileID: 11454562}
     scoreText: {fileID: 11458220}
-    anim: {fileID: 9578248}
+    anim: {fileID: 9549766}
     targetScore: 1
     score: 1
     percent: 0.25
