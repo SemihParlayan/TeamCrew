@@ -17555,7 +17555,6 @@ MonoBehaviour:
   maximumBarWidth: 2
   minimumBarWidth: 0.75
   scoreIncreaseInterval: 0.75
-  scoreIncreaseAmount: 10
   winningGripPercent: 0.3
   KOTHParent: {fileID: 1286763059}
   particleSystem: {fileID: 563557914}
@@ -17570,6 +17569,10 @@ MonoBehaviour:
     score: 1
     percent: 0.25
     active: 1
+    scoreIncreaseAmount: 0
+    frequency: 0
+    frequencyAmount: 0
+    comebackCap: 0
   - frogColor: {r: 1, g: 0, b: 0.93103456, a: 0}
     image: {fileID: 181198993}
     scoreText: {fileID: 898744245}
@@ -17578,6 +17581,10 @@ MonoBehaviour:
     score: 1
     percent: 0.25
     active: 1
+    scoreIncreaseAmount: 0
+    frequency: 0
+    frequencyAmount: 0
+    comebackCap: 0
   - frogColor: {r: 0, g: 0, b: 0, a: 0}
     image: {fileID: 577408257}
     scoreText: {fileID: 697312221}
@@ -17586,6 +17593,10 @@ MonoBehaviour:
     score: 1
     percent: 0.25
     active: 1
+    scoreIncreaseAmount: 0
+    frequency: 0
+    frequencyAmount: 0
+    comebackCap: 0
   - frogColor: {r: 0, g: 0, b: 0, a: 0}
     image: {fileID: 1456644915}
     scoreText: {fileID: 1316444023}
@@ -17594,6 +17605,13 @@ MonoBehaviour:
     score: 1
     percent: 0.25
     active: 1
+    scoreIncreaseAmount: 0
+    frequency: 0
+    frequencyAmount: 0
+    comebackCap: 0
+  comebackFrequency: 1
+  frequencyAmount: 5
+  comebackCap: 100
 --- !u!114 &389278439
 MonoBehaviour:
   m_ObjectHideFlags: 0

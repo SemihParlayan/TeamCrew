@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d2ecefa0c001bdd4d8fe083344241a11
-timeCreated: 1453998729
+timeCreated: 1457013228
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,12 @@ TextureImporter:
     21300002: symbol_arrowUp
     21300004: symbol_gripRight
     21300006: symbol_gripLeft
+    21300008: tutorial_leftpress1
+    21300010: tutorial_leftpress2
+    21300012: tutorial_rightpress1
+    21300014: tutorial_rightpress2
+    21300016: tutorial_stickdown1
+    21300018: tutorial_stickdown2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -54,96 +60,218 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: symbol_arrowDown
+    - name: tutorial_leftpress1
       rect:
         serializedVersion: 2
-        x: 21
-        y: 0
-        width: 146
-        height: 237
+        x: 0
+        y: 176
+        width: 186
+        height: 176
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -41, y: 86.5}
-        - {x: -73, y: 27.5}
-        - {x: -73, y: -34.5}
-        - {x: -21, y: -110.5}
-        - {x: 10, y: -110.5}
-        - {x: 73, y: -50.5}
-        - {x: 73, y: -4.5}
-        - {x: 66, y: 8.5}
-        - {x: 45, y: 86.5}
-    - name: symbol_arrowUp
+      - - {x: -26, y: -16}
+        - {x: -37, y: -26}
+        - {x: -37, y: -69}
+        - {x: -25, y: -80}
+        - {x: -16, y: -82}
+        - {x: 14, y: -82}
+        - {x: 29, y: -74}
+        - {x: 29, y: -29}
+        - {x: 19, y: -16}
+      - - {x: 43, y: 20}
+        - {x: 17, y: 88}
+        - {x: -80, y: 88}
+        - {x: -93, y: 58}
+        - {x: -93, y: -73}
+        - {x: 49, y: -73}
+        - {x: 92, y: -65}
+        - {x: 92, y: -19}
+        - {x: 50, y: 17}
+    - name: tutorial_leftpress2
       rect:
         serializedVersion: 2
-        x: 187
-        y: 0
-        width: 149
-        height: 237
+        x: 186
+        y: 176
+        width: 186
+        height: 176
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -8.5, y: 91.5}
-        - {x: -74.5, y: 31.5}
-        - {x: -74.5, y: -49.5}
-        - {x: -58.5, y: -105.5}
-        - {x: 53.5, y: -105.5}
-        - {x: 74.5, y: -32.5}
-        - {x: 74.5, y: 28.5}
-        - {x: 9.5, y: 91.5}
-      - - {x: 51.5, y: -88.5}
-        - {x: 49.5, y: -91.5}
-        - {x: 49.5, y: -96.5}
-        - {x: 60.5, y: -96.5}
-        - {x: 62.5, y: -93.5}
-        - {x: 62.5, y: -89.5}
-        - {x: 61.5, y: -88.5}
-    - name: symbol_gripRight
+      - - {x: -26, y: -16}
+        - {x: -37, y: -26}
+        - {x: -37, y: -69}
+        - {x: -25, y: -80}
+        - {x: -16, y: -82}
+        - {x: 14, y: -82}
+        - {x: 29, y: -74}
+        - {x: 29, y: -29}
+        - {x: 19, y: -16}
+      - - {x: -50, y: 71}
+        - {x: -84, y: 13}
+        - {x: -92, y: -56}
+        - {x: -93, y: -69}
+        - {x: -93, y: -70}
+        - {x: -91, y: -73}
+        - {x: 16, y: -73}
+        - {x: 92, y: -40}
+        - {x: 92, y: 45}
+        - {x: 38, y: 71}
+    - name: tutorial_rightpress1
       rect:
         serializedVersion: 2
-        x: 388
-        y: 0
-        width: 144
-        height: 237
+        x: 372
+        y: 176
+        width: 186
+        height: 176
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 72, y: 60.5}
-        - {x: 68, y: 80.5}
-        - {x: -66, y: 80.5}
-        - {x: -72, y: 76.5}
-        - {x: -72, y: -83.5}
-        - {x: -37, y: -106.5}
-        - {x: 66, y: -106.5}
-        - {x: 72, y: -105.5}
-        - {x: 72, y: -47.5}
-        - {x: 68, y: -30.5}
-        - {x: 72, y: 43.5}
-    - name: symbol_gripLeft
+      - - {x: -38, y: -47}
+        - {x: -59, y: -47}
+        - {x: -68, y: -57}
+        - {x: -68, y: -80}
+        - {x: -61, y: -88}
+        - {x: -37, y: -88}
+        - {x: -27, y: -85}
+        - {x: -27, y: -54}
+        - {x: -35, y: -48}
+      - - {x: 21, y: -43}
+        - {x: 15, y: -46}
+        - {x: 15, y: -81}
+        - {x: 25, y: -84}
+        - {x: 50, y: -84}
+        - {x: 56, y: -78}
+        - {x: 56, y: -53}
+        - {x: 52, y: -43}
+      - - {x: -92, y: -24}
+        - {x: -91, y: -25}
+        - {x: -72, y: -22}
+        - {x: 79, y: -73}
+        - {x: 93, y: -73}
+        - {x: 93, y: -39}
+        - {x: 41, y: 88}
+        - {x: -8, y: 88}
+        - {x: -92, y: -13}
+      - - {x: 7, y: -3}
+        - {x: -17, y: -3}
+        - {x: -27, y: -7}
+        - {x: -27, y: -36}
+        - {x: -16, y: -44}
+        - {x: 4, y: -44}
+        - {x: 14, y: -35}
+        - {x: 14, y: -14}
+        - {x: 13, y: -12}
+    - name: tutorial_rightpress2
       rect:
         serializedVersion: 2
-        x: 561
-        y: 0
-        width: 143
-        height: 237
+        x: 558
+        y: 176
+        width: 186
+        height: 176
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -57.5, y: 80.5}
-        - {x: -71.5, y: 69.5}
-        - {x: -71.5, y: 22.5}
-        - {x: -67.5, y: -12.5}
-        - {x: -71.5, y: -43.5}
-        - {x: -71.5, y: -102.5}
-        - {x: -65.5, y: -106.5}
-        - {x: 29.5, y: -106.5}
-        - {x: 71.5, y: -81.5}
-        - {x: 71.5, y: 78.5}
-        - {x: 65.5, y: 80.5}
+      - - {x: -38, y: -47}
+        - {x: -59, y: -47}
+        - {x: -68, y: -57}
+        - {x: -68, y: -80}
+        - {x: -61, y: -88}
+        - {x: -37, y: -88}
+        - {x: -27, y: -85}
+        - {x: -27, y: -54}
+        - {x: -35, y: -48}
+      - - {x: 21, y: -43}
+        - {x: 15, y: -46}
+        - {x: 15, y: -81}
+        - {x: 25, y: -84}
+        - {x: 50, y: -84}
+        - {x: 56, y: -78}
+        - {x: 56, y: -53}
+        - {x: 52, y: -43}
+      - - {x: -92, y: -21}
+        - {x: -91, y: -25}
+        - {x: -72, y: -22}
+        - {x: 79, y: -73}
+        - {x: 93, y: -73}
+        - {x: 93, y: -25}
+        - {x: 51, y: 71}
+        - {x: -24, y: 71}
+        - {x: -61, y: 29}
+      - - {x: 7, y: -3}
+        - {x: -17, y: -3}
+        - {x: -27, y: -7}
+        - {x: -27, y: -36}
+        - {x: -16, y: -44}
+        - {x: 4, y: -44}
+        - {x: 14, y: -35}
+        - {x: 14, y: -14}
+        - {x: 13, y: -12}
+    - name: tutorial_stickdown1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 186
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -28, y: 78}
+        - {x: -40, y: 47}
+        - {x: -53, y: -4}
+        - {x: -53, y: -79}
+        - {x: -45, y: -81}
+        - {x: 47, y: -81}
+        - {x: 47, y: -10}
+        - {x: 6, y: 78}
+      - - {x: -26, y: 2}
+        - {x: -37, y: -7}
+        - {x: -37, y: -52}
+        - {x: -25, y: -62}
+        - {x: -16, y: -64}
+        - {x: 14, y: -64}
+        - {x: 29, y: -55}
+        - {x: 29, y: -11}
+        - {x: 19, y: 2}
+    - name: tutorial_stickdown2
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 0
+        width: 186
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 15, y: 14}
+        - {x: 11, y: 6}
+        - {x: 11, y: 3}
+        - {x: -13, y: -13}
+        - {x: -27, y: 14}
+        - {x: -29, y: 14}
+        - {x: -52, y: -3}
+        - {x: -53, y: -6}
+        - {x: -53, y: -62}
+        - {x: -29, y: -88}
+        - {x: 31, y: -88}
+        - {x: 47, y: -56}
+        - {x: 47, y: -2}
+        - {x: 33, y: 14}
+      - - {x: -28, y: 51}
+        - {x: -32, y: 40}
+        - {x: -32, y: 12}
+        - {x: -16, y: -9}
+        - {x: 0, y: -9}
+        - {x: 16, y: 14}
+        - {x: 16, y: 25}
+        - {x: 6, y: 51}
     outline: []
   spritePackingTag: 
   userData: 
