@@ -168,9 +168,9 @@ public class OneArm : Mod
 
         if (IsActive)
         {
+            int arm = Random.Range(0, 2);
             foreach (OneArmController controller in frogScripts)
             {
-                int arm = Random.Range(0, 2);
                 controller.SetDisabledArmState(true, arm);
             }
         }

@@ -9,7 +9,7 @@ public class PlayerRespawn : MonoBehaviour
     private Text text;
     [HideInInspector]
     public float timer;
-    [HideInInspector]
+    //[HideInInspector]
     public float deathPositionX;
     [HideInInspector]
     public float deathCount;
@@ -46,8 +46,11 @@ public class PlayerRespawn : MonoBehaviour
     public bool inactive;
     public bool allowRespawn = true;
 
+    private Camera cam;
+
     void Start()
     {
+        cam = Camera.main;
         text = arrow.transform.GetChild(0).GetComponent<Text>();
     }
 
@@ -85,9 +88,12 @@ public class PlayerRespawn : MonoBehaviour
             timer -= Time.deltaTime;
             text.text = Mathf.RoundToInt(timer).ToString();
 
-            Vector3 worldpos = Camera.main.ScreenToWorldPoint(arrow.rectTransform.position);
+            Vector3 worldpos = cam.ScreenToWorldPoint(arrow.rectTransform.position);
             worldpos.x = Mathf.Lerp(worldpos.x, targetX, Time.deltaTime);
-            arrow.rectTransform.position = Camera.main.WorldToScreenPoint(worldpos);
+
+            worldpos.x = Mathf.Clamp(worldpos.x, cam.transform.position.x - cam.orthographicSize * 2, cam.transform.position.x + cam.orthographicSize * 2);
+
+            arrow.rectTransform.position = cam.WorldToScreenPoint(worldpos);
         }
     }
 }

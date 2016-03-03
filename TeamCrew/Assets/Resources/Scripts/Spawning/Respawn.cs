@@ -21,6 +21,7 @@ public class Respawn : MonoBehaviour
     [HideInInspector]
     public BandageManager bandageManager;
     public InactivityController inactivityController;
+    private Grip[] mapGrips;
 
     //Camera minHeight
     float minHeight;
@@ -50,7 +51,11 @@ public class Respawn : MonoBehaviour
         for (int i = 0; i < respawnScripts.Count; i++)
         {
             PlayerRespawn script = respawnScripts[i];
-            script.UpdateRespawn(GetSpawnPosition(script).x);
+            Vector3 gripPosition = GetSpawnGripPosition(script);
+            script.UpdateRespawn(gripPosition.x);
+
+            if (i == 0)
+                spawnGrip = gripPosition;
 
             if (script.AllowRespawn(respawnTime))
             {
@@ -88,6 +93,11 @@ public class Respawn : MonoBehaviour
             }
         }
 	}
+
+    public void GameStarting()
+    {
+        mapGrips = GameObject.FindObjectsOfType<Grip>();
+    }
     public void ResetRespawns()
     {
         for (int i = 0; i < respawnScripts.Count; i++)
@@ -122,35 +132,75 @@ public class Respawn : MonoBehaviour
         }
     }
 
-    Vector2 GetSpawnPosition(PlayerRespawn player)
+    Vector3 spawnGrip;
+    Vector3 cameraBottom;
+    void OnDrawGizmos()
     {
-        GameObject[] grips = GameObject.FindGameObjectsWithTag("Grip");
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(spawnGrip, 0.5f);
 
-        if (grips.Length > 0)
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(cameraBottom, 0.5f);
+    }
+    Vector3 GetSpawnGripPosition(PlayerRespawn player)
+    {
+        cameraBottom = new Vector3(cam.transform.position.x, cam.transform.position.y - cam.orthographicSize);
+
+        if (mapGrips.Length > 0)
         {
-            int minIndex = 0;
+            int closestIndex = 0;
+            float closestDistance = float.MaxValue;
 
-            for (int i = 1; i < grips.Length; i++)
+            for (int i = 1; i < mapGrips.Length; i++)
             {
+                if (mapGrips[i] == null)
+                    continue;
                 Vector3 targetSpawnPosition = cam.transform.position + new Vector3(0, -2.5f);
                 targetSpawnPosition.x = player.deathPositionX;
 
-                float minDistance = Vector2.Distance(grips[minIndex].transform.position, targetSpawnPosition);
-                float distance = Vector2.Distance(grips[i].transform.position, targetSpawnPosition);
+                float xDistance = Mathf.Abs(mapGrips[i].transform.position.x - player.deathPositionX);
+                float yDistance = Mathf.Abs(mapGrips[i].transform.position.y - cameraBottom.y);
 
-                if (distance < minDistance)
+                if (yDistance < 10)
                 {
-                    minIndex = i;
+                    if (xDistance < closestDistance)
+                    {
+                        closestDistance = xDistance;
+                        closestIndex = i;
+                    }
                 }
             }
 
-
-            Vector3 pos = grips[minIndex].transform.position;
-            pos.y = minHeight - 6;
-            return pos;
+            return mapGrips[closestIndex].transform.position;
         }
 
-        return cam.transform.position;
+        return Vector3.zero;
+
+        //if (grips.Length > 0)
+        //{
+        //    int minIndex = 0;
+
+        //    for (int i = 1; i < grips.Length; i++)
+        //    {
+        //        Vector3 targetSpawnPosition = cam.transform.position + new Vector3(0, -2.5f);
+        //        targetSpawnPosition.x = player.deathPositionX;
+
+        //        float minDistance = Vector2.Distance(grips[minIndex].transform.position, targetSpawnPosition);
+        //        float distance = Vector2.Distance(grips[i].transform.position, targetSpawnPosition);
+
+        //        if (distance < minDistance)
+        //        {
+        //            minIndex = i;
+        //        }
+        //    }
+
+
+        //    Vector3 pos = grips[minIndex].transform.position;
+        //    pos.y = minHeight - 6;
+        //    return pos;
+        //}
+
+        //return cam.transform.position;
     }
     float GetSpawnOffset(PlayerRespawn player)
     {

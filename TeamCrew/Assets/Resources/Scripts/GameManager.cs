@@ -779,6 +779,7 @@ public class GameManager : MonoBehaviour
 
         //Enables respawning
         respawnScript.enabled = true;
+        respawnScript.GameStarting();
 
         //Sets the game to be active (Camera pan has just reached the bottom)
         gameActive = true;
