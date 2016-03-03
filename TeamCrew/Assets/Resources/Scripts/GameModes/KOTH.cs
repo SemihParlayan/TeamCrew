@@ -14,6 +14,36 @@ public class ScoreKeeper
     public float score;
     public float percent;
     public bool active;
+
+    public int ScoreIncreaseAmount
+    {
+        get 
+        {
+            int score = scoreIncreaseAmount;
+
+            scoreIncreaseAmount = Mathf.Clamp(scoreIncreaseAmount - frequencyAmount * 2, 10, comebackCap);
+            return score;
+        }
+        set
+        {
+            scoreIncreaseAmount = Mathf.Clamp(value, 10, comebackCap);
+        }
+    }
+    public int scoreIncreaseAmount;
+
+    private float timer;
+    public float frequency;
+    public int frequencyAmount;
+    public int comebackCap;
+    public void IncreaseScoreAmount()
+    {
+        timer += Time.deltaTime;
+        if (timer >= frequency)
+        {
+            timer -= frequency;
+            ScoreIncreaseAmount += frequencyAmount;
+        }
+    }
 }
 public class KOTH : MonoBehaviour 
 {
@@ -21,7 +51,6 @@ public class KOTH : MonoBehaviour
     public float maximumBarWidth = 4f;
     public float minimumBarWidth = 0.75f;
     public float scoreIncreaseInterval = 0.25f;
-    public int scoreIncreaseAmount = 10;
 
     [Range(0, 1f)]
     public float winningGripPercent;
@@ -30,6 +59,13 @@ public class KOTH : MonoBehaviour
     public ParticleSystem particleSystem;
     public TextMesh scoreAdditionPrefab;
     public ScoreKeeper[] keepers;
+
+    [Range(0.5f, 10f)]
+    public float comebackFrequency = 1f;
+    [Range(1, 20)]
+    public int frequencyAmount = 5;
+    [Range(10, 300)]
+    public int comebackCap = 100;
 
     //Private
     private GameManager gameManager;
@@ -77,6 +113,9 @@ public class KOTH : MonoBehaviour
             keepers[i].scoreText.gameObject.SetActive(keepers[i].active);
             keepers[i].scoreText.text = "0";
             keepers[i].percent = 1.0f / 4.0f;
+            keepers[i].frequency = comebackFrequency;
+            keepers[i].frequencyAmount = frequencyAmount;
+            keepers[i].comebackCap = comebackCap;
         }
     }
     public void DisableKeepers()
@@ -97,6 +136,14 @@ public class KOTH : MonoBehaviour
 
         SetParticlePosition(frog.player);
 
+        for (int i = 0; i < keepers.Length; i++)
+        {
+            if (i == frog.player)
+                continue;
+
+            keepers[i].IncreaseScoreAmount();
+        }
+
         scoreTimer += Time.deltaTime;
         if (scoreTimer >= scoreIncreaseInterval)
         {
@@ -107,7 +154,7 @@ public class KOTH : MonoBehaviour
     public void IncreaseScore(int player, float amount = -1, bool winningScore = false)
     {
         if (amount == -1)
-            amount = scoreIncreaseAmount;
+            amount = keepers[player].ScoreIncreaseAmount;
 
         //Spawn text prefab
 
