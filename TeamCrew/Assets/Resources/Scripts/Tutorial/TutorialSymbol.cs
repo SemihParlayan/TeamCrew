@@ -16,6 +16,7 @@ public class TutorialSymbol : MonoBehaviour
 
     void Start()
     {
+        offset = new Vector2(0.87f, 0.44f);
         currentState = SymbolState.NoInput;
         frog = transform.parent.GetComponentInChildren<FrogPrototype>();
 
@@ -24,6 +25,7 @@ public class TutorialSymbol : MonoBehaviour
         {
             children[i] = transform.GetChild(i).gameObject;
             children[i].gameObject.SetActive(false);
+            children[i].GetComponent<SpriteRenderer>().color = frog.respawnArrowColor;
         }
     }
     void Update()
