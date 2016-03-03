@@ -22,6 +22,8 @@ public class LayerData
 {
     public int[] playOnLevels;
     public AudioClip audioClip;
+    [Range(0f, 1f)]
+    public float volume = 1.0f;
 }
 
 public class MusicLayer
@@ -31,15 +33,17 @@ public class MusicLayer
     public float m_goalVolume;
     public int[] m_playOnLevels;
     float m_fadeSpeed;
+    public float m_maxVolume;
 
 
-    public MusicLayer(MusicManager musicManager, float fadeTime)
+    public MusicLayer(MusicManager musicManager, float fadeTime, float maxVolume)
     {
         m_audioSource = musicManager.gameObject.AddComponent<AudioSource>();
         m_audioSource.loop = true;
         m_audioSource.volume = 0.0f;
         m_isActive = false;
         m_fadeSpeed = 1.0f / fadeTime;
+        m_maxVolume = maxVolume;
     }
 
     public void SetGoalVolume(float goalVolume)
@@ -84,7 +88,7 @@ public class MusicManager : MonoBehaviour
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 		m_musicLayers = new List<MusicLayer> ();
 		for (int i = 0; i < m_layerData.Length; i++) {
-			MusicLayer musicLayer = new MusicLayer(this, m_defaultFadeTime);
+			MusicLayer musicLayer = new MusicLayer(this, m_defaultFadeTime, m_layerData[i].volume);
 			musicLayer.m_audioSource.clip = m_layerData[i].audioClip;
 			musicLayer.m_playOnLevels = m_layerData[i].playOnLevels;
 			m_musicLayers.Add(musicLayer);
@@ -92,8 +96,9 @@ public class MusicManager : MonoBehaviour
 
 		for (int i = 0; i < m_musicLayers.Count; i++)
 		{
-			m_musicLayers[i].m_audioSource.Play();
-			m_musicLayers[i].m_isActive = false;
+            MusicLayer musicLayer = m_musicLayers[i];
+            musicLayer.m_audioSource.Play();
+            musicLayer.m_isActive = false;
 		}
 	}
 
@@ -106,8 +111,9 @@ public class MusicManager : MonoBehaviour
         {
             for (int i = 0; i < m_musicLayers.Count; i++)
             {
-                m_musicLayers[i].SetGoalVolume(0.0f);
-                m_musicLayers[i].m_isActive = false;
+                MusicLayer musicLayer = m_musicLayers[i];
+                musicLayer.SetGoalVolume(0.0f);
+                musicLayer.m_isActive = false;
             }
             return;
         }
@@ -118,7 +124,7 @@ public class MusicManager : MonoBehaviour
 			MusicLayer musicLayer = m_musicLayers[i];
 			if (musicLayer.ShouldPlay(level) && !musicLayer.m_isActive)
 			{
-				musicLayer.SetGoalVolume(1.0f);
+				musicLayer.SetGoalVolume(musicLayer.m_maxVolume);
 				musicLayer.m_isActive = true;
 			}
 			else if (!musicLayer.ShouldPlay(level) && musicLayer.m_isActive)
