@@ -23,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 142142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 471.5882, y: 205.68628, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,26 +41,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_defaultFadeTime: 1
   m_layerData:
-  - playOnLevels: 0000000001000000020000000300000004000000
+  - playOnLevels: 000000000100000002000000030000000400000005000000
     audioClip: {fileID: 8300000, guid: 51b02833697911e4a92f75e43ac6ef4b, type: 3}
-  - playOnLevels: 01000000
-    audioClip: {fileID: 8300000, guid: 103ba49b429d6eb47b78975312331c9c, type: 3}
-  - playOnLevels: 020000000300000004000000
+    volume: 1
+  - playOnLevels: 0100000002000000
+    audioClip: {fileID: 8300000, guid: 7e663b8c82e0d9e4db80d15a3e969920, type: 3}
+    volume: 1
+  - playOnLevels: 02000000030000000400000005000000
     audioClip: {fileID: 8300000, guid: 57e8be37cf4f2214f8bf490d150015b1, type: 3}
-  - playOnLevels: 0300000004000000
+    volume: 1
+  - playOnLevels: 030000000400000005000000
     audioClip: {fileID: 8300000, guid: 63094e5266885d9429fbed5404ba6c6e, type: 3}
-  - playOnLevels: 04000000
+    volume: 1
+  - playOnLevels: 0400000005000000
     audioClip: {fileID: 8300000, guid: 4f37739cdfc247d49bd4ea83460cb9fe, type: 3}
+    volume: 1
+  - playOnLevels: 05000000
+    audioClip: {fileID: 8300000, guid: 42f778d8cf40c744bb657cc45c466937, type: 3}
+    volume: 1
   levels:
   - name: 'Level: 0'
     activationPercent: 0
   - name: 'Level: 1'
-    activationPercent: 0.1
+    activationPercent: 0
   - name: 'Level: 2'
     activationPercent: 0.6
   - name: 'Level: 3'
     activationPercent: 0.7
   - name: 'Level: 4'
+    activationPercent: 0.8
+  - name: 'Level: 5'
     activationPercent: 0.8
   m_currentLevel: -1
   percentageClimbed: 0
