@@ -93,7 +93,7 @@ public class ModeFade : MonoBehaviour
     }
     public void FadeToDesc()
     {
-        informationText.text = "Game modes";
+        informationText.text = "Mountain type";
         modeSelectionScreen.SetPoffState(true);
         modifierParent.gameObject.SetActive(false);
         descriptionParent.gameObject.SetActive(true);

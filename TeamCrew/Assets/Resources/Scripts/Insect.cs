@@ -1,239 +1,195 @@
 ﻿using UnityEngine;
 using System.Collections;
-public enum MotionState
-{
-    Chasing,
-    Panic,
-    Exit
-}
 
+public enum FlyState { Chasing, Leaving, Panicking}
 public class Insect : MonoBehaviour
 {
-    //Data
-    public MotionState motionState;
-    public Vector2 relativeSpawnPosToFrog;
-    public float panicIncreaseInHeight;
-
-    private Vector2 startPos;
-    private int direction;
-    public int activeFrogCounter;
-    public float playerHeightDifference;
-    private int grabbed;
-    private float panicTargetY;
-
-    public float exitingSpeed;
-    public float chasingSpeed;
-    public float panicSpeed;
-    public float goSlowlyDownForce;
-    public float goSlowlyUpForce;
-    public float liftPlayerForce;
-    public float currentForce;
-    private bool hasSetDifference;
-
+    //Publics
     public Transform topFrog;
     public Transform bottomFrog;
-
-    //References
     public AudioSource soundSource;
+    public LadybugSpawner spawner;
+
+    [Range(0, 10)]
+    public float heightDifferenceLimit;
+
+    [Range(0, 10f)]
+    public float bottomFrogTargetOffset;
+    [Range(0, 500f)]
+    public float chaseSpeed;
+    [Range(0, 500f)]
+    public float panickSpeed;
+    [Range(0, 500f)]
+    public float leaveSpeed;
+
+    [Range(0, 30f)]
+    public float panickTargetOffset;
+
+    [Range(0, 5f)]
+    public float panickTopLimit = 1.25f;
+
+    //Privates
     private Rigidbody2D body;
+    private HingeJoint2D gripJoint;
+    private GameManager gameManager;
+    public FlyState currentState;
+    public Vector3 targetChasePosition;
+    private bool moveNormalized;
+    private int player;
 
 	void Start ()
     {
-        //Aquire components
+        gameManager = GameObject.FindObjectOfType<GameManager>();
         body = GetComponent<Rigidbody2D>();
-
-        //Check side to spawn
-        direction = (Random.Range(0.0f, 1.0f) > 0.5f) ? 1 : -1;
-        if (direction == -1)
-            transform.Rotate(Vector3.up, 180f);
-
-        //Set start position
-        startPos = transform.position;
-        startPos.x += relativeSpawnPosToFrog.x * -direction;
-        startPos.y += relativeSpawnPosToFrog.y;
-        transform.position = startPos;
-
-        ChangeState(MotionState.Chasing);
+        gripJoint = GetComponent<HingeJoint2D>();
 	}
-	
-	
 	void Update ()
+    {
+        SetTopAndBottomFrog();
+        LeaveIfThereIsNoFrogs();
+
+        switch (currentState)
+        {
+            case FlyState.Chasing:
+                Chase();
+                break;
+            case FlyState.Panicking:
+                Panick();
+                break;
+            case FlyState.Leaving:
+                Leave();
+                break;
+        }
+	}
+    void FixedUpdate()
+    {
+        Vector2 directionToTarget = (targetChasePosition - transform.position);
+        if (moveNormalized)
+            directionToTarget.Normalize();
+
+        float speed = 0;
+        switch(currentState)
+        {
+            case FlyState.Chasing:
+                speed = chaseSpeed;
+                break;
+            case FlyState.Leaving:
+                speed = leaveSpeed;
+                break;
+            case FlyState.Panicking:
+                speed = panickSpeed;
+                break;
+        }
+        body.velocity = directionToTarget * Time.fixedDeltaTime * speed;
+
+
+        //Clamp velocity
+        Vector3 vel = body.velocity;
+
+        vel.x = Mathf.Clamp(vel.x, -10f, 10f);
+
+        body.velocity = vel;
+    }
+
+    private void Chase()
+    {
+        //Change to leaving if top and bottomfrog are to close
+        float heightDifference = Mathf.Abs(bottomFrog.position.y - topFrog.position.y);
+        if (heightDifference <= heightDifferenceLimit)
+        {
+            ChangeState(FlyState.Leaving);
+            return;
+        }
+
+        //Set target position
+        targetChasePosition = bottomFrog.position;
+        targetChasePosition.y += bottomFrogTargetOffset;
+
+        //Leave if bottomfrog is to close to top
+        float climbedHeight = Mathf.Clamp(bottomFrog.position.y / GameManager.LevelHeight, 0f, 1f);
+        if (climbedHeight >= 0.9f)
+        {
+            ChangeState(FlyState.Leaving);
+        }
+    }
+    private void Panick()
+    {
+        Vector2 leftStick = GameManager.GetThumbStick(XboxThumbStick.Left, player);
+        Vector2 rightStick = GameManager.GetThumbStick(XboxThumbStick.Right, player);
+
+
+        Vector3 combination = leftStick + rightStick;
+
+        combination.Normalize();
+
+        targetChasePosition += Vector3.right * combination.x * 0.025f;
+    }
+    private void Leave()
+    {
+        float distance = Vector3.Distance(transform.position, targetChasePosition);
+        if (distance <= 2f)
+        {
+            spawner.RemoveFly();
+        }
+    }
+
+    private void SetTopAndBottomFrog()
     {
         topFrog = GameManager.GetTopFrog();
         bottomFrog = GameManager.GetBottomFrog();
-        //Count how many active frogs we have
-        activeFrogCounter = 0;
+    }
+    private void LeaveIfThereIsNoFrogs()
+    {
+        int activeFrogCounter = 0;
         for (int i = 0; i < GameManager.players.Length; i++)
         {
             if (GameManager.players[i] != null)
                 activeFrogCounter++;
         }
-
-        //Exit screen if there is not enough frogs
         if (activeFrogCounter <= 1)
-        {
-            ChangeState(MotionState.Exit);
-        }
-
-        if (activeFrogCounter > 1)
-        {
-            //Difference between top and bottom frog in Y position
-            playerHeightDifference = Mathf.Abs(GameManager.GetTopFrog().position.y - GameManager.GetBottomFrog().position.y);
-            hasSetDifference = true;
-        }
-	}
-    void FixedUpdate()
-    {
-        switch(motionState)
-        {
-            case MotionState.Exit:
-            {
-                //Remove insect if it is to far away from targetFrog
-                if (transform.position.x > 60 || transform.position.x < -60)
-                {
-                    Destroy(gameObject);
-                }
-
-                //Move in X Direction;
-                body.AddForce(new Vector2(currentForce * direction, 0));
-                currentForce++;
-                       
-                if (transform.position.y < startPos.y)
-                {
-                    //Go upwards
-                    body.AddForce(new Vector2(0, goSlowlyUpForce));
-                }
-                else if (body.velocity.y < 0)
-                {
-                    //Go upwards slowly
-                    body.AddForce(new Vector2(0, goSlowlyDownForce));
-                }
-                    
-            } 
-            break;
-              
-            case MotionState.Chasing:
-            {
-                Transform bottomFrog = GameManager.GetBottomFrog();
-
-                if (bottomFrog == null)
-                    break;
-
-                currentForce = chasingSpeed;
-                //Follow targetFrog in X
-                if (transform.position.x < bottomFrog.position.x)
-                    direction = 1;
-                else
-                    direction = -1;
-
-                body.AddForce(new Vector2(direction * currentForce, 0));
-
-                //Clamp velocity
-                Vector2 vel = body.velocity;
-                vel.x = Mathf.Clamp(vel.x, -6, 6);
-                body.velocity = vel;
-
-                if (transform.position.y < bottomFrog.position.y + 4)
-                {
-                    //Go upwards
-                    body.AddForce(new Vector2(0, goSlowlyUpForce * 0.6f));
-                }
-                else if (body.velocity.y < 0)
-                {
-                    //Go upwards slowly
-                    body.AddForce(new Vector2(0, goSlowlyDownForce));
-                }
-
-
-                if (playerHeightDifference < 3 && hasSetDifference)
-                {
-                    ChangeState(MotionState.Exit);
-                }
-            }
-            break;
-
-            case MotionState.Panic:
-            {
-                Transform topFrog = GameManager.GetTopFrog();
-
-                if (topFrog != null)
-                {
-                    //Follow targetFrog in X
-                    if (transform.position.x < topFrog.position.x)
-                        direction = 1;
-                    else
-                        direction = -1;
-
-                    body.AddForce(new Vector2(direction * currentForce, 0));
-
-                    //Clamp velocity
-                    Vector2 vel = body.velocity;
-                    vel.x = Mathf.Clamp(vel.x, -6, 6);
-                    body.velocity = vel;
-                }
-
-                if (transform.position.y < panicTargetY)
-                {
-                    float force = grabbed > 0 ? liftPlayerForce : goSlowlyUpForce;
-                    body.AddForce(new Vector2(0, force));
-                }
-                else if (body.velocity.y < 0)
-                {
-                    body.AddForce(new Vector2(0, goSlowlyDownForce));
-                }
-            } 
-            break;
-        }
+            ChangeState(FlyState.Leaving);
     }
-
-    void ChangeState(MotionState state)
+    private void ChangeState(FlyState state)
     {
-        //Return if we are changing to the same state
-        if(state == motionState) 
+        if (currentState == state)
             return;
+        currentState = state;
 
-        //Set new state
-        motionState = state;
-
-
-        //React to the new state
-        switch (motionState)
+        switch(state)
         {
-            case MotionState.Panic:
-            {
-                currentForce = panicSpeed;
-                panicTargetY = transform.position.y + panicIncreaseInHeight;
-            }
-            break;
+            case FlyState.Chasing:
+                moveNormalized = false;
+                break;
 
-            case MotionState.Exit:
-            {
-                currentForce = exitingSpeed;
-                Destroy(GetComponent<HingeJoint2D>());
-            }
-            break;
+            case FlyState.Leaving:
+                gripJoint.enabled = false;
+                moveNormalized = true;
+                int dir = (Random.Range(0, 2) == 0) ? 1 : -1;
+                targetChasePosition += Vector3.right * dir * 50f;
 
-            case MotionState.Chasing:
-            {
-                currentForce = chasingSpeed;
-            }
-            break;
+                targetChasePosition += Vector3.up * Random.Range(10f, 15f);
+                break;
+
+            case FlyState.Panicking:
+                moveNormalized = false;
+                targetChasePosition += Vector3.up * panickTargetOffset;
+                targetChasePosition.y = Mathf.Clamp(targetChasePosition.y, 0, GameManager.LevelHeight - panickTopLimit);
+                break;
         }
     }
-
-    public void AddHand()
+    public void AddHand(int player)
     {
-        if(grabbed == 0) 
-            ChangeState(MotionState.Panic);
-
-        grabbed++;
+        this.player = player;
+        ChangeState(FlyState.Panicking);
     }
     public void RemoveHand()
     {
-        grabbed--;
-        if (grabbed <= 0)
-        {
-            ChangeState(MotionState.Exit);
-        }
+        ChangeState(FlyState.Leaving);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(targetChasePosition, 0.5f);
     }
 }
