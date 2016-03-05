@@ -63,11 +63,13 @@ public class ModeFade : MonoBehaviour
 
     private FadeCollection modCollection;
     private FadeCollection descCollection;
-    public bool fadeToMod = false;
     public M_FadeOnScreenSwitch fadeModifier;
+    public M_Button kingOfTheHillButton;
+    private GameManager gameManager;
 
     void Start()
     {
+        gameManager = GameObject.FindObjectOfType<GameManager>();
         modCollection = new FadeCollection();
         descCollection = new FadeCollection();
 
@@ -81,18 +83,19 @@ public class ModeFade : MonoBehaviour
     }
     public void FadeToMod()
     {
-        modeSelectionScreen.SetPoffState(false);
         informationText.text = "Modifiers";
+        modeSelectionScreen.SetPoffState(false);
         modifierParent.gameObject.SetActive(true);
         descriptionParent.gameObject.SetActive(false);
-        //fadeToMod = true;
+
+        kingOfTheHillButton.Disabled = !(gameManager.GetFrogReadyCount() > 1);
+
     }
     public void FadeToDesc()
     {
-        modeSelectionScreen.SetPoffState(true);
         informationText.text = "Game modes";
+        modeSelectionScreen.SetPoffState(true);
         modifierParent.gameObject.SetActive(false);
         descriptionParent.gameObject.SetActive(true);
-        //fadeToMod = false;
     }
 }

@@ -85,6 +85,18 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &305117536 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11458072, guid: b7edf2a46c703d342a491a1c05069853,
+    type: 2}
+  m_PrefabInternal: {fileID: 764872213}
+  m_Script: {fileID: 11500000, guid: 323b3a8f2fe6c70438d4c8ffee1477a8, type: 3}
+--- !u!114 &610115878 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11456934, guid: b7edf2a46c703d342a491a1c05069853,
+    type: 2}
+  m_PrefabInternal: {fileID: 764872213}
+  m_Script: {fileID: 11500000, guid: 323b3a8f2fe6c70438d4c8ffee1477a8, type: 3}
 --- !u!1001 &764872213
 Prefab:
   m_ObjectHideFlags: 0
@@ -92,6 +104,14 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11409184, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: eventList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477380, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: eventList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 463300, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.18
@@ -126,35 +146,35 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22401440, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -100
+      value: -47.5
       objectReference: {fileID: 0}
     - target: {fileID: 22401440, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 8
+      value: -23.699997
       objectReference: {fileID: 0}
     - target: {fileID: 22406338, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -100
+      value: -47.5
       objectReference: {fileID: 0}
     - target: {fileID: 22406338, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 8
+      value: -73.7001
       objectReference: {fileID: 0}
     - target: {fileID: 22471952, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -100
+      value: -47.5
       objectReference: {fileID: 0}
     - target: {fileID: 22471952, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 8
+      value: 76.29999
       objectReference: {fileID: 0}
     - target: {fileID: 22499870, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -100
+      value: -47.5
       objectReference: {fileID: 0}
     - target: {fileID: 22499870, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 8
+      value: 26.299988
       objectReference: {fileID: 0}
     - target: {fileID: 11400180, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
       propertyPath: xboxHeaveController
@@ -328,9 +348,83 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11459766, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11456828, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449766, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11423610, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11409628, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481266, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11470982, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11457678, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11409640, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 187154, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 416632, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 11438342, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: eventList.Array.data[1].targetButton
+      value: 
+      objectReference: {fileID: 305117536}
+    - target: {fileID: 11411626, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: kingOfTheHillButton
+      value: 
+      objectReference: {fileID: 1518529235}
+    - target: {fileID: 11409184, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: eventList.Array.data[3].targetButton
+      value: 
+      objectReference: {fileID: 890569580}
+    - target: {fileID: 11409184, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: eventList.Array.data[3].eventType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477380, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: eventList.Array.data[3].eventType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477380, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
+      propertyPath: eventList.Array.data[3].targetButton
+      value: 
+      objectReference: {fileID: 610115878}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7edf2a46c703d342a491a1c05069853, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &890569580 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11421906, guid: b7edf2a46c703d342a491a1c05069853,
+    type: 2}
+  m_PrefabInternal: {fileID: 764872213}
+  m_Script: {fileID: 11500000, guid: 323b3a8f2fe6c70438d4c8ffee1477a8, type: 3}
 --- !u!1001 &1223058728
 Prefab:
   m_ObjectHideFlags: 0
@@ -373,3 +467,9 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bfc21f97e4265b84d83caf22a21f21f2, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1518529235 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11457600, guid: b7edf2a46c703d342a491a1c05069853,
+    type: 2}
+  m_PrefabInternal: {fileID: 764872213}
+  m_Script: {fileID: 11500000, guid: 323b3a8f2fe6c70438d4c8ffee1477a8, type: 3}

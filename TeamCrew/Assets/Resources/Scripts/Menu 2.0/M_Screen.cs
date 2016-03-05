@@ -44,11 +44,6 @@ public class M_Screen : MonoBehaviour
         }
         set
         {
-            //if (!value && canSelect)
-            //{
-            //    StartCoroutine(ResetCanSelect());
-            //}
-
             canSelect = value;
         }
     }
@@ -183,7 +178,7 @@ public class M_Screen : MonoBehaviour
     //Methods
     bool SendEventToCurrentButton(XboxEvent e)
     {
-        bool canSend = (currentButton != null);
+        bool canSend = (currentButton != null && !currentButton.Disabled);
 
         if (canSend)
             currentButton.SendMessage(e.ToString(), SendMessageOptions.DontRequireReceiver);
@@ -219,14 +214,12 @@ public class M_Screen : MonoBehaviour
     }
     bool Press()
     {
-        //CanPress = false;
         if (currentButton == null)
             return false;
         return SendEventToCurrentButton(XboxEvent.OnPress);
     }
     bool Return()
     {
-        //CanPress = false;
         if (currentButton == null)
             return false;
         return SendEventToCurrentButton(XboxEvent.OnReturn);
