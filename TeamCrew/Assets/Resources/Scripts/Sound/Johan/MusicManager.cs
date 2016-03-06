@@ -146,7 +146,7 @@ public class MusicManager : MonoBehaviour
         {
             m_musicLayers[i].UpdateLayer();
 
-            if (gameManager.gameActive && percentageClimbed > levels[i].activationPercent)
+            if (percentageClimbed > levels[i].activationPercent)
             {
                 maxLevel = i;
             }
