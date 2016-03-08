@@ -84,7 +84,7 @@ public class ModeFade : MonoBehaviour
     public void FadeToMod()
     {
         informationText.text = "Modifiers";
-        modeSelectionScreen.SetPoffState(false);
+        //modeSelectionScreen.SetPoffState(false);
         modifierParent.gameObject.SetActive(true);
         descriptionParent.gameObject.SetActive(false);
 
@@ -94,7 +94,7 @@ public class ModeFade : MonoBehaviour
     public void FadeToDesc()
     {
         informationText.text = "Mountain type";
-        modeSelectionScreen.SetPoffState(true);
+        //modeSelectionScreen.SetPoffState(true);
         modifierParent.gameObject.SetActive(false);
         descriptionParent.gameObject.SetActive(true);
     }
