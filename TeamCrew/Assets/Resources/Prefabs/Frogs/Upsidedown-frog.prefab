@@ -2726,7 +2726,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.57799995, y: 0.022000015, z: 0}
+  m_LocalPosition: {x: 0.57799995, y: -0.012, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 403494}
@@ -2762,7 +2762,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71.53793, y: -309.09912, z: 0}
+  m_LocalPosition: {x: 7.6866074, y: -56.315662, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436148}
@@ -4252,7 +4252,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11415488}
   connectedBody: {fileID: 5065462}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
   handScript: {fileID: 11498248}
 --- !u!114 &11411902
 MonoBehaviour:
@@ -4359,7 +4359,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11498862}
   connectedBody: {fileID: 5007472}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11428426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4532,7 +4532,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11498924}
   connectedBody: {fileID: 5054954}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
   handScript: {fileID: 11416718}
 --- !u!114 &11446312
 MonoBehaviour:
@@ -4724,7 +4724,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 142262}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -4734,14 +4734,14 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11428426}
   connectedBody: {fileID: 5029920}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11472482
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121608}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -4751,7 +4751,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11400512}
   connectedBody: {fileID: 5008506}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11473974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4796,7 +4796,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129410}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -4806,7 +4806,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11495636}
   connectedBody: {fileID: 5029920}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11480456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4867,7 +4867,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143166}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -4877,7 +4877,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11437260}
   connectedBody: {fileID: 5008506}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11492758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11785,7 +11785,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1825891293
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300032, guid: 170ef3c184214d646a1d891d014645ff, type: 3}
+  m_Sprite: {fileID: 21300002, guid: eecacf9325e99e04a9a0d32352900128, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12671,7 +12671,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.13800001, y: 0}
-  m_ConnectedAnchor: {x: 0.11399841, y: 0.34500122}
+  m_ConnectedAnchor: {x: 0.11399984, y: 0.34500122}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -12694,7 +12694,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.13800001, y: 0}
-  m_ConnectedAnchor: {x: -0.09799957, y: 0.34100342}
+  m_ConnectedAnchor: {x: -0.09800005, y: 0.3409996}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
