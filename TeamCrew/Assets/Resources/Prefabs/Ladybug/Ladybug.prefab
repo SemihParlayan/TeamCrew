@@ -76,7 +76,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.2696276, y: 42.068012, z: 0}
+  m_LocalPosition: {x: 2610.6064, y: 169.75053, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 475030}
@@ -154,7 +154,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d08ddbc3c5d69b240a8d4b220c86be51, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.175
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -194,7 +194,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -216,7 +216,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!95 &9529540
 Animator:
   serializedVersion: 3
@@ -280,9 +280,9 @@ MonoBehaviour:
   heightDifferenceLimit: 6
   bottomFrogTargetOffset: 4.57
   chaseSpeed: 100
-  panickSpeed: 60
+  panickSpeed: 30
   leaveSpeed: 500
-  panickTargetOffset: 18
+  panickTargetOffset: 15
   panickTopLimit: 1.25
   currentState: 0
   targetChasePosition: {x: 0, y: 0, z: 0}
@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundSource: {fileID: 8258572}
+  pitchModifier: 45
 --- !u!212 &21224108
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -399,6 +400,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_UseLimits
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Volume
+      value: 0.175
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -4,6 +4,7 @@ using System.Collections;
 public class VelocityPitch : MonoBehaviour {
 
     public AudioSource soundSource;
+    public float pitchModifier = 45f;
 
     Rigidbody2D body;
 	void Start () {
@@ -12,6 +13,6 @@ public class VelocityPitch : MonoBehaviour {
 
     void FixedUpdate()
     {
-        soundSource.pitch = 1 + body.velocity.magnitude / 45;
+        soundSource.pitch = 1 + body.velocity.magnitude / pitchModifier;
     }
 }

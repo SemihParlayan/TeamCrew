@@ -2762,7 +2762,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71.53793, y: -309.09912, z: 0}
+  m_LocalPosition: {x: 137.8402, y: -244.42963, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436148}
@@ -3551,7 +3551,8 @@ AudioSource:
   m_GameObject: {fileID: 177750}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24329058, guid: f95f059cba762584d8e429b43a480f54,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -3625,7 +3626,8 @@ AudioSource:
   m_GameObject: {fileID: 179778}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24329058, guid: f95f059cba762584d8e429b43a480f54,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 1f9a321c0d2717f42b1419e855ecf25c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -3699,7 +3701,8 @@ AudioSource:
   m_GameObject: {fileID: 156650}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24329058, guid: f95f059cba762584d8e429b43a480f54,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -3773,7 +3776,8 @@ AudioSource:
   m_GameObject: {fileID: 167856}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24329058, guid: f95f059cba762584d8e429b43a480f54,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 786de32c4e8b0fa4b924ec1f57b76442, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
@@ -3847,7 +3851,8 @@ AudioSource:
   m_GameObject: {fileID: 127646}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24329058, guid: f95f059cba762584d8e429b43a480f54,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 786de32c4e8b0fa4b924ec1f57b76442, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
@@ -4252,7 +4257,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11415488}
   connectedBody: {fileID: 5065462}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
   handScript: {fileID: 11498248}
 --- !u!114 &11411902
 MonoBehaviour:
@@ -4359,7 +4364,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11498862}
   connectedBody: {fileID: 5007472}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11428426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4477,7 +4482,7 @@ MonoBehaviour:
   speed: 10
   yVelocityClamp: 10
   forceArmsUp: 0
-  player: 0
+  player: 3
   emotionsScript: {fileID: 11451358}
   gripScript: []
   joints: []
@@ -4532,7 +4537,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11498924}
   connectedBody: {fileID: 5054954}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
   handScript: {fileID: 11416718}
 --- !u!114 &11446312
 MonoBehaviour:
@@ -4734,7 +4739,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11428426}
   connectedBody: {fileID: 5029920}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11472482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4751,7 +4756,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11400512}
   connectedBody: {fileID: 5008506}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11473974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4806,7 +4811,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11495636}
   connectedBody: {fileID: 5029920}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11480456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4877,7 +4882,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11437260}
   connectedBody: {fileID: 5008506}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11492758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12694,7 +12699,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.13800001, y: 0}
-  m_ConnectedAnchor: {x: -0.09799957, y: 0.34100342}
+  m_ConnectedAnchor: {x: -0.09799194, y: 0.34100342}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0

@@ -410,7 +410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &124048
 GameObject:
   m_ObjectHideFlags: 1
@@ -835,7 +835,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &153158
 GameObject:
   m_ObjectHideFlags: 1
@@ -983,7 +983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &162708
 GameObject:
   m_ObjectHideFlags: 1
@@ -1986,7 +1986,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 63.71, y: -308.8, z: 0}
+  m_LocalPosition: {x: 479.12323, y: -349.55054, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 462612}
@@ -3522,7 +3522,8 @@ AudioSource:
   m_GameObject: {fileID: 106494}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24329058, guid: f95f059cba762584d8e429b43a480f54,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 786de32c4e8b0fa4b924ec1f57b76442, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
@@ -3596,7 +3597,8 @@ AudioSource:
   m_GameObject: {fileID: 102902}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24329058, guid: f95f059cba762584d8e429b43a480f54,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -3639,7 +3641,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3661,7 +3663,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &8246314
 AudioSource:
   m_ObjectHideFlags: 1
@@ -3670,7 +3672,8 @@ AudioSource:
   m_GameObject: {fileID: 192090}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24329058, guid: f95f059cba762584d8e429b43a480f54,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -3744,7 +3747,8 @@ AudioSource:
   m_GameObject: {fileID: 128684}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24329058, guid: f95f059cba762584d8e429b43a480f54,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 786de32c4e8b0fa4b924ec1f57b76442, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
@@ -3818,7 +3822,8 @@ AudioSource:
   m_GameObject: {fileID: 106622}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24329058, guid: f95f059cba762584d8e429b43a480f54,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 1f9a321c0d2717f42b1419e855ecf25c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -3861,7 +3866,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3883,7 +3888,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!95 &9503920
 Animator:
   serializedVersion: 3
@@ -4290,7 +4295,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 128684}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
   m_Name: 
@@ -4448,7 +4453,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11460114}
   connectedBody: {fileID: 5080694}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11427144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4563,7 +4568,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11461644}
   connectedBody: {fileID: 5025542}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11441618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4680,7 +4685,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11436822}
   connectedBody: {fileID: 5030964}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
   handScript: {fileID: 11435566}
 --- !u!114 &11460114
 MonoBehaviour:
@@ -4785,7 +4790,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11422402}
   connectedBody: {fileID: 5080694}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11475316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4814,7 +4819,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11413718}
   connectedBody: {fileID: 5049100}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11480848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4831,7 +4836,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11470826}
   connectedBody: {fileID: 5003224}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
   handScript: {fileID: 11423240}
 --- !u!114 &11482272
 MonoBehaviour:
@@ -4950,7 +4955,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11475316}
   connectedBody: {fileID: 5025542}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11498886
 MonoBehaviour:
   m_ObjectHideFlags: 1

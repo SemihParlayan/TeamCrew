@@ -6,14 +6,15 @@ public class ModifierAnimatorCaller : MonoBehaviour
     private Animator anim;
     private bool active;
 
-    void Start()
+    void Awake()
     {
         anim = GetComponent<Animator>();    
     }
 
     public void Refresh()
     {
-        anim.SetBool("ModeOn", active);
+        if (anim)
+            anim.SetBool("ModeOn", active);
     }
     public void ModifierPressed()
     {

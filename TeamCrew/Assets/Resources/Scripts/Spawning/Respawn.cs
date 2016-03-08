@@ -171,7 +171,8 @@ public class Respawn : MonoBehaviour
                 }
             }
 
-            return mapGrips[closestIndex].transform.position;
+            if (mapGrips[closestIndex] != null)
+                return mapGrips[closestIndex].transform.position;
         }
 
         return Vector3.zero;

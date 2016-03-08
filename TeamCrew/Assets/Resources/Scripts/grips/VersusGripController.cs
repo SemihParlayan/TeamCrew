@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
 public class VersusGripController : MonoBehaviour 
 {
@@ -32,12 +33,20 @@ public class VersusGripController : MonoBehaviour
 
     void Awake()
     {
+        AudioSource originalSource = GetComponent<AudioSource>();
+        AudioMixerGroup mixerGroup = null;
+        if (originalSource)
+            mixerGroup = originalSource.outputAudioMixerGroup;
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalStartPosition = transform.localPosition;
 
 
         boilerSound = gameObject.AddComponent<AudioSource>();
+        if (mixerGroup != null) boilerSound.outputAudioMixerGroup = mixerGroup;
+
         releaseSound = gameObject.AddComponent<AudioSource>();
+        if (mixerGroup != null) releaseSound.outputAudioMixerGroup = mixerGroup;
 
         boilerSound.clip = Resources.Load("Audio/Sound/Frog/kettle") as AudioClip;
         releaseSound.clip = Resources.Load("Audio/Sound/Frog/shh") as AudioClip;
