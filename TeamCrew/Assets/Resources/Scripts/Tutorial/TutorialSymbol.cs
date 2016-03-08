@@ -30,7 +30,11 @@ public class TutorialSymbol : MonoBehaviour
     }
     void Update()
     {
-        FollowHand();
+        if (!FollowHand())
+        {
+            SwitchState(SymbolState.NoInput);
+            return;
+        }
 
         if (!HandIsUp() && !Gripping())
         {
@@ -55,17 +59,20 @@ public class TutorialSymbol : MonoBehaviour
             SwitchState(SymbolState.HandUp);
             return;
         }
+
     }
 
-    void FollowHand()
+    bool FollowHand()
     {
         Transform hand = (arm == GripSide.Left) ? frog.leftGripScript.transform : frog.rightGripScript.transform;
         int side = (arm == GripSide.Left) ? -1 : 1;
+
         Vector3 localOffset = new Vector3(Mathf.Abs(offset.x) * side, Mathf.Abs(offset.y));
         Vector3 targetPosition = hand.position + localOffset;
 
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * movementSpeed);
+        return hand.gameObject.activeInHierarchy;
     }
     void SwitchState(SymbolState state)
     {

@@ -40,10 +40,11 @@ public class PoffMountain : MonoBehaviour
     {
         CancelInvoke("PoffRepeating");
         poffing = state;
+        PoffRepeating();
 
         if (poffing)
         {
-            InvokeRepeating("PoffRepeating", 0f, poffRepeatRate);
+            //InvokeRepeating("PoffRepeating", 0f, poffRepeatRate);
         }
     }
     public void PoffRepeating()

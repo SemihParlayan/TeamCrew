@@ -13,6 +13,7 @@ public class ModeSelectionScreen : M_Screen
 
     //References
     public M_Screen gameScreenReference;
+    public Animator pressXGenerateButton;
     private GameModifiers gameModifiers;
     private PoffMountain poff;
     private GameManager gameManager;
@@ -34,12 +35,10 @@ public class ModeSelectionScreen : M_Screen
     {
         base.OnUpdate();
 
-        if (!poff.poffing)
+        if (GameManager.GetButtonPress(XboxButton.X))
         {
-            if (GameManager.GetButtonPress(XboxButton.LeftShoulder) || GameManager.GetButtonPress(XboxButton.RightShoulder))
-            {
-                poff.PoffRepeating();
-            }
+            poff.PoffRepeating();
+            pressXGenerateButton.SetTrigger("press");
         }
     }
     public override void OnSwitchedTo()

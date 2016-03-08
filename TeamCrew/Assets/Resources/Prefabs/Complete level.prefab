@@ -11485,6 +11485,7 @@ GameObject:
   - 114: {fileID: 11412106}
   - 114: {fileID: 11438342}
   - 95: {fileID: 9514354}
+  - 114: {fileID: 11415188}
   m_Layer: 0
   m_Name: Button - Play
   m_TagString: Untagged
@@ -13350,7 +13351,7 @@ Transform:
   m_Children:
   - {fileID: 412732}
   m_Father: {fileID: 456902}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &404626
 Transform:
   m_ObjectHideFlags: 1
@@ -15669,7 +15670,7 @@ Transform:
   - {fileID: 469484}
   - {fileID: 454644}
   m_Father: {fileID: 456902}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &427938
 Transform:
   m_ObjectHideFlags: 1
@@ -17845,7 +17846,7 @@ Transform:
   - {fileID: 436714}
   - {fileID: 482856}
   m_Father: {fileID: 456902}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &449758
 Transform:
   m_ObjectHideFlags: 1
@@ -18543,6 +18544,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432690}
+  - {fileID: 495150}
   - {fileID: 449664}
   - {fileID: 404528}
   - {fileID: 427640}
@@ -19819,7 +19821,6 @@ Transform:
   - {fileID: 494714}
   - {fileID: 430792}
   - {fileID: 451756}
-  - {fileID: 495150}
   m_Father: {fileID: 427640}
   m_RootOrder: 0
 --- !u!4 &469500
@@ -22213,12 +22214,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.907274, y: -6.6805935, z: 0}
-  m_LocalScale: {x: 1.2495006, y: 1.2494998, z: 1.2494998}
+  m_LocalPosition: {x: 8.224998, y: 3.045004, z: 0}
+  m_LocalScale: {x: 9.891965, y: 9.891962, z: 9.891962}
   m_Children:
   - {fileID: 487560}
-  m_Father: {fileID: 469484}
-  m_RootOrder: 12
+  m_Father: {fileID: 456902}
+  m_RootOrder: 1
 --- !u!4 &495290
 Transform:
   m_ObjectHideFlags: 1
@@ -28521,7 +28522,7 @@ MonoBehaviour:
   xbox: 1
   ps4: 0
   digitalInput: 0
-  returnMenuInactive: 1
+  returnMenuInactive: 0
   gameModifier: {fileID: 11479094}
   inactivityController: {fileID: 11438154}
   poffMountainScript: {fileID: 11449302}
@@ -28710,6 +28711,21 @@ MonoBehaviour:
     targetButton: {fileID: 11444412}
   - eventType: 0
     targetButton: {fileID: 11478524}
+--- !u!114 &11415188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626de7752eca90f4dbfbf9079ebb060a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modifierNameText: {fileID: 10229030}
+  modifierDescriptionText: {fileID: 10263236}
+  modifierName: 
+  description: Choose a modifier or press A to start
 --- !u!114 &11415226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30480,6 +30496,7 @@ MonoBehaviour:
   gamemodePicture: {fileID: 21283472}
   modeFade: {fileID: 11411626}
   gameScreenReference: {fileID: 11497948}
+  pressXGenerateButton: {fileID: 9513300}
 --- !u!114 &11434512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33022,7 +33039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae385f148891caa458b02d2faa1a06ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  completeLevelPrefab: {fileID: 463300}
 --- !u!114 &11464758
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -3,8 +3,6 @@ using System.Collections;
 
 public class CompleteLevel : MonoBehaviour 
 {
-    public Transform completeLevelPrefab = null;
-
     void Start()
     {
         SetLevel();
@@ -16,12 +14,7 @@ public class CompleteLevel : MonoBehaviour
 
     void SetLevel()
     {
-        if (completeLevelPrefab == null)
-        {
-            completeLevelPrefab = Resources.Load("Prefabs/Complete level", typeof(Transform)) as Transform;
-        }
-
-        if (transform.position != completeLevelPrefab.position)
-            transform.position = completeLevelPrefab.position;
+        if (transform.position != new Vector3(-0.18f, 40.53f, 0f))
+            transform.position = new Vector3(-0.18f, 40.53f, 0f);
     }
 }
