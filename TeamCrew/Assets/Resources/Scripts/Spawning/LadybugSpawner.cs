@@ -10,7 +10,7 @@ public class LadybugSpawner : MonoBehaviour
 
     //References
     public Transform ladybugPrefab;
-    private Transform currentLadybug;
+    public Transform currentLadybug;
     private GameManager gameManager;
 
     void Start()
@@ -21,7 +21,6 @@ public class LadybugSpawner : MonoBehaviour
     void Update()
     {
         int activeFrogCount = 0;
-
         for (int i = 0; i < GameManager.players.Length; i++)
         {
             if (GameManager.players[i] != null)
@@ -47,21 +46,27 @@ public class LadybugSpawner : MonoBehaviour
             SpawnFly();
         }
     }
+
     void SpawnFly()
     {
         float playersDistanceY = Mathf.Abs(GameManager.GetTopFrog().position.y - GameManager.GetBottomFrog().position.y);
 
         if (playersDistanceY > 5 && Random.Range(0, 100) > 60)
         {
-            currentLadybug = Instantiate(ladybugPrefab, GameManager.GetBottomFrog().position, Quaternion.identity) as Transform;
+            Vector3 spawnPos = GameManager.GetBottomFrog().position;
+            int dir = (Random.Range(0, 2) == 0) ? 1 : -1;
+
+            spawnPos += Vector3.right * dir * 50f;
+            currentLadybug = Instantiate(ladybugPrefab, spawnPos, Quaternion.identity) as Transform;
+            currentLadybug.GetComponent<Insect>().spawner = this;
         }
     }
-
     public void RemoveFly()
     {
         if (currentLadybug)
         {
             Destroy(currentLadybug.gameObject);
+            currentLadybug = null;
         }
     }
 }

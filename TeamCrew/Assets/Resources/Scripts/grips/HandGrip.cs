@@ -305,7 +305,7 @@ public class HandGrip : MonoBehaviour
             insectScript = c.transform.parent.GetComponent<Insect>();
             if (insectScript != null)
             {
-                if (insectScript.motionState == MotionState.Chasing)
+                if (insectScript.currentState == FlyState.Chasing)
                 {
                     MovingGrip movingGrip = c.transform.GetComponent<MovingGrip>();
                     if (movingGrip)
@@ -314,7 +314,7 @@ public class HandGrip : MonoBehaviour
                         {
                             joint.connectedBody = movingGrip.connectedBody;
                             joint.connectedAnchor = gripPoint.transform.localPosition;
-                            insectScript.AddHand();
+                            insectScript.AddHand(player);
                             LockHand(1.5f);
                             isGrippingInsect = true;
                         }

@@ -91,30 +91,34 @@ public class InactivityController : MonoBehaviour
             }
         }
 
-        //If all frogs are inactive
-        if (inactivityFrogCounter >= inactivityScripts.Length)
+
+        if (GameManager.ReturnToMenuWhenInactive)
         {
-            //Activate inactivity text
-            inactivityText.transform.parent.gameObject.SetActive(true);
-            signTimer -= Time.deltaTime;
-
-            //Update inactivity text
-            inactivityText.text = "Inactivity! \n Returning to main menu in " + Mathf.RoundToInt(signTimer) + "...";
-
-            //Return to menu
-            if (signTimer <= 1)
+            //If all frogs are inactive
+            if (inactivityFrogCounter >= inactivityScripts.Length)
             {
-                for (int i = 0; i < inactivityScripts.Length; i++)
+                //Activate inactivity text
+                inactivityText.transform.parent.gameObject.SetActive(true);
+                signTimer -= Time.deltaTime;
+
+                //Update inactivity text
+                inactivityText.text = "Inactivity! \n Returning to main menu in " + Mathf.RoundToInt(signTimer) + "...";
+
+                //Return to menu
+                if (signTimer <= 1)
                 {
-                    fade.StartFade();
+                    for (int i = 0; i < inactivityScripts.Length; i++)
+                    {
+                        fade.StartFade();
+                    }
                 }
             }
-        }
-        else
-        {
-            //Disable inactivity text
-            inactivityText.transform.parent.gameObject.SetActive(false);
-            signTimer = signLimit;
+            else
+            {
+                //Disable inactivity text
+                inactivityText.transform.parent.gameObject.SetActive(false);
+                signTimer = signLimit;
+            }
         }
 
             

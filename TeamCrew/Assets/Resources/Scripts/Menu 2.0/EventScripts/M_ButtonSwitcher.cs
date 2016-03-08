@@ -30,7 +30,18 @@ public class M_ButtonSwitcher : M_EventBase
                 if (button == null)
                     break;
 
-                screen.SwitchButton(button);
+                if (button.Disabled)
+                {
+                    M_ButtonSwitcher nextSwitcher = button.transform.GetComponent<M_ButtonSwitcher>();
+                    if (nextSwitcher != null)
+                    {
+                        nextSwitcher.OnEvent(e);
+                    }
+                }
+                else
+                {
+                    screen.SwitchButton(button);
+                }
             }
         }
     }

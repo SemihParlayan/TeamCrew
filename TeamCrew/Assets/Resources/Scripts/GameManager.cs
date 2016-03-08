@@ -307,6 +307,7 @@ public class GameManager : MonoBehaviour
     public static bool Xbox;
     public static bool PS4;
     public static bool DigitalInput;
+    public static bool ReturnToMenuWhenInactive;
 
     public static Transform[] players = new Transform[4];
     private static float levelHeight = 1337;
@@ -334,6 +335,7 @@ public class GameManager : MonoBehaviour
     public bool xbox = false;
     public bool ps4 = false;
     public bool digitalInput = false;
+    public bool returnMenuInactive = true;
 
     private GameObject fireWorks;
 
@@ -376,6 +378,7 @@ public class GameManager : MonoBehaviour
         PS4 = ps4;
         Hacks = hacks;
         DigitalInput = digitalInput;
+        ReturnToMenuWhenInactive = returnMenuInactive;
 
         //Activate design testing
         if (designTestingEnabled)

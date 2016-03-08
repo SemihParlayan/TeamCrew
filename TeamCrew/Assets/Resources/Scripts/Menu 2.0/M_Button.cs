@@ -8,6 +8,8 @@ public class M_Button : MonoBehaviour
 {
     //Data
     public bool animated;
+    public bool Disabled { get { return disabled; } set { disabled = value; OnDisabled(value); } }
+    private bool disabled;
     public Sprite pressedSprite;
     public Sprite selectedSprite;
     private Sprite defaultSprite;
@@ -106,5 +108,12 @@ public class M_Button : MonoBehaviour
             renderer.sprite = defaultSprite;
         }
         
+    }
+    private void OnDisabled(bool value)
+    {
+        if (animated)
+        {
+            anim.SetBool("Disabled", value);
+        }
     }
 }
