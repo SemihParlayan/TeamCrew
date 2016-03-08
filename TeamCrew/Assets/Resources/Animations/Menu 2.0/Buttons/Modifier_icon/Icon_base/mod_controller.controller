@@ -26,6 +26,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: ModeOn
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -312,7 +318,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: selected
+  m_Name: selected_modeOn
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -338,7 +344,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: deselected
+  m_Name: deselected_modeOn
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -414,7 +420,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pressed
+  m_Name: pressed_modeOn
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -454,7 +460,7 @@ AnimatorStateMachine:
     m_Position: {x: -96, y: 408, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110257160}
-    m_Position: {x: 60, y: 132, z: 0}
+    m_Position: {x: 48, y: 24, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -463,8 +469,8 @@ AnimatorStateMachine:
       first: {fileID: 110772512}
       second: []
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: -168, y: 108, z: 0}
+  m_AnyStatePosition: {x: -168, y: -12, z: 0}
+  m_EntryPosition: {x: -300, y: 108, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 110227994}

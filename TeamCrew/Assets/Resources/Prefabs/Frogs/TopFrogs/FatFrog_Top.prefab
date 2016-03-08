@@ -306,6 +306,7 @@ GameObject:
   - 114: {fileID: 11445736}
   - 114: {fileID: 11467314}
   - 114: {fileID: 11476912}
+  - 114: {fileID: 11479324}
   m_Layer: 0
   m_Name: body
   m_TagString: PlayerFour
@@ -1167,7 +1168,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.603147, y: 61.410954, z: 0}
+  m_LocalPosition: {x: -23.325687, y: -32.000713, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 421274}
@@ -3133,6 +3134,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de0ece074c0a604b8fc427747c6c5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11479324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb643667a2466634785fda279547590d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftUpper: {fileID: 182058}
+  leftLower: {fileID: 136288}
+  leftHand: {fileID: 192646}
+  rightUpper: {fileID: 186262}
+  rightLower: {fileID: 141824}
+  rightHand: {fileID: 169614}
 --- !u!114 &11481716
 MonoBehaviour:
   m_ObjectHideFlags: 1

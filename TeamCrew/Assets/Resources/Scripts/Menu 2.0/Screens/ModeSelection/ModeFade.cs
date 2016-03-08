@@ -90,6 +90,12 @@ public class ModeFade : MonoBehaviour
 
         kingOfTheHillButton.Disabled = !(gameManager.GetFrogReadyCount() > 1);
 
+        ModifierAnimatorCaller[] animCallers = modifierParent.GetComponentsInChildren<ModifierAnimatorCaller>();
+        foreach (ModifierAnimatorCaller anim in animCallers)
+        {
+            anim.Refresh();
+        }
+
     }
     public void FadeToDesc()
     {

@@ -16,12 +16,13 @@ public enum Modifier
     LotsOfBugs
 }
 
+[System.Serializable]
 public class Mod
 {
     public Modifier name;
 
     public bool IsActive { get { return active; } }
-    private bool active;
+    public bool active;
 
     public Mod(Modifier name)
     {
@@ -150,6 +151,8 @@ public class OneArm : Mod
         foreach (PlayerRespawn script in respawn.respawnScripts)
         {
             frogScripts.AddRange(script.prefab.GetComponentsInChildren<OneArmController>());
+            FrogPrototype frog = script.prefab.FindChild("body").GetComponent<FrogPrototype>();
+            frogScripts.AddRange(frog.topPrefab.GetComponentsInChildren<OneArmController>());
         }
 
         foreach (FrogPrototype frog in gameManager.playerScripts)

@@ -4,14 +4,20 @@ using System.Collections;
 public class ModifierAnimatorCaller : MonoBehaviour
 {
     private Animator anim;
+    private bool active;
 
     void Start()
     {
         anim = GetComponent<Animator>();    
     }
 
-    public void IconSwitch()
+    public void Refresh()
     {
-        anim.SetTrigger("IconSwitch");
+        anim.SetBool("ModeOn", active);
+    }
+    public void ModifierPressed()
+    {
+        active = !active;
+        anim.SetBool("ModeOn", active);
     }
 }

@@ -125,7 +125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &107282
 GameObject:
   m_ObjectHideFlags: 1
@@ -406,6 +406,7 @@ GameObject:
   - 114: {fileID: 11436376}
   - 114: {fileID: 11460692}
   - 114: {fileID: 11420288}
+  - 114: {fileID: 11464824}
   m_Layer: 0
   m_Name: body
   m_TagString: PlayerFour
@@ -979,7 +980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &185902
 GameObject:
   m_ObjectHideFlags: 1
@@ -1084,7 +1085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &196530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,7 +1343,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.321559, y: 61.66753, z: 0}
+  m_LocalPosition: {x: 11.198259, y: -36.51766, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 419774}
@@ -3135,6 +3136,23 @@ MonoBehaviour:
   offset: {x: -0.05, y: -0.1}
   sortingLayerName: Frog
   sortingOrder: -1
+--- !u!114 &11464824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 135304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb643667a2466634785fda279547590d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftUpper: {fileID: 151846}
+  leftLower: {fileID: 110618}
+  leftHand: {fileID: 111476}
+  rightUpper: {fileID: 182298}
+  rightLower: {fileID: 193342}
+  rightHand: {fileID: 106546}
 --- !u!114 &11467682
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -808,6 +808,7 @@ GameObject:
   - 114: {fileID: 11407236}
   - 114: {fileID: 11461874}
   - 114: {fileID: 11412800}
+  - 114: {fileID: 11452138}
   m_Layer: 0
   m_Name: body
   m_TagString: PlayerFour
@@ -1267,7 +1268,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.235223, y: 60.936054, z: 0}
+  m_LocalPosition: {x: -19.002762, y: -31.581903, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 470344}
@@ -2990,6 +2991,23 @@ MonoBehaviour:
   versusHands: 0
   maxVersusGripTime: 8
   versusGripTimer: 6
+--- !u!114 &11452138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb643667a2466634785fda279547590d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftUpper: {fileID: 149022}
+  leftLower: {fileID: 103914}
+  leftHand: {fileID: 153226}
+  rightUpper: {fileID: 176156}
+  rightLower: {fileID: 106698}
+  rightHand: {fileID: 158970}
 --- !u!114 &11453636
 MonoBehaviour:
   m_ObjectHideFlags: 1
