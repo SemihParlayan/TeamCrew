@@ -37,7 +37,10 @@ public class M_Sounds : MonoBehaviour
         }
 
         //Mixer
-        SetMixerVolume("MasterVolume", masterSlider.value);
+        SetMixerVolume("MasterVolume", masterSlider);
+        SetMixerVolume("SFXVolume", sfxSlider);
+        SetMixerVolume("MusicVolume", musicSlider);
+        SetMixerVolume("EnvironmentVolume", environmentSlider);
     }
 
     public void StartMenuMusic()
@@ -53,11 +56,12 @@ public class M_Sounds : MonoBehaviour
         playMenuMusic = false;
     }
 
-    private void SetMixerVolume(string parameter, float value)
+    private void SetMixerVolume(string parameter, M_SliderButton slider)
     {
         float oldRange = 1;
         float newRange = 80;
-        float newValue = ((masterSlider.value * newRange) / oldRange) - 80;
+        float newValue = ((slider.value * newRange) / oldRange) - 80;
         bool worked = mixer.SetFloat(parameter, newValue);
+        Debug.Log(parameter + ", " + worked);
     }
 }

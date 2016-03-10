@@ -6,6 +6,9 @@ public class M_SliderButton : M_Button
     public Transform fillSlider;
     public bool drawGizmos;
     public float value;
+    public bool onChange;
+    private float prevValue;
+    public bool pressed;
 
     public float leftEdge;
     public float rightEdge;
@@ -25,17 +28,22 @@ public class M_SliderButton : M_Button
         if (!selected)
             return;
 
-        float input = GameManager.GetThumbStick(XboxThumbStick.Left).x;
-        if (Mathf.Abs(input) > 0.1f)
+        if (pressed)
         {
-            if (input < 0)
-                value -= speed;
-            else
-                value += speed;
+            float input = GameManager.GetThumbStick(XboxThumbStick.Left).x;
+            if (Mathf.Abs(input) > 0.1f)
+            {
+                if (input < 0)
+                    value -= speed;
+                else
+                    value += speed;
 
-            value = Mathf.Clamp(value, 0.0f, 1.0f);
-            SetHandle();
+                value = Mathf.Clamp(value, 0.0f, 1.0f);
+                SetHandle();
+            }
         }
+
+        anim.SetBool("Pressed", pressed);
     }
 
     private void SetHandle()
@@ -77,6 +85,7 @@ public class M_SliderButton : M_Button
 
     public override void OnPress()
     {
+        pressed = !pressed;
     }
     public override void OnSelect()
     {

@@ -13,7 +13,7 @@ public class M_Button : MonoBehaviour
     public Sprite pressedSprite;
     public Sprite selectedSprite;
     private Sprite defaultSprite;
-    private Animator anim;
+    protected Animator anim;
 
     //Static
     public static float pressDelay = 0.2f;

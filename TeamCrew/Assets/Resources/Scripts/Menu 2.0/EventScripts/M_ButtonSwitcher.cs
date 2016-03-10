@@ -30,6 +30,10 @@ public class M_ButtonSwitcher : M_EventBase
                 if (button == null)
                     break;
 
+                M_SliderButton slider = transform.GetComponent<M_SliderButton>();
+                if (slider != null && slider.pressed)
+                    return;
+
                 if (button.Disabled)
                 {
                     M_ButtonSwitcher nextSwitcher = button.transform.GetComponent<M_ButtonSwitcher>();
