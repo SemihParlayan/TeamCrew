@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 
 public class M_Sounds : MonoBehaviour 
 {
-    public AudioClip buttonClick;
-    public AudioClip buttonSwitch;
+    public AudioSource buttonClick;
+    public AudioSource buttonSwitch;
 
     public AudioSource menuMusic;
     public bool playMenuMusic = true;
+
+    public AudioMixer mixer;
+    public M_SliderButton masterSlider;
+    public M_SliderButton sfxSlider;
+    public M_SliderButton musicSlider;
+    public M_SliderButton environmentSlider;
 
     public void Update()
     {
@@ -28,6 +35,9 @@ public class M_Sounds : MonoBehaviour
                     menuMusic.Stop();
             }
         }
+
+        //Mixer
+        SetMixerVolume("MasterVolume", masterSlider.value);
     }
 
     public void StartMenuMusic()
@@ -41,5 +51,13 @@ public class M_Sounds : MonoBehaviour
     public void StopMenuMusic()
     {
         playMenuMusic = false;
+    }
+
+    private void SetMixerVolume(string parameter, float value)
+    {
+        float oldRange = 1;
+        float newRange = 80;
+        float newValue = ((masterSlider.value * newRange) / oldRange) - 80;
+        bool worked = mixer.SetFloat(parameter, newValue);
     }
 }

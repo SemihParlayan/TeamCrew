@@ -6,7 +6,7 @@ AudioMixerController:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: EnvironmentMixer
-  m_OutputGroup: {fileID: 24339476, guid: f95f059cba762584d8e429b43a480f54, type: 2}
+  m_OutputGroup: {fileID: 24300001, guid: f95f059cba762584d8e429b43a480f54, type: 2}
   m_MasterGroup: {fileID: 24300001}
   m_Snapshots:
   - {fileID: 24500003}
@@ -22,6 +22,7 @@ AudioMixerController:
     - 50b427ff91d49ed44b98739abf8f252b
     - a5aba019e047c9d4f9c1a63fdaa99822
     - b73cc982259a8924aa47766e6342bf0c
+    - 4429043087e9caa4fb7beb2b709efafc
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500003}
@@ -39,6 +40,7 @@ AudioMixerGroupController:
   - {fileID: 24320390}
   - {fileID: 24399906}
   - {fileID: 24392182}
+  - {fileID: 24354304}
   m_Volume: 5e3fb0b28c7c29844937d2d813660a95
   m_Pitch: 631b0119f1117744e9e053797ff66e58
   m_Effects:
@@ -94,6 +96,23 @@ AudioMixerGroupController:
   m_Pitch: 51170a2471c5e9e4ab36ebd4645a10c6
   m_Effects:
   - {fileID: 24410506}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &24354304
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Spinning wheel
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 4429043087e9caa4fb7beb2b709efafc
+  m_Children: []
+  m_Volume: 57c8f8c6fdb5b3144bcefa1dfdff866f
+  m_Pitch: d5cd6df388139cf458719f68282afebe
+  m_Effects:
+  - {fileID: 24413648}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -158,6 +177,19 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &24413648
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: fcb129d8968a8e145a440d76c98ca876
+  m_EffectName: Attenuation
+  m_MixLevel: d897f12d671fe2043b8e2d8598265837
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &24435950
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -218,5 +250,10 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 4f9da0b4144bedf41a5c7b12d35a01dd
-  m_FloatValues: {}
+  m_FloatValues:
+    2dba55200451fae4d8ab97d9a76d36f1: -5.3230715
+    5e3fb0b28c7c29844937d2d813660a95: -0.16685188
+    dbfbae14acbc08c41a521d3bc43ac032: -5.3230715
+    d5e40dd7c456d4944bfb8d85fb58927e: -15.421314
+    d1c4e8398548f57419069bc6db9135b3: -0.39762527
   m_TransitionOverrides: {}

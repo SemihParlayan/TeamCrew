@@ -72,7 +72,7 @@ public class M_Button : MonoBehaviour
     //Events
     public virtual void OnPress()
     {
-        AudioSource.PlayClipAtPoint(soundManager.buttonClick, transform.position);
+        soundManager.buttonClick.Play();
         if (animated)
         {
             anim.SetTrigger("OnPress");
@@ -96,7 +96,7 @@ public class M_Button : MonoBehaviour
     }
     public virtual void OnDeSelect()
     {
-        AudioSource.PlayClipAtPoint(soundManager.buttonSwitch, transform.position, 0.5f);
+        soundManager.buttonSwitch.Play();
         if (animated)
         {
             anim.SetBool("Selected", false);

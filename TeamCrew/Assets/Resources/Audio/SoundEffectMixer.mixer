@@ -18,12 +18,12 @@ AudioMixerController:
   - guids:
     - 1c86dfabe84b0944aa081492d7f53caf
     - 10c89624d34f5fd42a99c6a93eee4c86
-    - e1d494cd0fcd3bb489ac5477246440cd
     - d5dee66d3e6bca542b5b5b03e4342019
     - 9d0db46edae5e0d458bc78fc4c1c01b5
     - 2d134e460813bfb4db032e53cbd50b79
     - bab3e0e8b0f0c3c4997d948ecb2349e6
     - 5a460af5adb20314aae4256624ba1932
+    - 4c1580842b0548a46b77fc0132558cbe
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500003}
@@ -37,12 +37,12 @@ AudioMixerGroupController:
   m_GroupID: 1c86dfabe84b0944aa081492d7f53caf
   m_Children:
   - {fileID: 24364438}
-  - {fileID: 24369630}
   - {fileID: 24302852}
   - {fileID: 24386208}
   - {fileID: 24338748}
   - {fileID: 24382614}
   - {fileID: 24348228}
+  - {fileID: 24360196}
   m_Volume: e57b847cf686d7b448345ebc5a7e1c02
   m_Pitch: 46830832d29b57e48a932fe9c227c1da
   m_Effects:
@@ -102,12 +102,29 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &24360196
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Button press
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 4c1580842b0548a46b77fc0132558cbe
+  m_Children: []
+  m_Volume: 2c6212aab9c82994e95ce8d0e44978ca
+  m_Pitch: 8bca8ca5dcb2d3b4582f9be4bb3477e1
+  m_Effects:
+  - {fileID: 24477420}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &24364438
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Frog Grip & Release
+  m_Name: Grip/Release/Wall scratch
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 10c89624d34f5fd42a99c6a93eee4c86
   m_Children: []
@@ -115,23 +132,6 @@ AudioMixerGroupController:
   m_Pitch: 2bc570d5674f2f641a60d6d98276e1b1
   m_Effects:
   - {fileID: 24469150}
-  m_UserColorIndex: 0
-  m_Mute: 0
-  m_Solo: 0
-  m_BypassEffects: 0
---- !u!243 &24369630
-AudioMixerGroupController:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: WallScratch
-  m_AudioMixer: {fileID: 24100000}
-  m_GroupID: e1d494cd0fcd3bb489ac5477246440cd
-  m_Children: []
-  m_Volume: 395b8b4180ba4e34ea103ca87c3fd054
-  m_Pitch: bddab301548bb0142a4719ea21fb80f7
-  m_Effects:
-  - {fileID: 24488638}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -261,15 +261,15 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
---- !u!244 &24488638
+--- !u!244 &24477420
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_EffectID: 9504fec2f8d95c6478a8ca8c2bdb1eb2
+  m_EffectID: ea79d40bd645e3348831b3516b1ccd6e
   m_EffectName: Attenuation
-  m_MixLevel: 39ad27d31a1b1504899da593212cbb8f
+  m_MixLevel: ea97b934a9fd948488fe406c68c4e160
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
@@ -282,5 +282,10 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 85c53b39a7c6be24685d3a1211e91d47
-  m_FloatValues: {}
+  m_FloatValues:
+    395b8b4180ba4e34ea103ca87c3fd054: -59.606762
+    e44f2782676bbdf419a8fdf8ae062268: -9.833286
+    1b6ba4f21cda1ab48a32e993ad90a629: 0.23288131
+    2c6212aab9c82994e95ce8d0e44978ca: -18.592384
+    d75c0eae3109cfb429e1424b7f6e47cc: -9.833286
   m_TransitionOverrides: {}

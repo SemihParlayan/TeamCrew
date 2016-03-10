@@ -34,7 +34,6 @@ public class M_SliderButton : M_Button
                 value += speed;
 
             value = Mathf.Clamp(value, 0.0f, 1.0f);
-            AudioListener.volume = value;
             SetHandle();
         }
     }
