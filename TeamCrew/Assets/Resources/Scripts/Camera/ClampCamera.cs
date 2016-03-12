@@ -3,18 +3,18 @@ using System.Collections;
 
 public class ClampCamera : MonoBehaviour 
 {
-    private Transform cameraTransform;
+    private Camera cam;
 
     void Awake()
     {
-        cameraTransform = Camera.main.transform;
+        cam = Camera.main;
     }
 
-    void Update()
+    void LateUpdate()
     {
-        if (cameraTransform.position.y + Camera.main.orthographicSize / 2 <= -44)
+        if (cam.transform.position.y <= 4)
         {
-            cameraTransform.position = new Vector3(cameraTransform.position.x, -44, cameraTransform.position.z);
+            cam.transform.position = new Vector3(cam.transform.position.x, 4, cam.transform.position.z);
         }
     }
 }
