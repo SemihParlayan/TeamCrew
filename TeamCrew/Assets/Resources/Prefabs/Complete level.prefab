@@ -6461,11 +6461,11 @@ GameObject:
   - 114: {fileID: 11452178}
   - 114: {fileID: 11442946}
   - 114: {fileID: 11463538}
-  - 114: {fileID: 11485136}
   - 114: {fileID: 11400496}
   - 114: {fileID: 11425140}
   - 114: {fileID: 11468262}
   - 114: {fileID: 11486678}
+  - 82: {fileID: 8270938}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: GameManager
@@ -13715,8 +13715,8 @@ Transform:
   m_LocalPosition: {x: -7.945, y: -22.855001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 431452}
   - {fileID: 497688}
+  - {fileID: 431452}
   - {fileID: 444990}
   - {fileID: 453174}
   - {fileID: 423202}
@@ -16997,7 +16997,7 @@ Transform:
   m_Children:
   - {fileID: 460240}
   m_Father: {fileID: 400370}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &431596
 Transform:
   m_ObjectHideFlags: 1
@@ -23700,7 +23700,7 @@ Transform:
   m_LocalScale: {x: 906.76843, y: 352.42462, z: 118.4631}
   m_Children: []
   m_Father: {fileID: 400370}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &497754
 Transform:
   m_ObjectHideFlags: 1
@@ -27085,6 +27085,81 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &8270938
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148786}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24349400, guid: 2c5922f0713f2c04eb2736e440bbfdc2,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 9ceac2e08e7950143948ba7fe7627d59, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!82 &8274536
 AudioSource:
   m_ObjectHideFlags: 1
@@ -29727,7 +29802,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d67cbc2f4c51a6e48b972e109cf5acae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modeSelectionScreen: {fileID: 11434400}
   modifierParent: {fileID: 469484}
   descriptionParent: {fileID: 454644}
   informationText: {fileID: 10274526}
@@ -33637,6 +33711,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8b0b7cbf1e904438a5d37d1387ea86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawGizmos: 0
+  bounceAudioSource: {fileID: 8270938}
   respawnScripts:
   - {fileID: 11407100}
   - {fileID: 11439478}
@@ -34293,7 +34369,7 @@ MonoBehaviour:
   buttonClick: {fileID: 8274536}
   buttonSwitch: {fileID: 8248470}
   menuMusic: {fileID: 8222704}
-  playMenuMusic: 0
+  playMenuMusic: 1
   mixer: {fileID: 24100000, guid: f95f059cba762584d8e429b43a480f54, type: 2}
   masterSlider: {fileID: 11440872}
   sfxSlider: {fileID: 11415562}
@@ -35847,23 +35923,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfHands: 0
---- !u!114 &11485136
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 148786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c64fd8f4454d6f4987267618e3b9151, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rockMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  frogMask:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!114 &11485160
 MonoBehaviour:
   m_ObjectHideFlags: 1

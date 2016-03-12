@@ -38,14 +38,14 @@ public class PoffMountain : MonoBehaviour
     //Methods
     public void SetPoffState(bool state)
     {
-        CancelInvoke("PoffRepeating");
-        poffing = state;
-        PoffRepeating();
+        //CancelInvoke("PoffRepeating");
+        //poffing = state;
+        //PoffRepeating();
 
-        if (poffing)
-        {
-            //InvokeRepeating("PoffRepeating", 0f, poffRepeatRate);
-        }
+        //if (poffing)
+        //{
+        //    //InvokeRepeating("PoffRepeating", 0f, poffRepeatRate);
+        //}
     }
     public void PoffRepeating()
     {

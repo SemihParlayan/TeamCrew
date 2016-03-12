@@ -8,13 +8,14 @@ using System.Linq;
 public class Respawn : MonoBehaviour 
 {
     //Respawn scripts
+    public bool drawGizmos;
+    public AudioSource bounceAudioSource;
     public List<PlayerRespawn> respawnScripts = new List<PlayerRespawn>();
     [HideInInspector]
     public ConnectFrogs connectFrogs;
 
     //Components
     private Camera cam;
-    private StoneDisabler stoneDisabler;
 
     //private CameraFollow follow; // never used
     private AudioSource screamSource;
@@ -29,15 +30,12 @@ public class Respawn : MonoBehaviour
     //Data
     public float respawnTime = 3f;
 
-    //put boingsoundhere
-
 	void Start () 
     {
         //Get componenets
         cam = Camera.main;
         screamSource = GetComponent<AudioSource>();
         bandageManager = GetComponent<BandageManager>();
-        stoneDisabler = GetComponent<StoneDisabler>();
         inactivityController = GetComponent<GameManager>().inactivityController;
 
         for (int i = 0; i < respawnScripts.Count; i++)
@@ -51,11 +49,15 @@ public class Respawn : MonoBehaviour
         for (int i = 0; i < respawnScripts.Count; i++)
         {
             PlayerRespawn script = respawnScripts[i];
-            Vector3 gripPosition = GetSpawnGripPosition(script);
-            script.UpdateRespawn(gripPosition.x);
 
-            if (i == 0)
-                spawnGrip = gripPosition;
+            if (script.Respawning)
+            {
+                Vector3 gripPosition = GetSpawnGripPosition(script);
+                script.UpdateRespawnArrowPosition(gripPosition.x);
+
+                if (i == 0)
+                    spawnGrip = gripPosition;
+            }
 
             if (script.AllowRespawn(respawnTime))
             {
@@ -75,8 +77,14 @@ public class Respawn : MonoBehaviour
                     script.DisableRespawn(5f);
                     script.Respawning = true;
                     script.deathPositionX = GameManager.players[i].position.x;
+                    if (script.deathPositionX > (cam.transform.position.x + cam.orthographicSize * camEdgeMultiplier) || script.deathPositionX < (cam.transform.position.x - cam.orthographicSize * camEdgeMultiplier))
+                    {
+                        script.deathPositionX = cam.transform.position.x;
+                    }
+
                     script.deathCount++;
                     Destroy(GameManager.players[i].parent.gameObject);
+                    Invoke("PlayBounce", respawnTime - 0.2f);
                     GameManager.players[i] = null;
                     bandageManager.PlayerRespawned(i);
 
@@ -96,7 +104,7 @@ public class Respawn : MonoBehaviour
 
     public void GameStarting()
     {
-        mapGrips = GameObject.FindObjectsOfType<Grip>();
+        mapGrips = transform.GetComponentsInChildren<Grip>(true);
     }
     public void ResetRespawns()
     {
@@ -120,9 +128,12 @@ public class Respawn : MonoBehaviour
         b.AddForce(Vector2.up * 650000);
 
         body.GetComponent<FrogColliderDisabler>().DisableRockColliders();
-        //stoneDisabler.DisableStoneAt(pos);
-
         return body;
+    }
+    private void PlayBounce()
+    {
+        if (!bounceAudioSource.isPlaying)
+            bounceAudioSource.Play();
     }
     public void ResetDeathcount()
     {
@@ -134,48 +145,87 @@ public class Respawn : MonoBehaviour
 
     Vector3 spawnGrip;
     Vector3 cameraBottom;
+    Vector3 deathPositionX;
+    private float camEdgeMultiplier = 2.28f;
     void OnDrawGizmos()
     {
+        if (!drawGizmos)
+            return;
+
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(spawnGrip, 0.5f);
+        Gizmos.DrawWireSphere(spawnGrip, 0.7f);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(cameraBottom, 0.5f);
+        Gizmos.DrawWireSphere(cameraBottom, 0.3f);
+
+        if (cam != null)
+        {
+            Vector3 camEdge = cameraBottom;
+            camEdge.x += cam.orthographicSize * camEdgeMultiplier;
+            Gizmos.DrawWireSphere(camEdge, 0.3f);
+
+            camEdge = cameraBottom;
+            camEdge.x -= cam.orthographicSize * camEdgeMultiplier;
+            Gizmos.DrawWireSphere(camEdge, 0.3f);
+        }
+        
+
+        if (respawnScripts[0] != null)
+        {
+            deathPositionX = cameraBottom;
+            deathPositionX.x = respawnScripts[0].deathPositionX;
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(deathPositionX, 0.5f);
+        }
+
+        if (mapGrips == null)
+            return;
+        for (int i = 0; i < mapGrips.Length; i++)
+        {
+            if (mapGrips[i] == null)
+                continue;
+
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawSphere(mapGrips[i].transform.position, 0.3f);
+        }
     }
     Vector3 GetSpawnGripPosition(PlayerRespawn player)
     {
         cameraBottom = new Vector3(cam.transform.position.x, cam.transform.position.y - cam.orthographicSize);
 
-        if (mapGrips.Length > 0)
+        if (mapGrips.Length <= 0)
+            return cameraBottom;
+
+        int closestIndex = -1;
+        float closestDistance = float.MaxValue;
+
+        for (int i = 0; i < mapGrips.Length; i++)
         {
-            int closestIndex = 0;
-            float closestDistance = float.MaxValue;
+            if (mapGrips[i] == null)
+                continue;
 
-            for (int i = 1; i < mapGrips.Length; i++)
+            Vector3 targetSpawnPosition = cam.transform.position + new Vector3(0, -2.5f);
+            targetSpawnPosition.x = player.deathPositionX;
+
+            float yDistance = mapGrips[i].transform.position.y - cameraBottom.y;
+            float xDistance = Mathf.Abs(mapGrips[i].transform.position.x - player.deathPositionX);
+
+            if (yDistance > 0 && yDistance < 10)
             {
-                if (mapGrips[i] == null)
-                    continue;
-                Vector3 targetSpawnPosition = cam.transform.position + new Vector3(0, -2.5f);
-                targetSpawnPosition.x = player.deathPositionX;
-
-                float xDistance = Mathf.Abs(mapGrips[i].transform.position.x - player.deathPositionX);
-                float yDistance = Mathf.Abs(mapGrips[i].transform.position.y - cameraBottom.y);
-
-                if (yDistance < 10)
+                if (xDistance < closestDistance)
                 {
-                    if (xDistance < closestDistance)
-                    {
-                        closestDistance = xDistance;
-                        closestIndex = i;
-                    }
+                    closestDistance = xDistance;
+                    closestIndex = i;
                 }
             }
-
-            if (mapGrips[closestIndex] != null)
-                return mapGrips[closestIndex].transform.position;
         }
 
-        return Vector3.zero;
+        if (closestIndex != -1 && mapGrips[closestIndex] != null)
+        {
+            return mapGrips[closestIndex].transform.position;
+        }
+
+        return cameraBottom;
 
         //if (grips.Length > 0)
         //{
@@ -225,10 +275,4 @@ public class Respawn : MonoBehaviour
 
         return offset;
     }
-
-    void playBoing()
-    {
-        //play boing sound
-    }
-
 }

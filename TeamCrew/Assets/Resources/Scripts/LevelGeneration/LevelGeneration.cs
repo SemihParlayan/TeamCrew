@@ -93,7 +93,6 @@ public class LevelGeneration : MonoBehaviour
         ActivateFirstBlock();
         GameObject[] signs = GameObject.FindGameObjectsWithTag("Sign");
         DeactivateFirstBlock();
-        Debug.Log("Sign count: " + signs.Length);
 
         for (int i = 0; i < signs.Length; i++)
         {

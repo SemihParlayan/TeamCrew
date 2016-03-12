@@ -19,7 +19,7 @@ public class ScoreKeeper
     {
         get 
         {
-            int score = scoreIncreaseAmount;
+            int score = Mathf.Clamp(scoreIncreaseAmount, 10, comebackCap);
 
             scoreIncreaseAmount = Mathf.Clamp(scoreIncreaseAmount - frequencyAmount * 2, 10, comebackCap);
             return score;

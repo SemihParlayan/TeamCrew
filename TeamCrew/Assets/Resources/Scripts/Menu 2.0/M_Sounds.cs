@@ -62,6 +62,5 @@ public class M_Sounds : MonoBehaviour
         float newRange = 80;
         float newValue = ((slider.value * newRange) / oldRange) - 80;
         bool worked = mixer.SetFloat(parameter, newValue);
-        Debug.Log(parameter + ", " + worked);
     }
 }

@@ -56,7 +56,6 @@ public class FadeCollection
 }
 public class ModeFade : MonoBehaviour 
 {
-    public ModeSelectionScreen modeSelectionScreen;
     public Transform modifierParent;
     public Transform descriptionParent;
     public TextMesh informationText;
@@ -84,7 +83,6 @@ public class ModeFade : MonoBehaviour
     public void FadeToMod()
     {
         informationText.text = "Modifiers";
-        //modeSelectionScreen.SetPoffState(false);
         modifierParent.gameObject.SetActive(true);
         descriptionParent.gameObject.SetActive(false);
 
@@ -100,7 +98,6 @@ public class ModeFade : MonoBehaviour
     public void FadeToDesc()
     {
         informationText.text = "Mountain type";
-        //modeSelectionScreen.SetPoffState(true);
         modifierParent.gameObject.SetActive(false);
         descriptionParent.gameObject.SetActive(true);
     }

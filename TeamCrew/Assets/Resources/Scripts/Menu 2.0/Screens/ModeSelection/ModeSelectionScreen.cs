@@ -55,16 +55,11 @@ public class ModeSelectionScreen : M_Screen
     public override void OnSwitchedFrom()
     {
         base.OnSwitchedFrom();
-        SetPoffState(false);
     }
     private void CreateFrogs()
     {
         gameManager.CreateNewFrogs();
         canPressPlay = true;
-    }
-    public void SetPoffState(bool state)
-    {
-        poff.SetPoffState(state);
     }
     public void LockParallaxes()
     {
@@ -76,7 +71,6 @@ public class ModeSelectionScreen : M_Screen
     {
         if (canPressPlay)
         {
-            poff.SetPoffState(false);
             M_ScreenManager.SwitchScreen(gameScreenReference);
             fadeModifier.enabled = true;
         }
@@ -117,12 +111,11 @@ public class ModeSelectionScreen : M_Screen
 
     private void DisplayMode()
     {
-        poff.SetPoffState(true);
-
         GameMode mode = gameModes.gameModes[gamemodeIndex];
         GameManager.CurrentGameMode = mode;
         gamemodePicture.sprite = mode.picture;
         gamemodeDescription.text = mode.description;
         gamemodeText.text = mode.name;
+        poff.PoffRepeating();
     }
 }

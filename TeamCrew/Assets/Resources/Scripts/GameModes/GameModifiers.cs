@@ -199,6 +199,7 @@ public class KingOfTheHill : Mod
         base.OnStart();
 
         koth.OnGameStart();
+        OnActivate();
     }
     public override void OnActivate()
     {

@@ -1040,7 +1040,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (completedTutorialCount == GetFrogReadyCount())
+        if (completedTutorialCount != 0 && completedTutorialCount == GetFrogReadyCount())
         {
             readySetGo.StartSequence();
         }

@@ -7,6 +7,9 @@ public class StretchController : MonoBehaviour
     [Range(1, 10)]
     public float breakLimit = 4.5f;
 
+    //Audio to play when releasing
+    public AudioSource audioSource;
+
     //Reference to which frog to controll
     private FrogPrototype frog;
 
@@ -21,6 +24,9 @@ public class StretchController : MonoBehaviour
         {
             Debug.LogError("StretchController: Could not find FrogPrototype!");
         }
+
+        if (audioSource != null)
+            audioSource.pitch = Random.Range(0.8f, 1.2f);
 	}
 
 	void Update () 
@@ -39,6 +45,10 @@ public class StretchController : MonoBehaviour
             {
                 HandGrip hand = (frog.leftGripScript.lastGripTime > frog.rightGripScript.lastGripTime) ? frog.rightGripScript : frog.leftGripScript;
                 hand.ReleaseGrip(1f);
+
+                audioSource.pitch = Random.Range(0.8f, 1.2f);
+                if (audioSource != null)
+                    audioSource.Play();
             }
         }
 	}
