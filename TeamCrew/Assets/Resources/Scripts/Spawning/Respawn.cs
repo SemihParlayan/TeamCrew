@@ -132,8 +132,9 @@ public class Respawn : MonoBehaviour
     }
     private void PlayBounce()
     {
-        if (!bounceAudioSource.isPlaying)
-            bounceAudioSource.Play();
+        AudioSource canon = GameManager.PlayClipAtPoint(bounceAudioSource.clip, Camera.main.transform.position);
+        canon.outputAudioMixerGroup = bounceAudioSource.outputAudioMixerGroup;
+        canon.pitch = Random.Range(0.6f, 2.2f);
     }
     public void ResetDeathcount()
     {

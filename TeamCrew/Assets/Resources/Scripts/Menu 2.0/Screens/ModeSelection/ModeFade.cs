@@ -86,7 +86,8 @@ public class ModeFade : MonoBehaviour
         modifierParent.gameObject.SetActive(true);
         descriptionParent.gameObject.SetActive(false);
 
-        kingOfTheHillButton.Disabled = !(gameManager.GetFrogReadyCount() > 1);
+        if (kingOfTheHillButton)
+            kingOfTheHillButton.Disabled = !(gameManager.GetFrogReadyCount() > 1);
 
         ModifierAnimatorCaller[] animCallers = modifierParent.GetComponentsInChildren<ModifierAnimatorCaller>();
         foreach (ModifierAnimatorCaller anim in animCallers)

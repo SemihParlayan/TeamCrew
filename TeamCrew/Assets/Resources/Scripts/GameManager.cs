@@ -293,6 +293,21 @@ public class GameManager : MonoBehaviour
         GamePad.SetVibration(PlayerIndex.Three, 0f, 0f);
         GamePad.SetVibration(PlayerIndex.Four, 0f, 0f);
     }
+
+    public static AudioSource PlayClipAtPoint(AudioClip clip, Vector3 position)
+    {
+        position.z = 0;
+
+        GameObject tmp = new GameObject("GameManager_OneShotAudio");
+        tmp.transform.position = position;
+
+        AudioSource source = tmp.AddComponent<AudioSource>();
+        source.clip = clip;
+        source.Play();
+
+        Destroy(tmp, clip.length);
+        return source;
+    }
     
     
     //Static variables and properties
@@ -361,6 +376,7 @@ public class GameManager : MonoBehaviour
     private TopNumbers topNumbers;
     [HideInInspector]
     public List<Transform> transformOrder = new List<Transform>();
+    public Transform frontParallaxes;
 
     private bool playerFinalStretchAnimation = true;
     private Transform topFrogPrefab;
@@ -470,7 +486,8 @@ public class GameManager : MonoBehaviour
     //Single use methods
     public void ActivateTopNumbers()
     {
-        topNumbers.ActivateNumbers(transformOrder.ToArray());
+        if (GetFrogReadyCount() > 1)
+            topNumbers.ActivateNumbers(transformOrder.ToArray());
     }
     public void DeActivateNumbers()
     {
@@ -770,6 +787,8 @@ public class GameManager : MonoBehaviour
         fireWorks.transform.position = generatorScript.GetTopPosition() + new Vector3(0, -18, 0);
         fireWorks.SetActive(true);
         fireWorks.GetComponent<Fireworks>().Reset();
+
+        frontParallaxes.gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -813,6 +832,7 @@ public class GameManager : MonoBehaviour
         tutorialBubbles.Enable(playerScripts);
 
         readySetGo.lights = generatorScript.GetReadySetGoSpriteRenderes();
+        frontParallaxes.gameObject.SetActive(false);
     }
 
     /// <summary>

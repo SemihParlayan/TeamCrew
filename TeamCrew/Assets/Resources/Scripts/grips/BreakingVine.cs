@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 
 public class BreakingVine : MonoBehaviour
@@ -16,6 +17,10 @@ public class BreakingVine : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        breakAudio = gameObject.AddComponent<AudioSource>();
+        breakAudio.playOnAwake = false;
+        breakAudio.outputAudioMixerGroup = M_Sounds.vineSnapGroupStatic;
+        breakAudio.clip = Resources.Load<AudioClip>("Audio/Sound/vinesnap_ww_buildup");
         breakJoint = GetComponent<HingeJoint2D>();
         if (breakJoint == null)
         {
@@ -49,15 +54,14 @@ public class BreakingVine : MonoBehaviour
     private void SnapVine()
     {
         snapped = true;
+        if (breakAudio != null)
+        {
+            breakAudio.Play();
+        }
         Invoke("Break", delay);
     }
     private void Break()
     {
         breakJoint.enabled = false;
-
-        if (breakAudio != null)
-        {
-            breakAudio.Play();
-        }
     }
 }

@@ -42,14 +42,8 @@ public class VersusGripController : MonoBehaviour
         originalStartPosition = transform.localPosition;
 
 
-        boilerSound = gameObject.AddComponent<AudioSource>();
-        if (mixerGroup != null) boilerSound.outputAudioMixerGroup = mixerGroup;
-
-        releaseSound = gameObject.AddComponent<AudioSource>();
-        if (mixerGroup != null) releaseSound.outputAudioMixerGroup = mixerGroup;
-
-        boilerSound.clip = Resources.Load("Audio/Sound/Frog/kettle") as AudioClip;
-        releaseSound.clip = Resources.Load("Audio/Sound/Frog/shh") as AudioClip;
+        //boilerSound.clip = Resources.Load("Audio/Sound/Frog/kettle") as AudioClip;
+        //releaseSound.clip = Resources.Load("Audio/Sound/Frog/shh") as AudioClip;
 
         if (boilerSound != null && releaseSound != null)
         {
@@ -133,7 +127,8 @@ public class VersusGripController : MonoBehaviour
         }
         else
         {
-            boilerSound.Stop();
+            if (boilerSound != null)
+                boilerSound.Stop();
         }
     }
     public void ActivateBoiler(float startTime)

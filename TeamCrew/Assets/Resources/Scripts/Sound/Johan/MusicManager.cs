@@ -73,6 +73,7 @@ public class MusicLayer
 
 public class MusicManager : MonoBehaviour
 {
+    public M_Sounds menuMusicManager;
 	public float m_defaultFadeTime = 1.0f;
 	public LayerData[] m_layerData;
     public List<Level> levels;
@@ -83,7 +84,7 @@ public class MusicManager : MonoBehaviour
     public float percentageClimbed = 0.0f;
 	
 
-	void Start()
+	void Awake()
 	{
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 		m_musicLayers = new List<MusicLayer> ();
@@ -102,11 +103,8 @@ public class MusicManager : MonoBehaviour
 		}
 	}
 
-	void SetLevel(int level)
+	public void SetLevel(int level)
 	{
-		if (level <= m_currentLevel || level > (m_musicLayers.Count - 1)) // ändra till "==" om musiken ska gå tillbaka till ett lägre lager
-			return;
-
         if (level < 0)
         {
             for (int i = 0; i < m_musicLayers.Count; i++)
@@ -115,8 +113,12 @@ public class MusicManager : MonoBehaviour
                 musicLayer.SetGoalVolume(0.0f);
                 musicLayer.m_isActive = false;
             }
-            return;
         }
+
+		if (level <= m_currentLevel || level > (m_musicLayers.Count - 1)) // ändra till "==" om musiken ska gå tillbaka till ett lägre lager
+			return;
+
+        
 
         Debug.Log("Setting level " + level);
 		for (int i = 0; i < m_musicLayers.Count; i++)
@@ -137,9 +139,11 @@ public class MusicManager : MonoBehaviour
 	}
 
 	void Update()
-	{
+	    {
         percentageClimbed = GameManager.GetClimbedHeight();
 		//TestMusic();
+
+        
 
         int maxLevel = -1;
         for (int i = 0; i < m_musicLayers.Count; i++)
@@ -151,8 +155,15 @@ public class MusicManager : MonoBehaviour
                 maxLevel = i;
             }
         }
+
+        if (menuMusicManager.playMenuMusic)
+        {
+            SetLevel(-1);
+            return;
+        }
         if (!gameManager.tutorialComplete || !gameManager.gameActive)
             maxLevel = 0;
+
         SetLevel(maxLevel);
 	}
 

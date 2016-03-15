@@ -34,7 +34,6 @@ public class EndgameMenuScreen : M_Screen
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
-
         GameObject.FindWithTag("GameManager").GetComponent<GameManager>().SetInactivityState(true, 15f);
         movementProperties.cameraLocation.position += offsetFromTop;
     }

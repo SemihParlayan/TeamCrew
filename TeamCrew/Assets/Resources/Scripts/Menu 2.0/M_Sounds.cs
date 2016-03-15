@@ -11,11 +11,17 @@ public class M_Sounds : MonoBehaviour
     public bool playMenuMusic = true;
 
     public AudioMixer mixer;
+    public AudioMixerGroup vineSnapGroup;
+    public static AudioMixerGroup vineSnapGroupStatic;
     public M_SliderButton masterSlider;
     public M_SliderButton sfxSlider;
     public M_SliderButton musicSlider;
     public M_SliderButton environmentSlider;
 
+    void Awake()
+    {
+        vineSnapGroupStatic = vineSnapGroup;
+    }
     public void Update()
     {
         //Menu music
@@ -58,9 +64,14 @@ public class M_Sounds : MonoBehaviour
 
     private void SetMixerVolume(string parameter, M_SliderButton slider)
     {
+        float muteValue = 35f;
+
         float oldRange = 1;
-        float newRange = 80;
-        float newValue = ((slider.value * newRange) / oldRange) - 80;
+        float newRange = muteValue;
+        float sliderValue = slider.value;
+        float newValue = ((sliderValue * newRange) / oldRange) - muteValue;
+        if (newValue <= -muteValue)
+            newValue = -80;
         bool worked = mixer.SetFloat(parameter, newValue);
     }
 }

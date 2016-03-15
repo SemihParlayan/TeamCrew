@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,11 +72,12 @@ public class LowGravityMod : Mod
 }
 public class BurningHandsMod : Mod
 {
+    public AudioMixer sfxMixer;
     private float gripLimit = 3.0f;
 
-    public BurningHandsMod(Modifier name) : base(name)
+    public BurningHandsMod(Modifier name, AudioMixer sfxMixer) : base(name)
     {
-
+        this.sfxMixer = sfxMixer;
     }
 
     public override void OnStart()
@@ -118,6 +120,22 @@ public class BurningHandsMod : Mod
             {
                 hand.enabled = false;
             }
+        }
+    }
+    public override void OnActivate()
+    {
+        base.OnActivate();
+        if (!IsActive)
+        {
+            sfxMixer.SetFloat("TeapotVolume", 0);
+            //sfxMixer.SetFloat("VersusReleaseVolume", 0);
+            Debug.Log("Set to 0");
+        }
+        else
+        {
+            sfxMixer.SetFloat("TeapotVolume", -80);
+            //sfxMixer.SetFloat("VersusReleaseVolume", -80);
+            Debug.Log("Set to -80");
         }
     }
 }
@@ -219,13 +237,14 @@ public class KingOfTheHill : Mod
 
 public class GameModifiers : MonoBehaviour 
 {
+    public AudioMixer sfxMixer;
     public List<Mod> mods = new List<Mod>();
 
     void Awake()
     {
         mods.Clear();
         mods.Add(new LowGravityMod(Modifier.LowGravity));
-        mods.Add(new BurningHandsMod(Modifier.BurningHands));
+        mods.Add(new BurningHandsMod(Modifier.BurningHands, sfxMixer));
         mods.Add(new OneArm(Modifier.OneArm));
         mods.Add(new Mod(Modifier.ClingyFrogs));
         mods.Add(new KingOfTheHill(Modifier.KOTH, GetComponent<KOTH>()));
