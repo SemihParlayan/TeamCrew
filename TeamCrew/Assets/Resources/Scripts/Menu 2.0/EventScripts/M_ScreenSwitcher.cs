@@ -26,6 +26,10 @@ public class M_ScreenSwitcher : M_EventBase
                 M_Screen targetScreen = eventList[i].targetScreen;
                 M_Screen screen = transform.GetComponentInParent<M_Screen>();
 
+                M_SliderButton slider = transform.GetComponent<M_SliderButton>();
+                if (slider != null && slider.pressed)
+                    return;
+
                 if (screen == null)
                     break;
 

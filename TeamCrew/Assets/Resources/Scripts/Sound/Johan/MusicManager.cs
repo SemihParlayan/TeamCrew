@@ -86,6 +86,7 @@ public class MusicManager : MonoBehaviour
 
 	void Awake()
 	{
+        menuMusicManager = GameObject.FindObjectOfType<M_Sounds>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 		m_musicLayers = new List<MusicLayer> ();
 		for (int i = 0; i < m_layerData.Length; i++) {

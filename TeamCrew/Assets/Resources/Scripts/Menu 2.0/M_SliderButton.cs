@@ -16,7 +16,7 @@ public class M_SliderButton : M_Button
 
     private Transform handle;
     private bool selected = false;
-    private float speed = 0.004f;
+    private float speed = 0.75f;
 
     protected override void OnStart()
     {
@@ -34,9 +34,9 @@ public class M_SliderButton : M_Button
             if (Mathf.Abs(input) > 0.1f)
             {
                 if (input < 0)
-                    value -= speed;
+                    value -= speed * Time.deltaTime;
                 else
-                    value += speed;
+                    value += speed * Time.deltaTime;
 
                 value = Mathf.Clamp(value, 0.0f, 1.0f);
                 SetHandle();
