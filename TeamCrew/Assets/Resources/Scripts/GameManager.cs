@@ -112,7 +112,6 @@ public class GameManager : MonoBehaviour
     {
         if (playerNumber < -1 || playerNumber > controllers.Length - 1)
         {
-            Debug.Log("Tried to access controller: " + playerNumber + ", out of range");
             return Vector2.zero;
         }
 

@@ -14,8 +14,8 @@ public class CharacterSelectionScreen : M_Screen
     public List<FrogPrototype> prefabFrogs = new List<FrogPrototype>();
 
     //Data
-    private bool[] joinArray = new bool[4];
-    private bool[] readyArray = new bool[4];
+    public bool[] joinArray = new bool[4];
+    public bool[] readyArray = new bool[4];
     public bool CanContinue
     {
         get
@@ -139,7 +139,7 @@ public class CharacterSelectionScreen : M_Screen
             }
         }
 
-        if (selectedFrogs == 4)
+        if (selectedFrogs == availableFrogs.Count)
         {
             return null;
         }
