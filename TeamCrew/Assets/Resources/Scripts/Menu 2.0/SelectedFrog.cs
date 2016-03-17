@@ -37,8 +37,11 @@ public class SelectedFrog : MonoBehaviour
     }
     public void OnDeselect()
     {
-        selectedFrog.gameObject.SetActive(false);
-        selectedFrog = null;
+        if (selectedFrog != null)
+        {
+            selectedFrog.gameObject.SetActive(false);
+            selectedFrog = null;
+        }
     }
     private void SelectFrog(int indexDirection)
     {
