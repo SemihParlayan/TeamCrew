@@ -10,6 +10,7 @@ public class CharacterSelectionScreen : M_Screen
 
     //References
     private Animator bigReadyAnimator;
+    private Animator characterSelectAnimator;
     private List<Transform> availableFrogs = new List<Transform>();
     public List<FrogPrototype> prefabFrogs = new List<FrogPrototype>();
 
@@ -44,6 +45,7 @@ public class CharacterSelectionScreen : M_Screen
 
     //References
     public GameObject bigReadyObject;
+    public GameObject characterSelectObject;
     private GameManager gameManager;
 
     protected override void OnAwake()
@@ -51,6 +53,7 @@ public class CharacterSelectionScreen : M_Screen
         base.OnAwake();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         bigReadyAnimator = bigReadyObject.GetComponent<Animator>();
+        characterSelectAnimator = characterSelectObject.GetComponent<Animator>();
     }
 
     protected override void OnUpdate()
@@ -58,6 +61,8 @@ public class CharacterSelectionScreen : M_Screen
         base.OnUpdate();
 
         bigReadyAnimator.SetBool("PlayersReady", CanContinue);
+        characterSelectAnimator.SetBool("CharacterSelect", !CanContinue);
+        //above line sets the character select menu thing to be on when playersready is off, might have to be tweaked depending on the scope of this file
 
         if (CanContinue)
         {
