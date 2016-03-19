@@ -2767,7 +2767,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40.42003, y: -41.298073, z: 0}
+  m_LocalPosition: {x: 56.750103, y: -707.49335, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436148}
@@ -4426,7 +4426,7 @@ Animator:
   m_GameObject: {fileID: 146340}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 48cbdf8e2fd827f4baa23f5b3fd04520, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8520e026f9deb1248932d5bf65b2c061, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4637,7 +4637,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11415488}
   connectedBody: {fileID: 5065462}
-  parentedPlayer: 0
+  parentedPlayer: 3
   handScript: {fileID: 11498248}
 --- !u!114 &11411902
 MonoBehaviour:
@@ -4744,7 +4744,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11498862}
   connectedBody: {fileID: 5007472}
-  parentedPlayer: 0
+  parentedPlayer: 3
 --- !u!114 &11428426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4862,7 +4862,7 @@ MonoBehaviour:
   speed: 10
   yVelocityClamp: 10
   forceArmsUp: 0
-  player: 2147483647
+  player: 3
   emotionsScript: {fileID: 11451358}
   gripScript: []
   joints: []
@@ -4917,7 +4917,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11498924}
   connectedBody: {fileID: 5054954}
-  parentedPlayer: 0
+  parentedPlayer: 3
   handScript: {fileID: 11416718}
 --- !u!114 &11446312
 MonoBehaviour:
@@ -5120,7 +5120,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11428426}
   connectedBody: {fileID: 5029920}
-  parentedPlayer: 0
+  parentedPlayer: 3
 --- !u!114 &11472482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5137,7 +5137,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11400512}
   connectedBody: {fileID: 5008506}
-  parentedPlayer: 0
+  parentedPlayer: 3
 --- !u!114 &11473974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5170,7 +5170,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127646}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
   m_Name: 
@@ -5192,7 +5192,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11495636}
   connectedBody: {fileID: 5029920}
-  parentedPlayer: 0
+  parentedPlayer: 3
 --- !u!114 &11480456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5263,7 +5263,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11437260}
   connectedBody: {fileID: 5008506}
-  parentedPlayer: 0
+  parentedPlayer: 3
 --- !u!114 &11492758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5375,7 +5375,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d77241f0b99d1c47ac4b4e6b4bb6c39, type: 3}
   m_Name: 
@@ -11901,7 +11901,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 615159097
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300018, guid: d2ecefa0c001bdd4d8fe083344241a11, type: 3}
+  m_Sprite: {fileID: 21300022, guid: d2ecefa0c001bdd4d8fe083344241a11, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12561,7 +12561,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 615159097
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300018, guid: d2ecefa0c001bdd4d8fe083344241a11, type: 3}
+  m_Sprite: {fileID: 21300022, guid: d2ecefa0c001bdd4d8fe083344241a11, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -13057,7 +13057,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.13800001, y: 0}
-  m_ConnectedAnchor: {x: 0.11399841, y: 0.34500122}
+  m_ConnectedAnchor: {x: 0.11399841, y: 0.3449707}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -13080,7 +13080,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.13800001, y: 0}
-  m_ConnectedAnchor: {x: -0.09799957, y: 0.3409996}
+  m_ConnectedAnchor: {x: -0.09799957, y: 0.34100342}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
