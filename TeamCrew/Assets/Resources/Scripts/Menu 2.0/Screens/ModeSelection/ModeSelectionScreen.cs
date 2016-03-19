@@ -35,11 +35,19 @@ public class ModeSelectionScreen : M_Screen
     {
         base.OnUpdate();
 
-        if (GameManager.GetButtonPress(XboxButton.X))
+    /* //X button is no longer relevant since new crazy menu update /seb  
+    if (GameManager.GetButtonPress(XboxButton.X))
         {
             poff.PoffRepeating();
             pressXGenerateButton.SetTrigger("press");
         }
+        */
+    }
+
+    public void generateMountain()
+    {
+        poff.PoffRepeating();
+
     }
     public override void OnSwitchedTo()
     {
@@ -93,6 +101,26 @@ public class ModeSelectionScreen : M_Screen
     {
         SwitchMode(1);
     }
+   
+    public void switchToClassic() //Is used by function caller buttons, which is why there is one for each mode. Super hard coded <3 Seb code
+    {
+        gamemodeIndex = 0;
+        DisplayMode();
+
+    }
+    public void switchToHard()
+    {
+        gamemodeIndex = 1;
+        DisplayMode();
+
+    }
+    public void switchToWheel()
+    {
+        gamemodeIndex = 2;
+        DisplayMode();
+
+    }
+    //End of seb code
 
     //Switch gamemode
     private void SwitchMode(int dir)
