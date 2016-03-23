@@ -2534,7 +2534,6 @@ GameObject:
   - 95: {fileID: 9500368}
   - 114: {fileID: 11491740}
   - 114: {fileID: 11480992}
-  - 114: {fileID: 11450842}
   m_Layer: 0
   m_Name: Button - wheels
   m_TagString: Untagged
@@ -4258,7 +4257,6 @@ GameObject:
   - 95: {fileID: 9593758}
   - 114: {fileID: 11488334}
   - 114: {fileID: 11429606}
-  - 114: {fileID: 11417870}
   m_Layer: 0
   m_Name: Button - Classic
   m_TagString: Untagged
@@ -6740,6 +6738,9 @@ GameObject:
   - 82: {fileID: 8255648}
   - 82: {fileID: 8202874}
   - 82: {fileID: 8216030}
+  - 82: {fileID: 8217702}
+  - 82: {fileID: 8232464}
+  - 114: {fileID: 11475386}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: SoundManager
@@ -6777,7 +6778,6 @@ GameObject:
   - 95: {fileID: 9561836}
   - 114: {fileID: 11419402}
   - 114: {fileID: 11407006}
-  - 114: {fileID: 11489100}
   m_Layer: 0
   m_Name: Button - hard
   m_TagString: Untagged
@@ -18868,7 +18868,6 @@ Transform:
   m_LocalScale: {x: 0.55144745, y: 0.41173455, z: 1}
   m_Children:
   - {fileID: 476852}
-  - {fileID: 430052}
   - {fileID: 441114}
   - {fileID: 482594}
   - {fileID: 443770}
@@ -19832,7 +19831,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 162852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.93, y: 1.37, z: 0}
+  m_LocalPosition: {x: -7.91, y: 4.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 406468}
@@ -20265,7 +20264,7 @@ Transform:
   m_Children:
   - {fileID: 408452}
   m_Father: {fileID: 405014}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!4 &413482
 Transform:
   m_ObjectHideFlags: 1
@@ -21782,7 +21781,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -122.4, y: 36.3, z: 0}
+  m_LocalPosition: {x: -104.2, y: 36.3, z: 0}
   m_LocalScale: {x: 14.356281, y: 19.227772, z: 7.9167376}
   m_Children:
   - {fileID: 405014}
@@ -22525,12 +22524,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118224}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.7000012, y: -7.55, z: 0}
-  m_LocalScale: {x: 7.887532, y: 1.0500001, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: -0.00000016292068}
+  m_LocalPosition: {x: 0, y: 2.7047625, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 405014}
-  m_RootOrder: 1
+  m_Father: {fileID: 476852}
+  m_RootOrder: 0
 --- !u!4 &430116
 Transform:
   m_ObjectHideFlags: 1
@@ -22981,7 +22980,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -43.3, y: 37, z: 0}
+  m_LocalPosition: {x: -24.5, y: 37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 404002}
@@ -24043,7 +24042,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 112184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.39, y: 3.51, z: -12.74}
+  m_LocalPosition: {x: 6.29, y: 7.37, z: -12.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 434080}
@@ -24071,7 +24070,7 @@ Transform:
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.5}
   m_Children: []
   m_Father: {fileID: 405014}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &441272
 Transform:
   m_ObjectHideFlags: 1
@@ -24490,7 +24489,7 @@ Transform:
   m_Children:
   - {fileID: 411988}
   m_Father: {fileID: 405014}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!4 &443798
 Transform:
   m_ObjectHideFlags: 1
@@ -24528,7 +24527,7 @@ Transform:
   m_Children:
   - {fileID: 462480}
   m_Father: {fileID: 405014}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!4 &444242
 Transform:
   m_ObjectHideFlags: 1
@@ -24734,7 +24733,7 @@ Transform:
   m_Children:
   - {fileID: 410130}
   m_Father: {fileID: 405014}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!4 &445434
 Transform:
   m_ObjectHideFlags: 1
@@ -27417,7 +27416,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 140802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.881895, y: 4.078679, z: 0}
+  m_LocalPosition: {x: 10.07, y: 3.07, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 433194}
@@ -28869,9 +28868,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 147290}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
-  m_LocalPosition: {x: -1.7, y: -4.71, z: 0}
+  m_LocalPosition: {x: -2.22, y: -4.71, z: 0}
   m_LocalScale: {x: 7.887532, y: 1.0500001, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 430052}
   m_Father: {fileID: 405014}
   m_RootOrder: 0
 --- !u!4 &476864
@@ -29080,7 +29080,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199716}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -96.4, y: 68.5, z: 0}
+  m_LocalPosition: {x: -78.2, y: 68.5, z: 0}
   m_LocalScale: {x: 9.916249, y: 7.7636347, z: 2.8490486}
   m_Children:
   - {fileID: 436812}
@@ -29661,7 +29661,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 405014}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!4 &482622
 Transform:
   m_ObjectHideFlags: 1
@@ -31752,7 +31752,7 @@ Transform:
   m_Children:
   - {fileID: 445328}
   m_Father: {fileID: 405014}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!4 &496586
 Transform:
   m_ObjectHideFlags: 1
@@ -32022,7 +32022,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 145126}
   m_LocalRotation: {x: 0, y: 0, z: 0.23240378, w: 0.9726195}
-  m_LocalPosition: {x: 12.211895, y: -2.0413208, z: 0}
+  m_LocalPosition: {x: 11.42, y: -0.08, z: 0}
   m_LocalScale: {x: -0.7986443, y: 0.7986444, z: 0.79864436}
   m_Children:
   - {fileID: 400724}
@@ -36164,7 +36164,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24360196, guid: 2c5922f0713f2c04eb2736e440bbfdc2,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d14c69fd12294744c95f0e295e74d10b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -36563,6 +36563,81 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &8217702
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 138096}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24337156, guid: 47ec1021072875e4a9ad7e27901e4553,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: df3b9aad71c76ac40825780cc077c828, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!82 &8228092
 AudioSource:
   m_ObjectHideFlags: 1
@@ -36649,6 +36724,81 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &8232464
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 138096}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24338748, guid: 2c5922f0713f2c04eb2736e440bbfdc2,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 786de32c4e8b0fa4b924ec1f57b76442, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -36872,7 +37022,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24360196, guid: 2c5922f0713f2c04eb2736e440bbfdc2,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: df9b8280098df5249ae39c12efb75d43, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -37096,7 +37246,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24360196, guid: 2c5922f0713f2c04eb2736e440bbfdc2,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d14c69fd12294744c95f0e295e74d10b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -40193,6 +40343,18 @@ MonoBehaviour:
   - eventType: 5
     reciever: {fileID: 186962}
     methodName: GoToCharacterSelection
+  - eventType: 4
+    reciever: {fileID: 186962}
+    methodName: GenerateMountain
+  - eventType: 0
+    reciever: {fileID: 186962}
+    methodName: OnLeft
+  - eventType: 1
+    reciever: {fileID: 186962}
+    methodName: OnRight
+  - eventType: 3
+    reciever: {fileID: 186962}
+    methodName: UpdateContinueButton
 --- !u!114 &11407058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -40451,6 +40613,9 @@ MonoBehaviour:
   - eventType: 5
     reciever: {fileID: 186962}
     methodName: GoToCharacterSelection
+  - eventType: 2
+    reciever: {fileID: 186962}
+    methodName: UpdateInfoTMPIndex
 --- !u!114 &11410198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -40669,7 +40834,7 @@ MonoBehaviour:
   descriptionParent: {fileID: 412834}
   informationText: {fileID: 10210936}
   fadeModifier: {fileID: 11456034}
-  kingOfTheHillButton: {fileID: 0}
+  kingOfTheHillButton: {fileID: 11445144}
 --- !u!114 &11412822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -41103,24 +41268,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aboveLayer: {fileID: 0}
---- !u!114 &11417870
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 124506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30cb2a420fda8ab449787e387b16f797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventList:
-  - eventType: 4
-    reciever: {fileID: 186962}
-    methodName: generateMountain
-  - eventType: 6
-    reciever: {fileID: 186962}
-    methodName: switchToClassic
 --- !u!114 &11417948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -41722,7 +41869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventList:
   - eventType: 2
-    targetButton: {fileID: 11456968}
+    targetButton: {fileID: 11413038}
   - eventType: 4
     targetButton: {fileID: 11460476}
 --- !u!114 &11423084
@@ -41907,6 +42054,7 @@ MonoBehaviour:
   leftEdge: -1.48
   rightEdge: 1.36
   yOffset: -0.34
+  selected: 0
 --- !u!114 &11425052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -42506,6 +42654,18 @@ MonoBehaviour:
   - eventType: 5
     reciever: {fileID: 186962}
     methodName: GoToCharacterSelection
+  - eventType: 4
+    reciever: {fileID: 186962}
+    methodName: GenerateMountain
+  - eventType: 0
+    reciever: {fileID: 186962}
+    methodName: OnLeft
+  - eventType: 1
+    reciever: {fileID: 186962}
+    methodName: OnRight
+  - eventType: 3
+    reciever: {fileID: 186962}
+    methodName: UpdateContinueButton
 --- !u!114 &11429608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -42723,8 +42883,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomMarker: {fileID: 0}
   active: 0
-  startOffset: 35
-  endOffset: 7
+  startOffset: 20.1
+  endOffset: 4.56
 --- !u!114 &11431444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -43381,6 +43541,7 @@ MonoBehaviour:
   leftEdge: -1.52
   rightEdge: 1.29
   yOffset: -0.17
+  selected: 0
 --- !u!114 &11437978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -44240,8 +44401,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomMarker: {fileID: 0}
   active: 0
-  startOffset: 22.7
-  endOffset: 4.8
+  startOffset: 10.7
+  endOffset: 2.8
 --- !u!114 &11447600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -44657,24 +44818,6 @@ MonoBehaviour:
   - {fileID: 11460388}
   - {fileID: 11473600}
   - {fileID: 11487706}
---- !u!114 &11450842
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 115068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30cb2a420fda8ab449787e387b16f797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventList:
-  - eventType: 4
-    reciever: {fileID: 186962}
-    methodName: generateMountain
-  - eventType: 6
-    reciever: {fileID: 186962}
-    methodName: switchToWheel
 --- !u!114 &11451084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45217,6 +45360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14bbbe078cc03e44aa37cb02f5a2bd39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: f95f059cba762584d8e429b43a480f54, type: 2}
   pauseScreen: {fileID: 11410476}
 --- !u!114 &11454550
 MonoBehaviour:
@@ -45346,7 +45490,7 @@ MonoBehaviour:
   active: 0
   subScreen: 0
   player: -1
-  entryButton: {fileID: 11413038}
+  entryButton: {fileID: 11456130}
   movementProperties:
     cameraLocation: {fileID: 432844}
     zoom: 43
@@ -45354,12 +45498,18 @@ MonoBehaviour:
     movementSpeed: 3
   gameModes: {fileID: 11481374}
   gamemodeIndex: 0
+  tmpGameModeIndex: 0
   gamemodeText: {fileID: 10299366}
   gamemodeDescription: {fileID: 10279416}
   gamemodePicture: {fileID: 21238884}
   modeFade: {fileID: 11412760}
   gameScreenReference: {fileID: 11468784}
   pressXGenerateButton: {fileID: 9569494}
+  modeButtons:
+  - {fileID: 11413038}
+  - {fileID: 11456968}
+  - {fileID: 11489028}
+  continueButton: {fileID: 11456130}
 --- !u!114 &11455600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -46121,6 +46271,7 @@ MonoBehaviour:
   leftEdge: -1.57
   rightEdge: 1.36
   yOffset: -0.39
+  selected: 0
 --- !u!114 &11460930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -46291,13 +46442,13 @@ MonoBehaviour:
   fireworkBackgroundSounder: {fileID: 8206544}
   bigExplosion: {fileID: 8201414}
   fireworks:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 1420fcae2f32c774fa249470bd26704d, type: 3}
+  - {fileID: 8300000, guid: f31b82ad243110c43ad0018c4b6f082a, type: 3}
+  - {fileID: 8300000, guid: 230a46cc17708744d97162d892e0dae7, type: 3}
+  - {fileID: 8300000, guid: c7ea1a1fb86ef534da406b2206ef2055, type: 3}
+  - {fileID: 8300000, guid: cb0de340477d5b149ab05b18a0644db4, type: 3}
+  - {fileID: 8300000, guid: 28eda922e82a7e345a4db61e8f9a9eec, type: 3}
+  - {fileID: 8300000, guid: 73c00c8f29677904aa7e66b61e25c255, type: 3}
   duration: 10
 --- !u!114 &11462010
 MonoBehaviour:
@@ -47070,6 +47221,7 @@ MonoBehaviour:
   leftEdge: -1.56
   rightEdge: 1.29
   yOffset: -0.16
+  selected: 0
 --- !u!114 &11470102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -47649,8 +47801,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomMarker: {fileID: 0}
   active: 0
-  startOffset: 12.2
-  endOffset: 1.8
+  startOffset: 4.67
+  endOffset: 0.574
 --- !u!114 &11474860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -47685,6 +47837,19 @@ MonoBehaviour:
   bandageManager: {fileID: 0}
   inactivityController: {fileID: 0}
   respawnTime: 3
+--- !u!114 &11475386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 138096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaca8e67e3d37e740979e3a31dc01431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxTest: {fileID: 8232464}
+  environmentTest: {fileID: 8217702}
 --- !u!114 &11475428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49096,27 +49261,6 @@ MonoBehaviour:
   animated: 1
   pressedSprite: {fileID: 21300006, guid: 6f2c1c35a566d4e4da96bc4738bb9923, type: 3}
   selectedSprite: {fileID: 21300006, guid: 6f2c1c35a566d4e4da96bc4738bb9923, type: 3}
---- !u!114 &11489100
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 138262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30cb2a420fda8ab449787e387b16f797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventList:
-  - eventType: 0
-    reciever: {fileID: 186962}
-    methodName: generateMountain
-  - eventType: 6
-    reciever: {fileID: 186962}
-    methodName: switchToHard
-  - eventType: 4
-    reciever: {fileID: 186962}
-    methodName: generateMountain
 --- !u!114 &11489474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49340,6 +49484,18 @@ MonoBehaviour:
   - eventType: 5
     reciever: {fileID: 186962}
     methodName: GoToCharacterSelection
+  - eventType: 4
+    reciever: {fileID: 186962}
+    methodName: GenerateMountain
+  - eventType: 0
+    reciever: {fileID: 186962}
+    methodName: OnLeft
+  - eventType: 1
+    reciever: {fileID: 186962}
+    methodName: OnRight
+  - eventType: 3
+    reciever: {fileID: 186962}
+    methodName: UpdateContinueButton
 --- !u!114 &11491894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90944,7 +91100,7 @@ SpriteRenderer:
   m_SortingLayerID: -81201081
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300024, guid: 6f2c1c35a566d4e4da96bc4738bb9923, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.312}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!212 &21240714

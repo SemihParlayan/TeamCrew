@@ -6,6 +6,7 @@ public class ModeSelectionScreen : M_Screen
     //Gamemode selection
     public GameModes gameModes;
     public int gamemodeIndex = 0;
+    public int tmpGameModeIndex = 0;
     public TextMesh gamemodeText;
     public TextMesh gamemodeDescription;
     public SpriteRenderer gamemodePicture;
@@ -14,6 +15,8 @@ public class ModeSelectionScreen : M_Screen
     //References
     public M_Screen gameScreenReference;
     public Animator pressXGenerateButton;
+    public M_Button[] modeButtons;
+    public M_Button continueButton;
     private GameModifiers gameModifiers;
     private PoffMountain poff;
     private GameManager gameManager;
@@ -35,8 +38,8 @@ public class ModeSelectionScreen : M_Screen
     {
         base.OnUpdate();
 
-    /* //X button is no longer relevant since new crazy menu update /seb  
-    if (GameManager.GetButtonPress(XboxButton.X))
+        /* //X button is no longer relevant since new crazy menu update /seb  
+        if (GameManager.GetButtonPress(XboxButton.X))
         {
             poff.PoffRepeating();
             pressXGenerateButton.SetTrigger("press");
@@ -44,18 +47,16 @@ public class ModeSelectionScreen : M_Screen
         */
     }
 
-    public void generateMountain()
-    {
-        poff.PoffRepeating();
-
-    }
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
         gameModifiers.OnModifierSelection();
         modeFade.FadeToDesc();
+        gamemodeIndex = 0;
+        tmpGameModeIndex = 0;
         Invoke("CreateFrogs", 1f);
-        DisplayMode();
+        UpdateContinueButton();
+        GenerateMountain();
 
         gameManager.DestroyTopFrog();
         poff.SetMenuMountainState(false, 0.0f);
@@ -102,48 +103,41 @@ public class ModeSelectionScreen : M_Screen
         SwitchMode(1);
     }
    
-    public void switchToClassic() //Is used by function caller buttons, which is why there is one for each mode. Super hard coded <3 Seb code
-    {
-        gamemodeIndex = 0;
-        DisplayMode();
-
-    }
-    public void switchToHard()
-    {
-        gamemodeIndex = 1;
-        DisplayMode();
-
-    }
-    public void switchToWheel()
-    {
-        gamemodeIndex = 2;
-        DisplayMode();
-
-    }
-    //End of seb code
-
-    //Switch gamemode
     private void SwitchMode(int dir)
     {
         int maxIndex = gameModes.gameModes.Count - 1;
-        int newIndex = gamemodeIndex + dir;
+        int newIndex = tmpGameModeIndex + dir;
 
         if (newIndex < 0)
             newIndex = maxIndex;
         else if (newIndex > maxIndex)
             newIndex = 0;
 
-        gamemodeIndex = newIndex;
-        DisplayMode();
+        tmpGameModeIndex = newIndex;
+        UpdateInfo(tmpGameModeIndex);
     }
-
-    private void DisplayMode()
+    public void UpdateInfoTMPIndex()
     {
-        GameMode mode = gameModes.gameModes[gamemodeIndex];
-        GameManager.CurrentGameMode = mode;
+        UpdateInfo(tmpGameModeIndex);
+    }
+    private void UpdateInfo(int index)
+    {
+        GameMode mode = gameModes.gameModes[index];
         gamemodePicture.sprite = mode.picture;
         gamemodeDescription.text = mode.description;
         gamemodeText.text = mode.name;
+    }
+    public void GenerateMountain()
+    {
+        gamemodeIndex = tmpGameModeIndex;
+        UpdateContinueButton();
+        GameMode mode = gameModes.gameModes[gamemodeIndex];
+        GameManager.CurrentGameMode = mode;
         poff.PoffRepeating();
+    }
+    public void UpdateContinueButton()
+    {
+        UpdateInfo(gamemodeIndex);
+        continueButton.transform.GetComponent<M_ButtonSwitcher>().eventList[0].targetButton = modeButtons[tmpGameModeIndex];
     }
 }

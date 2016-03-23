@@ -16,7 +16,7 @@ public class FrogPrototype : MonoBehaviour
 
     public bool forceArmsUp = false;
 
-    public int player;
+    public int player = -1;
     public Emotions emotionsScript;
     public HandGrip[] gripScript;
 
@@ -51,6 +51,8 @@ public class FrogPrototype : MonoBehaviour
 
     public GripMagnet leftHandMagnet;
     public GripMagnet rightHandMagnet;
+
+    public AudioSource croakSound;
 
     public float motorSpeed = 350;
     public float versusMotorBoost = 350;
@@ -107,6 +109,8 @@ public class FrogPrototype : MonoBehaviour
         velVolRight = rightGripScript.GetComponentInChildren<VelocityVolume>();
 
         forceArmsUp = false;
+
+        croakSound = rightGripScript.transform.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -116,6 +120,16 @@ public class FrogPrototype : MonoBehaviour
             if (GameManager.GetCheatButton())
             {
                 body.AddForce(new Vector2(0, 100000));
+            }
+        }
+
+        if (croakSound != null && gameManager.gameActive)
+        {
+            bool croak = (GameManager.GetButtonPress(XboxButton.X, player) || GameManager.GetButtonPress(XboxButton.Y, player) || GameManager.GetButtonPress(XboxButton.B, player) || GameManager.GetButtonPress(XboxButton.A, player));
+            if (croak && !croakSound.isPlaying)
+            {
+                croakSound.pitch = Random.Range(0.7f, 1.4f);
+                croakSound.Play();
             }
         }
     }

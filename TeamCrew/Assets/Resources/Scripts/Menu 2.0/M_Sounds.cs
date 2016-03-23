@@ -43,10 +43,21 @@ public class M_Sounds : MonoBehaviour
         }
 
         //Mixer
-        SetMixerVolume("MasterVolume", masterSlider);
-        SetMixerVolume("SFXVolume", sfxSlider);
-        SetMixerVolume("MusicVolume", musicSlider);
-        SetMixerVolume("EnvironmentVolume", environmentSlider);
+        if (playMenuMusic)
+        {
+            SetMixerVolume("MasterVolume", masterSlider);
+            SetMixerVolume("SFXVolume", sfxSlider);
+            SetMixerVolume("MusicVolume", musicSlider);
+            SetMixerVolume("EnvironmentVolume", environmentSlider);
+        }
+
+        if (M_ScreenManager.GetCurrentScreen() is OptionScreen)
+        {
+            if (musicSlider.pressed || masterSlider.pressed)
+                SetMixerVolume("MusicVolume", musicSlider);
+            else
+                mixer.SetFloat("MusicVolume", -80f);
+        }
     }
 
     public void StartMenuMusic()
@@ -62,7 +73,7 @@ public class M_Sounds : MonoBehaviour
         playMenuMusic = false;
     }
 
-    private void SetMixerVolume(string parameter, M_SliderButton slider)
+    public void SetMixerVolume(string parameter, M_SliderButton slider)
     {
         float muteValue = 35f;
 
@@ -72,6 +83,7 @@ public class M_Sounds : MonoBehaviour
         float newValue = ((sliderValue * newRange) / oldRange) - muteValue;
         if (newValue <= -muteValue)
             newValue = -80;
+
         bool worked = mixer.SetFloat(parameter, newValue);
     }
 }

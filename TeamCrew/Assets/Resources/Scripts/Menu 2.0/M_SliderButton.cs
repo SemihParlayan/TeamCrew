@@ -15,7 +15,7 @@ public class M_SliderButton : M_Button
     public float yOffset;
 
     private Transform handle;
-    private bool selected = false;
+    public bool selected = false;
     private float speed = 0.75f;
 
     protected override void OnStart()
