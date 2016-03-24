@@ -273,13 +273,24 @@ public class GameModifiers : MonoBehaviour
         }
         return null;
     }
-    private void ActivateModifier(Modifier modName)
+    public void ActivateModifier(Modifier modName)
     {
         foreach(Mod m in mods)
         {
             if (m.name == modName)
             {
                 m.Activate();
+            }
+        }
+    }
+    public void SetModifierState(Modifier modName, bool state)
+    {
+        foreach (Mod m in mods)
+        {
+            if (m.name == modName)
+            {
+                if (m.active != state)
+                    m.Activate();
             }
         }
     }

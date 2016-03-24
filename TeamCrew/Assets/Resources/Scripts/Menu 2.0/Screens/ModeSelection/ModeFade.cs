@@ -63,7 +63,8 @@ public class ModeFade : MonoBehaviour
     private FadeCollection modCollection;
     private FadeCollection descCollection;
     public M_FadeOnScreenSwitch fadeModifier;
-    public M_Button kingOfTheHillButton;
+    public M_Button kingOfTheHillButtonOn;
+    public M_Button kingOfTheHillButtonOff;
     private GameManager gameManager;
 
     void Start()
@@ -86,8 +87,17 @@ public class ModeFade : MonoBehaviour
         modifierParent.gameObject.SetActive(true);
         descriptionParent.gameObject.SetActive(false);
 
-        if (kingOfTheHillButton)
-            kingOfTheHillButton.Disabled = !(gameManager.GetFrogReadyCount() > 1);
+        kingOfTheHillButtonOn.Disabled = (gameManager.GetFrogReadyCount() <= 1);
+        kingOfTheHillButtonOn.gameObject.SetActive(!kingOfTheHillButtonOn.Disabled);
+
+        kingOfTheHillButtonOff.Disabled = !kingOfTheHillButtonOn.Disabled;
+        kingOfTheHillButtonOff.gameObject.SetActive(!kingOfTheHillButtonOff.Disabled);
+
+        if (kingOfTheHillButtonOn.Disabled)
+        {
+            GameObject.FindObjectOfType<GameModifiers>().SetModifierState(Modifier.KOTH, false);
+            kingOfTheHillButtonOn.gameObject.GetComponent<ModifierAnimatorCaller>().SetState(false);
+        }
 
         ModifierAnimatorCaller[] animCallers = modifierParent.GetComponentsInChildren<ModifierAnimatorCaller>();
         foreach (ModifierAnimatorCaller anim in animCallers)

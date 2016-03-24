@@ -21,4 +21,10 @@ public class ModifierAnimatorCaller : MonoBehaviour
         active = !active;
         anim.SetBool("ModeOn", active);
     }
+
+    public void SetState(bool state)
+    {
+        active = state;
+        Refresh();
+    }
 }
