@@ -6,6 +6,7 @@ public class PauseController : MonoBehaviour
 {
     public AudioMixer mixer;
     public M_Screen pauseScreen;
+    public EndgameMenuScreen endgameMenuScreen;
     private GameManager gameManager;
     private M_ScreenManager screenManager;
     private bool paused;
@@ -84,5 +85,12 @@ public class PauseController : MonoBehaviour
         UnPause();
         M_ScreenManager.SetActive(true);
         gameManager.ResetGameVariables();
+    }
+    void GoToMainMenu()
+    {
+        paused = false;
+        UnPause();
+        endgameMenuScreen.ActivateMenuMountain();
+        M_ScreenManager.SetActive(true);
     }
 }

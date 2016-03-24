@@ -33,6 +33,7 @@ AudioMixerController:
     - 7fbd1690f4d549a4fb36dc7263d30f09
     - 170d20f7cd332654e82ee910c54b7b7d
     - d184de2fb67a50a4bb24a79e7c37075f
+    - 5a3eec44436f6b748b8fbc78e6d93b99
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500003}
@@ -55,6 +56,7 @@ AudioMixerGroupController:
   - {fileID: 24349400}
   - {fileID: 24336006}
   - {fileID: 24337922}
+  - {fileID: 24374766}
   m_Volume: e57b847cf686d7b448345ebc5a7e1c02
   m_Pitch: 46830832d29b57e48a932fe9c227c1da
   m_Effects:
@@ -199,6 +201,23 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &24374766
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Wheel
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 5a3eec44436f6b748b8fbc78e6d93b99
+  m_Children: []
+  m_Volume: 16fd9bcdc2b4a8842a0cc23849c92e6c
+  m_Pitch: b034f5140ed20294da89e6b26581cca2
+  m_Effects:
+  - {fileID: 24419020}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &24382614
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -268,6 +287,19 @@ AudioMixerEffectController:
   m_EffectID: 5192c95c464620e428d42d9bda29f2dc
   m_EffectName: Attenuation
   m_MixLevel: 7b652691f1c04424997ba8a7361d250e
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &24419020
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: f4ea51bb03e08be41ab1fe77b332c985
+  m_EffectName: Attenuation
+  m_MixLevel: 6a7513434e9dfbf4696e193cea58748f
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0

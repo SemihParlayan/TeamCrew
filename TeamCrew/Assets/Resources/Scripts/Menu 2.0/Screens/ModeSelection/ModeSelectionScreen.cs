@@ -61,6 +61,10 @@ public class ModeSelectionScreen : M_Screen
         gameManager.DestroyTopFrog();
         poff.SetMenuMountainState(false, 0.0f);
     }
+    public void ActivateMenuMountain()
+    {
+
+    }
     public override void OnSwitchedFrom()
     {
         base.OnSwitchedFrom();
