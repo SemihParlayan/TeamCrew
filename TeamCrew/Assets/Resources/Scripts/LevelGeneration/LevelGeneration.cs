@@ -62,22 +62,33 @@ public class LevelGeneration : MonoBehaviour
         for (int i = 0; i < mode.climbingBlocks.Count; i++)
         {
             //Find a climbing block
-            TagCollection climbingBlock = mode.climbingBlocks[i];
-            block = FindBlock(climbingBlock);
+            TagCollection climbingBlock = null;
 
             //Add Converter if neccesary
             if (i == 0)
             {
+                //Find a climbing block
+                climbingBlock = mode.climbingBlocks[i];
+                block = FindBlock(climbingBlock, true);
+
                 firstBlock = block.gameObject;
 
                 if (block.startSize != tutorialBlock.endSize)
                 {
                     TagCollection c = new TagCollection(); c.tags.Add(BlockTag.Converter);
-                    Block converter = FindBlock(c);
+                    Block converter = FindBlock(c, true);
                     level.Add(converter);
+                    ConnectBlocks(converter, tutorialBlock);
                     ConnectBlocks(block, converter);
                 }
             }
+            else
+            {
+                //Find a climbing block
+                climbingBlock = mode.climbingBlocks[i];
+                block = FindBlock(climbingBlock);
+            }
+
 
             //Add climbing block
             level.Add(block);
@@ -108,7 +119,7 @@ public class LevelGeneration : MonoBehaviour
             }
         }
     }
-    public Block FindBlock(TagCollection minimumRequiredTags)
+    public Block FindBlock(TagCollection minimumRequiredTags, bool ignorBlockWidthMatching = false)
     {
         List<Block> availableBlocks = new List<Block>();
         Block previousBlock = (level.Count > 0) ? level.Last() : null;
@@ -136,8 +147,8 @@ public class LevelGeneration : MonoBehaviour
             }
         }
 
-        //Sort through so that size fits except for tutorial and first block
-        if (!searchingForTutorial)
+        //Sort through so that size fits except for tutorial
+        if (!searchingForTutorial && !ignorBlockWidthMatching)
         {
             List<Block> tmpBlocks = new List<Block>();
             tmpBlocks.AddRange(availableBlocks);

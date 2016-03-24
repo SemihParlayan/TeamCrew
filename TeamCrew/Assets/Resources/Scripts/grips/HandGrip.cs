@@ -421,7 +421,8 @@ public class HandGrip : MonoBehaviour
     public void LockHand(float time)
     {
         handIsLocked = true;
-        StartCoroutine(DeLockHand(time));
+        if (transform.gameObject.activeInHierarchy)
+            StartCoroutine(DeLockHand(time));
     }
     public void SetForcedGrip(bool value, bool allowStoneGrip = true)
     {

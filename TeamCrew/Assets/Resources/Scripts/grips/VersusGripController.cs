@@ -41,10 +41,6 @@ public class VersusGripController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalStartPosition = transform.localPosition;
 
-
-        //boilerSound.clip = Resources.Load("Audio/Sound/Frog/kettle") as AudioClip;
-        //releaseSound.clip = Resources.Load("Audio/Sound/Frog/shh") as AudioClip;
-
         if (boilerSound != null && releaseSound != null)
         {
             boilerSound.playOnAwake = false;

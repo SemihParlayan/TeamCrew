@@ -199,7 +199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &115454
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,7 +730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &144822
 GameObject:
   m_ObjectHideFlags: 1
@@ -1303,7 +1303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &180086
 GameObject:
   m_ObjectHideFlags: 0
@@ -2351,7 +2351,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40.022755, y: -706.9057, z: 0}
+  m_LocalPosition: {x: 6.542682, y: 67.136665, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 441890}
@@ -4648,7 +4648,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11408912}
   connectedBody: {fileID: 5070556}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11408912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4775,7 +4775,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11437508}
   connectedBody: {fileID: 5015550}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
   handScript: {fileID: 11475224}
 --- !u!114 &11423166
 MonoBehaviour:
@@ -4793,7 +4793,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11434882}
   connectedBody: {fileID: 5044424}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11423260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4810,7 +4810,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11487020}
   connectedBody: {fileID: 5091674}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11425722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4993,7 +4993,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11458988}
   connectedBody: {fileID: 5072998}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
   handScript: {fileID: 11491440}
 --- !u!114 &11458988
 MonoBehaviour:
@@ -5061,7 +5061,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11451346}
   connectedBody: {fileID: 5070556}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11464632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5078,7 +5078,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11431950}
   connectedBody: {fileID: 5044424}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11465930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5136,6 +5136,7 @@ MonoBehaviour:
   body: {fileID: 0}
   leftHandMagnet: {fileID: 11453794}
   rightHandMagnet: {fileID: 11460992}
+  croakSound: {fileID: 0}
   motorSpeed: 600
   versusMotorBoost: 600
   versusHands: 0

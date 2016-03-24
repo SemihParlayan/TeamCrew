@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 
 public class PauseController : MonoBehaviour 
 {
+    public AudioMixer mixer;
     public M_Screen pauseScreen;
     private GameManager gameManager;
     private M_ScreenManager screenManager;
     private bool paused;
+    private float sfxVolume;
+    private float environmentVolume;
+    private float musicVolume;
 
     void Awake()
     {
@@ -41,6 +46,14 @@ public class PauseController : MonoBehaviour
     }
     void Pause()
     {
+        mixer.GetFloat("SFXVolume", out sfxVolume);
+        mixer.GetFloat("EnvironmentVolume", out environmentVolume);
+        mixer.GetFloat("MusicVolume", out musicVolume);
+
+        mixer.SetFloat("EnvironmentVolume", -80f);
+        mixer.SetFloat("SFXVolume", -80f);
+        mixer.SetFloat("MusicVolume", musicVolume - (Mathf.Abs(musicVolume) / 2));
+
         Time.timeScale = 0;
         M_ScreenManager.SetActive(true);
         M_ScreenManager.SwitchScreen(pauseScreen);
@@ -53,6 +66,10 @@ public class PauseController : MonoBehaviour
     }
     void UnPause()
     {
+        mixer.SetFloat("EnvironmentVolume", environmentVolume);
+        mixer.SetFloat("SFXVolume", sfxVolume);
+        mixer.SetFloat("MusicVolume", musicVolume);
+
         Time.timeScale = 1;
         M_ScreenManager.SetActive(false);
 
