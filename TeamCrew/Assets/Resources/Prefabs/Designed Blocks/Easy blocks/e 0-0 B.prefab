@@ -5378,7 +5378,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 111092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90, y: 61.976532, z: 4.75}
+  m_LocalPosition: {x: -56.992218, y: -164.80191, z: 4.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 409182}
@@ -6820,10 +6820,11 @@ AudioSource:
   m_GameObject: {fileID: 152874}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24374766, guid: 2c5922f0713f2c04eb2736e440bbfdc2,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 6f8537333dd58bd43a89f7ca48953701, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -6863,7 +6864,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -6874,7 +6875,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -6885,7 +6886,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!95 &9500844
 Animator:
   serializedVersion: 3
@@ -7969,8 +7970,8 @@ MonoBehaviour:
   startSize: 0
   endSize: 0
   blockIndex: 0
-  blockheightTop: 0
-  blockheightBottom: 0
+  noRendererStartOffset: {x: 0, y: 0, z: 0}
+  noRendererEndOffset: {x: 0, y: 0, z: 0}
   gizmoSize: 0.2
 --- !u!114 &11460728
 MonoBehaviour:
@@ -8126,8 +8127,8 @@ MonoBehaviour:
   startSize: 0
   endSize: 0
   blockIndex: 30
-  blockheightTop: 0
-  blockheightBottom: 0
+  noRendererStartOffset: {x: 0, y: 0, z: 0}
+  noRendererEndOffset: {x: 0, y: 0, z: 0}
   gizmoSize: 0.2
 --- !u!114 &11476450
 MonoBehaviour:
