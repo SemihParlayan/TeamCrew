@@ -8,12 +8,14 @@ public class EndgameMenuScreen : M_Screen
     public GameObject menuMountain;
     public M_Screen mainMenuScreen;
     private M_FadeToColor fade;
+    private GameManager gameManager;
 
     //Data
     public Vector3 offsetFromTop;
 
     protected override void OnAwake()
     {
+        gameManager = GameObject.FindObjectOfType<GameManager>();
         generator = GameObject.FindWithTag("GameManager").GetComponent<LevelGeneration>();
         fade = GetComponent<M_FadeToColor>();
     }
@@ -31,6 +33,11 @@ public class EndgameMenuScreen : M_Screen
     }
 
 
+    public override void OnSwitchedFrom()
+    {
+        base.OnSwitchedFrom();
+        gameManager.ResetWinVariable();
+    }
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();

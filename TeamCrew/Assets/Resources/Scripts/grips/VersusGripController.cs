@@ -19,6 +19,7 @@ public class VersusGripController : MonoBehaviour
 
     //Components
     public GripAnimation gripAnimation;
+    private HandGrip handComponent;
 
 
     public float blinkTimer;
@@ -33,6 +34,7 @@ public class VersusGripController : MonoBehaviour
 
     void Awake()
     {
+        handComponent = GetComponent<HandGrip>();
         AudioSource originalSource = GetComponent<AudioSource>();
         AudioMixerGroup mixerGroup = null;
         if (originalSource)
@@ -72,6 +74,11 @@ public class VersusGripController : MonoBehaviour
                 releaseSound.Play();
                 boilerSound.Stop();
             }
+        }
+        if (normal <= 0.2f)
+        {
+            if (handComponent != null)
+                Vibration.instance.SetVibration(handComponent.player, 1f, 1f, 0.35f);
         }
 
         //Shake

@@ -32,6 +32,7 @@ AudioMixerController:
     - 4c1580842b0548a46b77fc0132558cbe
     - 7fbd1690f4d549a4fb36dc7263d30f09
     - 170d20f7cd332654e82ee910c54b7b7d
+    - d184de2fb67a50a4bb24a79e7c37075f
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500003}
@@ -53,6 +54,7 @@ AudioMixerGroupController:
   - {fileID: 24360196}
   - {fileID: 24349400}
   - {fileID: 24336006}
+  - {fileID: 24337922}
   m_Volume: e57b847cf686d7b448345ebc5a7e1c02
   m_Pitch: 46830832d29b57e48a932fe9c227c1da
   m_Effects:
@@ -91,6 +93,23 @@ AudioMixerGroupController:
   m_Pitch: 124c5ce86d5b37e4d9aa5bb58e4a35f8
   m_Effects:
   - {fileID: 24477018}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &24337922
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Ladybug
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: d184de2fb67a50a4bb24a79e7c37075f
+  m_Children: []
+  m_Volume: 4ab8cf90ee44d134aa3f095c78acc8e9
+  m_Pitch: 2a9da5ef5b8e7364abbf99fa435c246d
+  m_Effects:
+  - {fileID: 24444734}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -275,6 +294,19 @@ AudioMixerEffectController:
   m_EffectID: be3bde276732f9a4f86387f17a362063
   m_EffectName: Attenuation
   m_MixLevel: be326f6c4f835d54e810e37826d056d0
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &24444734
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: c269f9fe151227c4b825c782b60826de
+  m_EffectName: Attenuation
+  m_MixLevel: e4445d62728a2a141be48d3f8fff7d05
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0

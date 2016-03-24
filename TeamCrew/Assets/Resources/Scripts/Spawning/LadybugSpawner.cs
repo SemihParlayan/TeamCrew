@@ -51,7 +51,7 @@ public class LadybugSpawner : MonoBehaviour
     {
         float playersDistanceY = Mathf.Abs(GameManager.GetTopFrog().position.y - GameManager.GetBottomFrog().position.y);
 
-        if (playersDistanceY > 5 && Random.Range(0, 100) > 60)
+        if (playersDistanceY > 5)// && Random.Range(0, 100) > 60)
         {
             Vector3 spawnPos = GameManager.GetBottomFrog().position;
             int dir = (Random.Range(0, 2) == 0) ? 1 : -1;
@@ -59,6 +59,7 @@ public class LadybugSpawner : MonoBehaviour
             spawnPos += Vector3.right * dir * 50f;
             currentLadybug = Instantiate(ladybugPrefab, spawnPos, Quaternion.identity) as Transform;
             currentLadybug.GetComponent<Insect>().spawner = this;
+            currentLadybug.GetComponent<Insect>().panickTargetOffset = playersDistanceY + 4f;
         }
     }
     public void RemoveFly()

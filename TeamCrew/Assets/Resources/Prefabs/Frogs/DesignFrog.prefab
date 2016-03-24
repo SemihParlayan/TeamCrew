@@ -3651,7 +3651,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3673,7 +3673,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &8266688
 AudioSource:
   m_ObjectHideFlags: 1
@@ -4217,6 +4217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakLimit: 5
+  audioSource: {fileID: 0}
 --- !u!114 &11420304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4830,6 +4831,7 @@ MonoBehaviour:
   body: {fileID: 0}
   leftHandMagnet: {fileID: 11495478}
   rightHandMagnet: {fileID: 11435002}
+  croakSound: {fileID: 0}
   motorSpeed: 450
   versusMotorBoost: 600
   versusHands: 0
