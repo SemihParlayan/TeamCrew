@@ -77,8 +77,8 @@ public class VersusGripController : MonoBehaviour
         }
         if (normal <= 0.2f)
         {
-            if (handComponent != null)
-                Vibration.instance.SetVibration(handComponent.player, 1f, 1f, 0.35f);
+            //if (handComponent != null)
+                //Vibration.instance.SetVibration(handComponent.player, 1f, 1f, 0.35f);
         }
 
         //Shake
@@ -107,6 +107,7 @@ public class VersusGripController : MonoBehaviour
             spriteRenderer.color = (spriteRenderer.color == Color.red) ? Color.white : Color.red;
 
             gripAnimation.Activate("red");
+            Vibration.instance.SetVibration(handComponent.player, 0.5f, 0.5f, 0.1f);
         }
     }
 

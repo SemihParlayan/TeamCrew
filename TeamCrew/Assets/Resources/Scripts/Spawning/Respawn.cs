@@ -126,9 +126,18 @@ public class Respawn : MonoBehaviour
         Rigidbody2D b = body.GetComponent<Rigidbody2D>();
         b.isKinematic = false;
         b.AddForce(Vector2.up * 650000);
+        b.freezeRotation = true;
+        StartCoroutine(ResetBodyFreeze(b, 0.5f));
 
         body.GetComponent<FrogColliderDisabler>().DisableRockColliders();
         return body;
+    }
+
+    private IEnumerator ResetBodyFreeze(Rigidbody2D body, float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        body.freezeRotation = false;
     }
     private void PlayBounce()
     {
