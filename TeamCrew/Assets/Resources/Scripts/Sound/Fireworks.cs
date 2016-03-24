@@ -14,6 +14,10 @@ public class Fireworks : MonoBehaviour
     public void ExplodeBig()
     {
         bigExplosion.Play();
+        for (int i = 0; i < 4; i++)
+        {
+            Vibration.instance.SetVibration(i, 1f, 1f, 1f);
+        }
     }
 	
 	void Update ()

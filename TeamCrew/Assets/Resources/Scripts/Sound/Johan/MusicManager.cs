@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ public class LayerData
 {
     public int[] playOnLevels;
     public AudioClip audioClip;
+    public AudioMixerGroup audioGroup;
     [Range(0f, 1f)]
     public float volume = 1.0f;
 }
@@ -92,6 +94,7 @@ public class MusicManager : MonoBehaviour
 		for (int i = 0; i < m_layerData.Length; i++) {
 			MusicLayer musicLayer = new MusicLayer(this, m_defaultFadeTime, m_layerData[i].volume);
 			musicLayer.m_audioSource.clip = m_layerData[i].audioClip;
+            musicLayer.m_audioSource.outputAudioMixerGroup = m_layerData[i].audioGroup;
 			musicLayer.m_playOnLevels = m_layerData[i].playOnLevels;
 			m_musicLayers.Add(musicLayer);
 		}

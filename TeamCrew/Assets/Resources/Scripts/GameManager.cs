@@ -383,6 +383,8 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public string singlePlayerStarted;
+    //[HideInInspector]
+    public bool winIsCalled;
     public bool IsInMultiplayerMode { get { return (singlePlayerStarted == string.Empty); } }
     private bool hangingFrogsSpawned;
 
@@ -517,11 +519,6 @@ public class GameManager : MonoBehaviour
         //Sort by Y value
         if (koth.enabled)
         {
-            //koth.keepers[0].targetScore = 1000;
-            //koth.keepers[1].targetScore = 3000;
-            //koth.keepers[2].targetScore = 500;
-            //koth.keepers[3].targetScore = 10000;
-
             bool changed = true;
             while (changed)
             {
@@ -579,7 +576,7 @@ public class GameManager : MonoBehaviour
 
 
         int spawnedFrogs = 0;
-        Vector3 topPosition = generatorScript.GetTopPosition() - new Vector3(0, 2.7f, 0);
+        Vector3 topPosition = generatorScript.GetTopPosition() - new Vector3(0.5f, 2.7f, 0);
         Transform previousFrog = null;
         transformOrder.Clear();
 
@@ -619,6 +616,10 @@ public class GameManager : MonoBehaviour
 
         DestroyFrogs();
         SpawnTopFrog();
+    }
+    public void ResetWinVariable()
+    {
+        this.winIsCalled = false;
     }
 
     /// <summary>
@@ -771,6 +772,10 @@ public class GameManager : MonoBehaviour
     /// <param name="frogNumber">What frog won the game? 1 or 2?</param>
     public void Win(Transform topfrogPrefab, int victoryFrogNumber)
     {
+        if (this.winIsCalled)
+            return;
+        this.winIsCalled = true;
+        Debug.Log("Win is called");
         this.victoryFrogNumber = victoryFrogNumber;
         this.topFrogPrefab = topfrogPrefab;
 
