@@ -14,6 +14,7 @@ public class ScoreKeeper
     public float score;
     public float percent;
     public bool active;
+    public float targetY;
 
     public int ScoreIncreaseAmount
     {
@@ -55,6 +56,8 @@ public class KOTH : MonoBehaviour
     [Range(0, 1f)]
     public float winningGripPercent;
 
+    public AudioSource newLeaderSound;
+    public AudioSource scoreGainSound;
     public Transform KOTHParent;
     public ParticleSystem particleSystem;
     public TextMesh scoreAdditionPrefab;
@@ -68,6 +71,7 @@ public class KOTH : MonoBehaviour
     public int comebackCap = 100;
 
     //Private
+    private ScoreKeeper currentLeader;
     private GameManager gameManager;
     private float scoreTimer;
     private bool spawnedWinningScore;
@@ -92,6 +96,8 @@ public class KOTH : MonoBehaviour
             return;
 
         IncreaseTopFrogScore();
+        UpdateLeader();
+        UpdateYPositions();
     }
 
     public void OnGameStart()
@@ -177,12 +183,13 @@ public class KOTH : MonoBehaviour
     public void AddScoreToUI(int player, float amount)
     {
         keepers[player].targetScore += amount;
-        keepers[player].anim.SetTrigger("score");
+        keepers[player].anim.SetTrigger("ScoreGain");
 
         //Set score into text
         keepers[player].scoreText.text = (keepers[player].targetScore - 1).ToString();
 
         UpdateColumns();
+        GameManager.PlayAudioSource(scoreGainSound, 0.7f, 1.4f);
     }
 
     private void SetParticlePosition(int player)
@@ -273,7 +280,107 @@ public class KOTH : MonoBehaviour
             keepers[i].scoreText.rectTransform.position = textPos;
         }
     }
+    private void UpdateYPositions()
+    {
+        float barHeight = 50f;
+        float topPosition = 315.5f;
 
+        ScoreKeeper n1 = GetHighestScore(float.MaxValue);
+        if (n1 != null)
+        {
+            n1.targetY = topPosition;
+            ScoreKeeper n2 = GetHighestScore(n1.targetScore);
+
+            if (n2 != null)
+            {
+                n2.targetY = topPosition - (barHeight * 1);
+                ScoreKeeper n3 = GetHighestScore(n2.targetScore);
+
+                if (n3 != null)
+                {
+                    n3.targetY = topPosition - (barHeight * 2);
+                    ScoreKeeper n4 = GetHighestScore(n3.targetScore);
+                    if (n4 != null)
+                    {
+                        n4.targetY = topPosition - (barHeight * 3);
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < keepers.Length; i++)
+        {
+            if (keepers[i].active)
+            {
+                if (keepers[i].targetScore == 1f)
+                {
+                    keepers[i].targetY = topPosition - (barHeight * i);
+                }
+                Vector3 pos = keepers[i].image.rectTransform.position;
+                pos.y = Mathf.MoveTowards(pos.y, keepers[i].targetY, Time.deltaTime * 100f);
+                keepers[i].image.rectTransform.position = pos;
+            }
+        }
+    }
+    private ScoreKeeper GetHighestScore(float belowLimit)
+    {
+        ScoreKeeper maxLeader = null;
+        for (int i = 0; i < keepers.Length; i++)
+        {
+            if (!keepers[i].active)
+                continue;
+            if (keepers[i].targetScore < belowLimit)
+            {
+                if (maxLeader == null)
+                {
+                    maxLeader = keepers[i];
+                }
+                else if (keepers[i].targetScore > maxLeader.targetScore)
+                {
+                    maxLeader = keepers[i];
+                }
+            }
+        }
+        return maxLeader;
+    }
+    private void UpdateLeader()
+    {
+        ScoreKeeper leader = GetLeader();
+        if (leader == null)
+            return;
+        if (currentLeader == null)
+        {
+            currentLeader = leader;
+            return;
+        }
+
+        if (leader.targetScore > currentLeader.targetScore)
+        {
+            SwitchLeader(leader);
+            return;
+        }
+    }
+    private void SwitchLeader(ScoreKeeper newleader)
+    {
+        currentLeader = newleader;
+        currentLeader.anim.SetTrigger("LeadChange");
+        GameManager.PlayAudioSource(newLeaderSound, 0.7f, 1.5f, false);
+    }
+    private ScoreKeeper GetLeader()
+    {
+        if (keepers.Length <= 0)
+            return null;
+
+        ScoreKeeper leader = keepers[0];
+        for (int i = 1; i < keepers.Length; i++)
+        {
+            if (keepers[i].targetScore > leader.targetScore)
+            {
+                leader = keepers[i];
+            }
+        }
+        return leader;
+    }
     void OnValidate()
     {
         keepers[0].targetScore = Mathf.Clamp(keepers[0].targetScore, 1, float.MaxValue);
@@ -286,7 +393,7 @@ public class KOTH : MonoBehaviour
         keepers[2].score = Mathf.Clamp(keepers[2].targetScore, 1, float.MaxValue);
         keepers[3].score = Mathf.Clamp(keepers[3].targetScore, 1, float.MaxValue);
 
-        UpdateColumns();
+        //UpdateColumns();
     }
 
 }

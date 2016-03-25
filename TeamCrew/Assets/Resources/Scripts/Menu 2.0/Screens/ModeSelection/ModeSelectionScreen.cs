@@ -11,10 +11,10 @@ public class ModeSelectionScreen : M_Screen
     public TextMesh gamemodeDescription;
     public SpriteRenderer gamemodePicture;
     public ModeFade modeFade;
+    public AudioSource mountainGenerationSound;
 
     //References
     public M_Screen gameScreenReference;
-    public Animator pressXGenerateButton;
     public M_Button[] modeButtons;
     public M_Button continueButton;
     private GameModifiers gameModifiers;
@@ -37,14 +37,6 @@ public class ModeSelectionScreen : M_Screen
     protected override void OnUpdate()
     {
         base.OnUpdate();
-
-        /* //X button is no longer relevant since new crazy menu update /seb  
-        if (GameManager.GetButtonPress(XboxButton.X))
-        {
-            poff.PoffRepeating();
-            pressXGenerateButton.SetTrigger("press");
-        }
-        */
     }
 
     public override void OnSwitchedTo()
@@ -133,6 +125,7 @@ public class ModeSelectionScreen : M_Screen
     }
     public void GenerateMountain()
     {
+        GameManager.PlayAudioSource(mountainGenerationSound, 0.7f, 1.4f);
         gamemodeIndex = tmpGameModeIndex;
         UpdateContinueButton();
         GameMode mode = gameModes.gameModes[gamemodeIndex];

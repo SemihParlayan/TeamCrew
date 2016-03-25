@@ -137,7 +137,8 @@ public class Respawn : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        body.freezeRotation = false;
+        if (body != null)
+            body.freezeRotation = false;
     }
     private void PlayBounce()
     {

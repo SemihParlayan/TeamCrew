@@ -293,6 +293,24 @@ public class GameManager : MonoBehaviour
         GamePad.SetVibration(PlayerIndex.Four, 0f, 0f);
     }
 
+    public static void PlayAudioSource(AudioSource source, float minPitch = 1f, float maxPitch = 1f, bool overrideIsPlaying = true)
+    {
+        if (source == null)
+            return;
+
+        float previousPitch = source.pitch;
+        float pitch = Random.Range(minPitch, maxPitch);
+
+        source.pitch = pitch;
+        if (overrideIsPlaying)
+        {
+            source.Play();
+        }
+        else if (!source.isPlaying)
+        {
+            source.Play();
+        }
+    }
     public static AudioSource PlayClipAtPoint(AudioClip clip, Vector3 position)
     {
         position.z = 0;

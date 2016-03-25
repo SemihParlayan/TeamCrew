@@ -34,6 +34,9 @@ AudioMixerController:
     - 170d20f7cd332654e82ee910c54b7b7d
     - d184de2fb67a50a4bb24a79e7c37075f
     - 5a3eec44436f6b748b8fbc78e6d93b99
+    - d397b1270f9a9b84296b4da19194522a
+    - 56e1ad4686e546049b4df0b7b48b0fae
+    - d31e0a2adbfec8d46b81907d2083284b
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500003}
@@ -57,6 +60,9 @@ AudioMixerGroupController:
   - {fileID: 24336006}
   - {fileID: 24337922}
   - {fileID: 24374766}
+  - {fileID: 24329476}
+  - {fileID: 24339686}
+  - {fileID: 24325900}
   m_Volume: e57b847cf686d7b448345ebc5a7e1c02
   m_Pitch: 46830832d29b57e48a932fe9c227c1da
   m_Effects:
@@ -78,6 +84,40 @@ AudioMixerGroupController:
   m_Pitch: 589668ab779a59245943534cc102ee7d
   m_Effects:
   - {fileID: 24417924}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &24325900
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: KOTH lead change
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 56e1ad4686e546049b4df0b7b48b0fae
+  m_Children: []
+  m_Volume: 2c62841e7e3221640b47de58aaafc26d
+  m_Pitch: 86f7d9b5235c0f44098177fb4e15d858
+  m_Effects:
+  - {fileID: 24432760}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &24329476
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Mountain generation
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: d397b1270f9a9b84296b4da19194522a
+  m_Children: []
+  m_Volume: ce42c3dd4f4d5fc46bd93d14d4455ea9
+  m_Pitch: a48f3136b1eb47e448be227b2162ca2b
+  m_Effects:
+  - {fileID: 24426216}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -129,6 +169,23 @@ AudioMixerGroupController:
   m_Pitch: 9701d8560c5f0e847a825e5aa54b4127
   m_Effects:
   - {fileID: 24439826}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &24339686
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: KOTH score gain
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: d31e0a2adbfec8d46b81907d2083284b
+  m_Children: []
+  m_Volume: b1a8815bd875ecd48a0e36fe1e960be2
+  m_Pitch: 1e66b6b7ed1db344e93bc8c7f1138dfc
+  m_Effects:
+  - {fileID: 24473006}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -304,6 +361,32 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &24426216
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 205a4fe7773a06f4fa216b6112e3b4d6
+  m_EffectName: Attenuation
+  m_MixLevel: 9f179b73ecbd88c4fa91ec9b4bece17e
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &24432760
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 7ad83c1db7a5efa4089b24fb69e89da0
+  m_EffectName: Attenuation
+  m_MixLevel: 2c66eb088581a0640b5c84d3f65ebebd
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &24434966
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -382,6 +465,19 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &24473006
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: fb7df41da41de73469fed433fefe717a
+  m_EffectName: Attenuation
+  m_MixLevel: c040252253d348a43aec867ff51ed968
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &24477018
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -421,6 +517,7 @@ AudioMixerSnapshotController:
     e44f2782676bbdf419a8fdf8ae062268: -14.816608
     1b6ba4f21cda1ab48a32e993ad90a629: 0.23288131
     2c6212aab9c82994e95ce8d0e44978ca: -9.833286
+    b1a8815bd875ecd48a0e36fe1e960be2: -10.345207
     e57b847cf686d7b448345ebc5a7e1c02: -0.39762527
     7e9cfa0d88cd1734597307a8cd292d04: -0.002441872
     a55c889daf741104abc80f9303fe4fb4: 0.13552584

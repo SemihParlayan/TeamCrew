@@ -126,7 +126,7 @@ public class FrogPrototype : MonoBehaviour
         if (croakSound != null && gameManager.gameActive)
         {
             bool croak = (GameManager.GetButtonPress(XboxButton.X, player) || GameManager.GetButtonPress(XboxButton.Y, player) || GameManager.GetButtonPress(XboxButton.B, player) || GameManager.GetButtonPress(XboxButton.A, player));
-            if (croak && !croakSound.isPlaying)
+            if (croak)
             {
                 croakSound.pitch = Random.Range(0.7f, 1.4f);
                 croakSound.Play();
