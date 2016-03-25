@@ -77,6 +77,7 @@ public class LevelGeneration : MonoBehaviour
                 {
                     TagCollection c = new TagCollection(); c.tags.Add(BlockTag.Converter);
                     Block converter = FindBlock(c, true);
+                    firstBlock = converter.gameObject;
                     level.Add(converter);
                     ConnectBlocks(converter, tutorialBlock);
                     ConnectBlocks(block, converter);

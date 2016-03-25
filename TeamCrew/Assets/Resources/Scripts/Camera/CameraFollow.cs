@@ -69,7 +69,7 @@ public class CameraFollow : MonoBehaviour
             FrogPrototype frog = GameManager.players[i].GetComponent<FrogPrototype>();
             if (frog.leftGripScript.isOnGrip || frog.rightGripScript.isOnGrip)
             {
-                //lockCamera = false;
+                lockCamera = false;
                 break;
             }
         }
