@@ -310,9 +310,12 @@ public class KOTH : MonoBehaviour
         {
             if (keepers[i].active)
             {
-                Vector3 pos = keepers[i].image.rectTransform.position;
+                Vector3 pos = keepers[i].anim.GetComponent<RectTransform>().position;
                 pos.y = Mathf.MoveTowards(pos.y, keepers[i].targetY, Time.deltaTime * 100f);
-                keepers[i].image.rectTransform.position = pos;
+                keepers[i].anim.GetComponent<RectTransform>().position = pos;
+                //Vector3 pos = keepers[i].image.rectTransform.position;
+                //pos.y = Mathf.MoveTowards(pos.y, keepers[i].targetY, Time.deltaTime * 100f);
+                //keepers[i].image.rectTransform.position = pos;
             }
         }
     }
