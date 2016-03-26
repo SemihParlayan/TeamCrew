@@ -111,6 +111,8 @@ public class FrogPrototype : MonoBehaviour
         forceArmsUp = false;
 
         croakSound = rightGripScript.transform.GetComponent<AudioSource>();
+
+        yVelocityClamp = 10f;
     }
 
     private void Update()

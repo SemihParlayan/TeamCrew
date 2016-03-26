@@ -163,6 +163,7 @@ public class Insect : MonoBehaviour
                 break;
 
             case FlyState.Leaving:
+                arrowAnimator.SetTrigger("Despawn");
                 gripJoint.enabled = false;
                 moveNormalized = true;
                 int dir = (Random.Range(0, 2) == 0) ? 1 : -1;

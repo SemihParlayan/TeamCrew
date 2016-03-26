@@ -9,6 +9,7 @@ public class PauseController : MonoBehaviour
     public EndgameMenuScreen endgameMenuScreen;
     private GameManager gameManager;
     private M_ScreenManager screenManager;
+    public KOTH koth;
     private bool paused;
     private float sfxVolume;
     private float environmentVolume;
@@ -88,6 +89,7 @@ public class PauseController : MonoBehaviour
     }
     void GoToMainMenu()
     {
+        koth.DisableKeepers();
         paused = false;
         UnPause();
         endgameMenuScreen.ActivateMenuMountain();
