@@ -12,6 +12,8 @@ public class ModeSelectionScreen : M_Screen
     public SpriteRenderer gamemodePicture;
     public ModeFade modeFade;
     public AudioSource mountainGenerationSound;
+    public Transform selectionArrow;
+    public Vector3 selectionArrowTargetPos;
 
     //References
     public M_Screen gameScreenReference;
@@ -37,6 +39,8 @@ public class ModeSelectionScreen : M_Screen
     protected override void OnUpdate()
     {
         base.OnUpdate();
+
+        selectionArrow.localPosition = Vector3.Lerp(selectionArrow.localPosition, selectionArrowTargetPos, Time.deltaTime * 5);
     }
 
     public override void OnSwitchedTo()
@@ -131,6 +135,8 @@ public class ModeSelectionScreen : M_Screen
         GameMode mode = gameModes.gameModes[gamemodeIndex];
         GameManager.CurrentGameMode = mode;
         poff.PoffRepeating();
+
+        selectionArrowTargetPos = new Vector3(-2.8f + (3.3f * gamemodeIndex), 2.91f, 0f);
     }
     public void UpdateContinueButton()
     {
