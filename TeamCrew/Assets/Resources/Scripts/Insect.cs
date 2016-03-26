@@ -8,6 +8,7 @@ public class Insect : MonoBehaviour
     public Transform topFrog;
     public Transform bottomFrog;
     public AudioSource soundSource;
+    public Animator arrowAnimator;
     public LadybugSpawner spawner;
 
     [Range(0, 10)]
@@ -171,6 +172,7 @@ public class Insect : MonoBehaviour
                 break;
 
             case FlyState.Panicking:
+                Invoke("ActivateArrows", 2.5f);
                 moveNormalized = false;
                 targetChasePosition += Vector3.up * panickTargetOffset;
                 targetChasePosition.y = Mathf.Clamp(targetChasePosition.y, 0, GameManager.LevelHeight - panickTopLimit);
@@ -187,6 +189,11 @@ public class Insect : MonoBehaviour
         ChangeState(FlyState.Leaving);
     }
 
+
+    private void ActivateArrows()
+    {
+        arrowAnimator.SetTrigger("Spawn");
+    }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;

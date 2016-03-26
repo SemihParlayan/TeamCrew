@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -285,63 +286,35 @@ public class KOTH : MonoBehaviour
         float barHeight = 50f;
         float topPosition = 315.5f;
 
-        ScoreKeeper n1 = GetHighestScore(float.MaxValue);
-        if (n1 != null)
+        List<int> indexesFound = new List<int>();
+        int barsFound = 0;
+        while (barsFound < 4)
         {
-            n1.targetY = topPosition;
-            ScoreKeeper n2 = GetHighestScore(n1.targetScore);
-
-            if (n2 != null)
+            float highestScore = -1;
+            int highestIndex = -1;
+            for (int i = 0; i < keepers.Length; i++)
             {
-                n2.targetY = topPosition - (barHeight * 1);
-                ScoreKeeper n3 = GetHighestScore(n2.targetScore);
-
-                if (n3 != null)
+                float score = keepers[i].targetScore;
+                if (score > highestScore && !indexesFound.Contains(i))
                 {
-                    n3.targetY = topPosition - (barHeight * 2);
-                    ScoreKeeper n4 = GetHighestScore(n3.targetScore);
-                    if (n4 != null)
-                    {
-                        n4.targetY = topPosition - (barHeight * 3);
-                    }
+                    highestScore = score;
+                    highestIndex = i;
                 }
             }
+            indexesFound.Add(highestIndex);
+            keepers[highestIndex].targetY = topPosition - (barHeight * barsFound);
+            barsFound++;
         }
 
         for (int i = 0; i < keepers.Length; i++)
         {
             if (keepers[i].active)
             {
-                if (keepers[i].targetScore == 1f)
-                {
-                    keepers[i].targetY = topPosition - (barHeight * i);
-                }
                 Vector3 pos = keepers[i].image.rectTransform.position;
                 pos.y = Mathf.MoveTowards(pos.y, keepers[i].targetY, Time.deltaTime * 100f);
                 keepers[i].image.rectTransform.position = pos;
             }
         }
-    }
-    private ScoreKeeper GetHighestScore(float belowLimit)
-    {
-        ScoreKeeper maxLeader = null;
-        for (int i = 0; i < keepers.Length; i++)
-        {
-            if (!keepers[i].active)
-                continue;
-            if (keepers[i].targetScore < belowLimit)
-            {
-                if (maxLeader == null)
-                {
-                    maxLeader = keepers[i];
-                }
-                else if (keepers[i].targetScore > maxLeader.targetScore)
-                {
-                    maxLeader = keepers[i];
-                }
-            }
-        }
-        return maxLeader;
     }
     private void UpdateLeader()
     {
