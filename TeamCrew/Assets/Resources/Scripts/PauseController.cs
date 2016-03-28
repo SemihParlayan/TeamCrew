@@ -4,6 +4,7 @@ using System.Collections;
 
 public class PauseController : MonoBehaviour 
 {
+    public M_Sounds soundManager;
     public AudioMixer mixer;
     public M_Screen pauseScreen;
     public EndgameMenuScreen endgameMenuScreen;
@@ -86,6 +87,7 @@ public class PauseController : MonoBehaviour
         UnPause();
         M_ScreenManager.SetActive(true);
         gameManager.ResetGameVariables();
+        soundManager.StartMenuMusic();
     }
     void GoToMainMenu()
     {
@@ -94,5 +96,6 @@ public class PauseController : MonoBehaviour
         UnPause();
         endgameMenuScreen.ActivateMenuMountain();
         M_ScreenManager.SetActive(true);
+        soundManager.StartMenuMusic();
     }
 }

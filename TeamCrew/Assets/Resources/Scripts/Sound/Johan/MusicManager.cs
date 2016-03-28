@@ -4,208 +4,117 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-[System.Serializable]
-public class Level
-{
-    [HideInInspector]
-    public string name = "Level";
-    [Range(0f, 1f)]
-    public float activationPercent;
-
-    public Level(string name)
-    {
-        this.name = name;
-    }
-}
 
 [System.Serializable]
-public class LayerData
-{
-    public int[] playOnLevels;
-    public AudioClip audioClip;
-    public AudioMixerGroup audioGroup;
-    [Range(0f, 1f)]
-    public float volume = 1.0f;
-}
-
 public class MusicLayer
 {
-    public AudioSource m_audioSource;
-    public bool m_isActive;
-    public float m_goalVolume;
-    public int[] m_playOnLevels;
-    float m_fadeSpeed;
-    public float m_maxVolume;
+    [HideInInspector]
+    public string name;
 
+    public string instrument;
+    public AudioClip audioClip;
+    public AudioMixerGroup audioGroup;
+    [Range(0, 100)]
+    public int start = 0;
+    [Range(0, 100)]
+    public int end = 0;
+    public bool requireTutorialComplete = true;
 
-    public MusicLayer(MusicManager musicManager, float fadeTime, float maxVolume)
+    private AudioSource m_audioSource;
+    private float goalVolume;
+    private float fadeSpeed;
+
+    public void Initialize(MusicManager musicManager, float fadeTime)
     {
         m_audioSource = musicManager.gameObject.AddComponent<AudioSource>();
+        m_audioSource.clip = audioClip;
+        m_audioSource.outputAudioMixerGroup = audioGroup;
         m_audioSource.loop = true;
         m_audioSource.volume = 0.0f;
-        m_isActive = false;
-        m_fadeSpeed = 1.0f / fadeTime;
-        m_maxVolume = maxVolume;
+        m_audioSource.Play();
+        fadeSpeed = 1.0f / fadeTime;
+        goalVolume = 0.0f;
     }
 
     public void SetGoalVolume(float goalVolume)
     {
-        m_goalVolume = goalVolume;
+        this.goalVolume = goalVolume;
     }
 
-    public void UpdateLayer()
+    public void UpdateLayer(bool forceQuit, float percentageClimbed, bool tutorialComplete)
     {
-        if (Mathf.Abs(m_audioSource.volume - m_goalVolume) > 0.01f)
+        //Is percentage withing play interval?
+        if (percentageClimbed >= start && percentageClimbed <= end)
         {
-            float direction = Mathf.Sign(m_goalVolume - m_audioSource.volume);
-            m_audioSource.volume += m_fadeSpeed * direction * Time.deltaTime;
+            SetGoalVolume(1f);
         }
-    }
+        else
+        {
+            SetGoalVolume(0f);
+        }
 
-    public bool ShouldPlay(int level)
-    {
-        for (int i = 0; i < m_playOnLevels.Length; i++)
+        //Is tutorial required and finished?
+        if (requireTutorialComplete && !tutorialComplete)
+            SetGoalVolume(0f);
+
+        //Is game active?
+        if (forceQuit)
+            SetGoalVolume(0f);
+
+        if (Mathf.Abs(m_audioSource.volume - goalVolume) > 0.01f)
         {
-            if (m_playOnLevels[i] == level)
-                return true;
+            float direction = Mathf.Sign(goalVolume - m_audioSource.volume);
+            m_audioSource.volume += fadeSpeed * direction * Time.deltaTime;
         }
-        return false;
     }
 }
 
 public class MusicManager : MonoBehaviour
 {
-    public M_Sounds menuMusicManager;
-	public float m_defaultFadeTime = 1.0f;
-	public LayerData[] m_layerData;
-    public List<Level> levels;
+    public bool debugMode;
+    public bool debugTutorialComplete;
 
-	private List<MusicLayer> m_musicLayers;
-    private GameManager gameManager;
-    public int m_currentLevel = -1;
+    public M_Sounds menuMusicManager;
+	public List<MusicLayer> musicLayers;
+	public float defaultFadeTime = 1.0f;
     public float percentageClimbed = 0.0f;
-	
+
+    private GameManager gameManager;
 
 	void Awake()
 	{
         menuMusicManager = GameObject.FindObjectOfType<M_Sounds>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-		m_musicLayers = new List<MusicLayer> ();
-		for (int i = 0; i < m_layerData.Length; i++) {
-			MusicLayer musicLayer = new MusicLayer(this, m_defaultFadeTime, m_layerData[i].volume);
-			musicLayer.m_audioSource.clip = m_layerData[i].audioClip;
-            musicLayer.m_audioSource.outputAudioMixerGroup = m_layerData[i].audioGroup;
-			musicLayer.m_playOnLevels = m_layerData[i].playOnLevels;
-			m_musicLayers.Add(musicLayer);
-		}
 
-		for (int i = 0; i < m_musicLayers.Count; i++)
-		{
-            MusicLayer musicLayer = m_musicLayers[i];
-            musicLayer.m_audioSource.Play();
-            musicLayer.m_isActive = false;
-		}
-	}
-
-	public void SetLevel(int level)
-	{
-        if (level < 0)
+        for (int i = 0; i < musicLayers.Count; i++) 
         {
-            for (int i = 0; i < m_musicLayers.Count; i++)
-            {
-                MusicLayer musicLayer = m_musicLayers[i];
-                musicLayer.SetGoalVolume(0.0f);
-                musicLayer.m_isActive = false;
-            }
-        }
-
-		if (level <= m_currentLevel || level > (m_musicLayers.Count - 1)) // ändra till "==" om musiken ska gå tillbaka till ett lägre lager
-			return;
-
-        
-
-        Debug.Log("Setting level " + level);
-		for (int i = 0; i < m_musicLayers.Count; i++)
-		{
-			MusicLayer musicLayer = m_musicLayers[i];
-			if (musicLayer.ShouldPlay(level) && !musicLayer.m_isActive)
-			{
-				musicLayer.SetGoalVolume(musicLayer.m_maxVolume);
-				musicLayer.m_isActive = true;
-			}
-			else if (!musicLayer.ShouldPlay(level) && musicLayer.m_isActive)
-			{
-				musicLayer.SetGoalVolume(0.0f);
-				musicLayer.m_isActive = false;
-			}
+            musicLayers[i].Initialize(this, defaultFadeTime);
 		}
-		m_currentLevel = level;
 	}
 
 	void Update()
-	    {
-        percentageClimbed = GameManager.GetClimbedHeight();
-		//TestMusic();
-
-        
-
-        int maxLevel = -1;
-        for (int i = 0; i < m_musicLayers.Count; i++)
-        {
-            m_musicLayers[i].UpdateLayer();
-
-            if (percentageClimbed > levels[i].activationPercent)
-            {
-                maxLevel = i;
-            }
-        }
-
-        if (menuMusicManager.playMenuMusic)
-        {
-            SetLevel(-1);
-            return;
-        }
-        if (!gameManager.tutorialComplete || !gameManager.gameActive)
-            maxLevel = 0;
-
-        SetLevel(maxLevel);
-	}
-
-	void TestMusic()
 	{
-		if (Input.GetKeyDown (KeyCode.Alpha0)) 
-			SetLevel(0);
+        if (!debugMode)
+            percentageClimbed = GameManager.GetClimbedHeight() * 100;
 
-		else if (Input.GetKeyDown (KeyCode.Alpha1)) 
-			SetLevel(1);
+        for (int i = 0; i < musicLayers.Count; i++)
+        {
+            bool tutorialComplete = (debugMode) ? debugTutorialComplete : gameManager.tutorialComplete;
+            if (percentageClimbed > 30)
+                tutorialComplete = true;
 
-		else if (Input.GetKeyDown(KeyCode.Alpha2))
-			SetLevel(2);
-
-		else if (Input.GetKeyDown(KeyCode.Alpha3))
-			SetLevel(3);
-
-		else if (Input.GetKeyDown(KeyCode.Alpha4))
-			SetLevel(4);
-
-		else if (Input.GetKeyDown(KeyCode.Alpha5))
-			SetLevel(5);
+            bool forceQuit = (debugMode) ? false : menuMusicManager.playMenuMusic;
+            musicLayers[i].UpdateLayer(forceQuit, percentageClimbed, tutorialComplete);
+        }
 	}
-
-    public void SetPercentageClimbed(float value)
-    {
-        percentageClimbed = value;
-    }
 
     void OnValidate()
     {
-        while (levels.Count < m_layerData.Length)
+        if (Application.isPlaying)
+            return;
+        foreach (MusicLayer m in musicLayers)
         {
-            levels.Add(new Level("Level: " + levels.Count));
-        }
-        while (levels.Count > m_layerData.Length)
-        {
-            levels.Remove(levels.Last());
+            m.name = m.instrument + " |  % " + m.start + " - " + m.end + " | Tutorial Complete: " + m.requireTutorialComplete;
         }
     }
 }

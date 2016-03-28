@@ -147,7 +147,6 @@ public class M_Screen : MonoBehaviour
     public virtual void OnSwitchedTo()
     {
         Invoke("Activate", 0.2f);
-        HighlightDefaultButton();
 
         M_Screen[] subScreens = transform.GetComponentsInChildren<M_Screen>();
 
@@ -227,6 +226,7 @@ public class M_Screen : MonoBehaviour
     void Activate()
     {
         active = true;
+        HighlightDefaultButton();
     }
 
     public void SwitchButton(M_Button targetButton)

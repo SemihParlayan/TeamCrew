@@ -39,47 +39,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d532c4c11539740afb66d688847f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
+  debugTutorialComplete: 0
   menuMusicManager: {fileID: 0}
-  m_defaultFadeTime: 1
-  m_layerData:
-  - playOnLevels: 000000000100000002000000030000000400000005000000
+  musicLayers:
+  - name: 'Base drums |  % 0 - 100 | Tutorial Complete: False'
+    instrument: Base drums
     audioClip: {fileID: 8300000, guid: 51b02833697911e4a92f75e43ac6ef4b, type: 3}
     audioGroup: {fileID: 24302998, guid: fb98d2a11740c27408ce9b1c2e930050, type: 2}
-    volume: 1
-  - playOnLevels: 0100000002000000
+    start: 0
+    end: 100
+    requireTutorialComplete: 0
+  - name: 'Base melody |  % 0 - 60 | Tutorial Complete: True'
+    instrument: Base melody
     audioClip: {fileID: 8300000, guid: b680129252d86884bbac1f3483f2f8d8, type: 3}
     audioGroup: {fileID: 24385718, guid: fb98d2a11740c27408ce9b1c2e930050, type: 2}
-    volume: 1
-  - playOnLevels: 02000000030000000400000005000000
+    start: 0
+    end: 60
+    requireTutorialComplete: 1
+  - name: 'Extra 1 |  % 35 - 70 | Tutorial Complete: True'
+    instrument: Extra 1
+    audioClip: {fileID: 8300000, guid: ae411cb4b56cb3e42adc5e39df8f3df8, type: 3}
+    audioGroup: {fileID: 24315422, guid: fb98d2a11740c27408ce9b1c2e930050, type: 2}
+    start: 35
+    end: 70
+    requireTutorialComplete: 1
+  - name: 'Extra 2 |  % 35 - 70 | Tutorial Complete: True'
+    instrument: Extra 2
+    audioClip: {fileID: 8300000, guid: b1bf01812c381ee4b92a0f954d215c1a, type: 3}
+    audioGroup: {fileID: 24376916, guid: fb98d2a11740c27408ce9b1c2e930050, type: 2}
+    start: 35
+    end: 70
+    requireTutorialComplete: 1
+  - name: 'Deep drums |  % 60 - 100 | Tutorial Complete: True'
+    instrument: Deep drums
     audioClip: {fileID: 8300000, guid: 57e8be37cf4f2214f8bf490d150015b1, type: 3}
     audioGroup: {fileID: 24392392, guid: fb98d2a11740c27408ce9b1c2e930050, type: 2}
-    volume: 1
-  - playOnLevels: 030000000400000005000000
+    start: 60
+    end: 100
+    requireTutorialComplete: 1
+  - name: 'Stressfull violin |  % 70 - 100 | Tutorial Complete: True'
+    instrument: Stressfull violin
     audioClip: {fileID: 8300000, guid: 63094e5266885d9429fbed5404ba6c6e, type: 3}
     audioGroup: {fileID: 24363340, guid: fb98d2a11740c27408ce9b1c2e930050, type: 2}
-    volume: 1
-  - playOnLevels: 0400000005000000
-    audioClip: {fileID: 8300000, guid: c5134f0253eda634e9dec7d667f9400e, type: 3}
+    start: 70
+    end: 100
+    requireTutorialComplete: 1
+  - name: 'Epic trumpet |  % 80 - 100 | Tutorial Complete: True'
+    instrument: Epic trumpet
+    audioClip: {fileID: 8300000, guid: 4f37739cdfc247d49bd4ea83460cb9fe, type: 3}
     audioGroup: {fileID: 24356158, guid: fb98d2a11740c27408ce9b1c2e930050, type: 2}
-    volume: 1
-  - playOnLevels: 05000000
+    start: 80
+    end: 100
+    requireTutorialComplete: 1
+  - name: 'Vocals |  % 80 - 100 | Tutorial Complete: True'
+    instrument: Vocals
     audioClip: {fileID: 8300000, guid: 9cb5255bb809a38458f95d6f4eecd5af, type: 3}
     audioGroup: {fileID: 24302374, guid: fb98d2a11740c27408ce9b1c2e930050, type: 2}
-    volume: 1
-  levels:
-  - name: 'Level: 0'
-    activationPercent: 0
-  - name: 'Level: 1'
-    activationPercent: 0
-  - name: 'Level: 2'
-    activationPercent: 0.6
-  - name: 'Level: 3'
-    activationPercent: 0.7
-  - name: 'Level: 4'
-    activationPercent: 0.8
-  - name: 'Level: 5'
-    activationPercent: 0.8
-  m_currentLevel: -1
+    start: 80
+    end: 100
+    requireTutorialComplete: 1
+  defaultFadeTime: 3
   percentageClimbed: 0
 --- !u!1001 &100100000
 Prefab:
