@@ -7,10 +7,12 @@ public class BurningHands : MonoBehaviour
 
     public float gripLimit;
     private float timer;
+    private GameManager gamemanager;
 
     void Awake()
     {
         handGrip = GetComponent<HandGrip>();
+        gamemanager = GameObject.FindObjectOfType<GameManager>();
     }
 
     void Update()
@@ -20,24 +22,17 @@ public class BurningHands : MonoBehaviour
     //private bool invoking = false;
     public void OnUpdate(bool justGripped, bool justReleased)
     {
-        if (!enabled)
+        if (!enabled || !gamemanager.tutorialComplete)
             return;
 
         if (justGripped)
         {
-            //if (!invoking)
-            //{
-            //    InvokeRepeating("Vibrate", 0.4f, 0.4f);
-            //    invoking = true;
-            //}
             handGrip.versusGripController.SetState(true, timer, gripLimit);
             handGrip.versusGripController.ActivateBoiler(8 - gripLimit);
             timer = gripLimit;
         }
         if (justReleased)
         {
-            //CancelInvoke("Vibrate");
-            //invoking = false;
             handGrip.versusGripController.SetState(false, 0f, 0f);
         }
 
@@ -48,9 +43,4 @@ public class BurningHands : MonoBehaviour
             handGrip.ReleaseGrip(0.25f);
         }
     }
-
-    //private void Vibrate()
-    //{
-    //    Vibration.instance.SetVibration(handGrip.player, 0.3f, 0.3f, 0.1f);
-    //}
 }

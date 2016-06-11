@@ -20,6 +20,9 @@ public class LadybugSpawner : MonoBehaviour
 
     void Update()
     {
+        if (gameManager.HasReachedFinalStretch())
+            return;
+
         int activeFrogCount = 0;
         for (int i = 0; i < GameManager.players.Length; i++)
         {

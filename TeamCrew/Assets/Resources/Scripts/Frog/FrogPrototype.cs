@@ -54,12 +54,16 @@ public class FrogPrototype : MonoBehaviour
 
     public AudioSource croakSound;
 
+    [Header("Motor boosts")]
     public float motorSpeed = 350;
     public float versusMotorBoost = 350;
+    public float oneArmedMotorBoost = 500;
 
     public int versusHands;
     private float armsCantGoDownTimer;
 
+    [HideInInspector]
+    public bool oneArmedModeEnabled;
     public bool IsGrippingTutorial { get { return (leftGripScript.isGrippingTutorial || rightGripScript.isGrippingTutorial);} }
 
     private GameManager gameManager;
@@ -336,6 +340,11 @@ public class FrogPrototype : MonoBehaviour
         HingeJoint2D otherJoint = null;
         JointMotor2D motor = new JointMotor2D();
         motor.motorSpeed = motorSpeed;
+
+        if (oneArmedModeEnabled)
+        {
+            motor.motorSpeed += oneArmedMotorBoost;
+        }
 
         if (versusHands > 0)
             motor.motorSpeed += versusMotorBoost;

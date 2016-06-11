@@ -38,6 +38,8 @@ public class Line : MonoBehaviour
         {
             joint.distance = distance;
         }
+        if (joint.distance >= 12)
+            joint.distance = 12;
 
         joint.enabled = !isGripping;
 
@@ -51,6 +53,7 @@ public class Line : MonoBehaviour
         Vector3 angle = rope.eulerAngles;
         angle.z = Mathf.Atan2(hinge.position.y - rope.position.y, hinge.position.x - rope.position.x) * Mathf.Rad2Deg + 90;
         rope.rotation = Quaternion.Euler(angle);
+
 	}
 
     public void Remove()

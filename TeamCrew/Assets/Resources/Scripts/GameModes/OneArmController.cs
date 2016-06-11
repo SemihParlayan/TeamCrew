@@ -22,6 +22,8 @@ public class OneArmController : MonoBehaviour
         if (frog == null)
             return;
 
+        frog.oneArmedModeEnabled = state;
+
         leftUpper.SetActive(true);
         leftLower.SetActive(true);
         leftHand.SetActive(true);
@@ -30,9 +32,6 @@ public class OneArmController : MonoBehaviour
         rightLower.SetActive(true);
         rightHand.SetActive(true);
 
-        //frog.leftGripScript.disabled = false;
-        //frog.rightGripScript.disabled = false;
-
         if (state && arm != -1)
         {
             if (arm == 0)
@@ -40,14 +39,12 @@ public class OneArmController : MonoBehaviour
                 leftUpper.SetActive(false);
                 leftLower.SetActive(false);
                 leftHand.SetActive(false);
-                //frog.leftGripScript.disabled = true;
             }
             else
             {
                 rightUpper.SetActive(false);
                 rightLower.SetActive(false);
                 rightHand.SetActive(false);
-                //frog.rightGripScript.disabled = true;
             }
         }
     }

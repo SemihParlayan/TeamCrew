@@ -366,6 +366,7 @@ public class GameManager : MonoBehaviour
     public bool hacks = true;
     public bool xbox = false;
     public bool ps4 = false;
+    public bool disableMouseCursor = false;
     public bool digitalInput = false;
     public bool returnMenuInactive = true;
 
@@ -395,7 +396,7 @@ public class GameManager : MonoBehaviour
     public List<Transform> transformOrder = new List<Transform>();
     public Transform frontParallaxes;
 
-    private bool playerFinalStretchAnimation = true;
+    private bool playedFinalStretchAnimation = true;
     private Transform topFrogPrefab;
     private int victoryFrogNumber;
 
@@ -482,6 +483,13 @@ public class GameManager : MonoBehaviour
         //Enable menu music
         menuMusicController.Play();
         menuMusicController.ChangeFadeState(FadeState.IN);
+
+
+        //Disable mouse cursor
+        if (disableMouseCursor)
+        {
+            Cursor.visible = false;
+        }
 	}
 
     //Update method
@@ -641,6 +649,15 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns true if the any frog has reached final stretch
+    /// </summary>
+    /// <returns></returns>
+    public bool HasReachedFinalStretch()
+    {
+        return playedFinalStretchAnimation;
+    }
+
+    /// <summary>
     /// Deletes old frogs and creates either one or two new frogs depending on which game mode the game is currently in.
     /// </summary>
     public void CreateNewFrogs()
@@ -773,7 +790,7 @@ public class GameManager : MonoBehaviour
         //Reset boolean flags
         cameraFollowScript.enabled = false;
         respawnScript.enabled = false;
-        playerFinalStretchAnimation = false;
+        playedFinalStretchAnimation = false;
         tutorialComplete = false;
         gameActive = false;
 
@@ -829,7 +846,7 @@ public class GameManager : MonoBehaviour
         gameActive = true;
 
         //Reset variables
-        playerFinalStretchAnimation = false;
+        playedFinalStretchAnimation = false;
 
         //Find frogs
         for (int i = 1; i < 5; i++)
@@ -1109,9 +1126,9 @@ public class GameManager : MonoBehaviour
 
         if(reachedStretchMarker)
         {
-            if (!playerFinalStretchAnimation)
+            if (!playedFinalStretchAnimation)
             { 
-                playerFinalStretchAnimation = true;
+                playedFinalStretchAnimation = true;
                 finalStretch.SetTrigger("Play");
                 finalStretchMusic.SetStarted(true);
             }
