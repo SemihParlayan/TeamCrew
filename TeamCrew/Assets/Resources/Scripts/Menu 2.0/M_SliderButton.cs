@@ -31,6 +31,8 @@ public class M_SliderButton : M_Button
         if (pressed)
         {
             float input = GameManager.GetThumbStick(XboxThumbStick.Left).x;
+            if (input == 0)
+                input = Input.GetAxis("Horizontal");
             if (Mathf.Abs(input) > 0.1f)
             {
                 if (input < 0)

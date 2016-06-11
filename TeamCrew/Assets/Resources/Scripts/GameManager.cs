@@ -948,7 +948,6 @@ public class GameManager : MonoBehaviour
         }
 
         //Save game settings
-        PlayerPrefs.SetInt("Fullscreen", (Screen.fullScreen) ? 1 : 0);
         PlayerPrefs.SetInt("ScreenWidth", Screen.width);
         PlayerPrefs.SetInt("ScreenHeight", Screen.height);
     }

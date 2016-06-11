@@ -89,6 +89,13 @@ public class M_Screen : MonoBehaviour
         if (input == Vector2.zero)
         {
             input = GameManager.GetDPad(player);
+
+            if (input == Vector2.zero)
+            {
+                float horizontal = Input.GetAxis("Horizontal");
+                float vertical = Input.GetAxis("Vertical");
+                input = new Vector2(horizontal, vertical);
+            }
         }
 
         if (CanSelect)
@@ -131,6 +138,15 @@ public class M_Screen : MonoBehaviour
         {
             selectPress = GameManager.GetButtonPress(XboxButton.A, player);
             returnPress = GameManager.GetButtonPress(XboxButton.B, player);
+        }
+
+        if (!selectPress)
+        {
+            selectPress = Input.GetButtonDown("UISubmit");
+        }
+        if (!returnPress)
+        {
+            returnPress = Input.GetButtonDown("UIReturn");
         }
 
         if (selectPress)
