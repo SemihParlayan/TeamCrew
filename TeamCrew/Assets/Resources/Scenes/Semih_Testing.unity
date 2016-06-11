@@ -85,6 +85,11 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!212 &1027705861 stripped
+SpriteRenderer:
+  m_PrefabParentObject: {fileID: 21214076, guid: fdfca1e38be391642ac975dbfdbd1114,
+    type: 2}
+  m_PrefabInternal: {fileID: 1751397084}
 --- !u!1001 &1080658682
 Prefab:
   m_ObjectHideFlags: 0
@@ -354,6 +359,30 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11410590, guid: fdfca1e38be391642ac975dbfdbd1114, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455520, guid: fdfca1e38be391642ac975dbfdbd1114, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 120374, guid: fdfca1e38be391642ac975dbfdbd1114, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 101496, guid: fdfca1e38be391642ac975dbfdbd1114, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 171712, guid: fdfca1e38be391642ac975dbfdbd1114, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450482, guid: fdfca1e38be391642ac975dbfdbd1114, type: 2}
+      propertyPath: fullscreenCheckbox
+      value: 
+      objectReference: {fileID: 1027705861}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fdfca1e38be391642ac975dbfdbd1114, type: 2}
   m_IsPrefabParent: 0

@@ -46,6 +46,11 @@ public class M_SliderButton : M_Button
         anim.SetBool("Pressed", pressed);
     }
 
+    public void SetValue(float value)
+    {
+        this.value = value;
+        SetHandle();
+    }
     private void SetHandle()
     {
         Vector3 minPos = transform.position; minPos.x += leftEdge; minPos.y += yOffset;

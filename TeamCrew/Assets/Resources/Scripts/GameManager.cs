@@ -490,6 +490,9 @@ public class GameManager : MonoBehaviour
         {
             Cursor.visible = false;
         }
+
+        //Load player prefs
+        Invoke("LoadPlayerPrefs", 0.1f);
 	}
 
     //Update method
@@ -923,6 +926,50 @@ public class GameManager : MonoBehaviour
         generatorScript.DestroyLevel(keepTutorial);
     }
 
+    /// <summary>
+    /// This methods quits the whole game.
+    /// </summary>
+    public void ExitGame()
+    {
+        SavePlayerPrefs();
+        Application.Quit();
+    }
+
+    public void SavePlayerPrefs()
+    {
+        //Save sound settings
+        M_Sounds sounds = GameObject.FindObjectOfType<M_Sounds>();
+        if (sounds != null)
+        {
+            PlayerPrefs.SetFloat("MasterVolume", sounds.masterSlider.value);
+            PlayerPrefs.SetFloat("MusicVolume", sounds.musicSlider.value);
+            PlayerPrefs.SetFloat("SFXVolume", sounds.sfxSlider.value);
+            PlayerPrefs.SetFloat("EnvironmentVolume", sounds.environmentSlider.value);
+        }
+
+        //Save game settings
+        PlayerPrefs.SetInt("Fullscreen", (Screen.fullScreen) ? 1 : 0);
+        PlayerPrefs.SetInt("ScreenWidth", Screen.width);
+        PlayerPrefs.SetInt("ScreenHeight", Screen.height);
+    }
+    public void LoadPlayerPrefs()
+    {
+        //Load sound settings
+        M_Sounds sounds = GameObject.FindObjectOfType<M_Sounds>();
+        if (sounds != null)
+        {
+            float masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
+            float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+            float sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
+            float environmentVolume = PlayerPrefs.GetFloat("EnvironmentVolume", 1f);
+
+            sounds.masterSlider.SetValue(masterVolume);
+            sounds.musicSlider.SetValue(musicVolume);
+            sounds.sfxSlider.SetValue(sfxVolume);
+            sounds.environmentSlider.SetValue(environmentVolume);
+        }
+    }
+
     //Static methods
     /// <summary>
     /// Returns the frog transform that is currently at the highest Y position
@@ -1157,13 +1204,5 @@ public class GameManager : MonoBehaviour
                 playerScripts[i] = null;
             }
         }
-    }
-
-    /// <summary>
-    /// This methods quits the whole game.
-    /// </summary>
-    public void ExitGame()
-    {
-        Application.Quit();
     }
 }
