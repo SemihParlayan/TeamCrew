@@ -257,7 +257,7 @@ public class GameManager : MonoBehaviour
     }
     public static bool GetGrip(int player, GripSide button = GripSide.Both)
     {
-        if (controllers[player] == null)
+        if (player > 3 || controllers[player] == null)
             return false;
         Controller c = controllers[player];
 

@@ -118,6 +118,7 @@
     <Compile Include="Assets\Resources\Scripts\Menu 2.0\M_SliderButton.cs" />
     <Compile Include="Assets\Resources\Scripts\Menu 2.0\M_Sounds.cs" />
     <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\CharacterSelectionScreen.cs" />
+    <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\DailyMountainScreen.cs" />
     <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\EndgameMenuScreen.cs" />
     <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\EndgameScreen.cs" />
     <Compile Include="Assets\Resources\Scripts\Menu 2.0\Screens\GameScreen.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Assets\Resources\Scripts\Menu 2.0\SelectedFrog.cs" />
     <Compile Include="Assets\Resources\Scripts\Parallax.cs" />
     <Compile Include="Assets\Resources\Scripts\PauseController.cs" />
+    <Compile Include="Assets\Resources\Scripts\RemoteServer\DatabaseManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Sound\FallSound.cs" />
     <Compile Include="Assets\Resources\Scripts\Sound\FallSoundCam.cs" />
     <Compile Include="Assets\Resources\Scripts\Sound\FinalMusic.cs" />
@@ -149,6 +151,8 @@
     <Compile Include="Assets\Resources\Scripts\Spawning\PlayerRespawn.cs" />
     <Compile Include="Assets\Resources\Scripts\Spawning\Respawn.cs" />
     <Compile Include="Assets\Resources\Scripts\Spawning\StoneDisabler.cs" />
+    <Compile Include="Assets\Resources\Scripts\Steam\SteamScript.cs" />
+    <Compile Include="Assets\Resources\Scripts\Steam\SteamUserStatsTest.cs" />
     <Compile Include="Assets\Resources\Scripts\Testing\FloatingIsland.cs" />
     <Compile Include="Assets\Resources\Scripts\Testing\SpriteManipulator.cs" />
     <Compile Include="Assets\Resources\Scripts\Testing\TopNumberBubble.cs" />
@@ -184,8 +188,10 @@
     <Compile Include="Assets\Resources\Scripts\grips\partygrips\SpinningWheelAngle.cs" />
     <Compile Include="Assets\Resources\Scripts\parallaxPart.cs" />
     <Compile Include="Assets\Resources\Scripts\unused\EatInsect.cs" />
+    <Compile Include="Assets\Scripts\Steamwork.NET\SteamManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Plugins\Steamworks.NET\redist\steam_appid.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />

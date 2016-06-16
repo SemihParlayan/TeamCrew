@@ -36,7 +36,7 @@ public class Line : MonoBehaviour
         bool isGripping = frog.leftGripScript.isOnGrip || frog.rightGripScript.isOnGrip;
         if (isGripping)
         {
-            joint.distance = distance;
+            joint.distance = distance + 0.3f;
         }
         if (joint.distance >= 12)
             joint.distance = 12;

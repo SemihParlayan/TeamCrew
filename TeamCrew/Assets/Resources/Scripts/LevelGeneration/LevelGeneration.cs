@@ -12,6 +12,7 @@ public class LevelGeneration : MonoBehaviour
     private GameManager gameManager;
     private GameObject firstBlock;
     private TutorialBlock tutorialBlock;
+    private System.Random rnd;
 
     public float LevelHeight 
     { 
@@ -26,6 +27,7 @@ public class LevelGeneration : MonoBehaviour
 
 	void Start () 
     {
+        rnd = new System.Random(50);
         LoadLevelBlocks();
 
         //Make sure we have a menu block assigned
@@ -37,8 +39,10 @@ public class LevelGeneration : MonoBehaviour
         //Aquire gamemanager
         gameManager = GetComponent<GameManager>();
 	}
-
-    public void GenerateFullMountain(bool keepTutorial = false)
+    void Update()
+    {
+    }
+    public void GenerateFullMountain(bool keepTutorial = false, int seed = -1)
     {
         GameMode mode = GameManager.CurrentGameMode;
 
@@ -49,7 +53,7 @@ public class LevelGeneration : MonoBehaviour
         Block block = null;
         if (!keepTutorial)
         {
-            block = FindBlock(mode.tutorialBlock);
+            block = FindBlock(mode.tutorialBlock, false, seed);
             level.Add(block);
             tutorialBlock = block as TutorialBlock;
         }
@@ -69,14 +73,14 @@ public class LevelGeneration : MonoBehaviour
             {
                 //Find a climbing block
                 climbingBlock = mode.climbingBlocks[i];
-                block = FindBlock(climbingBlock, true);
+                block = FindBlock(climbingBlock, true, seed);
 
                 firstBlock = block.gameObject;
 
                 if (block.startSize != tutorialBlock.endSize)
                 {
                     TagCollection c = new TagCollection(); c.tags.Add(BlockTag.Converter);
-                    Block converter = FindBlock(c, true);
+                    Block converter = FindBlock(c, true, seed);
                     firstBlock = converter.gameObject;
                     level.Add(converter);
                     ConnectBlocks(converter, tutorialBlock);
@@ -87,7 +91,7 @@ public class LevelGeneration : MonoBehaviour
             {
                 //Find a climbing block
                 climbingBlock = mode.climbingBlocks[i];
-                block = FindBlock(climbingBlock);
+                block = FindBlock(climbingBlock, false, seed);
             }
 
 
@@ -96,7 +100,7 @@ public class LevelGeneration : MonoBehaviour
         }
 
         //Spawn top block
-        block = FindBlock(mode.topBlock);
+        block = FindBlock(mode.topBlock, false, seed);
         level.Add(block);
     }
 
@@ -120,8 +124,11 @@ public class LevelGeneration : MonoBehaviour
             }
         }
     }
-    public Block FindBlock(TagCollection minimumRequiredTags, bool ignorBlockWidthMatching = false)
+    public Block FindBlock(TagCollection minimumRequiredTags, bool ignorBlockWidthMatching = false, int seed = -1)
     {
+        if (seed != -1)
+            rnd = new System.Random(seed);
+
         List<Block> availableBlocks = new List<Block>();
         Block previousBlock = (level.Count > 0) ? level.Last() : null;
         bool searchingForTutorial = minimumRequiredTags.ContainsTag(BlockTag.Tutorial);
@@ -183,7 +190,13 @@ public class LevelGeneration : MonoBehaviour
             Debug.LogError("Available block count is 0");
             return null;
         }
-        Block randomBlock = availableBlocks[Random.Range(0, availableBlocks.Count)];
+
+        Block randomBlock = null;
+        if (seed != -1)
+            randomBlock = availableBlocks[rnd.Next(0, availableBlocks.Count)];
+        else
+            randomBlock = availableBlocks[Random.Range(0, availableBlocks.Count)];
+
         Transform newBlock = Instantiate(randomBlock.transform, Vector3.zero, Quaternion.identity) as Transform;
         Block spawnedBlock = newBlock.GetComponent<Block>();
 

@@ -22,11 +22,29 @@ public class GameModes : MonoBehaviour
             mode.Initialize();
         }
     }
+
+    public GameMode GetRandomDailyGameMode()
+    {
+        List<GameMode> dailyModes = new List<GameMode>();
+        foreach(GameMode mode in gameModes)
+        {
+            if (mode.isDailyGameMode)
+            {
+                dailyModes.Add(mode);
+            }
+        }
+
+        if (dailyModes.Count == 0)
+            return null;
+
+        return dailyModes[Random.Range(0, dailyModes.Count)];
+    }
 }
 
 [System.Serializable]
 public class GameMode
 {
+    public bool isDailyGameMode = false;
     public string name;
     public Sprite picture;
     [TextArea(1, 10)]
