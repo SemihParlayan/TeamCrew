@@ -8,12 +8,17 @@ using System.IO;
 
 public class CompleteLevel : MonoBehaviour 
 {
+    public static System.DateTime currentDateTime;
+
+    void Awake()
+    {
+        //currentDateTime = GetFastestNISTDate();
+        currentDateTime = System.DateTime.Now;
+        Debug.Log(currentDateTime.Date);
+    }
     void Start()
     {
         SetLevel();
-
-        System.DateTime time = GetFastestNISTDate();
-        Debug.Log(time.Date);
     }
     void OnDrawGizmos()
     {

@@ -14,6 +14,7 @@ public class OptionScreen : M_Screen
 
         Display.displays[monitorIndex].Activate();
         Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, Screen.fullScreen);
+        fullscreenCheckbox.enabled = Screen.fullScreen;
     }
     public void OnFullScreen()
     {

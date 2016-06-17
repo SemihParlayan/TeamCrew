@@ -197,7 +197,6 @@ public class GameManager : MonoBehaviour
     {
         if (playerNumber < -1 || playerNumber > controllers.Length - 1)
         {
-            Debug.Log("Tried to access controller: " + playerNumber + ", out of range");
             return false;
         }
 
@@ -663,7 +662,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Deletes old frogs and creates either one or two new frogs depending on which game mode the game is currently in.
     /// </summary>
-    public void CreateNewFrogs()
+    public void CreateNewFrogs(int forcedPlayerIndex = -1)
     {
         //Remove old frogs.
         DestroyFrogs();
@@ -679,7 +678,20 @@ public class GameManager : MonoBehaviour
                 frogSpawnCount++;
                 Vector3 spawnPosition = generatorScript.GetPlayerSpawnPosition(frogSpawnCount);
                 spawnPosition.z = 0;
+
+                if (forcedPlayerIndex != -1)
+                {
+                    FrogPrototype frog = respawnScript.respawnScripts[i].prefab.GetComponentInChildren<FrogPrototype>();
+                    if (frog != null)
+                    {
+                        frog.player = forcedPlayerIndex;
+                        respawnScript.respawnScripts[i].arrow.color = frog.respawnArrowColor;
+                    }
+                }
+
                 players[i] = (Instantiate(respawnScript.respawnScripts[i].prefab, spawnPosition, Quaternion.identity) as Transform).FindChild("body");
+                
+                
             }
         }
         readySetGo.ResetLights();
