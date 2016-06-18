@@ -93,7 +93,8 @@ class SteamManager : MonoBehaviour {
 		// If you're running into Init issues try running DbgView prior to launching to get the internal output from Steam.
 		// http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx
 		m_bInitialized = SteamAPI.Init();
-		if (!m_bInitialized) {
+		if (!m_bInitialized) 
+        {
 			Debug.LogError("[Steamworks.NET] SteamAPI_Init() failed. Refer to Valve's documentation or the comment above this line for more information.", this);
 
 			return;

@@ -13,8 +13,7 @@ public class CompleteLevel : MonoBehaviour
     void Awake()
     {
         //currentDateTime = GetFastestNISTDate();
-        currentDateTime = System.DateTime.Now;
-        Debug.Log(currentDateTime.Date);
+        currentDateTime = System.DateTime.UtcNow;
     }
     void Start()
     {

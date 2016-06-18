@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Steamworks;
 
 public class DailyMountainScreen : M_Screen 
@@ -11,6 +12,7 @@ public class DailyMountainScreen : M_Screen
     public GameModes gameModes;
     public PoffMountain poff;
     public Transform scrollKnob;
+    public GameObject scrollParent;
     public GameObject loadIcon;
     public GameObject entriesParent;
 
@@ -21,8 +23,9 @@ public class DailyMountainScreen : M_Screen
     private int dailySeed = 50;
     private int entryMinIndex = 0;
     private bool canScroll = true;
-    private float scrollDelay = 0.1f;
+    private float scrollDelay = 0.065f;
     private bool mountainGenerated;
+    private LeaderboardEntry clientEntry;
 
 
 	//Unity methods
@@ -42,6 +45,7 @@ public class DailyMountainScreen : M_Screen
         text += time.Date.Month + "/";
         text += time.Date.Year;
         dateText.text = text;
+        Debug.Log(dateText);
     }
     protected override void OnUpdate()
     {
@@ -71,14 +75,23 @@ public class DailyMountainScreen : M_Screen
             entriesParent.gameObject.SetActive(true);
             GenerateMountain();
 
-            for(int i = 0; i < 17; i++)
+            //Add fake entries
+            AddFakeEntries(57);
+
+            //Enter client at fake rank
+            //SetFakeRank(47);
+
+            //Find client entry
+            clientEntry = GetClientEntry();
+
+            //Set scroll line options
+            if (entries.Count > uiEntries.Count)
             {
-                LeaderboardEntry e = entries[Random.Range(0, entries.Count)];
-                e.globalRank = 10 + i;
-                if (i == 16)
-                    e.globalRank = 1337;
-                entries.Add(e);
+                scrollParent.SetActive(true);
             }
+
+            //Scroll to client entry
+            ScrollToClient();
         }
 
         int startIndex = entryMinIndex;
@@ -96,7 +109,10 @@ public class DailyMountainScreen : M_Screen
         for (int i = 0; i < uiEntries.Count; i++)
         {
             SteamUI_LeaderboardEntry uiEntry = uiEntries[i];
-            LeaderboardEntry steamEntry = entries[startIndex + i];
+            int index = startIndex + i;
+            LeaderboardEntry steamEntry = null;
+            if (index < entries.Count)
+                steamEntry = entries[startIndex + i];
 
             if (uiEntry == null)
                 continue;
@@ -124,11 +140,15 @@ public class DailyMountainScreen : M_Screen
         for (int i = 0; i < uiEntries.Count; i++)
         {
             SteamUI_LeaderboardEntry uiEntry = uiEntries[i];
+            int index = startIndex + i;
+            LeaderboardEntry steamEntry = null;
+            if (index < entries.Count)
+                steamEntry = entries[startIndex + i];
 
             if (uiEntry == null)
                 continue;
 
-            uiEntry.SetInfo(entries[startIndex + i]);
+            uiEntry.SetInfo(steamEntry);
         }
     }
 
@@ -155,6 +175,9 @@ public class DailyMountainScreen : M_Screen
 
         //Flag generated mountain
         mountainGenerated = false;
+
+        //Disable scroll line
+        scrollParent.SetActive(false);
     }
     public override void OnSwitchedFrom()
     {
@@ -225,16 +248,57 @@ public class DailyMountainScreen : M_Screen
         }
         SimpleRefresh();
 
+        //Show client entry at all times
+        if (clientEntry != null)
+        {
+            int clientRank = clientEntry.globalRank;
+            LeaderboardEntry topEntry = uiEntries.First().entry;
+            LeaderboardEntry botEntry = uiEntries.Last().entry;
+
+            if (topEntry != null && botEntry != null)
+            {
+                int topRank = topEntry.globalRank;
+                int botRank = botEntry.globalRank;
+
+                if (clientRank < topRank)
+                {
+                    uiEntries.First().SetInfo(clientEntry);
+                }
+                else if (clientRank > botRank)
+                {
+                    uiEntries.Last().SetInfo(clientEntry);
+                }
+            }
+        }
+
         //Set scroll knob
-        float height = 1.426f * 2;
-        float topPos = height / 2;
+        if (scrollParent.activeInHierarchy)
+        {
+            float height = 1.426f * 2;
+            float topPos = height / 2;
 
-        float percent = (maxIndex == 0) ? 0 : (float)entryMinIndex / (float)maxIndex;
-        float newPos = topPos - (height * percent);
+            float percent = (maxIndex == 0) ? 0 : (float)entryMinIndex / (float)maxIndex;
+            float newPos = topPos - (height * percent);
 
-        Vector3 pos = scrollKnob.transform.localPosition;
-        pos.x = newPos;
-        scrollKnob.transform.localPosition = pos;
+            Vector3 pos = scrollKnob.transform.localPosition;
+            pos.x = newPos;
+            scrollKnob.transform.localPosition = pos;
+        }
+    }
+    private void ScrollToClient()
+    {
+        if (clientEntry == null)
+            return;
+
+        int targetRank = clientEntry.globalRank - 5;
+        int safety = 0;
+        while(entryMinIndex < targetRank)
+        {
+            safety++;
+            if (safety > 1000)
+                return;
+            Scroll(1);
+        }
     }
     private void ResetScroll()
     {
@@ -253,5 +317,49 @@ public class DailyMountainScreen : M_Screen
         //Create new frogs
         gameManager.CreateNewFrogs(0);
         gameManager.DestroyTopFrog();
+    }
+    private void SetFakeRank(int fakeRank)
+    {
+        LeaderboardEntry tmp = new LeaderboardEntry();
+        tmp.globalRank = entries[fakeRank].globalRank;
+        tmp.isClient = entries[fakeRank].isClient;
+        tmp.name = entries[fakeRank].name;
+        tmp.totalSeconds = entries[fakeRank].totalSeconds;
+
+
+        entries[fakeRank].globalRank = fakeRank + 1;
+        entries[fakeRank].isClient = entries[1].isClient;
+        entries[fakeRank].name = entries[1].name;
+        entries[fakeRank].totalSeconds = entries[1].totalSeconds;
+
+        entries[1].globalRank = 2;
+        entries[1].isClient = tmp.isClient;
+        entries[1].name = tmp.name;
+        entries[1].totalSeconds = tmp.totalSeconds;
+    }
+    private void AddFakeEntries(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            LeaderboardEntry prev = entries.Last();
+            LeaderboardEntry e = new LeaderboardEntry();
+            e.globalRank = prev.globalRank + 1;
+            e.totalSeconds = 50 + 10 * i;
+            e.name = "test";
+            if (i == amount - 1)
+                e.globalRank = 1337;
+            entries.Add(e);
+        }
+    }
+    private LeaderboardEntry GetClientEntry()
+    {
+        for (int i = 0; i < entries.Count; i++)
+        {
+            if (entries[i].isClient)
+            {
+                return clientEntry = entries[i];
+            }
+        }
+        return null;
     }
 }

@@ -7,17 +7,27 @@ public struct LeaderboardEntries
 {
     public List<LeaderboardEntry> entries;
 }
-public struct LeaderboardEntry
+[System.Serializable]
+public class LeaderboardEntry
 {
     public string name;
     public int globalRank;
     public int totalSeconds;
+    public bool isClient;
 
+    public LeaderboardEntry()
+    {
+        name = string.Empty;
+        globalRank = 0;
+        totalSeconds = 0;
+        isClient = false;
+    }
     public LeaderboardEntry(LeaderboardEntry_t steamLeaderboardEntry)
     {
         this.name = SteamFriends.GetFriendPersonaName(steamLeaderboardEntry.m_steamIDUser);
         this.globalRank = steamLeaderboardEntry.m_nGlobalRank;
         this.totalSeconds = steamLeaderboardEntry.m_nScore;
+        this.isClient = steamLeaderboardEntry.m_steamIDUser == SteamUser.GetSteamID();
     }
 }
 public class SteamLeaderboardManager : MonoBehaviour
@@ -137,11 +147,7 @@ public class SteamLeaderboardManager : MonoBehaviour
             {
                 LeaderboardEntry_t leaderboardEntry;
                 bool result = SteamUserStats.GetDownloadedLeaderboardEntry(m_SteamLeaderboardEntries, i, out leaderboardEntry, null, 0);
-                if (result)
-                {
-                    Debug.Log("Entry[" + i.ToString() + "]\n" + "Username: " + SteamFriends.GetFriendPersonaName(leaderboardEntry.m_steamIDUser) + ", Score: " + leaderboardEntry.m_nScore + ", Rank: " + leaderboardEntry.m_nGlobalRank);
-                }
-                else
+                if (!result)
                 {
                     Debug.Log("Entry[" + i.ToString() + "] Could not be retrieved, try downloading leaderboard first\n");
                 }

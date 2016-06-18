@@ -9,6 +9,10 @@ public class SteamUI_LeaderboardEntry : MonoBehaviour
     public TextMesh rankText;
     public TextMesh nameText;
     public TextMesh timeText;
+    public GameObject highlight;
+
+    [HideInInspector]
+    public LeaderboardEntry entry;
 
 	//privates
 
@@ -16,7 +20,7 @@ public class SteamUI_LeaderboardEntry : MonoBehaviour
 	//Unity methods
 	void Start () 
 	{
-	
+        highlight.gameObject.SetActive(false);
 	}
 	void Update () 
 	{
@@ -26,14 +30,27 @@ public class SteamUI_LeaderboardEntry : MonoBehaviour
 	//public methods
     public void SetInfo(LeaderboardEntry entry)
     {
-        rankText.text = entry.globalRank + ".";
-        nameText.text = entry.name;
+        this.entry = entry;
+        if (entry != null)
+        {
+            rankText.text = entry.globalRank + ".";
+            nameText.text = entry.name;
 
-        int totalSeconds = entry.totalSeconds;
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds % 60;
+            int totalSeconds = entry.totalSeconds;
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
 
-        timeText.text = minutes + ":" + seconds + ":00";
+            timeText.text = minutes + ":" + seconds + ":00";
+
+            highlight.SetActive(entry.isClient);
+        }
+        else
+        {
+            rankText.text = string.Empty;
+            nameText.text = string.Empty;
+            timeText.text = string.Empty;
+            highlight.SetActive(false);
+        }
     }
 
 	//private methods
