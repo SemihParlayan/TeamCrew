@@ -71,27 +71,31 @@ public class DailyMountainScreen : M_Screen
             StartCoroutine(leaderboardManager.GetLeaderboardEntries(0f, entriesObj));
 
             yield return new WaitForSeconds(3f);
-            loadIcon.gameObject.SetActive(false);
-            entriesParent.gameObject.SetActive(true);
-            GenerateMountain();
 
-            //Add fake entries
-            AddFakeEntries(57);
-
-            //Enter client at fake rank
-            //SetFakeRank(47);
-
-            //Find client entry
-            clientEntry = GetClientEntry();
-
-            //Set scroll line options
-            if (entries.Count > uiEntries.Count)
+            if (this.enabled)
             {
-                scrollParent.SetActive(true);
-            }
+                loadIcon.gameObject.SetActive(false);
+                entriesParent.gameObject.SetActive(true);
+                GenerateMountain();
 
-            //Scroll to client entry
-            ScrollToClient();
+                //Add fake entries
+                AddFakeEntries(57);
+
+                //Enter client at fake rank
+                //SetFakeRank(47);
+
+                //Find client entry
+                clientEntry = GetClientEntry();
+
+                //Set scroll line options
+                if (entries.Count > uiEntries.Count)
+                {
+                    scrollParent.SetActive(true);
+                }
+
+                //Scroll to client entry
+                ScrollToClient();
+            }
         }
 
         int startIndex = entryMinIndex;
@@ -188,6 +192,9 @@ public class DailyMountainScreen : M_Screen
 
         if (M_ScreenManager.GetCurrentScreen() is StartScreen)
         {
+            //Stop refresh leaderboard coroutine
+            StopAllCoroutines();
+
             //Activate menu mountain
             poff.SetMenuMountainState(true, 0f);
 
@@ -200,7 +207,8 @@ public class DailyMountainScreen : M_Screen
             gameManager.DestroyTopFrog();
 
             //Destroy daily mountain
-            gameManager.DestroyCurrentLevel(true);
+            if (mountainGenerated)
+                gameManager.DestroyCurrentLevel(true);
         }
     }
 
