@@ -14,7 +14,11 @@ public class DailyMountainScreen : M_Screen
     public Transform scrollKnob;
     public GameObject scrollParent;
     public GameObject loadIcon;
+    public GameObject couldNotConnectProperlyText;
     public GameObject entriesParent;
+    public GameObject currentTimeObject;
+    public DailyMountainGameMode dailyGamemode;
+    public GameScreen gameScreen;
 
 	//privates
     private GameManager gameManager;
@@ -26,11 +30,13 @@ public class DailyMountainScreen : M_Screen
     private float scrollDelay = 0.065f;
     private bool mountainGenerated;
     private LeaderboardEntry clientEntry;
+    private bool canStart;
 
 
 	//Unity methods
     void Awake()
     {
+        canStart = false;
         Random.seed = dailySeed;
         gameManager = GameObject.FindObjectOfType<GameManager>();
         leaderboardManager = GameObject.FindObjectOfType<SteamLeaderboardManager>();
@@ -55,47 +61,49 @@ public class DailyMountainScreen : M_Screen
     }
 
 	//public methods
-    public IEnumerator RefreshLeaderboards(bool fetchNewEntries)
+    public void RefreshLeaderboards()
     {
         if (leaderboardManager == null)
-            yield return null;
+            return;
 
-        if (fetchNewEntries || entries == null || entries.Count == 0)
+        loadIcon.gameObject.SetActive(true);
+        entriesParent.gameObject.SetActive(false);
+        couldNotConnectProperlyText.SetActive(false);
+
+        entries = new List<LeaderboardEntry>();
+        LeaderboardEntries entriesObj = new LeaderboardEntries();
+        entriesObj.entries = entries;
+
+        leaderboardManager.GetLeaderboardEntries(entriesObj, OnEntriesCompleteMethod, OnEntriesFailedMethod);
+    }
+    private void OnEntriesCompleteMethod()
+    {
+        if (this.enabled)
         {
-            loadIcon.gameObject.SetActive(true);
-            entriesParent.gameObject.SetActive(false);
+            loadIcon.gameObject.SetActive(false);
+            entriesParent.gameObject.SetActive(true);
+            GenerateMountain();
 
-            entries = new List<LeaderboardEntry>();
-            LeaderboardEntries entriesObj = new LeaderboardEntries();
-            entriesObj.entries = entries;
-            StartCoroutine(leaderboardManager.GetLeaderboardEntries(0f, entriesObj));
+            //Add fake entries
+            AddFakeEntries(57);
 
-            yield return new WaitForSeconds(3f);
+            //Enter client at fake rank
+            //SetFakeRank(47);
 
-            if (this.enabled)
+            //Find client entry
+            clientEntry = GetClientEntry();
+
+            //Set scroll line options
+            if (entries.Count > uiEntries.Count)
             {
-                loadIcon.gameObject.SetActive(false);
-                entriesParent.gameObject.SetActive(true);
-                GenerateMountain();
-
-                //Add fake entries
-                AddFakeEntries(57);
-
-                //Enter client at fake rank
-                //SetFakeRank(47);
-
-                //Find client entry
-                clientEntry = GetClientEntry();
-
-                //Set scroll line options
-                if (entries.Count > uiEntries.Count)
-                {
-                    scrollParent.SetActive(true);
-                }
-
-                //Scroll to client entry
-                ScrollToClient();
+                scrollParent.SetActive(true);
             }
+
+            //Scroll to client entry
+            ScrollToClient();
+
+            //Ready to start the game
+            canStart = true;
         }
 
         int startIndex = entryMinIndex;
@@ -123,6 +131,12 @@ public class DailyMountainScreen : M_Screen
 
             uiEntry.SetInfo(steamEntry);
         }
+    }
+    private void OnEntriesFailedMethod()
+    {
+        Debug.Log("Någonting sket sig");
+        loadIcon.gameObject.SetActive(false);
+        couldNotConnectProperlyText.SetActive(true);
     }
     private void SimpleRefresh()
     {
@@ -159,6 +173,9 @@ public class DailyMountainScreen : M_Screen
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
+        //Can not start the game until leaderboards are ready
+        canStart = false;
+
         //Set gamemode to random daily gamemode
         GameMode dailyMode = gameModes.GetRandomDailyGameMode();
         if (dailyMode == null)
@@ -175,10 +192,11 @@ public class DailyMountainScreen : M_Screen
 
         //Aquire leaderboard
         entryMinIndex = 0;
-        StartCoroutine(RefreshLeaderboards(true));
+        RefreshLeaderboards();
 
         //Flag generated mountain
         mountainGenerated = false;
+
 
         //Disable scroll line
         scrollParent.SetActive(false);
@@ -209,6 +227,20 @@ public class DailyMountainScreen : M_Screen
             //Destroy daily mountain
             if (mountainGenerated)
                 gameManager.DestroyCurrentLevel(true);
+
+            leaderboardManager.ResetGettingLeaderboards();
+        }
+    }
+
+    public void OnPlayGame()
+    {
+        if (canStart)
+        {
+            gameManager.isInDailyMountain = true;
+            currentTimeObject.SetActive(true);
+            dailyGamemode.OnPlayGame();
+
+            M_ScreenManager.SwitchScreen(gameScreen);
         }
     }
 

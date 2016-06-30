@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Steamworks;
 
-public struct LeaderboardEntries
+public class LeaderboardEntries
 {
     public List<LeaderboardEntry> entries;
 }
@@ -32,6 +32,14 @@ public class LeaderboardEntry
 }
 public class SteamLeaderboardManager : MonoBehaviour
 {
+    public delegate void OnEntriesComplete();
+    public delegate void OnEntriesFailed();
+
+    private OnEntriesFailed onEntriesFailedStack;
+    private OnEntriesComplete onEntriesCompleteStack;
+    private bool gettingLeaderboardEntries;
+    private bool gettingFailed;
+
 	private int m_NumGamesStat;
 	private float m_FeetTraveledStat;
 	private bool m_AchievedWinOneGame;
@@ -49,6 +57,9 @@ public class SteamLeaderboardManager : MonoBehaviour
 	private CallResult<LeaderboardScoreUploaded_t> LeaderboardScoreUploaded;
 	private CallResult<NumberOfCurrentPlayers_t> NumberOfCurrentPlayers;
 
+
+    private LeaderboardEntries entriesRef;
+
 	public void OnEnable() 
     {
 		m_UserStatsReceived = Callback<UserStatsReceived_t>.Create(OnUserStatsReceived);
@@ -62,31 +73,9 @@ public class SteamLeaderboardManager : MonoBehaviour
 		NumberOfCurrentPlayers = CallResult<NumberOfCurrentPlayers_t>.Create(OnNumberOfCurrentPlayers);
 	}
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            StartCoroutine(FindLeaderboard("Highscores", 0f));
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            StartCoroutine(UploadTimeToLeaderboard(1337, 0f));
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            StartCoroutine(DownloadLeaderboard(0));
-        }
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    StartCoroutine(GetLeaderboardEntries(0));
-        //}
-    }
-
     //Find leaderboard
-    private IEnumerator FindLeaderboard(string leaderboardName, float timeDelay)
+    private void FindLeaderboard(string leaderboardName)
     {
-        yield return new WaitForSeconds(timeDelay);
-
         Debug.Log("Trying to find a leaderboard called: " + leaderboardName);
         SteamAPICall_t handle = SteamUserStats.FindLeaderboard(leaderboardName);
         LeaderboardFindResult.Set(handle);
@@ -97,17 +86,20 @@ public class SteamLeaderboardManager : MonoBehaviour
         {
             Debug.Log("Success!! Found a leaderboard, leaderboard: " + pCallback.m_hSteamLeaderboard);
             m_SteamLeaderboard = pCallback.m_hSteamLeaderboard;
+
+            //Continue with downloading scores
+            DownloadLeaderboard();
         }
         else
         {
             Debug.Log("Failure!! Could not find a leaderboard");
+            FailedToGetLeaderboardEntries();
         }
     }
 
     //Download leaderboard entries
-    private IEnumerator DownloadLeaderboard(float timeDelay)
+    private void DownloadLeaderboard()
     {
-        yield return new WaitForSeconds(timeDelay);
         if (m_SteamLeaderboard.ToString() != "0")
         {
             Debug.Log("Downloading highscores from leaderboard: " + m_SteamLeaderboard);
@@ -116,7 +108,8 @@ public class SteamLeaderboardManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Cannot download highscores, there is no leaderboard attached");
+            Debug.Log("Failure!! Cannot download highscores, there is no leaderboard attached");
+            FailedToGetLeaderboardEntries();
         }
     }
     private void OnLeaderboardScoresDownloaded(LeaderboardScoresDownloaded_t pCallback, bool bIOFailure)
@@ -125,22 +118,43 @@ public class SteamLeaderboardManager : MonoBehaviour
         {
             Debug.Log("Success!! Downloaded leaderboard from steamservers with " + pCallback.m_cEntryCount + " entries.");
             m_SteamLeaderboardEntries = pCallback.m_hSteamLeaderboardEntries;
+
+            GetLeaderboardEntriesLocal();
+        }
+        else
+        {
+            Debug.Log("Failure!! Could not download leaderboard scores");
+            FailedToGetLeaderboardEntries();
         }
     }
 
     //Aquire leaderboard entries
-    public IEnumerator GetLeaderboardEntries(float timeDelay, LeaderboardEntries entriesRef)
+    public void GetLeaderboardEntries(LeaderboardEntries entriesRef, OnEntriesComplete completeMethod, OnEntriesFailed failedMethod)
     {
-        yield return new WaitForSeconds(timeDelay);
-
-        if (m_SteamLeaderboard.ToString() == "0")
+        if (!SteamManager.Initialized)
         {
-            StartCoroutine(FindLeaderboard("Highscores", 0f));
-            StartCoroutine(DownloadLeaderboard(1f));
-            yield return new WaitForSeconds(2);
+            if (failedMethod != null)
+                failedMethod();
+
+            return;
         }
 
-        if (m_SteamLeaderboard.ToString() != "0")
+        if (!gettingLeaderboardEntries)
+        {
+            onEntriesCompleteStack = null;
+            onEntriesFailedStack = null;
+
+            onEntriesCompleteStack += completeMethod;
+            onEntriesFailedStack += failedMethod;
+
+            this.entriesRef = entriesRef;
+            gettingLeaderboardEntries = true;
+            FindLeaderboard("Highscores");
+        }
+    }
+    private void GetLeaderboardEntriesLocal()
+    {
+        if (m_SteamLeaderboard.ToString() != "0" && entriesRef != null)
         {
             int entryCount = SteamUserStats.GetLeaderboardEntryCount(m_SteamLeaderboard);
             for (int i = 0; i < entryCount; i++)
@@ -153,17 +167,39 @@ public class SteamLeaderboardManager : MonoBehaviour
                 }
                 entriesRef.entries.Add(new LeaderboardEntry(leaderboardEntry));
             }
+
+            SuccededToGetLeaderboardEntries();
         }
         else
         {
             Debug.Log("Cannot aquire leaderboard entries, there is no leaderboard attached");
         }
     }
+    private void SuccededToGetLeaderboardEntries()
+    {
+        if (onEntriesCompleteStack != null)
+        {
+            onEntriesCompleteStack();
+        }
+        gettingLeaderboardEntries = false;
+    }
+    public void FailedToGetLeaderboardEntries()
+    {
+        gettingLeaderboardEntries = false;
+        
+        if (onEntriesFailedStack != null)
+        {
+            onEntriesFailedStack();
+        }
+    }
+    public void ResetGettingLeaderboards()
+    {
+        gettingLeaderboardEntries = false;
+    }
 
     //Upload time to leaderboard
-    public IEnumerator UploadTimeToLeaderboard(int timeInSeconds, float timeDelay)
+    public void UploadTimeToLeaderboard(int timeInSeconds, float timeDelay)
     {
-        yield return new WaitForSeconds(timeDelay);
         Debug.Log("Uploading time to leaderboard: " + m_SteamLeaderboard.ToString() + "   With time: " + timeInSeconds.ToString());
         SteamAPICall_t handle = SteamUserStats.UploadLeaderboardScore(m_SteamLeaderboard, ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodForceUpdate, timeInSeconds, null, 0);
         LeaderboardScoreUploaded.Set(handle);
@@ -195,12 +231,6 @@ public class SteamLeaderboardManager : MonoBehaviour
             Debug.Log("Number of players in Frog Climbers: " + pCallback.m_cPlayers);
         }
     }
-
-
-
-
-
-
 
 
 

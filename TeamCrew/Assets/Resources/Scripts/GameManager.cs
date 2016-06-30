@@ -388,6 +388,7 @@ public class GameManager : MonoBehaviour
     //[HideInInspector]
     public bool[] frogsReady = new bool[4];
     public EndgameScreen endGameScreen;
+    public DailyEndgameScreen dailyEndGameScreen;
     public ReadySetGo readySetGo;
     private ConnectFrogs connectFrogs;
     private TopNumbers topNumbers;
@@ -404,6 +405,7 @@ public class GameManager : MonoBehaviour
     //[HideInInspector]
     public bool winIsCalled;
     public bool IsInMultiplayerMode { get { return (singlePlayerStarted == string.Empty); } }
+    public bool isInDailyMountain;
     private bool hangingFrogsSpawned;
 
     void Awake()
@@ -789,8 +791,17 @@ public class GameManager : MonoBehaviour
     public void GoBackToMenu()
     {
         GameObject.FindWithTag("MenuManager").GetComponent<M_ScreenManager>().enabled = true;
-        M_ScreenManager.SwitchScreen(endGameScreen);
-        endGameScreen.OnEnter(generatorScript.GetTopPosition(), victoryFrogNumber);
+
+        if (!isInDailyMountain)
+        {
+            M_ScreenManager.SwitchScreen(endGameScreen);
+            endGameScreen.OnEnter(generatorScript.GetTopPosition(), victoryFrogNumber);
+        }
+        else
+        {
+            M_ScreenManager.SwitchScreen(dailyEndGameScreen);
+            dailyEndGameScreen.OnEnter(generatorScript.GetTopPosition());
+        }
     }
 
     /// <summary>
@@ -808,12 +819,14 @@ public class GameManager : MonoBehaviour
         playedFinalStretchAnimation = false;
         tutorialComplete = false;
         gameActive = false;
+        isInDailyMountain = false;
 
         //Reset spawn timers
         respawnScript.ResetRespawns();
 
         //Remove any active fly
         GetComponent<LadybugSpawner>().RemoveFly();
+
     }
 
     /// <summary>
