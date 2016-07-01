@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Steamworks;
+using UnityEngine.UI;
 
 public class DailyMountainScreen : M_Screen 
 {
@@ -17,7 +18,9 @@ public class DailyMountainScreen : M_Screen
     public GameObject couldNotConnectProperlyText;
     public GameObject entriesParent;
     public GameObject currentTimeObject;
+    public Text previousTimeObject;
     public DailyMountainGameMode dailyGamemode;
+    public DailyEndgameScreen dailyEndgameScreen;
     public GameScreen gameScreen;
 
 	//privates
@@ -29,8 +32,9 @@ public class DailyMountainScreen : M_Screen
     private bool canScroll = true;
     private float scrollDelay = 0.065f;
     private bool mountainGenerated;
-    private LeaderboardEntry clientEntry;
+    public LeaderboardEntry clientEntry;
     private bool canStart;
+    private bool hasFoundClient;
 
 
 	//Unity methods
@@ -40,6 +44,7 @@ public class DailyMountainScreen : M_Screen
         Random.seed = dailySeed;
         gameManager = GameObject.FindObjectOfType<GameManager>();
         leaderboardManager = GameObject.FindObjectOfType<SteamLeaderboardManager>();
+        previousTimeObject.gameObject.SetActive(false);
     }
     protected override void OnStart()
     {
@@ -75,6 +80,37 @@ public class DailyMountainScreen : M_Screen
         entriesObj.entries = entries;
 
         leaderboardManager.GetLeaderboardEntries(entriesObj, OnEntriesCompleteMethod, OnEntriesFailedMethod);
+    }
+    private void SimpleRefresh()
+    {
+        if (leaderboardManager == null || entries == null || entries.Count <= 0)
+            return;
+
+        int startIndex = entryMinIndex;
+        int endIndex = entryMinIndex + uiEntries.Count;
+
+        if (startIndex < 0)
+        {
+            startIndex = 0;
+        }
+        if (endIndex > entries.Count)
+        {
+            endIndex = entries.Count;
+        }
+
+        for (int i = 0; i < uiEntries.Count; i++)
+        {
+            SteamUI_LeaderboardEntry uiEntry = uiEntries[i];
+            int index = startIndex + i;
+            LeaderboardEntry steamEntry = null;
+            if (index < entries.Count)
+                steamEntry = entries[startIndex + i];
+
+            if (uiEntry == null)
+                continue;
+
+            uiEntry.SetInfo(steamEntry);
+        }
     }
     private void OnEntriesCompleteMethod()
     {
@@ -138,36 +174,26 @@ public class DailyMountainScreen : M_Screen
         loadIcon.gameObject.SetActive(false);
         couldNotConnectProperlyText.SetActive(true);
     }
-    private void SimpleRefresh()
+    public bool UploadHighscoreToLeaderboard(Timer newEntry, SteamLeaderboardManager.OnUploadComplete completeMethod, SteamLeaderboardManager.OnUploadFailed failedMethod)
     {
-        if (leaderboardManager == null || entries == null || entries.Count <= 0)
-            return;
+        if (leaderboardManager == null || newEntry == null)
+            return false;
 
-        int startIndex = entryMinIndex;
-        int endIndex = entryMinIndex + uiEntries.Count;
-
-        if (startIndex < 0)
+        if (!hasFoundClient)
         {
-            startIndex = 0;
+            leaderboardManager.UploadTimeToLeaderboard(newEntry.milliSeconds, completeMethod, failedMethod);
+            return true;
         }
-        if (endIndex > entries.Count)
+        else
         {
-            endIndex = entries.Count;
+            if (clientEntry != null && newEntry.HasBetterTimeThan(clientEntry.timer))
+            {
+                leaderboardManager.UploadTimeToLeaderboard(newEntry.milliSeconds, completeMethod, failedMethod);
+                return true;
+            }
         }
 
-        for (int i = 0; i < uiEntries.Count; i++)
-        {
-            SteamUI_LeaderboardEntry uiEntry = uiEntries[i];
-            int index = startIndex + i;
-            LeaderboardEntry steamEntry = null;
-            if (index < entries.Count)
-                steamEntry = entries[startIndex + i];
-
-            if (uiEntry == null)
-                continue;
-
-            uiEntry.SetInfo(steamEntry);
-        }
+        return false;
     }
 
     public override void OnSwitchedTo()
@@ -175,6 +201,9 @@ public class DailyMountainScreen : M_Screen
         base.OnSwitchedTo();
         //Can not start the game until leaderboards are ready
         canStart = false;
+
+        //Has not found a client entry
+        hasFoundClient = false;
 
         //Set gamemode to random daily gamemode
         GameMode dailyMode = gameModes.GetRandomDailyGameMode();
@@ -229,6 +258,14 @@ public class DailyMountainScreen : M_Screen
                 gameManager.DestroyCurrentLevel(true);
 
             leaderboardManager.ResetGettingLeaderboards();
+        }
+        else
+        {
+            if (hasFoundClient && clientEntry != null)
+            {
+                previousTimeObject.gameObject.SetActive(true);
+                previousTimeObject.text = clientEntry.timer.GetTimeString();
+            }
         }
     }
 
@@ -364,18 +401,18 @@ public class DailyMountainScreen : M_Screen
         tmp.globalRank = entries[fakeRank].globalRank;
         tmp.isClient = entries[fakeRank].isClient;
         tmp.name = entries[fakeRank].name;
-        tmp.totalSeconds = entries[fakeRank].totalSeconds;
+        tmp.timer = entries[fakeRank].timer;
 
 
         entries[fakeRank].globalRank = fakeRank + 1;
         entries[fakeRank].isClient = entries[1].isClient;
         entries[fakeRank].name = entries[1].name;
-        entries[fakeRank].totalSeconds = entries[1].totalSeconds;
+        entries[fakeRank].timer = entries[1].timer;
 
         entries[1].globalRank = 2;
         entries[1].isClient = tmp.isClient;
         entries[1].name = tmp.name;
-        entries[1].totalSeconds = tmp.totalSeconds;
+        entries[1].timer = tmp.timer;
     }
     private void AddFakeEntries(int amount)
     {
@@ -384,7 +421,7 @@ public class DailyMountainScreen : M_Screen
             LeaderboardEntry prev = entries.Last();
             LeaderboardEntry e = new LeaderboardEntry();
             e.globalRank = prev.globalRank + 1;
-            e.totalSeconds = 50 + 10 * i;
+            e.timer = new Timer(5000 + (1000 * i));
             e.name = "test";
             if (i == amount - 1)
                 e.globalRank = 1337;
@@ -397,6 +434,7 @@ public class DailyMountainScreen : M_Screen
         {
             if (entries[i].isClient)
             {
+                hasFoundClient = true;
                 return clientEntry = entries[i];
             }
         }

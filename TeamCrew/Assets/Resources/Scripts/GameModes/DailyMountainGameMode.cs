@@ -4,19 +4,27 @@ using UnityEngine.UI;
 
 public class Timer
 {
-    public int minutes { get { return Mathf.FloorToInt(seconds / 60f);} }
-    public int seconds { get { return Mathf.FloorToInt(milliSeconds / 100); } }
-    public int milliSeconds { get { return Mathf.FloorToInt(timer * 100); } }
+    public int minutes { get { return (Mathf.FloorToInt(milliSeconds / 100) / 60);} }
+    public int seconds { get { return Mathf.FloorToInt(milliSeconds / 100) % 60; } }
+    public int milliSeconds { get { return Mathf.FloorToInt(time * 100); } }
 
-    private float timer;
+    public float time;
 
+    public Timer()
+    {
+
+    }
+    public Timer(int offsetInMilliSeconds)
+    {
+        this.time = (float)offsetInMilliSeconds / 100f;
+    }
     public void Increment()
     {
-        timer += Time.deltaTime;
+        time += Time.deltaTime;
     }
     public void Reset()
     {
-        timer = 0;
+        time = 0;
     }
     public string GetTimeString()
     {
@@ -74,6 +82,7 @@ public class DailyMountainGameMode : MonoBehaviour
     {
         timer.Reset();
         currentTimeText.gameObject.SetActive(true);
+        currentTimeText.text = "00:00:00";
     }
     public void OnExplosion()
     {

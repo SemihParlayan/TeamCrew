@@ -15,8 +15,9 @@ public class EndgameScreen : M_Screen
     private ScreenMovementProperties endGameCameraProperties;
 
 
-    void Update()
+    protected override void OnUpdate()
     {
+        base.OnUpdate();
         if (fade)
         {
             Color c = whiteFade.color;

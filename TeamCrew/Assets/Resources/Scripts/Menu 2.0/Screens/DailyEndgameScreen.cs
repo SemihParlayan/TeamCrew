@@ -9,18 +9,29 @@ public class DailyEndgameScreen : M_Screen
     public Fireworks fireWorks;
     public SpriteRenderer whiteFade;
     public Text feedbackText;
+    public Text diffTimeText;
     public Text timeText;
     public DailyMountainGameMode dailyGamemode;
+    [HideInInspector]
+    public bool canContinueToStats;
+
+    [Header("Feedback info for ending")]
+    public string failedText = "Try again";
+    public string succeedText = "Good job";
+    public Color failedColor = Color.red;
+    public Color succedColor = Color.green;
 
 	//privates
     private bool fade;
     private float fadeSpeed = 0.5f;
+    private bool showTimeText;
 
 	//Unity methods
     protected override void OnAwake()
     {
         base.OnAwake();
         feedbackText.gameObject.SetActive(false);
+        diffTimeText.gameObject.SetActive(false);
         timeText.gameObject.SetActive(false);
     }
     protected override void OnUpdate()
@@ -36,6 +47,8 @@ public class DailyEndgameScreen : M_Screen
             {
                 whiteFade.gameObject.SetActive(false);
                 fade = false;
+
+                FadeComplete();
             }
         }
     }
@@ -51,14 +64,17 @@ public class DailyEndgameScreen : M_Screen
     }
     public void ContinueToStats()
     {
-        GameManager gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        if (canContinueToStats)
+        {
+            GameManager gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
-        gameManager.DestroyFrogs();
-        gameManager.ResetGameVariables();
-        gameManager.ResetWinVariable();
+            gameManager.DestroyFrogs();
+            gameManager.ResetGameVariables();
+            gameManager.ResetWinVariable();
 
-        M_ScreenManager.SetActive(true);
-        M_ScreenManager.SwitchScreen(dailyScreen);
+            M_ScreenManager.SetActive(true);
+            M_ScreenManager.SwitchScreen(dailyScreen);
+        }
     }
 
     public override void OnSwitchedTo()
@@ -66,30 +82,102 @@ public class DailyEndgameScreen : M_Screen
         base.OnSwitchedTo();
 
         GameObject.FindWithTag("GameManager").GetComponent<GameManager>().SetInactivityState(false, 15f);
+
+        canContinueToStats = false;
+        bool sentForUpload = dailyScreen.UploadHighscoreToLeaderboard(dailyGamemode.timer, OnUploadCompleteMethod, OnUploadFailedMethod);
+
+        timeText.text = "Your time: " + dailyGamemode.timer.GetTimeString();
+        showTimeText = false;
+        if (!sentForUpload)
+        {
+            canContinueToStats = true;
+
+            //Feedback failed
+            feedbackText.text = failedText;
+
+            //Does player have a previous score
+            if (dailyScreen.clientEntry != null)
+            {
+                Timer clientTimer = dailyScreen.clientEntry.timer;
+                Timer currentTimer = dailyGamemode.timer;
+
+                //Failed with this much +time
+                if (clientTimer.HasBetterTimeThan(currentTimer))
+                {
+                    Timer diff = new Timer(currentTimer.milliSeconds - clientTimer.milliSeconds);
+                    diffTimeText.text = "+" + diff.GetTimeString();
+                    diffTimeText.color = failedColor;
+
+                    showTimeText = true;
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Highscore sent to leaderboard, waiting for response");
+
+            //Feedback success
+            feedbackText.text = succeedText;
+
+            //Does player have a previous score
+            if (dailyScreen.clientEntry != null)
+            {
+                Timer clientTimer = dailyScreen.clientEntry.timer;
+                Timer currentTimer = dailyGamemode.timer;
+
+                //Succeded with this much -time
+                if (currentTimer.HasBetterTimeThan(clientTimer))
+                {
+                    Timer diff = new Timer(clientTimer.milliSeconds - currentTimer.milliSeconds);
+                    diffTimeText.text = "-" + diff.GetTimeString();
+                    diffTimeText.color = succedColor;
+
+                    showTimeText = true;
+                }
+            }
+        }
     }
     public override void OnSwitchedFrom()
     {
         base.OnSwitchedFrom();
 
-        feedbackText.gameObject.SetActive(false);
         timeText.gameObject.SetActive(false);
+        feedbackText.gameObject.SetActive(false);
+        diffTimeText.gameObject.SetActive(false);
+        whiteFade.color = Color.white;
+        whiteFade.gameObject.SetActive(false);
     }
 
 
 	//private methods
+    private void OnUploadCompleteMethod()
+    {
+        canContinueToStats = true;
+        Debug.Log("Upload complete");
+    }
+    private void OnUploadFailedMethod()
+    {
+        canContinueToStats = true;
+        Debug.Log("Upload failed");
+    }
     private void OnExplosion()
     {
         whiteFade.gameObject.SetActive(true);
         fireWorks.ExplodeBig();
-        Invoke("Fade", 0.5f);
+        Invoke("Fade", 1f);
         GameObject.FindObjectOfType<GameManager>().SpawnHangingFrogs();
 
+        dailyGamemode.OnExplosion();
+        dailyScreen.previousTimeObject.gameObject.SetActive(false);
+    }
+    private void FadeComplete()
+    {
         feedbackText.gameObject.SetActive(true);
         timeText.gameObject.SetActive(true);
-
-        dailyGamemode.OnExplosion();
-        //feedbackText.text = dailyGamemode.GetFeedback();
-        timeText.text = dailyGamemode.timer.GetTimeString();
+        if (showTimeText)
+        {
+            diffTimeText.gameObject.SetActive(true);
+        }
     }
     private void Fade()
     {

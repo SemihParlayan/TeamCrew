@@ -12,22 +12,23 @@ public class LeaderboardEntry
 {
     public string name;
     public int globalRank;
-    public int totalSeconds;
     public bool isClient;
+
+    public Timer timer;
 
     public LeaderboardEntry()
     {
         name = string.Empty;
         globalRank = 0;
-        totalSeconds = 0;
         isClient = false;
+        timer = new Timer();
     }
     public LeaderboardEntry(LeaderboardEntry_t steamLeaderboardEntry)
     {
         this.name = SteamFriends.GetFriendPersonaName(steamLeaderboardEntry.m_steamIDUser);
         this.globalRank = steamLeaderboardEntry.m_nGlobalRank;
-        this.totalSeconds = steamLeaderboardEntry.m_nScore;
         this.isClient = steamLeaderboardEntry.m_steamIDUser == SteamUser.GetSteamID();
+        this.timer = new Timer(steamLeaderboardEntry.m_nScore);
     }
 }
 public class SteamLeaderboardManager : MonoBehaviour
@@ -35,10 +36,16 @@ public class SteamLeaderboardManager : MonoBehaviour
     public delegate void OnEntriesComplete();
     public delegate void OnEntriesFailed();
 
+    public delegate void OnUploadComplete();
+    public delegate void OnUploadFailed();
+
     private OnEntriesFailed onEntriesFailedStack;
     private OnEntriesComplete onEntriesCompleteStack;
+
+    private OnUploadComplete onUploadCompleteStack;
+    private OnUploadFailed onUploadFailedStack;
+
     private bool gettingLeaderboardEntries;
-    private bool gettingFailed;
 
 	private int m_NumGamesStat;
 	private float m_FeetTraveledStat;
@@ -198,10 +205,18 @@ public class SteamLeaderboardManager : MonoBehaviour
     }
 
     //Upload time to leaderboard
-    public void UploadTimeToLeaderboard(int timeInSeconds, float timeDelay)
+    public void UploadTimeToLeaderboard(int timeInMilliSeconds, OnUploadComplete completeMethod, OnUploadFailed failedMethod)
     {
-        Debug.Log("Uploading time to leaderboard: " + m_SteamLeaderboard.ToString() + "   With time: " + timeInSeconds.ToString());
-        SteamAPICall_t handle = SteamUserStats.UploadLeaderboardScore(m_SteamLeaderboard, ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodForceUpdate, timeInSeconds, null, 0);
+        if (completeMethod != null)
+        {
+            onUploadCompleteStack = null;
+            onUploadFailedStack = null;
+
+            onUploadCompleteStack += completeMethod;
+            onUploadFailedStack += failedMethod;
+        }
+        Debug.Log("Uploading time to leaderboard: " + m_SteamLeaderboard.ToString() + "   With time: " + timeInMilliSeconds.ToString() + " ms");
+        SteamAPICall_t handle = SteamUserStats.UploadLeaderboardScore(m_SteamLeaderboard, ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodForceUpdate, timeInMilliSeconds, null, 0);
         LeaderboardScoreUploaded.Set(handle);
     }
     private void OnLeaderboardScoreUploaded(LeaderboardScoreUploaded_t pCallback, bool bIOFailure)
@@ -209,9 +224,18 @@ public class SteamLeaderboardManager : MonoBehaviour
         if (pCallback.m_bSuccess != 0)
         {
             Debug.Log("Success!! Uploaded time to leaderboard: " + pCallback.m_hSteamLeaderboard);
+
+            if (onUploadCompleteStack != null)
+            {
+                onUploadCompleteStack();
+            }
         }
         else
         {
+            if (onUploadFailedStack != null)
+            {
+                onUploadFailedStack();
+            }
             Debug.Log("Failure!! Could not upload time to leaderboard");
         }
     }

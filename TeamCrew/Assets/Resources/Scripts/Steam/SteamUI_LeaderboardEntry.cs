@@ -35,12 +35,7 @@ public class SteamUI_LeaderboardEntry : MonoBehaviour
         {
             rankText.text = entry.globalRank + ".";
             nameText.text = entry.name;
-
-            int totalSeconds = entry.totalSeconds;
-            int minutes = totalSeconds / 60;
-            int seconds = totalSeconds % 60;
-
-            timeText.text = minutes + ":" + seconds + ":00";
+            timeText.text = entry.timer.GetTimeString();
 
             highlight.SetActive(entry.isClient);
         }
