@@ -407,6 +407,7 @@ public class GameManager : MonoBehaviour
     public bool IsInMultiplayerMode { get { return (singlePlayerStarted == string.Empty); } }
     public bool isInDailyMountain;
     private bool hangingFrogsSpawned;
+    private Vector4 playerEndPlacements; //Seb. This is what position the players have. Needed for the stats screen. 
 
     void Awake()
     {
@@ -524,6 +525,9 @@ public class GameManager : MonoBehaviour
     {
         topNumbers.DeActivateNumbers();
     }
+
+
+
     public void SpawnHangingFrogs()
     {
         if (hangingFrogsSpawned)
@@ -585,10 +589,42 @@ public class GameManager : MonoBehaviour
                         order[i] = order[i + 1];
                         order[i + 1] = tmp;
                         changed = true;
+
+
                     }
                 }
             }
         }
+
+
+
+        //seb
+        //order is sorted according to the frog's victory order. Here I sort playerEndPlacements. 
+        //Idea for playerEndPlacements is that position 0 represents player 1, pos 2 player 2 and so on. Numbers represent their end rank in the latest race. This is so that I can display top stats more easily. 
+        //This sets playerEndPlacements to be accurate. 
+        for (int i=0; i<order.Count-1;i++)
+        {
+            playerEndPlacements[0] = order[i].player;
+
+            switch (order[i].player)
+            {
+                case 0:
+                    playerEndPlacements[0] = i;
+                    break;
+                case 1:
+                    playerEndPlacements[1] = i;
+                    break;
+                case 2:
+                    playerEndPlacements[2] = i;
+                    break;
+                case 3:
+                    playerEndPlacements[3] = i;
+                    break;
+            }
+
+        }
+        //end of seb 
+
 
         for (int i = 0; i < frogsReady.Length; i++)
         {
@@ -775,6 +811,14 @@ public class GameManager : MonoBehaviour
 
         //Set menu music to start fading out
         menuMusicController.ChangeFadeState(FadeState.OUT);
+    }
+
+    /// <summary>
+    /// Return the frogs final race position . X = PlayerOne race pos. Y = PlayerTwo race pos. 
+    /// </summary>
+    public Vector4 GetEndPlacements() //function by seb, needed by topstats :) 
+    {
+        return playerEndPlacements;
     }
 
     /// <summary>
