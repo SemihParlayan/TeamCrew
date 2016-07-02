@@ -282,6 +282,7 @@ public class HandGrip : MonoBehaviour
                     else if (newGrip.tutorialStart)
                     {
                         isGrippingTutorial = true;
+                        LockHand(float.MaxValue);
                     }
                     return true;
                 }
@@ -408,7 +409,7 @@ public class HandGrip : MonoBehaviour
         }
     }
 
-    IEnumerator DeLockHand(float time)
+    public IEnumerator DeLockHand(float time)
     {
         yield return new WaitForSeconds(time);
 

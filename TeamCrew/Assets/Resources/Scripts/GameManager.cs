@@ -781,18 +781,26 @@ public class GameManager : MonoBehaviour
         //Disable tutorial bubbles;
         tutorialBubbles.Disable(playerScripts);
 
-        //Remove players safety line
+        //Remove players safety line && unlock frog hands
         for (int i = 0; i < players.Length; i++)
         {
             Transform player = players[i];
 
             if (player != null)
             {
+                //Line
                 Line line = player.GetComponent<Line>();
-
                 if (line)
                 {
                     line.Remove();
+                }
+
+                //Hands
+                HandGrip[] handGrips = player.parent.GetComponentsInChildren<HandGrip>();
+
+                foreach (HandGrip grip in handGrips)
+                {
+                    StartCoroutine(grip.DeLockHand(0f));
                 }
             }
         }

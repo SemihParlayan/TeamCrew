@@ -86,7 +86,7 @@ public class DailyEndgameScreen : M_Screen
         canContinueToStats = false;
         bool sentForUpload = dailyScreen.UploadHighscoreToLeaderboard(dailyGamemode.timer, OnUploadCompleteMethod, OnUploadFailedMethod);
 
-        timeText.text = "Your time: " + dailyGamemode.timer.GetTimeString();
+        timeText.text = "Your time: " + dailyGamemode.timer.GetTimeString(false, true, true, true);
         showTimeText = false;
         if (!sentForUpload)
         {
@@ -105,7 +105,7 @@ public class DailyEndgameScreen : M_Screen
                 if (clientTimer.HasBetterTimeThan(currentTimer))
                 {
                     Timer diff = new Timer(currentTimer.milliSeconds - clientTimer.milliSeconds);
-                    diffTimeText.text = "+" + diff.GetTimeString();
+                    diffTimeText.text = "+" + diff.GetTimeString(false, true, true, true);
                     diffTimeText.color = failedColor;
 
                     showTimeText = true;
@@ -129,7 +129,7 @@ public class DailyEndgameScreen : M_Screen
                 if (currentTimer.HasBetterTimeThan(clientTimer))
                 {
                     Timer diff = new Timer(clientTimer.milliSeconds - currentTimer.milliSeconds);
-                    diffTimeText.text = "-" + diff.GetTimeString();
+                    diffTimeText.text = "-" + diff.GetTimeString(false, true, true, true);
                     diffTimeText.color = succedColor;
 
                     showTimeText = true;

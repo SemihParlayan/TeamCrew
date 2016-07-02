@@ -35,7 +35,7 @@ public class SteamUI_LeaderboardEntry : MonoBehaviour
         {
             rankText.text = entry.globalRank + ".";
             nameText.text = entry.name;
-            timeText.text = entry.timer.GetTimeString();
+            timeText.text = entry.timer.GetTimeString(false, true, true, true);
 
             highlight.SetActive(entry.isClient);
         }

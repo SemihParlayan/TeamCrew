@@ -41,7 +41,6 @@ public class DailyMountainScreen : M_Screen
     void Awake()
     {
         canStart = false;
-        Random.seed = dailySeed;
         gameManager = GameObject.FindObjectOfType<GameManager>();
         leaderboardManager = GameObject.FindObjectOfType<SteamLeaderboardManager>();
         previousTimeObject.gameObject.SetActive(false);
@@ -49,14 +48,7 @@ public class DailyMountainScreen : M_Screen
     protected override void OnStart()
     {
         base.OnStart();
-        System.DateTime time = CompleteLevel.currentDateTime;
-        string text = string.Empty;
-        text += time.DayOfWeek + " - ";
-        text += time.Date.Day + "/";
-        text += time.Date.Month + "/";
-        text += time.Date.Year;
-        dateText.text = text;
-        Debug.Log(dateText);
+        dateText.text = DateManager.GetDateString();
     }
     protected override void OnUpdate()
     {
@@ -199,6 +191,11 @@ public class DailyMountainScreen : M_Screen
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
+
+        //Update seed
+        dailySeed = DateManager.GetSeedFromUTC();
+
+
         //Can not start the game until leaderboards are ready
         canStart = false;
 
@@ -264,7 +261,7 @@ public class DailyMountainScreen : M_Screen
             if (hasFoundClient && clientEntry != null)
             {
                 previousTimeObject.gameObject.SetActive(true);
-                previousTimeObject.text = clientEntry.timer.GetTimeString();
+                previousTimeObject.text = clientEntry.timer.GetTimeString(false, true, true, true);
             }
         }
     }

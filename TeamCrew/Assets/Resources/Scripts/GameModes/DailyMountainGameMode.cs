@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Timer
 {
-    public int minutes { get { return (Mathf.FloorToInt(milliSeconds / 100) / 60);} }
+    public int hours { get { return (Mathf.FloorToInt(milliSeconds / 100) / 60) / 60; } }
+    public int minutes { get { return ((Mathf.FloorToInt(milliSeconds / 100) / 60) % 60);} }
     public int seconds { get { return Mathf.FloorToInt(milliSeconds / 100) % 60; } }
     public int milliSeconds { get { return Mathf.FloorToInt(time * 100); } }
 
@@ -14,7 +16,7 @@ public class Timer
     {
 
     }
-    public Timer(int offsetInMilliSeconds)
+    public Timer(float offsetInMilliSeconds)
     {
         this.time = (float)offsetInMilliSeconds / 100f;
     }
@@ -22,24 +24,76 @@ public class Timer
     {
         time += Time.deltaTime;
     }
+    public void Decrement()
+    {
+        time -= Time.deltaTime;
+        if (time < 0)
+            time = 0;
+    }
     public void Reset()
     {
         time = 0;
     }
-    public string GetTimeString()
+    public string GetTimeString(bool inclHour, bool inclMinute, bool inclSecond, bool inclMilliSecond)
     {
-        string text = (minutes < 10) ? "0" + minutes : minutes.ToString();
-        text += ":" + ((seconds < 10) ? "0" + seconds : seconds.ToString());
+        string text = string.Empty;
 
-        int newMilliseconds = milliSeconds % 100;
-        text += ":" + ((newMilliseconds < 10) ? "0" + newMilliseconds : newMilliseconds.ToString());
+        //Add hour
+        if (inclHour)
+        {
+            text += (hours < 10 ? "0" + hours : hours.ToString());
+        }
 
+        //Add minutes
+        if (inclMinute)
+        {
+            if (inclHour)
+                text += ":";
+
+            text += (minutes < 10 ? "0" + minutes : minutes.ToString());
+        }
+
+        //Add seconds
+        if (inclSecond)
+        {
+            if (inclHour || inclMinute)
+                text += ":";
+
+            text += (seconds < 10 ? "0" + seconds : seconds.ToString());
+        }
+
+        //Add milliseconds
+        if (inclMilliSecond)
+        {
+            if (inclHour || inclMinute || inclSecond)
+                text += ".";
+
+            int newMilliseconds = milliSeconds % 100;
+            text += (newMilliseconds < 10 ? "0" + newMilliseconds : newMilliseconds.ToString());
+        }
         return text;
     }
 
     public bool HasBetterTimeThan(Timer other)
     {
         return this.milliSeconds < other.milliSeconds;
+    }
+
+    public void AddSeconds(int amount)
+    {
+        time += amount;
+    }
+    public void AddMinutes(int amount)
+    {
+        time += amount * 60f;
+    }
+    public void AddHours(int amount)
+    {
+        time += 3600f * amount;
+    }
+    public void AddMilliSeconds(int amount)
+    {
+        time += (float)amount / 100f;
     }
 }
 public class DailyMountainGameMode : MonoBehaviour 
@@ -74,7 +128,7 @@ public class DailyMountainGameMode : MonoBehaviour
 
 
 
-        currentTimeText.text = timer.GetTimeString();
+        currentTimeText.text = timer.GetTimeString(false, true, true, true);
 	}
 
 	//public methods
