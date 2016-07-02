@@ -392,6 +392,7 @@ public class GameManager : MonoBehaviour
     public ReadySetGo readySetGo;
     private ConnectFrogs connectFrogs;
     private TopNumbers topNumbers;
+    private TopStats topstats;//seb
     [HideInInspector]
     public List<Transform> transformOrder = new List<Transform>();
     public Transform frontParallaxes;
@@ -408,6 +409,7 @@ public class GameManager : MonoBehaviour
     public bool isInDailyMountain;
     private bool hangingFrogsSpawned;
     private Vector4 playerEndPlacements; //Seb. This is what position the players have. Needed for the stats screen. 
+    
 
     void Awake()
     {
@@ -481,6 +483,7 @@ public class GameManager : MonoBehaviour
 
         readySetGo = GetComponent<ReadySetGo>();
         topNumbers = GetComponent<TopNumbers>();
+        topstats = GetComponent<TopStats>();//seb
 
         //Enable menu music
         menuMusicController.Play();
@@ -518,11 +521,14 @@ public class GameManager : MonoBehaviour
     //Single use methods
     public void ActivateTopNumbers()
     {
+        topstats.showStats();//seb
+
         if (GetFrogReadyCount() > 1)
             topNumbers.ActivateNumbers(transformOrder.ToArray());
     }
     public void DeActivateNumbers()
     {
+        topstats.hideStats();//seb
         topNumbers.DeActivateNumbers();
     }
 
@@ -604,7 +610,7 @@ public class GameManager : MonoBehaviour
         //This sets playerEndPlacements to be accurate. 
         for (int i=0; i<order.Count-1;i++)
         {
-            playerEndPlacements[0] = order[i].player;
+            //playerEndPlacements[0] = order[i].player;
 
             switch (order[i].player)
             {
