@@ -608,10 +608,11 @@ public class GameManager : MonoBehaviour
         //order is sorted according to the frog's victory order. Here I sort playerEndPlacements. 
         //Idea for playerEndPlacements is that position 0 represents player 1, pos 2 player 2 and so on. Numbers represent their end rank in the latest race. This is so that I can display top stats more easily. 
         //This sets playerEndPlacements to be accurate. 
-        for (int i=0; i<order.Count-1;i++)
+        for (int i=0; i<order.Count;i++)
         {
+            Debug.Log("Order count; " + order.Count);
             //playerEndPlacements[0] = order[i].player;
-
+            //This is wrong. Investigate. 
             switch (order[i].player)
             {
                 case 0:

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TopNumberBubble : MonoBehaviour 
 {
-    private static Vector3 offset = new Vector3(-3, 0, 0);
+    private static Vector3 offset = new Vector3(3, 0, 0);
     private static float speed = 3;
 
     public Transform target;
