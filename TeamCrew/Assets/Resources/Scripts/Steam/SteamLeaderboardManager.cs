@@ -156,7 +156,7 @@ public class SteamLeaderboardManager : MonoBehaviour
 
             this.entriesRef = entriesRef;
             gettingLeaderboardEntries = true;
-            FindLeaderboard("Highscores");
+            FindLeaderboard((DateManager.GetSeedFromUTC() + 1).ToString());
         }
     }
     private void GetLeaderboardEntriesLocal()

@@ -27,7 +27,7 @@ public class DailyMountainScreen : M_Screen
     private GameManager gameManager;
     private SteamLeaderboardManager leaderboardManager;
     private List<LeaderboardEntry> entries;
-    private int dailySeed = 50;
+    private int dailySeed = 0;
     private int entryMinIndex = 0;
     private bool canScroll = true;
     private float scrollDelay = 0.065f;
@@ -413,6 +413,8 @@ public class DailyMountainScreen : M_Screen
     }
     private void AddFakeEntries(int amount)
     {
+        if (entries.Count <= 0)
+            return;
         for (int i = 0; i < amount; i++)
         {
             LeaderboardEntry prev = entries.Last();

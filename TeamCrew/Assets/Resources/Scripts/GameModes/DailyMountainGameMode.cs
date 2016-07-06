@@ -78,6 +78,10 @@ public class Timer
     {
         return this.milliSeconds < other.milliSeconds;
     }
+    public bool IsAtZero()
+    {
+        return time <= 0;
+    }
 
     public void AddSeconds(int amount)
     {

@@ -59,11 +59,8 @@ public class DateManager : MonoBehaviour
     }
     public static int GetSeedFromUTC()
     {
-        int seed = 0;
-
-        seed += CurrentUTCDate.Year + CurrentUTCDate.Month + CurrentUTCDate.Day;
-
-        return seed;
+        string textSeed = CurrentUTCDate.Year.ToString() + CurrentUTCDate.Month.ToString() + CurrentUTCDate.Day.ToString();
+        return int.Parse(textSeed);
     }
 
 	//private methods
