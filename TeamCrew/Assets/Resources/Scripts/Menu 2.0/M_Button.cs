@@ -10,6 +10,7 @@ public class M_Button : MonoBehaviour
     public bool animated;
     public bool Disabled { get { return disabled; } set { disabled = value; OnDisabled(value); } }
     public bool disabled;
+    public bool selected;
     public Sprite pressedSprite;
     public Sprite selectedSprite;
     private Sprite defaultSprite;
@@ -89,6 +90,7 @@ public class M_Button : MonoBehaviour
         if (animated)
         {
             anim.SetBool("Selected", true);
+            selected = true;
             return;
         }
         else
@@ -100,6 +102,7 @@ public class M_Button : MonoBehaviour
         if (animated)
         {
             anim.SetBool("Selected", false);
+            selected = false;
             return;
         }
         else
