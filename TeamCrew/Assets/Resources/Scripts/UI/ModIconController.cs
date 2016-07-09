@@ -4,10 +4,13 @@ using System.Collections.Generic;
 public class ModIconController : MonoBehaviour {
     public List<GameObject> icons = new List<GameObject>();
     int currentID = 0;
+    int IDtoShowWhenReady = 0;
+   public  Animator anime;
 
 	// Use this for initialization
 	void Start () {
-	
+       // anime = GetComponent<Animator>();
+
         for(int i=0;i<icons.Count;i++)
         {
             icons[i].SetActive(false);
@@ -25,30 +28,37 @@ public class ModIconController : MonoBehaviour {
 
     public void changeToNone()
     {
-        changeIcon(0);  
+        changeModIcon(0);  
     }
     public void changeToOneArm()
     {
-        changeIcon(1);
+        changeModIcon(1);
     }
     public  void changeToLowGrav()
     {
-        changeIcon(2);
+        changeModIcon(2);
     }
     public  void changeToKOTH()
     {
-        changeIcon(3);
+        changeModIcon(3);
     }
     public void changeToBurningHands()
     {
-        changeIcon(4);
+        changeModIcon(4);
     }
 
-    void changeIcon(int ID)
+    void changeModIcon(int butt)//Starts the animator. 
+    {
+        IDtoShowWhenReady = butt;
+        anime.SetTrigger("changeIcon");
+      
+        
+    }
+    public void updateIconGraphic() //called by ANIMATOR when the time is right
     {
         icons[currentID].SetActive(false);
-        icons[ID].SetActive(true);
-        currentID = ID;
+        icons[IDtoShowWhenReady].SetActive(true);
+        currentID = IDtoShowWhenReady;
     }
     
 }

@@ -239,6 +239,7 @@ public class GameModifiers : MonoBehaviour
 {
     public AudioMixer sfxMixer;
     public List<Mod> mods = new List<Mod>();
+    public ModifierUIController modUIIcon;
 
     void Awake()
     {
@@ -307,18 +308,22 @@ public class GameModifiers : MonoBehaviour
     public void OnLowGravity()
     {
         ActivateModifier(Modifier.LowGravity);
+        modUIIcon.SwitchIconState(1);//seb
     }
     public void OnBurningHands()
     {
         ActivateModifier(Modifier.BurningHands);
+        modUIIcon.SwitchIconState(3);//seb
     }
     public void OnOneArms()
     {
         ActivateModifier(Modifier.OneArm);
         ((OneArm)GetMod(Modifier.OneArm)).OnPress();
+        modUIIcon.SwitchIconState(0);//seb
     }
     public void OnKOTH()
     {
         ActivateModifier(Modifier.KOTH);
+        modUIIcon.SwitchIconState(2);//seb
     }
 }
