@@ -10,7 +10,7 @@ public class M_Button : MonoBehaviour
     public bool animated;
     public bool Disabled { get { return disabled; } set { disabled = value; OnDisabled(value); } }
     public bool disabled;
-    public bool selected;
+    public new bool selected;
     public Sprite pressedSprite;
     public Sprite selectedSprite;
     private Sprite defaultSprite;
@@ -20,7 +20,7 @@ public class M_Button : MonoBehaviour
     public static float pressDelay = 0.2f;
 
     //Components
-    private SpriteRenderer renderer;
+    private new SpriteRenderer renderer;
     
 
     //References

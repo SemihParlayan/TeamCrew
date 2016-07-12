@@ -282,7 +282,10 @@ public class HandGrip : MonoBehaviour
                     else if (newGrip.tutorialStart)
                     {
                         isGrippingTutorial = true;
-                        LockHand(float.MaxValue);
+                        if (!gameManager.tutorialComplete)
+                        {
+                            LockHand(float.MaxValue);
+                        }
                     }
                     return true;
                 }

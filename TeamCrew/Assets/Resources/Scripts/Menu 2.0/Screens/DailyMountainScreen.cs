@@ -113,7 +113,7 @@ public class DailyMountainScreen : M_Screen
             GenerateMountain();
 
             //Add fake entries
-            AddFakeEntries(57);
+            //AddFakeEntries(57);
 
             //Enter client at fake rank
             //SetFakeRank(47);

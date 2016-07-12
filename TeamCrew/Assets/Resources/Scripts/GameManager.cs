@@ -1154,7 +1154,6 @@ public class GameManager : MonoBehaviour
                 PlayerIndex player = (PlayerIndex)(i);
                 GamePadState state = GamePad.GetState(player);
 
-                int rwar = 0;
                 if (state.IsConnected)
                 {
                     controllers[i] = new Controller(state, player);

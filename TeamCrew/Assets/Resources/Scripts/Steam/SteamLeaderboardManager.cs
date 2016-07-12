@@ -258,9 +258,6 @@ public class SteamLeaderboardManager : MonoBehaviour
 
 
 
-
-
-
 	// Callback version for: SteamUserStats.RequestCurrentStats() (Local Player)
 	private void OnUserStatsReceived(UserStatsReceived_t pCallback) 
     {

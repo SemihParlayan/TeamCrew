@@ -7,7 +7,6 @@ public class M_SliderButton : M_Button
     public bool drawGizmos;
     public float value;
     public bool onChange;
-    private float prevValue;
     public bool pressed;
 
     public float leftEdge;
@@ -15,7 +14,7 @@ public class M_SliderButton : M_Button
     public float yOffset;
 
     private Transform handle;
-    public bool selected = false;
+    new public bool sliderSelected = false;
     private float speed = 0.75f;
 
     protected override void OnStart()
@@ -25,7 +24,7 @@ public class M_SliderButton : M_Button
     }
     void Update()
     {
-        if (!selected)
+        if (!sliderSelected)
             return;
 
         if (pressed)
@@ -97,11 +96,11 @@ public class M_SliderButton : M_Button
     public override void OnSelect()
     {
         base.OnSelect();
-        selected = true;
+        sliderSelected = true;
     }
     public override void OnDeSelect()
     {
         base.OnDeSelect();
-        selected = false;
+        sliderSelected = false;
     }
 }

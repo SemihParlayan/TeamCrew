@@ -60,7 +60,7 @@ public class KOTH : MonoBehaviour
     public AudioSource newLeaderSound;
     public AudioSource scoreGainSound;
     public Transform KOTHParent;
-    public ParticleSystem particleSystem;
+    public new ParticleSystem particleSystem;
     public TextMesh scoreAdditionPrefab;
     public ScoreKeeper[] keepers;
 
