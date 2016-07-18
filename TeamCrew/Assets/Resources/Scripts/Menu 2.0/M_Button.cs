@@ -10,7 +10,7 @@ public class M_Button : MonoBehaviour
     public bool animated;
     public bool Disabled { get { return disabled; } set { disabled = value; OnDisabled(value); } }
     public bool disabled;
-    public new bool selected;
+    public bool selected;
     public Sprite pressedSprite;
     public Sprite selectedSprite;
     private Sprite defaultSprite;

@@ -1192,10 +1192,9 @@ GameObject:
   - 114: {fileID: 11412664}
   - 95: {fileID: 9556582}
   - 114: {fileID: 11459132}
-  - 114: {fileID: 11458672}
   - 114: {fileID: 11483980}
   m_Layer: 0
-  m_Name: Button - Mode selection
+  m_Name: Button - Back to previous
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23938,7 +23937,7 @@ Transform:
   m_GameObject: {fileID: 141648}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.00000095367, z: 0}
-  m_LocalScale: {x: 0.5468378, y: 0.54683775, z: 0.54683775}
+  m_LocalScale: {x: 0.4467665, y: 0.4467664, z: 0.4467664}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 455282}
@@ -43758,7 +43757,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141648}
-  m_Text: Mode Select
+  m_Text: previous screen
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -51506,6 +51505,9 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: f95f059cba762584d8e429b43a480f54, type: 2}
   pauseScreen: {fileID: 11410476}
   endgameMenuScreen: {fileID: 11499178}
+  modeSelectionScreen: {fileID: 11455548}
+  dailyMountainScreen: {fileID: 11487074}
+  backToPreviosButtonText: {fileID: 10204134}
   koth: {fileID: 11428220}
 --- !u!114 &11454652
 MonoBehaviour:
@@ -52200,20 +52202,6 @@ MonoBehaviour:
   selected: 0
   pressedSprite: {fileID: 21300010, guid: 6f2c1c35a566d4e4da96bc4738bb9923, type: 3}
   selectedSprite: {fileID: 21300010, guid: 6f2c1c35a566d4e4da96bc4738bb9923, type: 3}
---- !u!114 &11458672
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 105892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56df76429552a7b4f96c298ac66dcc67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventList:
-  - eventType: 4
-    targetScreen: {fileID: 11455548}
 --- !u!114 &11458834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52606,6 +52594,9 @@ MonoBehaviour:
   - eventType: 4
     reciever: {fileID: 117696}
     methodName: GoToMainMenu
+  - eventType: 4
+    reciever: {fileID: 186962}
+    methodName: HideTimeTexts
 --- !u!114 &11462000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54850,7 +54841,7 @@ MonoBehaviour:
     methodName: LockParallaxes
   - eventType: 4
     reciever: {fileID: 117696}
-    methodName: GoToModeSelection
+    methodName: GoBackToPrevious
 --- !u!114 &11484000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -55212,7 +55203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   subScreen: 0
-  player: 1
+  player: -1
   entryButton: {fileID: 11456130}
   movementProperties:
     cameraLocation: {fileID: 444848}
@@ -55241,7 +55232,6 @@ MonoBehaviour:
   currentTimeObject: {fileID: 103690}
   previousTimeObject: {fileID: 11487524}
   dailyGamemode: {fileID: 11471862}
-  dailyEndgameScreen: {fileID: 0}
   gameScreen: {fileID: 11468784}
   clientEntry:
     name: 

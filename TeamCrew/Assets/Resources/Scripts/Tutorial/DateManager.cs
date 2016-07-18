@@ -12,17 +12,30 @@ public class DateManager : MonoBehaviour
     public static bool hasValidDate;
 
     public TextMesh[] timeLeftTexts;
+
 	//privates
-    private Timer dailyTimer;
     private GameManager gameManager;
+    private static SteamLeaderboardManager leaderboardManager;
+    private static Timer dailyTimer;
+    private static bool calledFirstLeaderboardFind;
+    private static bool calledReset;
 
 	//Unity methods
     void Awake()
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
+        leaderboardManager = GameObject.FindObjectOfType<SteamLeaderboardManager>();
 
         RefreshUTCDate();
         dailyTimer = GetTimeLeftForToday();
+    }
+    void Start()
+    {
+        if (SteamManager.Initialized)
+        {
+            ResetLeaderboards();
+            calledFirstLeaderboardFind = true;
+        }
     }
     void Update()
     {
@@ -35,6 +48,16 @@ public class DateManager : MonoBehaviour
             foreach (TextMesh text in timeLeftTexts)
             {
                 text.text = dailyTimer.GetTimeString(true, true, true, false);
+            }
+
+            //Check if timer reaches zero
+            if (dailyTimer.IsAtZero())
+            {
+                if (!calledReset)
+                {
+                    calledReset = true;
+                    Invoke("ResetLeaderboards", 1f);
+                }
             }
         }
     }
@@ -136,5 +159,29 @@ public class DateManager : MonoBehaviour
         timer.AddSeconds(secondsleft);
         timer.AddMilliSeconds(milliSecondsLeft / 10);
         return timer;
+    }
+
+    private void ResetLeaderboards()
+    {
+        Debug.Log("Trying to reset leaderboards");
+        int prevSeed = GetSeedFromUTC();
+        if (!calledFirstLeaderboardFind)
+        {
+            prevSeed = 0;
+        }
+
+        RefreshUTCDate();
+        if (hasValidDate)
+        {
+            int newSeed = GetSeedFromUTC();
+            dailyTimer = GetTimeLeftForToday();
+            if (newSeed != prevSeed)
+            {
+                leaderboardManager.FindLeaderboard(newSeed.ToString());
+                CancelInvoke();
+            }
+        }
+
+        calledReset = false;
     }
 }

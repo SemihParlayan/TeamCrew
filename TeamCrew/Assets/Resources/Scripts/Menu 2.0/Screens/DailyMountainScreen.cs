@@ -20,8 +20,9 @@ public class DailyMountainScreen : M_Screen
     public GameObject currentTimeObject;
     public Text previousTimeObject;
     public DailyMountainGameMode dailyGamemode;
-    public DailyEndgameScreen dailyEndgameScreen;
     public GameScreen gameScreen;
+    [HideInInspector]
+    public LeaderboardEntry clientEntry;
 
 	//privates
     private GameManager gameManager;
@@ -32,7 +33,6 @@ public class DailyMountainScreen : M_Screen
     private bool canScroll = true;
     private float scrollDelay = 0.065f;
     private bool mountainGenerated;
-    public LeaderboardEntry clientEntry;
     private bool canStart;
     private bool hasFoundClient;
 
@@ -226,6 +226,9 @@ public class DailyMountainScreen : M_Screen
 
         //Disable scroll line
         scrollParent.SetActive(false);
+
+        //Hide time texts
+        HideTimeTexts();
     }
     public override void OnSwitchedFrom()
     {
@@ -266,6 +269,11 @@ public class DailyMountainScreen : M_Screen
         }
     }
 
+    public void HideTimeTexts()
+    {
+        currentTimeObject.gameObject.SetActive(false);
+        previousTimeObject.gameObject.SetActive(false);
+    }
     public void OnPlayGame()
     {
         if (canStart)

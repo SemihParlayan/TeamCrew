@@ -47,12 +47,8 @@ public class SteamLeaderboardManager : MonoBehaviour
 
     private bool gettingLeaderboardEntries;
 
-	private int m_NumGamesStat;
-	private float m_FeetTraveledStat;
-	private bool m_AchievedWinOneGame;
 	private SteamLeaderboard_t m_SteamLeaderboard;
 	private SteamLeaderboardEntries_t m_SteamLeaderboardEntries;
-	private Texture2D m_Icon;
 
 	protected Callback<UserStatsReceived_t> m_UserStatsReceived;
 	protected Callback<UserStatsStored_t> m_UserStatsStored;
@@ -81,10 +77,14 @@ public class SteamLeaderboardManager : MonoBehaviour
 	}
 
     //Find leaderboard
-    private void FindLeaderboard(string leaderboardName)
+    public void FindLeaderboard(string leaderboardName)
     {
+        //Debug.Log("Trying to find a leaderboard called: " + leaderboardName);
+        //SteamAPICall_t handle = SteamUserStats.FindLeaderboard(leaderboardName);
+        //LeaderboardFindResult.Set(handle);
+
         Debug.Log("Trying to find a leaderboard called: " + leaderboardName);
-        SteamAPICall_t handle = SteamUserStats.FindLeaderboard(leaderboardName);
+        SteamAPICall_t handle = SteamUserStats.FindOrCreateLeaderboard(leaderboardName, ELeaderboardSortMethod.k_ELeaderboardSortMethodAscending, ELeaderboardDisplayType.k_ELeaderboardDisplayTypeNumeric);
         LeaderboardFindResult.Set(handle);
     } 
     private void OnLeaderboardFindResult(LeaderboardFindResult_t pCallback, bool bIOFailure)
@@ -93,6 +93,7 @@ public class SteamLeaderboardManager : MonoBehaviour
         {
             Debug.Log("Success!! Found a leaderboard, leaderboard: " + pCallback.m_hSteamLeaderboard);
             m_SteamLeaderboard = pCallback.m_hSteamLeaderboard;
+
 
             //Continue with downloading scores
             DownloadLeaderboard();

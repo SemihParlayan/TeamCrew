@@ -10,7 +10,6 @@ public class FinalMusic : MonoBehaviour
     private Transform cam;
     
     public FadeState fade = FadeState.NONE;
-    private float timer = 0;
     public float fadeInSpeed = 1f;
     public float fadeOutSpeed = 1f;
     private bool started = false;

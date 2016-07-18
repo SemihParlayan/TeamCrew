@@ -8,6 +8,9 @@ public class PauseController : MonoBehaviour
     public AudioMixer mixer;
     public M_Screen pauseScreen;
     public EndgameMenuScreen endgameMenuScreen;
+    public ModeSelectionScreen modeSelectionScreen;
+    public DailyMountainScreen dailyMountainScreen;
+    public TextMesh backToPreviosButtonText;
     private GameManager gameManager;
     private M_ScreenManager screenManager;
     public KOTH koth;
@@ -66,6 +69,15 @@ public class PauseController : MonoBehaviour
 
         Vector3 camPos = Camera.main.transform.position; camPos.z = 0;
         pauseScreen.movementProperties.cameraLocation.position = camPos;
+
+        if (gameManager.isInDailyMountain)
+        {
+            backToPreviosButtonText.text = "Daily mountain";
+        }
+        else
+        {
+            backToPreviosButtonText.text = "Mode selection";
+        }
     }
     void UnPause()
     {
@@ -81,11 +93,22 @@ public class PauseController : MonoBehaviour
         pauseScreen.CancelInvoke();
     }
 
-    void GoToModeSelection()
+    void GoBackToPrevious()
     {
         paused = false;
         UnPause();
         M_ScreenManager.SetActive(true);
+
+
+        if (gameManager.isInDailyMountain)
+        {
+            M_ScreenManager.SwitchScreen(dailyMountainScreen);
+        }
+        else
+        {
+            M_ScreenManager.SwitchScreen(modeSelectionScreen);
+        }
+
         gameManager.ResetGameVariables();
         soundManager.StartMenuMusic();
     }

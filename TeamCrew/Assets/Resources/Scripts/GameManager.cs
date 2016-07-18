@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
 using XInputDotNetPure;
+using UnityEngine.SceneManagement;
 
 public enum GripSide
 {
@@ -1193,7 +1194,7 @@ public class GameManager : MonoBehaviour
         if (GameManager.Xbox)
         {
             if (GetButtonPress(XboxButton.Y))
-                Application.LoadLevel(Application.loadedLevel);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         ////Restart game with PS4 controller
         //else if (GameManager.PS4)
