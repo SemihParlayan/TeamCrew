@@ -260,8 +260,11 @@ public class M_Screen : MonoBehaviour
     }
     public void RefreshScreen()
     {
-        OnSwitchedFrom();
-        OnSwitchedTo();
+        if (M_ScreenManager.GetCurrentScreen() == this)
+        {
+            OnSwitchedFrom();
+            OnSwitchedTo();
+        }
     }
     public void PressButton(M_Button targetButton)
     {

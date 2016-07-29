@@ -11,7 +11,7 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
     public bool fadedIn;
     private bool lastFadedIn;
 
-	void Start () 
+	void Awake () 
     {
         screen = GetComponent<M_Screen>();
 	}
@@ -42,7 +42,7 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
                 }
             }
 
-            //Textmeshes
+            //TextmeshesW
             TextMesh[] meshes = GetComponentsInChildren<TextMesh>();
             for (int i = 0; i < meshes.Length; i++)
             {
