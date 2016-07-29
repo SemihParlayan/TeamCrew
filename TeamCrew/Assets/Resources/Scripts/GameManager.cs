@@ -611,7 +611,6 @@ public class GameManager : MonoBehaviour
         //This sets playerEndPlacements to be accurate. 
         for (int i=0; i<order.Count;i++)
         {
-            Debug.Log("Order count; " + order.Count);
             //playerEndPlacements[0] = order[i].player;
             //This is wrong. Investigate. 
             switch (order[i].player)
@@ -759,7 +758,14 @@ public class GameManager : MonoBehaviour
 
     public void DestroyTopFrog()
     {
-        topfrogSpawnerScript.RemoveFrog();
+        if (topfrogSpawnerScript == null)
+        {
+            topfrogSpawnerScript = GetComponent<TopFrogSpawner>();
+        }
+        if (topfrogSpawnerScript != null)
+        {
+            topfrogSpawnerScript.RemoveFrog();
+        }
         DestroyHangingFrogs();
     }
 
@@ -898,7 +904,6 @@ public class GameManager : MonoBehaviour
         if (this.winIsCalled)
             return;
         this.winIsCalled = true;
-        Debug.Log("Win is called");
         this.victoryFrogNumber = victoryFrogNumber;
         this.topFrogPrefab = topfrogPrefab;
 

@@ -44,6 +44,10 @@ public class DateManager : MonoBehaviour
 
         if (dailyTimer != null)
         {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                dailyTimer.AddHours(-1);
+            }
             dailyTimer.Decrement();
             foreach (TextMesh text in timeLeftTexts)
             {
@@ -178,6 +182,7 @@ public class DateManager : MonoBehaviour
             if (newSeed != prevSeed)
             {
                 leaderboardManager.FindLeaderboard(newSeed.ToString());
+                GameObject.FindObjectOfType<DailyMountainScreen>().RefreshScreen();
                 CancelInvoke();
             }
         }

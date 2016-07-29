@@ -258,6 +258,11 @@ public class M_Screen : MonoBehaviour
         SendEventToCurrentButton(XboxEvent.OnDeSelect);
         M_ScreenManager.SwitchScreen(targetScreen);
     }
+    public void RefreshScreen()
+    {
+        OnSwitchedFrom();
+        OnSwitchedTo();
+    }
     public void PressButton(M_Button targetButton)
     {
         if (targetButton == null)

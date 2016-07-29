@@ -34,6 +34,13 @@ public class ModifierUIController : MonoBehaviour {
         }
     }
 
+    public void DisableAll()
+    {
+        for (int i = 0; i < modifier_icons.Count; i++)
+        {
+            deactivateicon(i);
+        }
+    }
     public void SwitchIconState(int iconID)
     {
         //refresh number of active icons

@@ -128,14 +128,10 @@ public class BurningHandsMod : Mod
         if (!IsActive)
         {
             sfxMixer.SetFloat("TeapotVolume", 0);
-            //sfxMixer.SetFloat("VersusReleaseVolume", 0);
-            Debug.Log("Set to 0");
         }
         else
         {
             sfxMixer.SetFloat("TeapotVolume", -80);
-            //sfxMixer.SetFloat("VersusReleaseVolume", -80);
-            Debug.Log("Set to -80");
         }
     }
 }
@@ -240,6 +236,7 @@ public class GameModifiers : MonoBehaviour
     public AudioMixer sfxMixer;
     public List<Mod> mods = new List<Mod>();
     public ModifierUIController modUIIcon;
+    public List<SpriteRenderer> checkBoxes = new List<SpriteRenderer>();
 
     void Awake()
     {
@@ -247,12 +244,12 @@ public class GameModifiers : MonoBehaviour
         mods.Add(new LowGravityMod(Modifier.LowGravity));
         mods.Add(new BurningHandsMod(Modifier.BurningHands, sfxMixer));
         mods.Add(new OneArm(Modifier.OneArm));
-        mods.Add(new Mod(Modifier.ClingyFrogs));
+        //mods.Add(new Mod(Modifier.ClingyFrogs));
         mods.Add(new KingOfTheHill(Modifier.KOTH, GetComponent<KOTH>()));
-        mods.Add(new Mod(Modifier.NoLegs));
-        mods.Add(new Mod(Modifier.PartyHats));
+        //mods.Add(new Mod(Modifier.NoLegs));
+        //mods.Add(new Mod(Modifier.PartyHats));
         mods.Add(new Mod(Modifier.KingOfTheHill));
-        mods.Add(new Mod(Modifier.LotsOfBugs));
+        //mods.Add(new Mod(Modifier.LotsOfBugs));
     }
 
     public void OnGameStart()
@@ -294,6 +291,27 @@ public class GameModifiers : MonoBehaviour
                     m.Activate();
             }
         }
+    }
+    public void DeactivateAllModifiers()
+    {
+        foreach(Mod m in mods)
+        {
+            if (m.IsActive)
+            {
+                m.Activate();
+                if (m.name == Modifier.OneArm)
+                {
+                    ((OneArm)m).OnPress();
+                }
+            }
+        }
+
+        foreach(SpriteRenderer renderer in checkBoxes)
+        {
+            renderer.enabled = false;
+        }
+
+        modUIIcon.DisableAll();
     }
 
 

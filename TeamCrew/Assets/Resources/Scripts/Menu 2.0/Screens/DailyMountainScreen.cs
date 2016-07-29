@@ -35,6 +35,7 @@ public class DailyMountainScreen : M_Screen
     private bool mountainGenerated;
     private bool canStart;
     private bool hasFoundClient;
+    public float scrollHeight = 1.462f;
 
 
 	//Unity methods
@@ -48,7 +49,6 @@ public class DailyMountainScreen : M_Screen
     protected override void OnStart()
     {
         base.OnStart();
-        dateText.text = DateManager.GetDateString();
     }
     protected override void OnUpdate()
     {
@@ -191,6 +191,9 @@ public class DailyMountainScreen : M_Screen
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
+
+        //update date text to current date
+        dateText.text = DateManager.GetDateString();
 
         //Update seed
         dailySeed = DateManager.GetSeedFromUTC();
@@ -356,7 +359,7 @@ public class DailyMountainScreen : M_Screen
         //Set scroll knob
         if (scrollParent.activeInHierarchy)
         {
-            float height = 1.426f * 2;
+            float height = scrollHeight * 2;
             float topPos = height / 2;
 
             float percent = (maxIndex == 0) ? 0 : (float)entryMinIndex / (float)maxIndex;

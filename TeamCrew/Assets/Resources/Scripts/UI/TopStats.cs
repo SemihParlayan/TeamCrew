@@ -34,7 +34,6 @@ public class TopStats : MonoBehaviour {
     public void showStats()
     {
         statsParent.SetActive(true);
-        Debug.Log("frog ready count: " + game_manager.GetFrogReadyCount());
 
         for (int i=0;i<game_manager.GetFrogReadyCount(); i++)
         {
