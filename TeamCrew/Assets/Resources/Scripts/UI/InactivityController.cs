@@ -121,11 +121,13 @@ public class InactivityController : MonoBehaviour
             }
         }
 
-            
-        //Deactivate inactivity with input from players
-        for (int i = 0; i < inactivityScripts.Length; i++)
+        if (!gameManager.isInDailyMountain && gameManager.tutorialComplete)
         {
-            DeactivateOnInput(i);
+            //Deactivate inactivity with input from players
+            for (int i = 0; i < inactivityScripts.Length; i++)
+            {
+                DeactivateOnInput(i);
+            }
         }
 
         //Set respawn script values

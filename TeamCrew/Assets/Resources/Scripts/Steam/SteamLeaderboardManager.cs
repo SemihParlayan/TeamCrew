@@ -137,7 +137,7 @@ public class SteamLeaderboardManager : MonoBehaviour
     }
 
     //Aquire leaderboard entries
-    public void GetLeaderboardEntries(LeaderboardEntries entriesRef, OnEntriesComplete completeMethod, OnEntriesFailed failedMethod)
+    public void GetLeaderboardEntries(string leaderboardName, LeaderboardEntries entriesRef, OnEntriesComplete completeMethod, OnEntriesFailed failedMethod)
     {
         if (!SteamManager.Initialized)
         {
@@ -157,7 +157,7 @@ public class SteamLeaderboardManager : MonoBehaviour
 
             this.entriesRef = entriesRef;
             gettingLeaderboardEntries = true;
-            FindLeaderboard((DateManager.GetSeedFromUTC()).ToString());
+            FindLeaderboard(leaderboardName);
         }
     }
     private void GetLeaderboardEntriesLocal()

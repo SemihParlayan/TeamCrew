@@ -84,9 +84,27 @@ public class DateManager : MonoBehaviour
 
         return text;
     }
+    public static string GetDateString(int offsetInDays)
+    {
+        DateTime newTime = CurrentUTCDate.AddDays(offsetInDays);
+        string text = string.Empty;
+
+        text += newTime.DayOfWeek + " - ";
+        text += newTime.Day + "/";
+        text += newTime.Month + "/";
+        text += newTime.Year;
+
+        return text;
+    }
     public static int GetSeedFromUTC()
     {
         string textSeed = CurrentUTCDate.Year.ToString() + CurrentUTCDate.Month.ToString() + CurrentUTCDate.Day.ToString();
+        return int.Parse(textSeed);
+    }
+    public static int GetSeedFromUTC(int offsetInDays)
+    {
+        DateTime newTime = CurrentUTCDate.AddDays(offsetInDays);
+        string textSeed = newTime.Year.ToString() + newTime.Month.ToString() + newTime.Day.ToString();
         return int.Parse(textSeed);
     }
 

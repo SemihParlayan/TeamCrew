@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Steamworks;
 using UnityEngine.UI;
-
 public class DailyMountainScreen : M_Screen 
 {
 	//publics
@@ -23,6 +22,8 @@ public class DailyMountainScreen : M_Screen
     public GameScreen gameScreen;
     [HideInInspector]
     public LeaderboardEntry clientEntry;
+    public GameObject timeleftForTodayObject;
+    public SpriteRenderer mountainNotAvailableOverlay;
 
 	//privates
     private GameManager gameManager;
@@ -36,6 +37,9 @@ public class DailyMountainScreen : M_Screen
     private bool canStart;
     private bool hasFoundClient;
     public float scrollHeight = 1.462f;
+    private int dayOffset = 0;
+    private bool canChangeDay = true;
+    private bool showCloudOverlay = false;
 
 
 	//Unity methods
@@ -55,23 +59,33 @@ public class DailyMountainScreen : M_Screen
         base.OnUpdate();
 
         ScrollHighscores();
+        ChangeDayOffset();
+
+        //Show cloud overlay
+        float targetAlpha = showCloudOverlay ? 0.5f : 0f;
+        Color c = mountainNotAvailableOverlay.color;
+        c.a = Mathf.MoveTowards(c.a, targetAlpha, Time.deltaTime);
+        mountainNotAvailableOverlay.color = c;
     }
 
 	//public methods
-    public void RefreshLeaderboards()
+    public void RefreshLeaderboards(int offsetInDaysFromToday)
     {
         if (leaderboardManager == null)
             return;
 
+        //update date text to current date
+        dateText.text = DateManager.GetDateString(offsetInDaysFromToday);
+
+        //Enable load icon
         loadIcon.gameObject.SetActive(true);
+
+        //Hide entries and fail texts
         entriesParent.gameObject.SetActive(false);
         couldNotConnectProperlyText.SetActive(false);
 
-        entries = new List<LeaderboardEntry>();
-        LeaderboardEntries entriesObj = new LeaderboardEntries();
-        entriesObj.entries = entries;
-
-        leaderboardManager.GetLeaderboardEntries(entriesObj, OnEntriesCompleteMethod, OnEntriesFailedMethod);
+        //Aquire leaderboard for selected day
+        AquireLeaderboard(offsetInDaysFromToday);
     }
     private void SimpleRefresh()
     {
@@ -110,17 +124,22 @@ public class DailyMountainScreen : M_Screen
         {
             loadIcon.gameObject.SetActive(false);
             entriesParent.gameObject.SetActive(true);
-            GenerateMountain();
+            if (dayOffset == 0 && !mountainGenerated)
+                GenerateMountain();
 
             //Add fake entries
             //AddFakeEntries(57);
 
             //Enter client at fake rank
             //SetFakeRank(47);
+        }
 
-            //Find client entry
+        //Find client entry
+        if (dayOffset == 0)
             clientEntry = GetClientEntry();
 
+        if (this.enabled)
+        {
             //Set scroll line options
             if (entries.Count > uiEntries.Count)
             {
@@ -131,8 +150,9 @@ public class DailyMountainScreen : M_Screen
             ScrollToClient();
 
             //Ready to start the game
-            canStart = true;
+            canStart = true;  
         }
+
 
         int startIndex = entryMinIndex;
         int endIndex = entryMinIndex + uiEntries.Count;
@@ -192,12 +212,8 @@ public class DailyMountainScreen : M_Screen
     {
         base.OnSwitchedTo();
 
-        //update date text to current date
-        dateText.text = DateManager.GetDateString();
-
         //Update seed
         dailySeed = DateManager.GetSeedFromUTC();
-
 
         //Can not start the game until leaderboards are ready
         canStart = false;
@@ -219,9 +235,13 @@ public class DailyMountainScreen : M_Screen
         bool[] frogsReady = new bool[4] { true, false, false, false };
         gameManager.frogsReady = frogsReady;
 
+
+        //Reset day offset
+        dayOffset = 0;
+
         //Aquire leaderboard
         entryMinIndex = 0;
-        RefreshLeaderboards();
+        RefreshLeaderboards(0);
 
         //Flag generated mountain
         mountainGenerated = false;
@@ -284,6 +304,8 @@ public class DailyMountainScreen : M_Screen
             gameManager.isInDailyMountain = true;
             currentTimeObject.SetActive(true);
             dailyGamemode.OnPlayGame();
+
+            AquireLeaderboard(0);
 
             M_ScreenManager.SwitchScreen(gameScreen);
         }
@@ -388,6 +410,62 @@ public class DailyMountainScreen : M_Screen
     private void ResetScroll()
     {
         canScroll = true;
+    }
+
+    private void ChangeDayOffset()
+    {
+        if (!canChangeDay)
+            return;
+
+        int previousOffset = dayOffset;
+
+        Vector2 leftStick = GameManager.GetThumbStick(XboxThumbStick.Left);
+        if (leftStick.x == 0)
+        {
+            leftStick = GameManager.GetDPad();
+            if (leftStick.x == 0)
+            {
+                leftStick.x = Input.GetAxis("Horizontal");
+                if (leftStick.x == 0)
+                    return;
+            }
+        }
+
+        canChangeDay = false;
+        Invoke("ResetCanChangeDay", 0.4f);
+
+        if (leftStick.x < 0)
+        {
+            dayOffset--;
+        }
+        else
+        {
+            dayOffset++;
+        }
+
+        dayOffset = Mathf.Clamp(dayOffset, -7, 0);
+
+        if (previousOffset != dayOffset)
+            RefreshLeaderboards(dayOffset);
+
+        timeleftForTodayObject.gameObject.SetActive(dayOffset == 0);
+        showCloudOverlay = dayOffset != 0;
+    }
+    private void ResetCanChangeDay()
+    {
+        canChangeDay = true;
+    }
+    private void AquireLeaderboard(int offsetInDaysFromToday)
+    {
+        entries = new List<LeaderboardEntry>();
+        LeaderboardEntries entriesObj = new LeaderboardEntries();
+        entriesObj.entries = entries;
+
+
+        //Aquire leaderboard name to find
+        string leaderboardName = DateManager.GetSeedFromUTC(offsetInDaysFromToday).ToString();
+        //Start searching for a leaderboard
+        leaderboardManager.GetLeaderboardEntries(leaderboardName, entriesObj, OnEntriesCompleteMethod, OnEntriesFailedMethod);
     }
     
     private void GenerateMountain()
