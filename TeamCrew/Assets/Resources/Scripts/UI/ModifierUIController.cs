@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ModifierUIController : MonoBehaviour {
     //magical seb script, watch out lol
 
-    public List<GameObject> modifier_icons = new List<GameObject>();
+    public List<RectTransform> modifier_icons = new List<RectTransform>();
     public float offset;
     int numberofactive = 0;
 
@@ -13,7 +13,7 @@ public class ModifierUIController : MonoBehaviour {
 	void Start () {
 	for(int i=0;i<modifier_icons.Count;i++)
         {
-            modifier_icons[i].SetActive(false);
+            modifier_icons[i].gameObject.SetActive(false);
 
         }
 	}
@@ -27,7 +27,7 @@ public class ModifierUIController : MonoBehaviour {
         numberofactive = 0;
         for (int i = 0; i < modifier_icons.Count; i++)
         {
-            if (modifier_icons[i].activeInHierarchy)
+            if (modifier_icons[i].gameObject.activeInHierarchy)
             {
                 numberofactive++;
             }
@@ -48,7 +48,7 @@ public class ModifierUIController : MonoBehaviour {
         updateNumberOfActive();
 
         //activate/deactivate target icon
-        if(modifier_icons[iconID].activeInHierarchy)
+        if(modifier_icons[iconID].gameObject.activeInHierarchy)
         {
             deactivateicon(iconID);
         }
@@ -62,29 +62,29 @@ public class ModifierUIController : MonoBehaviour {
     void deactivateicon(int iconID)
     {
         
-        modifier_icons[iconID].SetActive(false);
+        modifier_icons[iconID].gameObject.SetActive(false);
 
         //loops through all icons and checks if their x position is larger than the just deactivated icon. If so they're moved to the left one offset to replace the old icon. Magic. 
         for(int i=0;i<modifier_icons.Count;i++)
         {
             if(modifier_icons[i].transform.position.x>modifier_icons[iconID].transform.position.x)
             {
-                Vector3 oldpos = modifier_icons[iconID].transform.position;
-                modifier_icons[i].transform.position=new Vector3(modifier_icons[i].transform.position.x - offset, oldpos.y, oldpos.z);
+                Vector2 oldpos = modifier_icons[iconID].anchoredPosition;
+                modifier_icons[i].anchoredPosition = new Vector2(modifier_icons[i].anchoredPosition.x - offset, oldpos.y);
 
             }
 
         }
-        modifier_icons[iconID].transform.position.Set(0, 0, 0);
+        modifier_icons[iconID].anchoredPosition.Set(0, 0);
         updateNumberOfActive();
     }
 
     void activateicon(int iconID)
     {
         
-        modifier_icons[iconID].SetActive(true);
-        Vector3 oldpos = modifier_icons[iconID].transform.position;
-        modifier_icons[iconID].transform.position= new Vector3(numberofactive* offset,oldpos.y,oldpos.z);
+        modifier_icons[iconID].gameObject.SetActive(true);
+        Vector2 oldpos = modifier_icons[iconID].anchoredPosition;
+        modifier_icons[iconID].anchoredPosition = new Vector2(numberofactive* offset,oldpos.y);
         updateNumberOfActive();
     }
 }

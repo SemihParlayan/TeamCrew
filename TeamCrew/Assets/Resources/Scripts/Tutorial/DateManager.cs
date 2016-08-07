@@ -107,7 +107,10 @@ public class DateManager : MonoBehaviour
         string textSeed = newTime.Year.ToString() + newTime.Month.ToString() + newTime.Day.ToString();
         return int.Parse(textSeed);
     }
-
+    public static Timer GetDailyTimer()
+    {
+        return dailyTimer;
+    }
 	//private methods
     //http://stackoverflow.com/questions/1193955/how-to-query-an-ntp-server-using-c/12150289#12150289
     private static System.DateTime GetNetworkTime()

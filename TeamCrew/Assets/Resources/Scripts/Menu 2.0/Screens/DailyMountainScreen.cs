@@ -22,8 +22,10 @@ public class DailyMountainScreen : M_Screen
     public GameScreen gameScreen;
     [HideInInspector]
     public LeaderboardEntry clientEntry;
-    public GameObject timeleftForTodayObject;
+    public TextMesh timeleftForTodayObject;
     public SpriteRenderer mountainNotAvailableOverlay;
+    public GameObject noEntriesToday;
+    public GameObject noEntriesPreviousDay;
 
 	//privates
     private GameManager gameManager;
@@ -38,7 +40,6 @@ public class DailyMountainScreen : M_Screen
     private bool hasFoundClient;
     public float scrollHeight = 1.462f;
     private int dayOffset = 0;
-    private bool canChangeDay = true;
     private bool showCloudOverlay = false;
 
 
@@ -59,13 +60,16 @@ public class DailyMountainScreen : M_Screen
         base.OnUpdate();
 
         ScrollHighscores();
-        ChangeDayOffset();
 
         //Show cloud overlay
         float targetAlpha = showCloudOverlay ? 0.5f : 0f;
         Color c = mountainNotAvailableOverlay.color;
         c.a = Mathf.MoveTowards(c.a, targetAlpha, Time.deltaTime);
         mountainNotAvailableOverlay.color = c;
+
+
+        //Set time left text
+        //timeleftForTodayObject.text = "of which " + DateManager.GetDailyTimer().GetTimeString(true, true, true, false) + " is left";
     }
 
 	//public methods
@@ -79,6 +83,10 @@ public class DailyMountainScreen : M_Screen
 
         //Enable load icon
         loadIcon.gameObject.SetActive(true);
+
+        //Disable no entries text
+        noEntriesToday.SetActive(false);
+        noEntriesPreviousDay.SetActive(false);
 
         //Hide entries and fail texts
         entriesParent.gameObject.SetActive(false);
@@ -179,6 +187,23 @@ public class DailyMountainScreen : M_Screen
 
             uiEntry.SetInfo(steamEntry);
         }
+
+        if (entries.Count <= 0)
+        {
+            if (dayOffset == 0)
+            {
+                noEntriesToday.SetActive(true);
+            }
+            else
+            {
+                noEntriesPreviousDay.SetActive(true);
+            }
+        }
+        else
+        {
+            noEntriesToday.SetActive(false);
+            noEntriesPreviousDay.SetActive(false);
+        }
     }
     private void OnEntriesFailedMethod()
     {
@@ -214,6 +239,9 @@ public class DailyMountainScreen : M_Screen
 
         //Update seed
         dailySeed = DateManager.GetSeedFromUTC();
+
+        //Hide cloud
+        HideCloudOverlay();
 
         //Can not start the game until leaderboards are ready
         canStart = false;
@@ -301,6 +329,8 @@ public class DailyMountainScreen : M_Screen
     {
         if (canStart)
         {
+            //Hide cloud overlay
+            HideCloudOverlay();
             gameManager.isInDailyMountain = true;
             currentTimeObject.SetActive(true);
             dailyGamemode.OnPlayGame();
@@ -412,36 +442,11 @@ public class DailyMountainScreen : M_Screen
         canScroll = true;
     }
 
-    private void ChangeDayOffset()
+    private void ChangeDayOffset(int dir)
     {
-        if (!canChangeDay)
-            return;
-
         int previousOffset = dayOffset;
 
-        Vector2 leftStick = GameManager.GetThumbStick(XboxThumbStick.Left);
-        if (leftStick.x == 0)
-        {
-            leftStick = GameManager.GetDPad();
-            if (leftStick.x == 0)
-            {
-                leftStick.x = Input.GetAxis("Horizontal");
-                if (leftStick.x == 0)
-                    return;
-            }
-        }
-
-        canChangeDay = false;
-        Invoke("ResetCanChangeDay", 0.4f);
-
-        if (leftStick.x < 0)
-        {
-            dayOffset--;
-        }
-        else
-        {
-            dayOffset++;
-        }
+        dayOffset += dir;
 
         dayOffset = Mathf.Clamp(dayOffset, -7, 0);
 
@@ -450,10 +455,6 @@ public class DailyMountainScreen : M_Screen
 
         timeleftForTodayObject.gameObject.SetActive(dayOffset == 0);
         showCloudOverlay = dayOffset != 0;
-    }
-    private void ResetCanChangeDay()
-    {
-        canChangeDay = true;
     }
     private void AquireLeaderboard(int offsetInDaysFromToday)
     {
@@ -527,5 +528,19 @@ public class DailyMountainScreen : M_Screen
             }
         }
         return null;
+    }
+
+    public void OnStickLeft()
+    {
+        ChangeDayOffset(-1);
+    }
+    public void OnStickRight()
+    {
+        ChangeDayOffset(1);
+    }
+    private void HideCloudOverlay()
+    {
+        showCloudOverlay = false;
+        mountainNotAvailableOverlay.color = new Color(mountainNotAvailableOverlay.color.r, mountainNotAvailableOverlay.color.g, mountainNotAvailableOverlay.color.b, 0f);
     }
 }

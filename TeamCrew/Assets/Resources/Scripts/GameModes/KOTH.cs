@@ -53,6 +53,7 @@ public class KOTH : MonoBehaviour
     public float maximumBarWidth = 4f;
     public float minimumBarWidth = 0.75f;
     public float scoreIncreaseInterval = 0.25f;
+    public float topPosition = 160f;
 
     [Range(0, 1f)]
     public float winningGripPercent;
@@ -141,7 +142,7 @@ public class KOTH : MonoBehaviour
         if (frog == null)
             return;
 
-        SetParticlePosition(frog.player);
+        //SetParticlePosition(frog.player);
 
         for (int i = 0; i < keepers.Length; i++)
         {
@@ -198,7 +199,7 @@ public class KOTH : MonoBehaviour
         //Set particles position and color
         Vector3 pos = keepers[player].image.rectTransform.position;
         float width = (keepers[player].image.rectTransform.localScale.y * 100);
-        pos.x += width * 0.95f;
+        pos.x += width * 0.75f;
 
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
         particleSystem.transform.position = worldPos;
@@ -273,18 +274,17 @@ public class KOTH : MonoBehaviour
             keepers[i].image.rectTransform.localScale = scale;
 
             //Set text to center of bar
-            Vector3 textPos = keepers[i].scoreText.rectTransform.position;
-            Vector3 imagePos = keepers[i].image.rectTransform.position;
+            Vector3 textPos = keepers[i].scoreText.rectTransform.anchoredPosition;
+            Vector3 imagePos = keepers[i].image.rectTransform.anchoredPosition;
 
             textPos.x = imagePos.x + (scale.y * 100) / 2;
             textPos.y = imagePos.y;
-            keepers[i].scoreText.rectTransform.position = textPos;
+            keepers[i].scoreText.rectTransform.anchoredPosition = textPos;
         }
     }
     private void UpdateYPositions()
     {
         float barHeight = 50f;
-        float topPosition = 315.5f;
 
         List<int> indexesFound = new List<int>();
         int barsFound = 0;
@@ -310,12 +310,12 @@ public class KOTH : MonoBehaviour
         {
             if (keepers[i].active)
             {
-                Vector3 pos = keepers[i].anim.GetComponent<RectTransform>().position;
+                RectTransform keeperRect = keepers[i].anim.GetComponent<RectTransform>();
+
+                Vector2 pos = keeperRect.anchoredPosition;
                 pos.y = Mathf.MoveTowards(pos.y, keepers[i].targetY, Time.deltaTime * 100f);
-                keepers[i].anim.GetComponent<RectTransform>().position = pos;
-                //Vector3 pos = keepers[i].image.rectTransform.position;
-                //pos.y = Mathf.MoveTowards(pos.y, keepers[i].targetY, Time.deltaTime * 100f);
-                //keepers[i].image.rectTransform.position = pos;
+
+                keeperRect.anchoredPosition = pos;
             }
         }
     }
