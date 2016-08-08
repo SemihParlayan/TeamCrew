@@ -26,6 +26,9 @@ public class DailyMountainScreen : M_Screen
     public SpriteRenderer mountainNotAvailableOverlay;
     public GameObject noEntriesToday;
     public GameObject noEntriesPreviousDay;
+    public GameObject rightArrow;
+    public GameObject leftArrow;
+    public GameObject timerBackground;
 
 	//privates
     private GameManager gameManager;
@@ -49,7 +52,7 @@ public class DailyMountainScreen : M_Screen
         canStart = false;
         gameManager = GameObject.FindObjectOfType<GameManager>();
         leaderboardManager = GameObject.FindObjectOfType<SteamLeaderboardManager>();
-        previousTimeObject.gameObject.SetActive(false);
+        HideTimeTexts();
     }
     protected override void OnStart()
     {
@@ -246,6 +249,9 @@ public class DailyMountainScreen : M_Screen
         //Can not start the game until leaderboards are ready
         canStart = false;
 
+        //Hide right arrow
+        rightArrow.SetActive(false);
+
         //Has not found a client entry
         hasFoundClient = false;
 
@@ -324,6 +330,7 @@ public class DailyMountainScreen : M_Screen
     {
         currentTimeObject.gameObject.SetActive(false);
         previousTimeObject.gameObject.SetActive(false);
+        timerBackground.SetActive(false);
     }
     public void OnPlayGame()
     {
@@ -333,6 +340,7 @@ public class DailyMountainScreen : M_Screen
             HideCloudOverlay();
             gameManager.isInDailyMountain = true;
             currentTimeObject.SetActive(true);
+            timerBackground.SetActive(true);
             dailyGamemode.OnPlayGame();
 
             AquireLeaderboard(0);
@@ -445,16 +453,19 @@ public class DailyMountainScreen : M_Screen
     private void ChangeDayOffset(int dir)
     {
         int previousOffset = dayOffset;
-
+        int maxDaysRecap = -7;
         dayOffset += dir;
 
-        dayOffset = Mathf.Clamp(dayOffset, -7, 0);
+        dayOffset = Mathf.Clamp(dayOffset, maxDaysRecap, 0);
 
         if (previousOffset != dayOffset)
             RefreshLeaderboards(dayOffset);
 
         timeleftForTodayObject.gameObject.SetActive(dayOffset == 0);
         showCloudOverlay = dayOffset != 0;
+
+        rightArrow.SetActive(dayOffset != 0);
+        leftArrow.SetActive(dayOffset != maxDaysRecap);
     }
     private void AquireLeaderboard(int offsetInDaysFromToday)
     {

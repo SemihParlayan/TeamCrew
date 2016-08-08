@@ -168,7 +168,7 @@ public class DailyEndgameScreen : M_Screen
         GameObject.FindObjectOfType<GameManager>().SpawnHangingFrogs();
 
         dailyGamemode.OnExplosion();
-        dailyScreen.previousTimeObject.gameObject.SetActive(false);
+        dailyScreen.HideTimeTexts();
     }
     private void FadeComplete()
     {
