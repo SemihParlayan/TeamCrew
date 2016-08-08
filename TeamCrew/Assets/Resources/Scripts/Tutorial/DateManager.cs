@@ -202,7 +202,8 @@ public class DateManager : MonoBehaviour
             dailyTimer = GetTimeLeftForToday();
             if (newSeed != prevSeed)
             {
-                leaderboardManager.FindLeaderboard(newSeed.ToString());
+                if (leaderboardManager != null)
+                    leaderboardManager.FindLeaderboard(newSeed.ToString());
                 GameObject.FindObjectOfType<DailyMountainScreen>().RefreshScreen();
                 CancelInvoke();
             }

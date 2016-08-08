@@ -60,6 +60,12 @@ public class ModeSelectionScreen : M_Screen
     public override void OnSwitchedFrom()
     {
         base.OnSwitchedFrom();
+
+
+        if (M_ScreenManager.GetCurrentScreen() is CharacterSelectionScreen)
+        {
+            gameModifiers.DeactivateAllModifiers();
+        }
     }
     private void CreateFrogs()
     {

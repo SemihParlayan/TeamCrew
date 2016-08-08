@@ -7,13 +7,20 @@ public class OptionScreen : M_Screen
     public TextMesh monitorText;
     public static int monitorIndex = 0;
 
-    void Awake()
+    protected override void OnAwake()
     {
+        base.OnAwake();
         monitorIndex = PlayerPrefs.GetInt("Monitor", 0);
         ClampMonitorIndex(ref monitorIndex);
 
-        Display.displays[monitorIndex].Activate();
-        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, Screen.fullScreen);
+        //Display.displays[monitorIndex].Activate();
+        //Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, Screen.fullScreen);
+
+        bool fullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1 ? true : false; 
+    }
+    protected override void OnStart()
+    {
+        base.OnStart();
         fullscreenCheckbox.enabled = Screen.fullScreen;
     }
     public void OnFullScreen()
@@ -43,5 +50,10 @@ public class OptionScreen : M_Screen
         {
             index = minIndex;
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("FullScreen", Screen.fullScreen ? 1 : 0);
     }
 }

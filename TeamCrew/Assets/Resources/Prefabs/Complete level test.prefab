@@ -6675,6 +6675,7 @@ GameObject:
   - 114: {fileID: 11425958}
   - 114: {fileID: 11460730}
   - 114: {fileID: 11465626}
+  - 114: {fileID: 11454830}
   m_Layer: 0
   m_Name: Button - King of the hill - on
   m_TagString: Untagged
@@ -52708,6 +52709,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfHands: 0
+--- !u!114 &11454830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbe68b36e1ef9147911c821e2dce251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextButton: {fileID: 11445144}
 --- !u!114 &11454910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53665,8 +53678,6 @@ MonoBehaviour:
     targetButton: {fileID: 11493414}
   - eventType: 5
     targetButton: {fileID: 11487922}
-  - eventType: 1
-    targetButton: {fileID: 11445144}
   - eventType: 2
     targetButton: {fileID: 11430016}
 --- !u!114 &11460838
