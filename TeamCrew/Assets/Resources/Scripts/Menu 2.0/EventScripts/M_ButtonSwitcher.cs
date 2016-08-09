@@ -36,11 +36,6 @@ public class M_ButtonSwitcher : M_EventBase
 
                 if (button.Disabled)
                 {
-                    //M_ButtonSwitcher nextSwitcher = button.transform.GetComponent<M_ButtonSwitcher>();
-                    //if (nextSwitcher != null)
-                    //{
-                    //    nextSwitcher.OnEvent(e);
-                    //}
                     M_ButtonDisabledSwitcher switcher = button.transform.GetComponent<M_ButtonDisabledSwitcher>();
                     if (switcher != null)
                     {

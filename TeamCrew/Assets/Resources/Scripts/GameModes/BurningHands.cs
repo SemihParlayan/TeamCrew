@@ -12,7 +12,7 @@ public class BurningHands : MonoBehaviour
     void Awake()
     {
         handGrip = GetComponent<HandGrip>();
-        gamemanager = GameObject.FindObjectOfType<GameManager>();
+        gamemanager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -22,7 +22,13 @@ public class BurningHands : MonoBehaviour
     //private bool invoking = false;
     public void OnUpdate(bool justGripped, bool justReleased)
     {
-        if (!enabled || !gamemanager.tutorialComplete)
+        //if (!enabled || !gamemanager.tutorialComplete)
+        //    return;
+
+        if (!enabled)
+            return;
+
+        if (!gamemanager.tutorialComplete && handGrip.isGrippingTutorial)
             return;
 
         if (justGripped)

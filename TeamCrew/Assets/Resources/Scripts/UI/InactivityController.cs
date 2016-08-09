@@ -123,7 +123,7 @@ public class InactivityController : MonoBehaviour
 
         if (!gameManager.isInDailyMountain)
         {
-            if (gameManager.tutorialComplete)
+            if (!gameManager.gameActive || (gameManager.gameActive && gameManager.tutorialComplete))
             {
                 //Deactivate inactivity with input from players
                 for (int i = 0; i < inactivityScripts.Length; i++)

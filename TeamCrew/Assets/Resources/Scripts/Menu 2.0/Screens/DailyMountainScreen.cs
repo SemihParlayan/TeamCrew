@@ -29,6 +29,7 @@ public class DailyMountainScreen : M_Screen
     public GameObject rightArrow;
     public GameObject leftArrow;
     public GameObject timerBackground;
+    public M_Sounds soundManager;
 
 	//privates
     private GameManager gameManager;
@@ -243,6 +244,9 @@ public class DailyMountainScreen : M_Screen
         //Update seed
         dailySeed = DateManager.GetSeedFromUTC();
 
+        //Enable menu music
+        soundManager.StartMenuMusic();
+
         //Hide cloud
         HideCloudOverlay();
 
@@ -345,7 +349,11 @@ public class DailyMountainScreen : M_Screen
 
             AquireLeaderboard(0);
 
+            //Disable menu music
+            soundManager.StopMenuMusic();
+
             M_ScreenManager.SwitchScreen(gameScreen);
+
         }
     }
 

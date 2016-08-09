@@ -10,13 +10,24 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
     public bool JustFadedIn { get { return fadedIn && !lastFadedIn; } }
     public bool fadedIn;
     private bool lastFadedIn;
+    private GameManager gamemanager;
+
+    private SpriteRenderer[] renderers;
+    private TextMesh[] textMeshes;
 
 	void Awake () 
     {
         screen = GetComponent<M_Screen>();
+        gamemanager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+
+        renderers = GetComponentsInChildren<SpriteRenderer>();
+        textMeshes = GetComponentsInChildren<TextMesh>();
 	}
 	void Update () 
     {
+        if (gamemanager.gameActive)
+            return;
+
         float delta = Time.deltaTime;
         if (delta == 0.0f)
             delta = 1 / 60f;
@@ -27,7 +38,6 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
         {
             //Spriterenderers
             bool completeFadedOut = true;
-            SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
             for (int i = 0; i < renderers.Length; i++)
             {
                 SpriteRenderer r = renderers[i];
@@ -43,10 +53,9 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
             }
 
             //TextmeshesW
-            TextMesh[] meshes = GetComponentsInChildren<TextMesh>();
-            for (int i = 0; i < meshes.Length; i++)
+            for (int i = 0; i < textMeshes.Length; i++)
             {
-                TextMesh t = meshes[i];
+                TextMesh t = textMeshes[i];
                 Color c = t.color;
 
                 if (c.a > 0)
@@ -63,7 +72,6 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
         {
             //Spriterenderers
             bool completeFadedIn = true;
-            SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
             for (int i = 0; i < renderers.Length; i++)
             {
                 SpriteRenderer r = renderers[i];
@@ -78,10 +86,9 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
             }
 
             //Textmeshes
-            TextMesh[] meshes = GetComponentsInChildren<TextMesh>();
-            for (int i = 0; i < meshes.Length; i++)
+            for (int i = 0; i < textMeshes.Length; i++)
             {
-                TextMesh t = meshes[i];
+                TextMesh t = textMeshes[i];
                 Color c = t.color;
 
                 if (c.a < 1)

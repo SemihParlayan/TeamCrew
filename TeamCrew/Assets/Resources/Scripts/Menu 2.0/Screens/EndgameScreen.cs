@@ -13,8 +13,13 @@ public class EndgameScreen : M_Screen
     private bool fade;
     private bool decreaseTime;
     private ScreenMovementProperties endGameCameraProperties;
+    private GameManager gamemanager;
 
-
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        gamemanager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+    }
     protected override void OnUpdate()
     {
         base.OnUpdate();
@@ -67,6 +72,7 @@ public class EndgameScreen : M_Screen
         movementProperties = endGameCameraProperties;
         decreaseTime = false;
         Time.timeScale = 1.0f;
+
         //Boom
         whiteFade.gameObject.SetActive(true);
         fireWorks.ExplodeBig();
@@ -74,9 +80,7 @@ public class EndgameScreen : M_Screen
 
         Invoke("Fade", 0.5f);
 
-        GameManager gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-
-        gameManager.SpawnHangingFrogs();
+        gamemanager.SpawnHangingFrogs();
         koth.DisableKeepers();
 
 
@@ -96,6 +100,6 @@ public class EndgameScreen : M_Screen
         whiteFade.color = Color.white;
         base.OnSwitchedTo();
 
-        GameObject.FindWithTag("GameManager").GetComponent<GameManager>().SetInactivityState(false, 15f);
+        gamemanager.SetInactivityState(false, 15f);
     }
 }
