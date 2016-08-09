@@ -7,7 +7,7 @@ using System.Linq;
 public enum BlockTag
 {
     Easy, Medium, Hard, 
-    Tutorial, Converter, Climb, Top, Wheel, Daily
+    Tutorial, Converter, Climb, Top, Wheel, DailyTutorial, normalTutorial
 }
 public class GameModes : MonoBehaviour 
 {
