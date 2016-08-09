@@ -6,6 +6,7 @@ public class StartScreen : M_Screen
     //References
     public M_Sounds soundManager;
     public GameModifiers gameModifiers;
+    public GameObject frogClimbersLogo;
     private GameManager gameManagerReference;
 
     protected override void OnAwake()
@@ -17,6 +18,9 @@ public class StartScreen : M_Screen
     public override void OnSwitchedTo()
     {
         base.OnSwitchedTo();
+
+        //Activate logo
+        frogClimbersLogo.SetActive(true);
 
         //Deactivate all modifiers
         if (gameModifiers != null)
