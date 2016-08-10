@@ -9,6 +9,10 @@ public class SteamScript : MonoBehaviour
 	//privates
 
 	//Unity methods
+    void Start()
+    {
+
+    }
 	void Update () 
 	{
 	

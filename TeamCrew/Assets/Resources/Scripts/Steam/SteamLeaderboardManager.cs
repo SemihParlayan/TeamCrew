@@ -13,7 +13,8 @@ public class LeaderboardEntry
     public string name;
     public int globalRank;
     public bool isClient;
-
+    public bool isFriend;
+    public Sprite avatar;
     public Timer timer;
 
     public LeaderboardEntry()
@@ -22,13 +23,43 @@ public class LeaderboardEntry
         globalRank = 0;
         isClient = false;
         timer = new Timer();
+        avatar = null;
     }
     public LeaderboardEntry(LeaderboardEntry_t steamLeaderboardEntry)
     {
-        this.name = SteamFriends.GetFriendPersonaName(steamLeaderboardEntry.m_steamIDUser);
+        //Aquire steamID
+        CSteamID steamID = steamLeaderboardEntry.m_steamIDUser;
+        //CSteamID steamID = new CSteamID(76561197990430255);
+
+        this.name = SteamFriends.GetFriendPersonaName(steamID);
+        this.avatar = GetAvatar(steamID);
         this.globalRank = steamLeaderboardEntry.m_nGlobalRank;
-        this.isClient = steamLeaderboardEntry.m_steamIDUser == SteamUser.GetSteamID();
+        this.isClient = steamID == SteamUser.GetSteamID();
         this.timer = new Timer(steamLeaderboardEntry.m_nScore);
+
+        this.isFriend = SteamFriends.HasFriend(steamID, EFriendFlags.k_EFriendFlagImmediate);
+    }
+    private Sprite GetAvatar(CSteamID steamid)
+    {
+        int FriendAvatar = SteamFriends.GetMediumFriendAvatar(steamid);
+        Debug.Log("SteamFriends.GetMediumFriendAvatar(" + steamid + ") - " + FriendAvatar);
+
+        uint ImageWidth;
+        uint ImageHeight;
+        bool ret = SteamUtils.GetImageSize(FriendAvatar, out ImageWidth, out ImageHeight);
+
+        if (ret && ImageWidth > 0 && ImageHeight > 0)
+        {
+            byte[] Image = new byte[ImageWidth * ImageHeight * 4];
+
+            ret = SteamUtils.GetImageRGBA(FriendAvatar, Image, (int)(ImageWidth * ImageHeight * 4));
+            Texture2D m_MediumAvatar = new Texture2D((int)ImageWidth, (int)ImageHeight, TextureFormat.RGBA32, false, true);
+            m_MediumAvatar.LoadRawTextureData(Image);
+            m_MediumAvatar.Apply();
+
+            return Sprite.Create(m_MediumAvatar, new Rect(0, 0, ImageWidth, ImageHeight), new Vector2(0.5f, 0.5f));
+        }
+        return null;
     }
 }
 public class SteamLeaderboardManager : MonoBehaviour
