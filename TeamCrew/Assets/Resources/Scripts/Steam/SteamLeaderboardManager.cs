@@ -29,20 +29,30 @@ public class LeaderboardEntry
     {
         //Aquire steamID
         CSteamID steamID = steamLeaderboardEntry.m_steamIDUser;
-        //CSteamID steamID = new CSteamID(76561197990430255);
 
-        this.name = SteamFriends.GetFriendPersonaName(steamID);
-        this.avatar = GetAvatar(steamID);
-        this.globalRank = steamLeaderboardEntry.m_nGlobalRank;
-        this.isClient = steamID == SteamUser.GetSteamID();
-        this.timer = new Timer(steamLeaderboardEntry.m_nScore);
+        if (steamID.m_SteamID == 0)
+        {
+            this.name = "Unknown";
+            this.avatar = null;
+            this.globalRank = 0;
+            this.isClient = false;
+            this.isFriend = false;
+            this.timer = new Timer();
+        }
+        else
+        {
+            this.name = SteamFriends.GetFriendPersonaName(steamID);
+            this.avatar = GetAvatar(steamID);
+            this.globalRank = steamLeaderboardEntry.m_nGlobalRank;
+            this.isClient = steamID == SteamUser.GetSteamID();
+            this.timer = new Timer(steamLeaderboardEntry.m_nScore);
 
-        this.isFriend = SteamFriends.HasFriend(steamID, EFriendFlags.k_EFriendFlagImmediate);
+            this.isFriend = SteamFriends.HasFriend(steamID, EFriendFlags.k_EFriendFlagImmediate);
+        }
     }
     private Sprite GetAvatar(CSteamID steamid)
     {
         int FriendAvatar = SteamFriends.GetMediumFriendAvatar(steamid);
-        Debug.Log("SteamFriends.GetMediumFriendAvatar(" + steamid + ") - " + FriendAvatar);
 
         uint ImageWidth;
         uint ImageHeight;
@@ -142,7 +152,7 @@ public class SteamLeaderboardManager : MonoBehaviour
         if (m_SteamLeaderboard.ToString() != "0")
         {
             Debug.Log("Downloading highscores from leaderboard: " + m_SteamLeaderboard);
-            SteamAPICall_t handle = SteamUserStats.DownloadLeaderboardEntries(m_SteamLeaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobal, 1, 5);
+            SteamAPICall_t handle = SteamUserStats.DownloadLeaderboardEntries(m_SteamLeaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobal, 1, int.MaxValue);
             LeaderboardScoresDownloaded.Set(handle);
         }
         else
@@ -202,7 +212,10 @@ public class SteamLeaderboardManager : MonoBehaviour
                 bool result = SteamUserStats.GetDownloadedLeaderboardEntry(m_SteamLeaderboardEntries, i, out leaderboardEntry, null, 0);
                 if (!result)
                 {
-                    Debug.Log("Entry[" + i.ToString() + "] Could not be retrieved, try downloading leaderboard first\n");
+                    Debug.Log("Entry[" + i.ToString() + "] Could not be retrieved from leaderboard: " + m_SteamLeaderboard.ToString());
+                }
+                else
+                {
                 }
                 entriesRef.entries.Add(new LeaderboardEntry(leaderboardEntry));
             }

@@ -38,9 +38,9 @@ public class SteamUI_LeaderboardEntry : MonoBehaviour
         this.entry = entry;
         if (entry != null)
         {
-            rankText.text = entry.globalRank + ".";
+            rankText.text = (entry.globalRank != 0) ? entry.globalRank + "." : "?";
             nameText.text = entry.name;
-            timeText.text = entry.timer.GetTimeString(false, true, true, true);
+            timeText.text = (entry.timer.time != 0) ? entry.timer.GetTimeString(false, true, true, true) : "??:??.??";
 
             if(nameText.text.Length > 13)
             {

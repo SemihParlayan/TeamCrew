@@ -28,9 +28,11 @@ public class Respawn : MonoBehaviour
     float minHeight;
 
     //Data
+    public float defaultRespawnTime = 3f;
+    public float dailyMountainRespawnTime = 5f;
     public float respawnTime = 3f;
 
-	void Start () 
+	void Awake () 
     {
         //Get componenets
         cam = Camera.main;
@@ -38,6 +40,7 @@ public class Respawn : MonoBehaviour
         bandageManager = GetComponent<BandageManager>();
         inactivityController = GetComponent<GameManager>().inactivityController;
 
+        respawnTime = defaultRespawnTime;
         for (int i = 0; i < respawnScripts.Count; i++)
         {
             respawnScripts[i].timer = respawnTime;
@@ -102,6 +105,14 @@ public class Respawn : MonoBehaviour
         }
 	}
 
+    public void SetRespawnTime(float newRespawnTime)
+    {
+        respawnTime = newRespawnTime;
+        for (int i = 0; i < respawnScripts.Count; i++)
+        {
+            respawnScripts[i].timer = respawnTime;
+        }
+    }
     public void GameStarting()
     {
         mapGrips = transform.GetComponentsInChildren<Grip>(true);

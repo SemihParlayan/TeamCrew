@@ -140,7 +140,7 @@ public class DailyMountainScreen : M_Screen
                 GenerateMountain();
 
             //Add fake entries
-            AddFakeEntries(57);
+            //AddFakeEntries(57);
 
             //Enter client at fake rank
             //SetFakeRank(47);
@@ -297,6 +297,9 @@ public class DailyMountainScreen : M_Screen
 
         //Unlock parallaxes
         gameManager.LockParallaxes(false);
+
+        //Hide cloud
+        HideCloudOverlay();
 
         if (M_ScreenManager.GetCurrentScreen() is StartScreen)
         {
@@ -460,6 +463,12 @@ public class DailyMountainScreen : M_Screen
 
     private void ChangeDayOffset(int dir)
     {
+        if (!canStart)
+            return;
+
+        if (loadIcon.activeInHierarchy)
+            return;
+
         int previousOffset = dayOffset;
         int maxDaysRecap = -7;
         dayOffset += dir;

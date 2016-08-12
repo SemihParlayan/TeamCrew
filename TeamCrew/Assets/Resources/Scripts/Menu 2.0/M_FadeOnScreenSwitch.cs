@@ -5,6 +5,7 @@ using System.Collections;
 public class M_FadeOnScreenSwitch : MonoBehaviour 
 {
     //Components
+    public bool overideGameActiveFadeStop;
     public float fadeMultiplier = 1.0f;
     private M_Screen screen;
     public bool JustFadedIn { get { return fadedIn && !lastFadedIn; } }
@@ -25,7 +26,7 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
 	}
 	void Update () 
     {
-        if (gamemanager.gameActive)
+        if (gamemanager.gameActive && !overideGameActiveFadeStop)
             return;
 
         float delta = Time.deltaTime;

@@ -935,6 +935,15 @@ public class GameManager : MonoBehaviour
         respawnScript.enabled = true;
         respawnScript.GameStarting();
 
+        if (isInDailyMountain)
+        {
+            respawnScript.SetRespawnTime(respawnScript.dailyMountainRespawnTime);
+        }
+        else
+        {
+            respawnScript.SetRespawnTime(respawnScript.defaultRespawnTime);
+        }
+
         //Sets the game to be active (Camera pan has just reached the bottom)
         gameActive = true;
 
