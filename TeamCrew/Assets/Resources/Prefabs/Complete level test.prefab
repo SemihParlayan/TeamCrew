@@ -54491,7 +54491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   subScreen: 0
-  player: 1
+  player: -1
   listenForKeyboardArrows: 1
   entryButton: {fileID: 11403846}
   movementProperties:
@@ -54571,10 +54571,10 @@ MonoBehaviour:
   designTestingEnabled: 0
   gameActive: 0
   tutorialComplete: 0
-  hacks: 0
+  hacks: 1
   xbox: 1
   ps4: 0
-  disableMouseCursor: 1
+  disableMouseCursor: 0
   digitalInput: 0
   returnMenuInactive: 1
   gameModifier: {fileID: 11415310}
@@ -60613,6 +60613,7 @@ MonoBehaviour:
   leftArrow: {fileID: 124660}
   timerBackground: {fileID: 198340}
   soundManager: {fileID: 11445252}
+  startScreen: {fileID: 11461222}
   scrollHeight: 1.35
 --- !u!114 &11487086
 MonoBehaviour:

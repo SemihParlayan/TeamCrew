@@ -30,6 +30,7 @@ public class DailyMountainScreen : M_Screen
     public GameObject leftArrow;
     public GameObject timerBackground;
     public M_Sounds soundManager;
+    public StartScreen startScreen;
 
 	//privates
     private GameManager gameManager;
@@ -290,6 +291,13 @@ public class DailyMountainScreen : M_Screen
 
         //Hide time texts
         HideTimeTexts();
+
+        //Check if internetconnection was found
+        DateManager.Initialize();
+        if (DateManager.searchingForInternet)
+        {
+            Invoke("ReturnToStartScreen", 10f);
+        }
     }
     public override void OnSwitchedFrom()
     {
@@ -318,7 +326,7 @@ public class DailyMountainScreen : M_Screen
             gameManager.DestroyTopFrog();
 
             //Destroy daily mountain
-            if (mountainGenerated)
+            //if (mountainGenerated)
                 gameManager.DestroyCurrentLevel(true);
 
             leaderboardManager.ResetGettingLeaderboards();
@@ -570,5 +578,9 @@ public class DailyMountainScreen : M_Screen
     {
         showCloudOverlay = false;
         mountainNotAvailableOverlay.color = new Color(mountainNotAvailableOverlay.color.r, mountainNotAvailableOverlay.color.g, mountainNotAvailableOverlay.color.b, 0f);
+    }
+    private void ReturnToStartScreen()
+    {
+        SwitchScreen(startScreen);
     }
 }

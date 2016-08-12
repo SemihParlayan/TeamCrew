@@ -226,7 +226,7 @@ public class DateManager : MonoBehaviour
         return timer;
     }
 
-    private static void Initialize()
+    public static void Initialize()
     {
         RefreshUTCDate();
         dailyTimer = GetTimeLeftForToday();
