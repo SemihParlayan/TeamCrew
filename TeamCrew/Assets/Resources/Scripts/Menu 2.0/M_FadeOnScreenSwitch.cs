@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(M_Screen))]
 public class M_FadeOnScreenSwitch : MonoBehaviour 
@@ -23,7 +24,33 @@ public class M_FadeOnScreenSwitch : MonoBehaviour
 
         renderers = GetComponentsInChildren<SpriteRenderer>();
         textMeshes = GetComponentsInChildren<TextMesh>();
+
+        List<SpriteRenderer> rendComponents = new List<SpriteRenderer>();
+        List<TextMesh> textComponents = new List<TextMesh>();
+
+        SearchChild<SpriteRenderer>(rendComponents, transform);
+        SearchChild<TextMesh>(textComponents, transform);
+
+        renderers = rendComponents.ToArray();
+        textMeshes = textComponents.ToArray();
 	}
+    private void SearchChild<Type>(List<Type> components, Transform parent) where Type : Component
+    {
+        int childCount = parent.childCount;
+
+        for (int i = 0; i < childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            Type t = child.GetComponent<Type>();
+
+            if (t != null)
+            {
+                components.Add(t);
+            }
+
+            SearchChild(components, child);
+        }
+    }
 	void Update () 
     {
         if (gamemanager.gameActive && !overideGameActiveFadeStop)

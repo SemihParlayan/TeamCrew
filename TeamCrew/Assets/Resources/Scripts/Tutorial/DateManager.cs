@@ -12,22 +12,27 @@ public class DateManager : MonoBehaviour
     public static bool hasValidDate;
 
     public TextMesh[] timeLeftTexts;
+    public GameObject noInternetConnectionParent;
 
 	//privates
+    private static GameObject noInternetConnectionParentStatic;
     private GameManager gameManager;
     private static SteamLeaderboardManager leaderboardManager;
     private static Timer dailyTimer;
     private static bool calledFirstLeaderboardFind;
     private static bool calledReset;
+    public static bool searchingForInternet;
+    private float searchInternetTimer;
 
 	//Unity methods
     void Awake()
     {
+        noInternetConnectionParentStatic = noInternetConnectionParent;
+
         gameManager = GameObject.FindObjectOfType<GameManager>();
         leaderboardManager = GameObject.FindObjectOfType<SteamLeaderboardManager>();
 
-        RefreshUTCDate();
-        dailyTimer = GetTimeLeftForToday();
+        Initialize();
     }
     void Start()
     {
@@ -64,13 +69,27 @@ public class DateManager : MonoBehaviour
                 }
             }
         }
+
+
+
+        //Search for internet
+        if (searchingForInternet)
+        {
+            searchInternetTimer += Time.deltaTime;
+            if (searchInternetTimer >= 5f)
+            {
+                searchInternetTimer -= 5f;
+
+                Initialize();
+            }
+        }
     }
 
 	//public methods
     public static void RefreshUTCDate()
     {
         CurrentUTCDate = GetNetworkTime();
-        hasValidDate = (CurrentUTCDate != null);
+        hasValidDate = (CurrentUTCDate.Year != 1);
         Debug.Log("Refresing date... Valid date = " + hasValidDate);
     }
     public static string GetDateString()
@@ -124,42 +143,63 @@ public class DateManager : MonoBehaviour
         //Setting the Leap Indicator, Version Number and Mode values
         ntpData[0] = 0x1B; //LI = 0 (no warning), VN = 3 (IPv4 only), Mode = 3 (Client Mode)
 
-        var addresses = Dns.GetHostEntry(ntpServer).AddressList;
+        IPAddress[] addresses = null;
+        try
+        {
+            addresses = Dns.GetHostEntry(ntpServer).AddressList;
+        }
+        catch
+        {
 
-        //The UDP port number assigned to NTP is 123
-        var ipEndPoint = new IPEndPoint(addresses[0], 123);
-        //NTP uses UDP
-        var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+        }
 
-        socket.Connect(ipEndPoint);
+        if (addresses == null)
+        {
+            NoInternetConnection();
+        }
+        else
+        {
+            searchingForInternet = false;
+            noInternetConnectionParentStatic.gameObject.SetActive(false);
 
-        //Stops code hang if NTP is blocked
-        socket.ReceiveTimeout = 3000;
+            //The UDP port number assigned to NTP is 123
+            var ipEndPoint = new IPEndPoint(addresses[0], 123);
+            //NTP uses UDP
+            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
-        socket.Send(ntpData);
-        socket.Receive(ntpData);
-        socket.Close();
+            socket.Connect(ipEndPoint);
 
-        //Offset to get to the "Transmit Timestamp" field (time at which the reply 
-        //departed the server for the client, in 64-bit timestamp format."
-        const byte serverReplyTime = 40;
+            //Stops code hang if NTP is blocked
+            socket.ReceiveTimeout = 3000;
 
-        //Get the seconds part
-        ulong intPart = BitConverter.ToUInt32(ntpData, serverReplyTime);
+            socket.Send(ntpData);
+            socket.Receive(ntpData);
+            socket.Close();
 
-        //Get the seconds fraction
-        ulong fractPart = BitConverter.ToUInt32(ntpData, serverReplyTime + 4);
+            //Offset to get to the "Transmit Timestamp" field (time at which the reply 
+            //departed the server for the client, in 64-bit timestamp format."
+            const byte serverReplyTime = 40;
 
-        //Convert From big-endian to little-endian
-        intPart = SwapEndianness(intPart);
-        fractPart = SwapEndianness(fractPart);
+            //Get the seconds part
+            ulong intPart = BitConverter.ToUInt32(ntpData, serverReplyTime);
 
-        var milliseconds = (intPart * 1000) + ((fractPart * 1000) / 0x100000000L);
+            //Get the seconds fraction
+            ulong fractPart = BitConverter.ToUInt32(ntpData, serverReplyTime + 4);
 
-        //**UTC** time
-        var networkDateTime = (new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc)).AddMilliseconds((long)milliseconds);
+            //Convert From big-endian to little-endian
+            intPart = SwapEndianness(intPart);
+            fractPart = SwapEndianness(fractPart);
 
-        return networkDateTime;
+            var milliseconds = (intPart * 1000) + ((fractPart * 1000) / 0x100000000L);
+
+            //**UTC** time
+            var networkDateTime = (new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc)).AddMilliseconds((long)milliseconds);
+
+
+            return networkDateTime;
+        }
+
+        return new System.DateTime();
     }
     private static uint SwapEndianness(ulong x)
     {
@@ -186,6 +226,16 @@ public class DateManager : MonoBehaviour
         return timer;
     }
 
+    private static void Initialize()
+    {
+        RefreshUTCDate();
+        dailyTimer = GetTimeLeftForToday();
+    }
+    private static void NoInternetConnection()
+    {
+        noInternetConnectionParentStatic.gameObject.SetActive(true);
+        searchingForInternet = true;
+    }
     private void ResetLeaderboards()
     {
         Debug.Log("Trying to reset leaderboards");

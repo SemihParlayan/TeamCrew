@@ -29,6 +29,7 @@ public class M_Screen : MonoBehaviour
     public bool active;
     public bool subScreen;
     public int player = 1;
+    public bool listenForKeyboardArrows = true;
     public M_Button entryButton;
     public ScreenMovementProperties movementProperties;
 
@@ -92,9 +93,12 @@ public class M_Screen : MonoBehaviour
 
             if (input == Vector2.zero)
             {
-                float horizontal = Input.GetAxis("Horizontal");
-                float vertical = Input.GetAxis("Vertical");
-                input = new Vector2(horizontal, vertical);
+                if (listenForKeyboardArrows)
+                {
+                    float horizontal = Input.GetAxis("Horizontal");
+                    float vertical = Input.GetAxis("Vertical");
+                    input = new Vector2(horizontal, vertical);
+                }
             }
         }
 

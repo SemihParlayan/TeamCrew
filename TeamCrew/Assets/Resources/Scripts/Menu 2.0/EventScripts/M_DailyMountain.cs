@@ -23,8 +23,7 @@ public class M_DailyMountain : M_EventBase
     public override void OnPress()
     {
         base.OnPress();
-        M_ScreenManager.SwitchScreen(dailyMountainSreeen);
-        if (SteamManager.Initialized)
+        if (SteamManager.Initialized && !DateManager.searchingForInternet)
         {
             M_ScreenManager.SwitchScreen(dailyMountainSreeen);
         }

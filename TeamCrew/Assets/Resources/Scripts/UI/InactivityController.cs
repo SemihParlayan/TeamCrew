@@ -83,7 +83,16 @@ public class InactivityController : MonoBehaviour
                 continue;
 
             InactivityFrog frog = inactivityScripts[i];
-            frog.timer += Time.deltaTime;
+            if (gameManager.gameActive)
+            {
+                if (gameManager.tutorialComplete)
+                    frog.timer += Time.deltaTime;
+            }
+            else
+            {
+                frog.timer += Time.deltaTime;
+            }
+
 
             if (frog.IsInactive)
             {
@@ -123,10 +132,15 @@ public class InactivityController : MonoBehaviour
 
         if (!gameManager.isInDailyMountain)
         {
-            if (!gameManager.gameActive || (gameManager.gameActive && gameManager.tutorialComplete))
+            //Deactivate inactivity with input from players
+            for (int i = 0; i < inactivityScripts.Length; i++)
             {
-                //Deactivate inactivity with input from players
-                for (int i = 0; i < inactivityScripts.Length; i++)
+                if (!gameManager.tutorialComplete)
+                {
+                    if (!inactivityScripts[i].IsInactive)
+                        DeactivateOnInput(i);
+                }
+                else
                 {
                     DeactivateOnInput(i);
                 }
