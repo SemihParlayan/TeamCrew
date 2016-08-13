@@ -47,11 +47,11 @@ public class PoffMountain : MonoBehaviour
         //    //InvokeRepeating("PoffRepeating", 0f, poffRepeatRate);
         //}
     }
-    public void PoffRepeating(int seed = -1)
+    public void PoffRepeating(bool keepTutorial, int seed = -1)
     {
         Poff();
 
-        generator.GenerateFullMountain(true, seed);
+        generator.GenerateFullMountain(keepTutorial, seed);
     }
     private void Poff()
     {

@@ -90,6 +90,7 @@ public class M_Screen : MonoBehaviour
         if (input == Vector2.zero)
         {
             input = GameManager.GetDPad(player);
+            Debug.Log(input);
 
             if (input == Vector2.zero)
             {

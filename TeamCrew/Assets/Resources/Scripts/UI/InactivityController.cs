@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
 
-public class InactivityController : MonoBehaviour 
+public class InactivityController : MonoBehaviour
 {
     //Data
     public float signLimit;
@@ -27,13 +27,13 @@ public class InactivityController : MonoBehaviour
     {
         fade = GetComponent<M_FadeToColor>();
     }
-	void Start () 
-	{
+    void Start()
+    {
         gameManager = transform.parent.GetComponent<GameManager>();
         respawn = transform.parent.GetComponent<Respawn>();
 
         ResetVariables();
-	}
+    }
 
     private void ResetVariables()
     {
@@ -56,8 +56,8 @@ public class InactivityController : MonoBehaviour
         }
     }
 
-	void Update () 
-	{
+    void Update()
+    {
         if (fade.Halfway)
         {
             ResetVariables();
@@ -135,10 +135,19 @@ public class InactivityController : MonoBehaviour
             //Deactivate inactivity with input from players
             for (int i = 0; i < inactivityScripts.Length; i++)
             {
-                if (!gameManager.tutorialComplete)
+                if (gameManager.gameActive)
                 {
-                    if (!inactivityScripts[i].IsInactive)
+                    if (gameManager.tutorialComplete)
+                    {
                         DeactivateOnInput(i);
+                    }
+                    else
+                    {
+                        if (!inactivityScripts[i].IsInactive)
+                        {
+                            DeactivateOnInput(i);
+                        }
+                    }
                 }
                 else
                 {
@@ -157,14 +166,14 @@ public class InactivityController : MonoBehaviour
             respawn.respawnScripts[i].inactive = inactivityScripts[i].IsInactive;
         }
 
-        if(gameManager.gameActive)
+        if (gameManager.gameActive)
         {
             for (int i = 0; i < gameManager.frogsReady.Length; i++)
             {
                 gameManager.frogsReady[i] = !inactivityScripts[i].IsInactive;
             }
         }
-	}
+    }
     private void DeactivateOnInput(int player)
     {
         Vector3 leftStick = GameManager.GetThumbStick(XboxThumbStick.Left, player);
@@ -202,7 +211,7 @@ public class InactivityController : MonoBehaviour
 
     public void SetTimersForFrogs(bool[] frogsReady)
     {
-        for (int i = 0 ; i < frogsReady.Length; i++)
+        for (int i = 0; i < frogsReady.Length; i++)
         {
             if (frogsReady[i])
                 inactivityScripts[i].timer = 0;

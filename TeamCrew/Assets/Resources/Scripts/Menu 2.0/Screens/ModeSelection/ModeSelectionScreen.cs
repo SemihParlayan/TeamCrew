@@ -136,7 +136,7 @@ public class ModeSelectionScreen : M_Screen
         UpdateContinueButton();
         GameMode mode = gameModes.gameModes[gamemodeIndex];
         GameManager.CurrentGameMode = mode;
-        poff.PoffRepeating();
+        poff.PoffRepeating(false);
 
         selectionArrowTargetPos = new Vector3(-2.8f + (3.3f * gamemodeIndex), 2.91f, 0f);
     }

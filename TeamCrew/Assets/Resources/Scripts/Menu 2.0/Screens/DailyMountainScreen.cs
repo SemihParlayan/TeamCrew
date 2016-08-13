@@ -31,6 +31,7 @@ public class DailyMountainScreen : M_Screen
     public GameObject timerBackground;
     public M_Sounds soundManager;
     public StartScreen startScreen;
+    public AudioSource mountainGenerationSound;
 
 	//privates
     private GameManager gameManager;
@@ -512,7 +513,10 @@ public class DailyMountainScreen : M_Screen
 
         //Generate a new mountain with the daily mode
         poff.SetMenuMountainState(false, 0f);
-        poff.PoffRepeating(dailySeed);
+        poff.PoffRepeating(true, dailySeed);
+
+        //Spawn mountain sound
+        GameManager.PlayAudioSource(mountainGenerationSound, 0.7f, 1.4f);
 
         //Create new frogs
         gameManager.CreateNewFrogs(0);
