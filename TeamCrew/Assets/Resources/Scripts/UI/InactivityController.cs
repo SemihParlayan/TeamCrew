@@ -184,7 +184,7 @@ public class InactivityController : MonoBehaviour
         bool button4 = GameManager.GetButtonPress(XboxButton.B, player);
         bool button5 = GameManager.GetButtonPress(XboxButton.Start, player);
 
-        if (leftStick != Vector3.zero || rightStick != Vector3.zero || button || button2 || button3 || button4 || button5 || (GameManager.Hacks && Input.GetMouseButton(0)))
+        if (leftStick != Vector3.zero || rightStick != Vector3.zero || button || button2 || button3 || button4 || button5 || (GameManager.Hacks && Input.GetMouseButton(0) && !GameManager.UseMouseAsInput))
         {
             inactivityScripts[player].timer = 0;
         }

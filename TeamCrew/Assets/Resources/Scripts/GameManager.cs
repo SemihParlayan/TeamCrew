@@ -257,31 +257,50 @@ public class GameManager : MonoBehaviour
     }
     public static bool GetGrip(int player, GripSide button = GripSide.Both)
     {
-        if (player > 3 || controllers[player] == null)
-            return false;
-        Controller c = controllers[player];
-
-        switch (button)
+        
+        if (player > 0 || !UseMouseAsInput)
         {
-            case GripSide.Left:
-                return (c.currentState.Buttons.LeftShoulder == ButtonState.Pressed || c.currentState.Triggers.Left > 0);
-
-            case GripSide.Right:
-                return (c.currentState.Buttons.RightShoulder == ButtonState.Pressed || c.currentState.Triggers.Right > 0);
-
-            case GripSide.Both:
-                {
-                    bool gripped = false;
-                    if (c.currentState.Buttons.LeftShoulder == ButtonState.Pressed || c.currentState.Buttons.RightShoulder == ButtonState.Pressed)
-                        gripped = true;
-                    if (c.currentState.Triggers.Left > 0 || c.currentState.Triggers.Right > 0)
-                        gripped = true;
-
-                    return gripped;
-                }
-
-            default:
+            if (player > 3 || controllers[player] == null)
                 return false;
+
+            Controller c = controllers[player];
+
+            switch (button)
+            {
+                case GripSide.Left:
+                    return (c.currentState.Buttons.LeftShoulder == ButtonState.Pressed || c.currentState.Triggers.Left > 0);
+
+                case GripSide.Right:
+                    return (c.currentState.Buttons.RightShoulder == ButtonState.Pressed || c.currentState.Triggers.Right > 0);
+
+                case GripSide.Both:
+                    {
+                        bool gripped = false;
+                        if (c.currentState.Buttons.LeftShoulder == ButtonState.Pressed || c.currentState.Buttons.RightShoulder == ButtonState.Pressed)
+                            gripped = true;
+                        if (c.currentState.Triggers.Left > 0 || c.currentState.Triggers.Right > 0)
+                            gripped = true;
+
+                        return gripped;
+                    }
+
+                default:
+                    return false;
+            }
+        }
+        else
+        {
+            switch(button)
+            {
+                case GripSide.Left:
+                    return Input.GetMouseButton(0);
+                case GripSide.Right:
+                    return Input.GetMouseButton(1);
+                case GripSide.Both:
+                    return (Input.GetMouseButton(0) && Input.GetMouseButton(1));
+                default:
+                    return false;
+            }
         }
     }
 
@@ -340,6 +359,8 @@ public class GameManager : MonoBehaviour
     public static bool PS4;
     public static bool DigitalInput;
     public static bool ReturnToMenuWhenInactive;
+    public static bool UseMouseAsInput;
+    public static bool RequireSteam;
 
     public static Transform[] players = new Transform[4];
     private static float levelHeight = 1337;
@@ -368,7 +389,9 @@ public class GameManager : MonoBehaviour
     public bool ps4 = false;
     public bool disableMouseCursor = false;
     public bool digitalInput = false;
+    public bool useMouseAsInput = false;
     public bool returnMenuInactive = true;
+    public bool requireSteam = true;
 
     private GameObject fireWorks;
 
@@ -420,6 +443,8 @@ public class GameManager : MonoBehaviour
         Hacks = hacks;
         DigitalInput = digitalInput;
         ReturnToMenuWhenInactive = returnMenuInactive;
+        UseMouseAsInput = useMouseAsInput;
+        RequireSteam = requireSteam;
 
         //Activate design testing
         if (designTestingEnabled)

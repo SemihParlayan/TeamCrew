@@ -66,10 +66,25 @@ public class CharacterSelectionScreen : M_Screen
 
         if (CanContinue)
         {
-            if (GameManager.GetButtonPress(XboxButton.Start))
+            if (GameManager.GetButtonPress(XboxButton.Start) || Input.GetKeyDown(KeyCode.Return) || (GameManager.UseMouseAsInput && Input.GetMouseButtonDown(0)))
             {
                 bigReadyAnimator.SetBool("PlayersReady", false);    
                 ContinueToModeSelection();
+            }
+        }
+
+        if (GameManager.UseMouseAsInput)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (!joinArray[0])
+                {
+                    joinArray[0] = true;
+                }
+                else if (!readyArray[0])
+                {
+                    readyArray[0] = true;
+                }
             }
         }
     }

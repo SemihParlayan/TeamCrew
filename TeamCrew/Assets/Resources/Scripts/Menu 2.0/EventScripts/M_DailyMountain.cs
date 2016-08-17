@@ -13,7 +13,11 @@ public class M_DailyMountain : M_EventBase
 	//Unity methods
 	void Start () 
 	{
-        steamConnectionObject.gameObject.SetActive(!SteamManager.Initialized);
+        //steamConnectionObject.gameObject.SetActive(!SteamManager.Initialized);
+        if (DateManager.searchingForInternet)
+        {
+            steamConnectionObject.transform.localPosition = new Vector3(0, -0.7f);
+        }
 	}
     void Update()
     {

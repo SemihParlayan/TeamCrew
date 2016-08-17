@@ -88,17 +88,17 @@ public class FrogPrototype : MonoBehaviour
             rightParticle = rightHandMagnet.GetComponent<ParticleSystem>();
         }
 
-        leftBody  = handBody[0] = leftHand.GetComponent<Rigidbody2D>();
+        leftBody = handBody[0] = leftHand.GetComponent<Rigidbody2D>();
         if (leftBody == null) { Debug.Log("leftBody is null"); }
 
-        
+
         rightBody = handBody[1] = rightHand.GetComponent<Rigidbody2D>();
-        if (rightBody == null) { Debug.Log("rightBody is null");}
+        if (rightBody == null) { Debug.Log("rightBody is null"); }
 
 
         body = GetComponent<Rigidbody2D>();
-        if (body == null) { Debug.Log("body is null");}
-        
+        if (body == null) { Debug.Log("body is null"); }
+
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         if (gameManager == null) { Debug.Log("GameManager is null"); Debug.Break(); }
 
@@ -118,7 +118,6 @@ public class FrogPrototype : MonoBehaviour
 
         yVelocityClamp = 10f;
     }
-
     private void Update()
     {
         if (GameManager.Hacks)
@@ -156,8 +155,16 @@ public class FrogPrototype : MonoBehaviour
         ControlVersusGripController();
 
         //Control Hands
-        ControlHand(leftGripScript, GameManager.GetThumbStick(XboxThumbStick.Left, player), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
-        ControlHand(rightGripScript, GameManager.GetThumbStick(XboxThumbStick.Right, player), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
+        if (!GameManager.UseMouseAsInput || player != 0)
+        {
+            ControlHand(leftGripScript, GameManager.GetThumbStick(XboxThumbStick.Left, player), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
+            ControlHand(rightGripScript, GameManager.GetThumbStick(XboxThumbStick.Right, player), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
+        }
+        else
+        {
+            ControlHandMouse(leftGripScript, leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
+            ControlHandMouse(rightGripScript, rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
+        }
 
         //Limit y velocity for body
         Vector2 velocity = body.velocity;
@@ -288,6 +295,133 @@ public class FrogPrototype : MonoBehaviour
         }
     }
 
+    void ControlHandMouse(HandGrip handScript, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin, HandGrip otherGripScript)
+    {
+        if (handScript.disabled)
+            return;
+
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0;
+
+        Vector3 input = mouseWorldPos - hand.position;
+        input.Normalize();
+
+        if (forceArmsUp)
+        {
+            if (input == Vector3.zero)
+                input = new Vector3(0, 0.75f, 0);
+            else
+                forceArmsUp = false;
+        }
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Is hand gripping or not?
+        ///////////////////////////////////////////////////////////////////////////
+        bool grip = joint.useMotor = handScript.isOnGrip;
+        body.isKinematic = false;
+
+        
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Make hand heave when gripping
+        ///////////////////////////////////////////////////////////////////////////
+        if (leftGripScript.isOnGrip && !rightGripScript.isOnGrip && gameManager.tutorialComplete)
+        {
+            armsCantGoDownTimer += Time.deltaTime;
+
+            if (input.y < 0 && armsCantGoDownTimer < 3f)
+            {
+                input.y = 0.5f;
+            }
+        }
+        else
+        {
+            armsCantGoDownTimer = 0;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Make hand go up when no hands are gripping
+        ///////////////////////////////////////////////////////////////////////////
+        if (handScript.isOnGrip)
+        {
+            input.y = (input.y * -1);
+            input.x = 0;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Aquire angle from input
+        ///////////////////////////////////////////////////////////////////////////
+        float angle = GetAngleFromInput(input);
+
+
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      Set appropriate settings for the motor
+        ///////////////////////////////////////////////////////////////////////////
+        HingeJoint2D otherJoint = null;
+        JointMotor2D motor = new JointMotor2D();
+        motor.motorSpeed = motorSpeed;
+
+        if (oneArmedModeEnabled)
+        {
+            motor.motorSpeed += oneArmedMotorBoost;
+        }
+
+        if (versusHands > 0)
+            motor.motorSpeed += versusMotorBoost;
+        else if (rightGripScript.isOnGrip && leftGripScript.isOnGrip)
+        {
+            motor.motorSpeed /= 1.2f;
+        }
+
+        if (joint == leftJoint)
+            otherJoint = rightJoint;
+        else
+        {
+            motor.motorSpeed *= -1;
+            otherJoint = leftJoint;
+        }
+
+        motor.maxMotorTorque = 1500;
+        joint.motor = motor;
+        joint.useMotor = (grip && input.y < 0);
+
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                  Steer hand in different directions
+        ///////////////////////////////////////////////////////////////////////////
+        if (!grip)
+        {
+            //Move towards joystick Direction
+            if ((input.x != 0 || input.y != 0))
+            {
+                Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
+
+                if (!GameManager.DigitalInput)
+                {
+                    dir.x *= Mathf.Abs(input.x * 1.3f);
+                    dir.y *= Mathf.Abs(input.y * 1.3f);
+                }
+
+                Vector3 targetPosition = handOrigin.position + dir * 2.0f + magnet.magnetDir;
+                body.velocity = (targetPosition - hand.position) * speed;
+            }
+            // Move towards other hand when neutral
+            else if (otherGripScript.isOnGrip && otherJoint.useMotor && handScript.isGripping)
+            {
+                if (otherGripScript.gripPoint)
+                {
+                    Vector3 targetPosition = otherGripScript.gripPoint.transform.position;
+                    body.velocity = (targetPosition - hand.position) * speed;
+                }
+            }
+            //Move towards neutral position
+            else
+            {
+                Vector3 targetPosition = handNeutral.position;
+                body.velocity = (targetPosition - hand.position) * speed;
+            }
+        }
+    }
     void ControlHand(HandGrip handScript, Vector3 input, HingeJoint2D joint, int motorDir, Rigidbody2D body, GripMagnet magnet, Transform hand, Transform handNeutral, Transform handOrigin, HandGrip otherGripScript)
     {
         if (handScript.disabled)
