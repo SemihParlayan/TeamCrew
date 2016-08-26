@@ -416,6 +416,7 @@ GameObject:
   - 114: {fileID: 11476976}
   - 82: {fileID: 8224414}
   - 82: {fileID: 8236664}
+  - 95: {fileID: 9585034}
   m_Layer: 12
   m_Name: right_hand_sprite
   m_TagString: Untagged
@@ -1144,6 +1145,7 @@ GameObject:
   - 114: {fileID: 11498560}
   - 82: {fileID: 8294412}
   - 82: {fileID: 8204634}
+  - 95: {fileID: 9551084}
   m_Layer: 12
   m_Name: left_hand_sprite
   m_TagString: Untagged
@@ -2102,7 +2104,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0.7071066, w: -0.70710695}
   m_LocalPosition: {x: 0.69, y: 0, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_Children:
   - {fileID: 488956}
   - {fileID: 404756}
@@ -2347,7 +2349,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0.7071066, w: -0.70710695}
   m_LocalPosition: {x: 0.69, y: 0, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_Children:
   - {fileID: 473220}
   - {fileID: 453550}
@@ -2855,7 +2857,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 56.750103, y: -707.49335, z: 0}
+  m_LocalPosition: {x: 43.974556, y: -154.04994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -4530,6 +4532,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &9551084
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167856}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 17b888b80591a254cae2c0d8f36e2b93, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9553522
 Animator:
   serializedVersion: 3
@@ -4625,6 +4644,23 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e244efbab15c65e4d9f886334a3954a2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &9585034
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127646}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 17b888b80591a254cae2c0d8f36e2b93, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4735,7 +4771,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11415488}
   connectedBody: {fileID: 5065462}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
   handScript: {fileID: 11498248}
 --- !u!114 &11411902
 MonoBehaviour:
@@ -4844,7 +4880,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11498862}
   connectedBody: {fileID: 5007472}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11428426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4963,7 +4999,7 @@ MonoBehaviour:
   speed: 10
   yVelocityClamp: 10
   forceArmsUp: 0
-  player: 2147483647
+  player: 0
   emotionsScript: {fileID: 11451358}
   gripScript: []
   joints: []
@@ -5021,7 +5057,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11498924}
   connectedBody: {fileID: 5054954}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
   handScript: {fileID: 11416718}
 --- !u!114 &11446312
 MonoBehaviour:
@@ -5216,7 +5252,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 142262}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -5226,14 +5262,14 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11428426}
   connectedBody: {fileID: 5029920}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11472482
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121608}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -5243,7 +5279,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11400512}
   connectedBody: {fileID: 5008506}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11473974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5289,7 +5325,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129410}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -5299,7 +5335,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11495636}
   connectedBody: {fileID: 5029920}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11480456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5361,7 +5397,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143166}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea98087a37af28a4d807fef0ac3da8b6, type: 3}
   m_Name: 
@@ -5371,7 +5407,7 @@ MonoBehaviour:
   gripPoints:
   - {fileID: 11437260}
   connectedBody: {fileID: 5008506}
-  parentedPlayer: 2147483647
+  parentedPlayer: 0
 --- !u!114 &11492758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11888,7 +11924,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1825891293
-  m_SortingOrder: 100
+  m_SortingOrder: 9
   m_Sprite: {fileID: 21300000, guid: dc3257fd6aeea024da2f02176135ce65, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -12578,7 +12614,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1825891293
-  m_SortingOrder: 100
+  m_SortingOrder: 9
   m_Sprite: {fileID: 21300000, guid: dc3257fd6aeea024da2f02176135ce65, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -13165,7 +13201,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.13800001, y: 0}
-  m_ConnectedAnchor: {x: 0.11399841, y: 0.3449707}
+  m_ConnectedAnchor: {x: 0.11399841, y: 0.34500122}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0

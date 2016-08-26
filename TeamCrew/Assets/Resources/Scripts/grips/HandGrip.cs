@@ -64,6 +64,7 @@ public class HandGrip : MonoBehaviour
 
     //Grip animations
     public GripAnimation gripAnimation;
+    private Animator gripAnimation_hand; //seb
 
     //VersusGripController
     [HideInInspector]
@@ -85,6 +86,8 @@ public class HandGrip : MonoBehaviour
         //Aquire spriterenderer and sound
         burningHand = GetComponent<BurningHands>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        gripAnimation_hand = GetComponent<Animator>(); //seb
+
         if (gripSoundSource != null)
             randSoundGen = gripSoundSource.GetComponent<RandomSoundFromList>();
         
@@ -153,6 +156,8 @@ public class HandGrip : MonoBehaviour
         }
 
         isGripping = false;
+        gripAnimation_hand.SetBool("air", false);
+
         if (GameManager.GetGrip(player, hand) || forcedGrip || hackGrip) //Grip button down is down
         {
             //Set gripping to true
@@ -163,6 +168,7 @@ public class HandGrip : MonoBehaviour
             {
                 spriteRenderer.sprite = semiOpen;
                 gripAnimation.Activate("air");
+                gripAnimation_hand.SetBool("air", true); //seb
             }
         }
         else if (lastGripValue && !(GameManager.GetGrip(player, hand) || hackGrip)) //Grip button goes up
@@ -254,6 +260,7 @@ public class HandGrip : MonoBehaviour
                     //Play animation and stone particles
                     stoneParticles.Play();
                     gripAnimation.Activate("normal");
+                    gripAnimation_hand.SetTrigger("grab");
 
                     //Hand is on a grip
                     isOnGrip = true;
