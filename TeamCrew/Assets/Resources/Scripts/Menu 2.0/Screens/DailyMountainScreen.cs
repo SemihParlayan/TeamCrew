@@ -29,6 +29,7 @@ public class DailyMountainScreen : M_Screen
     public GameObject rightArrow;
     public GameObject leftArrow;
     public GameObject timerBackground;
+    public GameObject quickRestart;
     public M_Sounds soundManager;
     public StartScreen startScreen;
     public AudioSource mountainGenerationSound;
@@ -336,6 +337,7 @@ public class DailyMountainScreen : M_Screen
         {
             if (hasFoundClient && clientEntry != null)
             {
+                quickRestart.SetActive(true);
                 previousTimeObject.gameObject.SetActive(true);
                 previousTimeObject.text = clientEntry.timer.GetTimeString(false, true, true, true);
             }
@@ -347,6 +349,7 @@ public class DailyMountainScreen : M_Screen
         currentTimeObject.gameObject.SetActive(false);
         previousTimeObject.gameObject.SetActive(false);
         timerBackground.SetActive(false);
+        quickRestart.SetActive(false);
     }
     public void OnPlayGame()
     {
@@ -367,6 +370,16 @@ public class DailyMountainScreen : M_Screen
             M_ScreenManager.SwitchScreen(gameScreen);
 
         }
+    }
+    public void RestartDaily()
+    {
+        gameManager.ResetGameVariables();
+        gameManager.CreateNewFrogs();
+        gameManager.isInDailyMountain = true;
+
+        M_ScreenManager.SetActive(true);
+        M_ScreenManager.SwitchScreen(gameScreen);
+        dailyGamemode.OnPlayGame();
     }
 
 	//private methods

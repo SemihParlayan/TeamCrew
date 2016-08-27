@@ -534,9 +534,7 @@ public class GameManager : MonoBehaviour
         UpdateControllers();
         RestartGame();
         CheckForTutorialComplete();
-        //CheckForCameraPanComplete();
         CheckForFinalStretch();
-        //CheckForPlayersReadyInMenu();
         SetPlayerScripts();
     }
 

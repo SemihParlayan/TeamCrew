@@ -7,10 +7,10 @@ public class PauseController : MonoBehaviour
     public M_Sounds soundManager;
     public AudioMixer mixer;
     public M_Screen pauseScreen;
+    public M_Screen pauseScreenDailymountain;
     public EndgameMenuScreen endgameMenuScreen;
     public ModeSelectionScreen modeSelectionScreen;
     public DailyMountainScreen dailyMountainScreen;
-    public TextMesh backToPreviosButtonText;
     private GameManager gameManager;
     private M_ScreenManager screenManager;
     public KOTH koth;
@@ -46,9 +46,13 @@ public class PauseController : MonoBehaviour
         {
             pauseScreen.movementProperties.zoom = Camera.main.orthographicSize;
         }
+        if (paused && pauseScreenDailymountain.enabled)
+        {
+            pauseScreenDailymountain.movementProperties.zoom = Camera.main.orthographicSize;
+        }
     }
 
-    void PauseButton()
+    public void PauseButton()
     {
         paused = !paused;
 
@@ -69,22 +73,26 @@ public class PauseController : MonoBehaviour
 
         Time.timeScale = 0;
         M_ScreenManager.SetActive(true);
-        M_ScreenManager.SwitchScreen(pauseScreen);
-
-        pauseScreen.active = true;
-        pauseScreen.enabled = true;
-
-        Vector3 camPos = Camera.main.transform.position; camPos.z = 0;
-        pauseScreen.movementProperties.cameraLocation.position = camPos;
 
         if (gameManager.isInDailyMountain)
         {
-            backToPreviosButtonText.text = "Daily mountain";
+            M_ScreenManager.SwitchScreen(pauseScreenDailymountain);
+
+            pauseScreenDailymountain.active = true;
+            pauseScreenDailymountain.enabled = true;
         }
         else
         {
-            backToPreviosButtonText.text = "Mode selection";
+            M_ScreenManager.SwitchScreen(pauseScreen);
+
+            pauseScreen.active = true;
+            pauseScreen.enabled = true;
         }
+
+        Vector3 camPos = Camera.main.transform.position; camPos.z = 0;
+        pauseScreen.movementProperties.cameraLocation.position = camPos;
+        pauseScreenDailymountain.movementProperties.cameraLocation.position = camPos;
+
     }
     void UnPause()
     {
@@ -95,11 +103,26 @@ public class PauseController : MonoBehaviour
         Time.timeScale = 1;
         M_ScreenManager.SetActive(false);
 
-        pauseScreen.active = false;
-        pauseScreen.enabled = false;
-        pauseScreen.CancelInvoke();
+        if (gameManager.isInDailyMountain)
+        {
+            pauseScreenDailymountain.active = false;
+            pauseScreenDailymountain.enabled = false;
+            pauseScreenDailymountain.CancelInvoke();
+        }
+        else
+        {
+            pauseScreen.active = false;
+            pauseScreen.enabled = false;
+            pauseScreen.CancelInvoke();
+        }
     }
 
+    public void RestartDaily()
+    {
+        paused = false;
+        UnPause();
+        dailyMountainScreen.RestartDaily();
+    }
     void GoBackToPrevious()
     {
         paused = false;

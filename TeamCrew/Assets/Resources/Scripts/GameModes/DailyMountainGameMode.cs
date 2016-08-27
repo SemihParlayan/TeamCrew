@@ -105,6 +105,7 @@ public class DailyMountainGameMode : MonoBehaviour
 	//publics
     public Text currentTimeText;
     public Timer timer;
+    public PauseController pauseController;
 
 	//privates
     private GameManager gameManager;
@@ -133,6 +134,12 @@ public class DailyMountainGameMode : MonoBehaviour
 
 
         currentTimeText.text = timer.GetTimeString(false, true, true, true);
+
+        if (GameManager.GetButtonPress(XboxButton.B, 0))
+        {
+            pauseController.PauseButton();
+            pauseController.RestartDaily();
+        }
 	}
 
 	//public methods
