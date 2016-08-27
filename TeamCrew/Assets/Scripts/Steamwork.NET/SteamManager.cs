@@ -23,6 +23,7 @@ class SteamManager : MonoBehaviour {
 	}
 
 	private static bool s_EverInialized;
+    public bool requireSteam = true;
 
 	private bool m_bInitialized;
 	public static bool Initialized {
@@ -38,7 +39,7 @@ class SteamManager : MonoBehaviour {
 
 	private void Awake() 
     {
-        if (GameManager.RequireSteam)
+        if (requireSteam)
         {
             // Only one instance of SteamManager at a time!
             if (s_instance != null)

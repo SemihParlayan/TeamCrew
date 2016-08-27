@@ -30,10 +30,17 @@ public class PauseController : MonoBehaviour
         if (!gameManager.gameActive)
             return;
 
-        if (GameManager.GetButtonPress(XboxButton.Start))
+        for (int i = 0; i < gameManager.frogsReady.Length; i++)
         {
-            PauseButton();
+            if (gameManager.frogsReady[i])
+            {
+                if (GameManager.GetButtonPress(XboxButton.Start, i))
+                {
+                    PauseButton();
+                }
+            }
         }
+            
 
         if (paused && pauseScreen.enabled)
         {

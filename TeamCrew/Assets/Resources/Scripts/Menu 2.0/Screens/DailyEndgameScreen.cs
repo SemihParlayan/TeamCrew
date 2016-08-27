@@ -146,6 +146,7 @@ public class DailyEndgameScreen : M_Screen
         diffTimeText.gameObject.SetActive(false);
         whiteFade.color = Color.white;
         whiteFade.gameObject.SetActive(false);
+        CancelInvoke("OnExplosion");
     }
 
 

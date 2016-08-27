@@ -360,7 +360,6 @@ public class GameManager : MonoBehaviour
     public static bool DigitalInput;
     public static bool ReturnToMenuWhenInactive;
     public static bool UseMouseAsInput;
-    public static bool RequireSteam;
 
     public static Transform[] players = new Transform[4];
     private static float levelHeight = 1337;
@@ -391,7 +390,6 @@ public class GameManager : MonoBehaviour
     public bool digitalInput = false;
     public bool useMouseAsInput = false;
     public bool returnMenuInactive = true;
-    public bool requireSteam = true;
 
     private GameObject fireWorks;
 
@@ -444,7 +442,6 @@ public class GameManager : MonoBehaviour
         DigitalInput = digitalInput;
         ReturnToMenuWhenInactive = returnMenuInactive;
         UseMouseAsInput = useMouseAsInput;
-        RequireSteam = requireSteam;
 
         //Activate design testing
         if (designTestingEnabled)

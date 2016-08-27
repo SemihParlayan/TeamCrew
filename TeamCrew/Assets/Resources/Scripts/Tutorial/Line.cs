@@ -38,8 +38,8 @@ public class Line : MonoBehaviour
         {
             joint.distance = distance + 0.3f;
         }
-        if (joint.distance >= 12)
-            joint.distance = 12;
+        if (joint.distance >= 13f)
+            joint.distance = 13f;
 
         joint.enabled = !isGripping;
 

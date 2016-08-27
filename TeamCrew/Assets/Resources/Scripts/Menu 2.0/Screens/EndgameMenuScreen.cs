@@ -55,8 +55,9 @@ public class EndgameMenuScreen : M_Screen
         if (menuMountain.activeInHierarchy)
             return;
 
-        gameManager.DestroyFrogs();
         gameManager.ResetGameVariables();
+        gameManager.DestroyFrogs();
+        gameManager.DestroyTopFrog();
         generator.DestroyLevel(false);
         menuMountain.SetActive(true);
         M_ScreenManager.SetActive(true);

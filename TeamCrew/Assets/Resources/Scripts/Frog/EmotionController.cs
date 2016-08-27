@@ -64,7 +64,7 @@ public class EmotionController : MonoBehaviour
             }
 
             s.emotionsScript.SetGeneralEmotion(currentEmotion);
-            if (satisfied)
+            if (satisfied && currentEmotion != Emotion.angry && currentEmotion != Emotion.taunt)
             {
                 s.emotionsScript.SetSituationalEmotion(Emotion.satisfied, 0.5f);
             }
