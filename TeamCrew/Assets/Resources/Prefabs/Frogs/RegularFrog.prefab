@@ -44,6 +44,7 @@ GameObject:
   - 50: {fileID: 5044424}
   - 233: {fileID: 23321606}
   - 114: {fileID: 11438272}
+  - 114: {fileID: 11405512}
   m_Layer: 0
   m_Name: left_leg_lower
   m_TagString: Untagged
@@ -78,6 +79,7 @@ GameObject:
   - 212: {fileID: 21251846}
   - 58: {fileID: 5834118}
   - 114: {fileID: 11406826}
+  - 114: {fileID: 11410788}
   m_Layer: 0
   m_Name: right_foot
   m_TagString: VersusGrip
@@ -306,6 +308,7 @@ GameObject:
   - 114: {fileID: 11492690}
   - 82: {fileID: 8262292}
   - 114: {fileID: 11469060}
+  - 114: {fileID: 11468044}
   m_Layer: 0
   m_Name: body
   m_TagString: Frog
@@ -761,6 +764,7 @@ GameObject:
   - 50: {fileID: 5041016}
   - 233: {fileID: 23356920}
   - 114: {fileID: 11473458}
+  - 114: {fileID: 11407190}
   m_Layer: 0
   m_Name: left_leg_upper
   m_TagString: Untagged
@@ -847,6 +851,7 @@ GameObject:
   - 50: {fileID: 5070556}
   - 233: {fileID: 23326008}
   - 114: {fileID: 11420468}
+  - 114: {fileID: 11464834}
   m_Layer: 0
   m_Name: right_leg_lower
   m_TagString: Untagged
@@ -1158,6 +1163,7 @@ GameObject:
   - 50: {fileID: 5044128}
   - 233: {fileID: 23316524}
   - 114: {fileID: 11457744}
+  - 114: {fileID: 11408026}
   m_Layer: 0
   m_Name: right_leg_upper
   m_TagString: Untagged
@@ -1261,6 +1267,7 @@ GameObject:
   - 212: {fileID: 21205740}
   - 58: {fileID: 5820276}
   - 114: {fileID: 11464632}
+  - 114: {fileID: 11415768}
   m_Layer: 0
   m_Name: left_foot
   m_TagString: VersusGrip
@@ -1354,6 +1361,7 @@ GameObject:
   - 82: {fileID: 8218058}
   - 82: {fileID: 8229018}
   - 95: {fileID: 9519378}
+  - 114: {fileID: 11480830}
   m_Layer: 12
   m_Name: right_hand_sprite
   m_TagString: Untagged
@@ -1371,6 +1379,7 @@ GameObject:
   - 4: {fileID: 495380}
   - 212: {fileID: 21266376}
   - 114: {fileID: 11469082}
+  - 114: {fileID: 11444808}
   m_Layer: 0
   m_Name: head
   m_TagString: Untagged
@@ -1491,6 +1500,7 @@ GameObject:
   - 82: {fileID: 8251208}
   - 82: {fileID: 8263506}
   - 95: {fileID: 9532986}
+  - 114: {fileID: 11497276}
   m_Layer: 12
   m_Name: left_hand_sprite
   m_TagString: Untagged
@@ -4764,6 +4774,24 @@ MonoBehaviour:
   offset: {x: -0.06, y: -0.07}
   sortingLayerName: Frog
   sortingOrder: 9
+--- !u!114 &11405512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23237427ab9c445bb46b2f83cb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyParent: {fileID: 462204}
+  spriteToCopy: {fileID: 21245362}
+  numberOfCopies: 20
+  flipY: 0
+  flipX: 0
+  copyInterval: 0
+  fadeTime: 20
 --- !u!114 &11406826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4781,6 +4809,42 @@ MonoBehaviour:
   - {fileID: 11408912}
   connectedBody: {fileID: 5070556}
   parentedPlayer: 0
+--- !u!114 &11407190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145768}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23237427ab9c445bb46b2f83cb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyParent: {fileID: 462204}
+  spriteToCopy: {fileID: 21207018}
+  numberOfCopies: 20
+  flipY: 0
+  flipX: 0
+  copyInterval: 0
+  fadeTime: 20
+--- !u!114 &11408026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 173452}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23237427ab9c445bb46b2f83cb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyParent: {fileID: 462204}
+  spriteToCopy: {fileID: 21236710}
+  numberOfCopies: 20
+  flipY: 0
+  flipX: 0
+  copyInterval: 0
+  fadeTime: 20
 --- !u!114 &11408912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4793,6 +4857,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfHands: 0
+--- !u!114 &11410788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109668}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23237427ab9c445bb46b2f83cb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyParent: {fileID: 462204}
+  spriteToCopy: {fileID: 21251846}
+  numberOfCopies: 20
+  flipY: 0
+  flipX: 0
+  copyInterval: 0
+  fadeTime: 20
 --- !u!114 &11410826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4823,6 +4905,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46eeee19f87b55c428236396b38cf804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11415768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176140}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23237427ab9c445bb46b2f83cb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyParent: {fileID: 462204}
+  spriteToCopy: {fileID: 21205740}
+  numberOfCopies: 20
+  flipY: 0
+  flipX: 0
+  copyInterval: 0
+  fadeTime: 20
 --- !u!114 &11415770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5029,6 +5129,24 @@ MonoBehaviour:
   arm: 2
   movementSpeed: 3
   offset: {x: 0.87, y: 0.44}
+--- !u!114 &11444808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184500}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23237427ab9c445bb46b2f83cb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyParent: {fileID: 462204}
+  spriteToCopy: {fileID: 21266376}
+  numberOfCopies: 20
+  flipY: 0
+  flipX: 0
+  copyInterval: 0
+  fadeTime: 20
 --- !u!114 &11447412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5205,6 +5323,24 @@ MonoBehaviour:
   - {fileID: 11431950}
   connectedBody: {fileID: 5044424}
   parentedPlayer: 0
+--- !u!114 &11464834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149824}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23237427ab9c445bb46b2f83cb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyParent: {fileID: 462204}
+  spriteToCopy: {fileID: 21242432}
+  numberOfCopies: 20
+  flipY: 0
+  flipX: 0
+  copyInterval: 0
+  fadeTime: 20
 --- !u!114 &11465930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5281,6 +5417,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6550c904c68ba6940b4b71874113e41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11468044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124602}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23237427ab9c445bb46b2f83cb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyParent: {fileID: 462204}
+  spriteToCopy: {fileID: 21259452}
+  numberOfCopies: 20
+  flipY: 0
+  flipX: 0
+  copyInterval: 0
+  fadeTime: 20
 --- !u!114 &11469060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5410,6 +5564,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   breakLimit: 5
   audioSource: {fileID: 8262292}
+--- !u!114 &11480830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183922}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23237427ab9c445bb46b2f83cb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyParent: {fileID: 462204}
+  spriteToCopy: {fileID: 21299690}
+  numberOfCopies: 20
+  flipY: 0
+  flipX: 0
+  copyInterval: 0
+  fadeTime: 20
 --- !u!114 &11482796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5549,6 +5721,24 @@ MonoBehaviour:
   rockMask:
     serializedVersion: 2
     m_Bits: 2048
+--- !u!114 &11497276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192596}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23237427ab9c445bb46b2f83cb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copyParent: {fileID: 462204}
+  spriteToCopy: {fileID: 21228876}
+  numberOfCopies: 20
+  flipY: 1
+  flipX: 0
+  copyInterval: 0
+  fadeTime: 20
 --- !u!198 &19838064
 ParticleSystem:
   m_ObjectHideFlags: 1
