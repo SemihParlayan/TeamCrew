@@ -624,7 +624,6 @@ public class GameManager : MonoBehaviour
         }
 
 
-
         //seb
         //order is sorted according to the frog's victory order. Here I sort playerEndPlacements. 
         //Idea for playerEndPlacements is that position 0 represents player 1, pos 2 player 2 and so on. Numbers represent their end rank in the latest race. This is so that I can display top stats more easily. 

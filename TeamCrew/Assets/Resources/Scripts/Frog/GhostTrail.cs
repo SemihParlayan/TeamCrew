@@ -6,15 +6,28 @@ public class Ghost
 {
     public SpriteRenderer spriteRenderer;
     public Transform transform;
+    public Transform scaleParent;
+
+    private bool show = true;
 
     public void Fade(float fadeTime)
     {
         if (AlphaAtZero())
             return;
 
+        if (show && !transform.gameObject.activeInHierarchy)
+            transform.gameObject.SetActive(true);
+
+
         Color color = spriteRenderer.color;
         color.a = Mathf.Lerp(color.a, 0, Time.deltaTime * fadeTime);
         spriteRenderer.color = color;
+
+        if (AlphaAtZero())
+        {
+            if (!show)
+                transform.gameObject.SetActive(false);
+        }
     }
     public bool AlphaAtZero()
     {
@@ -23,16 +36,33 @@ public class Ghost
     public void Activate(Transform parent)
     {
         transform.position = parent.position;
-        transform.localScale = parent.localScale;
         transform.rotation = parent.rotation;
 
-        spriteRenderer.color = Color.white;
+        if (scaleParent != null)
+        {
+            transform.localScale = scaleParent.lossyScale;
+        }
+        else
+        {
+            transform.localScale = parent.localScale;
+        }
+
+        spriteRenderer.color = new Color(1f, 1f, 1f, 0.7f);
+    }
+    public void Show()
+    {
+        show = true;
+    }
+    public void Hide()
+    {
+        show = false;
     }
 }
 public class GhostTrail : MonoBehaviour 
 {
 	//publics
     public Transform copyParent;
+    public Transform scaleParent;
     public SpriteRenderer spriteToCopy;
     public int numberOfCopies;
 
@@ -44,6 +74,7 @@ public class GhostTrail : MonoBehaviour
 	//privates
     private List<Ghost> ghosts = new List<Ghost>();
     private float copyTimer;
+    private bool active = true;
 
 	//Unity methods
 	void Start () 
@@ -58,16 +89,29 @@ public class GhostTrail : MonoBehaviour
             ghost.spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
             ghost.spriteRenderer.sprite = spriteToCopy.sprite;
             ghost.spriteRenderer.sortingLayerName = spriteToCopy.sortingLayerName;
-            ghost.spriteRenderer.sortingOrder = spriteToCopy.sortingOrder;
+            ghost.spriteRenderer.sortingOrder = -1000;
             ghost.spriteRenderer.flipX = flipX;
             ghost.spriteRenderer.flipY = flipY;
             ghost.transform = obj.transform;
+
+            if (scaleParent != null)
+            {
+                ghost.scaleParent = scaleParent;
+            }
 
             ghosts.Add(ghost); 
         }
 	}
 	void Update () 
 	{
+        foreach (Ghost ghost in ghosts)
+        {
+            ghost.Fade(fadeTime);
+        }
+
+        if (!active)
+            return;
+
         copyTimer += Time.deltaTime;
 
         if (copyTimer >= copyInterval)
@@ -75,16 +119,26 @@ public class GhostTrail : MonoBehaviour
             copyTimer -= copyInterval;
 
             FindGhost().Activate(transform);
-        }
-
-        foreach(Ghost ghost in ghosts)
-        {
-            ghost.Fade(fadeTime);
-        }
+        }        
 	}
 
 	//public methods
-
+    public void Show()
+    {
+        active = true;
+        foreach(Ghost g in ghosts)
+        {
+            g.Show();
+        }
+    }
+    public void Hide()
+    {
+        active = false;
+        foreach(Ghost g in ghosts)
+        {
+            g.Hide();
+        }
+    }
 	//private methods
     private Ghost FindGhost()
     {

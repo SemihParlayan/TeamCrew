@@ -7,6 +7,7 @@ public class FrogPrototype : MonoBehaviour
     public Transform topPrefab;
     public Transform characterSelectPrefab;
     public Color respawnArrowColor;
+    public FrogTrailManager trailManager;
     private ParticleSystem rightParticle;
     private ParticleSystem leftParticle;
 
@@ -137,6 +138,8 @@ public class FrogPrototype : MonoBehaviour
                 croakSound.Play();
             }
         }
+
+        HandleTrail();
     }
     private void FixedUpdate()
     {
@@ -267,6 +270,20 @@ public class FrogPrototype : MonoBehaviour
         versusGripTimer = maxVersusGripTime / 4;
     }
 
+    private void HandleTrail()
+    {
+        if (trailManager == null)
+            return;
+
+        if (body.velocity.magnitude > trailManager.theshold)
+        {
+            trailManager.ActivateTrail();
+        }
+        else
+        {
+            trailManager.DeactivateTrail();
+        }
+    }
     void ControlScratch()
     {
         if (leftGripScript.isOnGrip || rightGripScript.isOnGrip)
