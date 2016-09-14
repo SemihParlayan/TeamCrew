@@ -34,7 +34,7 @@ public class PauseController : MonoBehaviour
         {
             if (gameManager.frogsReady[i])
             {
-                if (GameManager.GetButtonPress(XboxButton.Start, i))
+                if (GameManager.GetPlayer(i).GetButtonDown("Start"))
                 {
                     PauseButton();
                 }

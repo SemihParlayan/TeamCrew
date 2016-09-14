@@ -107,7 +107,7 @@ public class VersusGripController : MonoBehaviour
             spriteRenderer.color = (spriteRenderer.color == Color.red) ? Color.white : Color.red;
 
             gripAnimation.Activate("red");
-            Vibration.instance.SetVibration(handComponent.player, 0.5f, 0.5f, 0.1f);
+            GameManager.GetPlayer(handComponent.player).controllers.Joysticks[0].SetVibration(1f, 1f, 0.1f, 0.1f);
         }
     }
 

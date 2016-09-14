@@ -385,20 +385,12 @@ public class DailyMountainScreen : M_Screen
         if (entries == null || entries.Count <= 0 || !mountainGenerated || !canScroll)
             return;
 
-        Vector2 stick = GameManager.GetThumbStick(XboxThumbStick.Left, -1);
-        if (stick.y == 0)
-        {
-            stick = GameManager.GetDPad(-1);
-            if (stick.y == 0)
-            {
-                stick = new Vector2(0, Input.GetAxis("Vertical"));
-            }
-        }
+        float leftStickYValue = GameManager.defaultPlayer.GetAxis("LeftStick Vertical");
 
-        if (stick.y <= 0.5f && stick.y >= -0.5f)
+        if (leftStickYValue <= 0.5f && leftStickYValue >= -0.5f)
             return;
 
-        int dir = (stick.y > 0) ? -1 : 1;
+        int dir = (leftStickYValue > 0) ? -1 : 1;
         Scroll(dir);
     }
     private void Scroll(int dir)

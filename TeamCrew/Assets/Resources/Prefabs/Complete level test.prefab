@@ -54160,7 +54160,7 @@ MonoBehaviour:
   active: 0
   subScreen: 1
   player: 0
-  listenForKeyboardArrows: 1
+  listenForKeyboardArrows: 0
   entryButton: {fileID: 11468778}
   movementProperties:
     cameraLocation: {fileID: 0}
@@ -56795,10 +56795,6 @@ MonoBehaviour:
     targetButton: {fileID: 11424938}
   - eventType: 2
     targetButton: {fileID: 11474466}
-  - eventType: 1
-    targetButton: {fileID: 11410340}
-  - eventType: 0
-    targetButton: {fileID: 11410340}
 --- !u!114 &11449142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -58832,6 +58828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9570f4eddfb08f3459d00de12d1035b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vibrating: []
 --- !u!114 &11463038
 MonoBehaviour:
   m_ObjectHideFlags: 1

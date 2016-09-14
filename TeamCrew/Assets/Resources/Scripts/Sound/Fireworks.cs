@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Rewired;
 
 public class Fireworks : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class Fireworks : MonoBehaviour
         for (int i = 0; i < gameManager.frogsReady.Length; i++)
         {
             if (gameManager.frogsReady[i])
-                Vibration.instance.SetVibration(i, 1f, 1f, 1f);
+                GameManager.GetPlayer(i).controllers.Joysticks[0].SetVibration(1f, 1f, 1f, 1f);
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Rewired;
 
 public enum XboxEvent 
 { 
@@ -85,22 +86,9 @@ public class M_Screen : MonoBehaviour
 
         //Stick input
         Vector2 input = Vector2.zero;
-        input = GameManager.GetThumbStick(XboxThumbStick.Left, player);
+        input.x = GameManager.GetPlayer(player).GetAxis("LeftStick Horizontal");
+        input.y = GameManager.GetPlayer(player).GetAxis("LeftStick Vertical");
 
-        if (input == Vector2.zero)
-        {
-            input = GameManager.GetDPad(player);
-
-            if (input == Vector2.zero)
-            {
-                if (listenForKeyboardArrows)
-                {
-                    float horizontal = Input.GetAxis("Horizontal");
-                    float vertical = Input.GetAxis("Vertical");
-                    input = new Vector2(horizontal, vertical);
-                }
-            }
-        }
 
         if (CanSelect)
         {
@@ -135,27 +123,20 @@ public class M_Screen : MonoBehaviour
 
         if (!subScreen)
         {
-            selectPress = GameManager.GetButtonPress(XboxButton.A);
-            returnPress = GameManager.GetButtonPress(XboxButton.B);
+            selectPress = GameManager.defaultPlayer.GetButtonDown("Button A");
+            returnPress = GameManager.defaultPlayer.GetButtonDown("Button B");
+
         }
         else
         {
-            selectPress = GameManager.GetButtonPress(XboxButton.A, player);
-            returnPress = GameManager.GetButtonPress(XboxButton.B, player);
-        }
-
-        if (!selectPress)
-        {
-            selectPress = Input.GetButtonDown("UISubmit");
-        }
-        if (!returnPress)
-        {
-            returnPress = Input.GetButtonDown("UIReturn");
+            selectPress = GameManager.GetPlayer(player).GetButtonDown("Button A");
+            returnPress = GameManager.GetPlayer(player).GetButtonDown("Button B");
         }
 
         if (selectPress)
         {
             Press();
+            Debug.Log("Press" + transform.name);
         }
         else if (returnPress)
         {

@@ -131,7 +131,7 @@ public class FrogPrototype : MonoBehaviour
 
         if (croakSound != null && gameManager.gameActive)
         {
-            bool croak = (GameManager.GetButtonPress(XboxButton.X, player) || GameManager.GetButtonPress(XboxButton.Y, player) || GameManager.GetButtonPress(XboxButton.B, player) || GameManager.GetButtonPress(XboxButton.A, player));
+            bool croak = (GameManager.GetPlayer(player).GetButtonDown("Button X") || GameManager.GetPlayer(player).GetButtonDown("Button Y") || GameManager.GetPlayer(player).GetButtonDown("Button B"));
             if (croak)
             {
                 croakSound.pitch = Random.Range(0.7f, 1.4f);
@@ -160,8 +160,10 @@ public class FrogPrototype : MonoBehaviour
         //Control Hands
         if (!GameManager.UseMouseAsInput || player != 0)
         {
-            ControlHand(leftGripScript, GameManager.GetThumbStick(XboxThumbStick.Left, player), leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
-            ControlHand(rightGripScript, GameManager.GetThumbStick(XboxThumbStick.Right, player), rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
+            Vector2 leftStick = new Vector2(GameManager.GetPlayer(player).GetAxis("LeftStick Horizontal"), GameManager.GetPlayer(player).GetAxis("LeftStick Vertical"));
+            Vector2 rightStick = new Vector2(GameManager.GetPlayer(player).GetAxis("RightStick Horizontal"), GameManager.GetPlayer(player).GetAxis("RightStick Vertical"));
+            ControlHand(leftGripScript, leftStick, leftJoint, 1, leftBody, leftHandMagnet, leftHand, leftHandNeutral, leftHandOrigin, rightGripScript);
+            ControlHand(rightGripScript, rightStick, rightJoint, -1, rightBody, rightHandMagnet, rightHand, rightHandNeutral, rightHandOrigin, leftGripScript);
         }
         else
         {
@@ -293,7 +295,7 @@ public class FrogPrototype : MonoBehaviour
             return;
 
 
-        float vertical = GameManager.GetThumbStick(XboxThumbStick.Left).y;
+        float vertical = GameManager.GetPlayer(player).GetAxis("LeftStick Vertical");
         if (forceArmsUp)
             vertical = 1f;
 
@@ -303,7 +305,7 @@ public class FrogPrototype : MonoBehaviour
         }
 
 
-        vertical = GameManager.GetThumbStick(XboxThumbStick.Right).y;
+        vertical = GameManager.GetPlayer(player).GetAxis("RightStick Vertical");
         if (forceArmsUp)
             vertical = 1f;
         if (rightGripScript.isOnWall && vertical != 0) 

@@ -151,7 +151,7 @@ public class HandGrip : MonoBehaviour
         //Set last grip time
         if (JustGripped)
         {
-            Vibration.instance.SetVibration(player, 0.6f, 0.6f, 0.1f);
+            GameManager.GetPlayer(player).controllers.Joysticks[0].SetVibration(1f, 1f, 0.1f, 0.1f);
             lastGripTime = Time.timeSinceLevelLoad;
         }
 
@@ -383,7 +383,7 @@ public class HandGrip : MonoBehaviour
 
                         if (versusFrog && vibrate && versusFrog.versusHands <= 1)
                         {
-                            Vibration.instance.SetVibration(versusFrog.player, 0.4f, 0.4f, 0.7f);
+                            GameManager.GetPlayer(player).controllers.Joysticks[0].SetVibration(1f, 1f, 0.7f, 0.7f);
                         }
 
                         //HERE IS CODE:

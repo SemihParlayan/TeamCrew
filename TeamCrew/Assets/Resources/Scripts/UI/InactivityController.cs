@@ -176,15 +176,21 @@ public class InactivityController : MonoBehaviour
     }
     private void DeactivateOnInput(int player)
     {
-        Vector3 leftStick = GameManager.GetThumbStick(XboxThumbStick.Left, player);
-        Vector3 rightStick = GameManager.GetThumbStick(XboxThumbStick.Right, player);
-        bool button = GameManager.GetGrip(player);
-        bool button2 = GameManager.GetGrip(player);
-        bool button3 = GameManager.GetButtonPress(XboxButton.A, player);
-        bool button4 = GameManager.GetButtonPress(XboxButton.B, player);
-        bool button5 = GameManager.GetButtonPress(XboxButton.Start, player);
-
-        if (leftStick != Vector3.zero || rightStick != Vector3.zero || button || button2 || button3 || button4 || button5 || (GameManager.Hacks && Input.GetMouseButton(0) && !GameManager.UseMouseAsInput))
+        bool actionUsed =
+            GameManager.GetPlayer(player).GetButtonDown("Button A") ||
+            GameManager.GetPlayer(player).GetButtonDown("Button B") ||
+            GameManager.GetPlayer(player).GetButtonDown("Button X") ||
+            GameManager.GetPlayer(player).GetButtonDown("Button Y") ||
+            GameManager.GetPlayer(player).GetButtonDown("LeftStick Horizontal") ||
+            GameManager.GetPlayer(player).GetButtonDown("LeftStick Vertical") ||
+            GameManager.GetPlayer(player).GetButtonDown("RightStick Horizontal") ||
+            GameManager.GetPlayer(player).GetButtonDown("RightStick Vertical") ||
+            GameManager.GetPlayer(player).GetButtonDown("LeftShoulder") ||
+            GameManager.GetPlayer(player).GetButtonDown("RigthShoulder") ||
+            GameManager.GetPlayer(player).GetButtonDown("LeftTrigger") ||
+            GameManager.GetPlayer(player).GetButtonDown("RightTrigger") ||
+            GameManager.GetPlayer(player).GetButtonDown("Select");
+        if (actionUsed)
         {
             inactivityScripts[player].timer = 0;
         }

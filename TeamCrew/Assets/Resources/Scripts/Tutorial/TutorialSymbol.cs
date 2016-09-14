@@ -121,15 +121,17 @@ public class TutorialSymbol : MonoBehaviour
     bool HandIsUp()
     {
         XboxThumbStick stick = (arm == GripSide.Left) ? XboxThumbStick.Left : XboxThumbStick.Right;
-        Vector2 direction = GameManager.GetThumbStick(stick, frog.player);
+        string axisName = (stick == XboxThumbStick.Left) ? "LeftStick Vertical" : "RightStick Vertical";
+        float stickYValue = GameManager.GetPlayer(frog.player).GetAxis(axisName);
 
-        return direction.y > 0;
+        return stickYValue > 0;
     }
     bool HandIsDown()
     {
         XboxThumbStick stick = (arm == GripSide.Left) ? XboxThumbStick.Left : XboxThumbStick.Right;
-        Vector2 direction = GameManager.GetThumbStick(stick, frog.player);
+        string axisName = (stick == XboxThumbStick.Left) ? "LeftStick Vertical" : "RightStick Vertical";
+        float stickYValue = GameManager.GetPlayer(frog.player).GetAxis(axisName);
 
-        return direction.y < 0;
+        return stickYValue < 0;
     }
 }

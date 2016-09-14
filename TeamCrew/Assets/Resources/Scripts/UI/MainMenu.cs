@@ -104,8 +104,6 @@ public class MainMenu : MonoBehaviour
             bool exit = false;
             if (GameManager.Xbox && Input.GetButton("ExitX"))
                 exit = true;
-            else if (GameManager.PS4 && Input.GetButton("ExitPS"))
-                exit = true;
 
             if (exit)
             {

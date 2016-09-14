@@ -66,7 +66,7 @@ public class CharacterSelectionScreen : M_Screen
 
         if (CanContinue)
         {
-            if (GameManager.GetButtonPress(XboxButton.Start) || Input.GetKeyDown(KeyCode.Return) || (GameManager.UseMouseAsInput && Input.GetMouseButtonDown(0)))
+            if (GameManager.defaultPlayer.GetButtonDown("Start") || (GameManager.UseMouseAsInput && Input.GetMouseButtonDown(0)))
             {
                 bigReadyAnimator.SetBool("PlayersReady", false);    
                 ContinueToModeSelection();

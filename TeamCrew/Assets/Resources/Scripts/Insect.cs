@@ -115,11 +115,11 @@ public class Insect : MonoBehaviour
     }
     private void Panick()
     {
-        Vector2 leftStick = GameManager.GetThumbStick(XboxThumbStick.Left, player);
-        Vector2 rightStick = GameManager.GetThumbStick(XboxThumbStick.Right, player);
+        float leftStickX = GameManager.GetPlayer(player).GetAxis("LeftStick Horizontal");
+        float rightStickX = GameManager.GetPlayer(player).GetAxis("RightStick Horizontal");
 
 
-        Vector3 combination = leftStick + rightStick;
+        Vector3 combination = new Vector3(leftStickX + rightStickX, 0);
 
         combination.Normalize();
 

@@ -29,10 +29,6 @@ public class XboxPs4Switcher : MonoBehaviour
         {
             bubbleOneReference.runtimeAnimatorController = bubbleTwoReference.runtimeAnimatorController = xboxHeaveController;
         }
-        else if (GameManager.PS4)
-        {
-            bubbleOneReference.runtimeAnimatorController = bubbleTwoReference.runtimeAnimatorController = ps4HeaveController;
-        }
 
         //Set correct main menu sprites for PS4 and Xbox
         SetMainMenuSprites();
@@ -46,11 +42,6 @@ public class XboxPs4Switcher : MonoBehaviour
         {
             startIndex = 0;
         }
-        else if (GameManager.PS4)
-        {
-            startIndex = 4;
-        }
-
         for (int i = 0; i < 4; i++)
         {
             readyOneReference.sprites.Add(readyOneSprites[startIndex + i]);
