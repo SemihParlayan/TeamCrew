@@ -28,7 +28,7 @@ PlayerSettings:
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   iosAppInBackgroundBehavior: 0
-  displayResolutionDialog: 0
+  displayResolutionDialog: 1
   iosAllowHTTPDownload: 1
   allowedAutorotateToPortrait: 1
   allowedAutorotateToPortraitUpsideDown: 1
@@ -40,7 +40,7 @@ PlayerSettings:
   defaultIsFullScreen: 1
   defaultIsNativeResolution: 0
   runInBackground: 1
-  captureSingleScreen: 0
+  captureSingleScreen: 1
   Override IPod Music: 0
   Prepare IOS For Recording: 0
   submitAnalytics: 1
@@ -55,7 +55,7 @@ PlayerSettings:
   xboxEnableKinect: 0
   xboxEnableKinectAutoTracking: 0
   xboxEnableFitness: 0
-  visibleInBackground: 0
+  visibleInBackground: 1
   allowFullscreenSwitch: 1
   macFullscreenMode: 2
   d3d9FullscreenMode: 1
@@ -176,7 +176,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 6b65ae63621e90249b9ec2a70b620c9a, type: 3}
+      m_Icon: {fileID: 2800000, guid: 8b07813a8cc1f894f91bd32ddfd2aede, type: 3}
       m_Width: 128
       m_Height: 128
   m_BuildTargetBatching: []
@@ -336,7 +336,8 @@ PlayerSettings:
   psp2UseDebugIl2cppLibs: 0
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    2: 
   metroPackageName: TeamCrew
   metroPackageVersion: 
   metroCertificatePath: 
