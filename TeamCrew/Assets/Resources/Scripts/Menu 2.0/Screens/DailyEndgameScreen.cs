@@ -11,6 +11,7 @@ public class DailyEndgameScreen : M_Screen
     public Text feedbackText;
     public Text diffTimeText;
     public Text timeText;
+    public GameObject feedbackBackground;
     public DailyMountainGameMode dailyGamemode;
     [HideInInspector]
     public bool canContinueToStats;
@@ -30,6 +31,7 @@ public class DailyEndgameScreen : M_Screen
     protected override void OnAwake()
     {
         base.OnAwake();
+        feedbackBackground.gameObject.SetActive(false);
         feedbackText.gameObject.SetActive(false);
         diffTimeText.gameObject.SetActive(false);
         timeText.gameObject.SetActive(false);
@@ -143,6 +145,7 @@ public class DailyEndgameScreen : M_Screen
 
         timeText.gameObject.SetActive(false);
         feedbackText.gameObject.SetActive(false);
+        feedbackBackground.gameObject.SetActive(false);
         diffTimeText.gameObject.SetActive(false);
         whiteFade.color = Color.white;
         whiteFade.gameObject.SetActive(false);
@@ -173,6 +176,7 @@ public class DailyEndgameScreen : M_Screen
     }
     private void FadeComplete()
     {
+        feedbackBackground.SetActive(true);
         feedbackText.gameObject.SetActive(true);
         timeText.gameObject.SetActive(true);
         if (showTimeText)
