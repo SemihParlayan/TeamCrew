@@ -377,6 +377,7 @@ public class GameManager : MonoBehaviour
     public static bool DigitalInput;
     public static bool ReturnToMenuWhenInactive;
     public static bool UseMouseAsInput;
+    public static int dailyMountainPlayerID;
 
     public static Transform[] players = new Transform[4];
     private static float levelHeight = 1337;
@@ -788,15 +789,22 @@ public class GameManager : MonoBehaviour
 
                 if (forcedPlayerIndex != -1)
                 {
-                    FrogPrototype frog = respawnScript.respawnScripts[i].prefab.GetComponentInChildren<FrogPrototype>();
+                    FrogPrototype frog = respawnScript.respawnScripts[forcedPlayerIndex].prefab.GetComponentInChildren<FrogPrototype>();
                     if (frog != null)
                     {
                         frog.player = forcedPlayerIndex;
-                        respawnScript.respawnScripts[i].arrow.color = frog.respawnArrowColor;
+                        respawnScript.respawnScripts[forcedPlayerIndex].arrow.color = frog.respawnArrowColor;
                     }
                 }
 
-                players[i] = (Instantiate(respawnScript.respawnScripts[i].prefab, spawnPosition, Quaternion.identity) as Transform).FindChild("body");
+                if (forcedPlayerIndex != -1)
+                {
+                    players[forcedPlayerIndex] = (Instantiate(respawnScript.respawnScripts[forcedPlayerIndex].prefab, spawnPosition, Quaternion.identity) as Transform).FindChild("body");
+                }
+                else
+                {
+                    players[i] = (Instantiate(respawnScript.respawnScripts[i].prefab, spawnPosition, Quaternion.identity) as Transform).FindChild("body");
+                }
                 
                 
             }

@@ -135,7 +135,7 @@ public class DailyMountainGameMode : MonoBehaviour
 
         currentTimeText.text = timer.GetTimeString(false, true, true, true);
 
-        if (GameManager.GetPlayer(0).GetButtonDown("Select"))
+        if (GameManager.GetPlayer(GameManager.dailyMountainPlayerID).GetButtonDown("Select"))
         {
             pauseController.PauseButton();
             pauseController.RestartDaily();

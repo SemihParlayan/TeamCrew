@@ -24,6 +24,11 @@ public class TopFrogSpawner : MonoBehaviour
         if (currentTopFrog == null)
         {
             currentTopFrog = Instantiate(topfrogPrefab, spawnPosition, Quaternion.identity) as Transform;
+            FrogPrototype frog = currentTopFrog.GetComponentInChildren<FrogPrototype>();
+            if (frog != null)
+            {
+                frog.player = victoryFrogNumber;
+            }
             GameManager gameManager = GetComponent<GameManager>();
             gameManager.transformOrder.Insert(0, currentTopFrog.FindChild("body"));
             gameManager.ActivateTopNumbers();

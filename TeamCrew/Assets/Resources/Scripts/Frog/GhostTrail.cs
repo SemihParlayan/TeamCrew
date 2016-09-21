@@ -118,7 +118,11 @@ public class GhostTrail : MonoBehaviour
         {
             copyTimer -= copyInterval;
 
-            FindGhost().Activate(transform);
+            Ghost ghost = FindGhost();
+            if (ghost != null)
+            {
+                ghost.Activate(transform);
+            }
         }        
 	}
 
@@ -142,11 +146,13 @@ public class GhostTrail : MonoBehaviour
 	//private methods
     private Ghost FindGhost()
     {
-        Ghost minGhost = ghosts[0];
-        float minAlpha = minGhost.spriteRenderer.color.a;
+        Ghost minGhost = null;
+        float minAlpha = float.MaxValue;
 
         foreach(Ghost g in ghosts)
         {
+            if (!gameObject.activeInHierarchy)
+                continue;
             if (g.AlphaAtZero())
             {
                 return g;

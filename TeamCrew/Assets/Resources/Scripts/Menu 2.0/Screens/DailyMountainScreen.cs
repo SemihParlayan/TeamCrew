@@ -76,6 +76,21 @@ public class DailyMountainScreen : M_Screen
 
         //Set time left text
         //timeleftForTodayObject.text = "of which " + DateManager.GetDailyTimer().GetTimeString(true, true, true, false) + " is left";
+
+
+        //Check for which frog to controll the mountain
+        if (canStart)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (GameManager.GetPlayer(i).GetButtonDown("Button A"))
+                {
+                    SetPlayerToControlMountain(i);
+                    OnPlayGame();
+                    GameManager.dailyMountainPlayerID = i;
+                }
+            }
+        }
     }
 
 	//public methods
@@ -327,8 +342,7 @@ public class DailyMountainScreen : M_Screen
             gameManager.DestroyTopFrog();
 
             //Destroy daily mountain
-            //if (mountainGenerated)
-                gameManager.DestroyCurrentLevel(true);
+            gameManager.DestroyCurrentLevel(true);
 
             leaderboardManager.ResetGettingLeaderboards();
         }
@@ -588,5 +602,21 @@ public class DailyMountainScreen : M_Screen
     private void ReturnToStartScreen()
     {
         SwitchScreen(startScreen);
+    }
+    private void SetPlayerToControlMountain(int playerID)
+    {
+        gameManager.CreateNewFrogs(playerID);
+        
+        for (int i = 0; i < 4; i++)
+        {
+            if (i != playerID)
+            {
+                gameManager.frogsReady[i] = false;
+            }
+            else
+            {
+                gameManager.frogsReady[i] = true;
+            }
+        }
     }
 }

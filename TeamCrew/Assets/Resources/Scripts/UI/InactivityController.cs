@@ -83,20 +83,28 @@ public class InactivityController : MonoBehaviour
                 continue;
 
             InactivityFrog frog = inactivityScripts[i];
-            if (gameManager.gameActive)
+            if (!gameManager.isInDailyMountain)
             {
-                if (gameManager.tutorialComplete)
+                if (gameManager.gameActive)
+                {
+                    if (gameManager.tutorialComplete)
+                        frog.timer += Time.deltaTime;
+                }
+                else
+                {
                     frog.timer += Time.deltaTime;
+                }
+
+
+                if (frog.IsInactive)
+                {
+                    inactivityFrogCounter++;
+                }
             }
             else
             {
-                frog.timer += Time.deltaTime;
-            }
-
-
-            if (frog.IsInactive)
-            {
-                inactivityFrogCounter++;
+                if (i != GameManager.dailyMountainPlayerID)
+                    frog.timer = float.MaxValue;
             }
         }
 
@@ -157,8 +165,9 @@ public class InactivityController : MonoBehaviour
         }
         else
         {
-            DeactivateOnInput(0);
+            //DeactivateOnInput(GameManager.dailyMountainPlayerID);
         }
+        Debug.Log("DailyID " + GameManager.dailyMountainPlayerID);
 
         //Set respawn script values
         for (int i = 0; i < respawn.respawnScripts.Count; i++)
@@ -177,19 +186,19 @@ public class InactivityController : MonoBehaviour
     private void DeactivateOnInput(int player)
     {
         bool actionUsed =
-            GameManager.GetPlayer(player).GetButtonDown("Button A") ||
-            GameManager.GetPlayer(player).GetButtonDown("Button B") ||
-            GameManager.GetPlayer(player).GetButtonDown("Button X") ||
-            GameManager.GetPlayer(player).GetButtonDown("Button Y") ||
-            GameManager.GetPlayer(player).GetButtonDown("LeftStick Horizontal") ||
-            GameManager.GetPlayer(player).GetButtonDown("LeftStick Vertical") ||
-            GameManager.GetPlayer(player).GetButtonDown("RightStick Horizontal") ||
-            GameManager.GetPlayer(player).GetButtonDown("RightStick Vertical") ||
-            GameManager.GetPlayer(player).GetButtonDown("LeftShoulder") ||
-            GameManager.GetPlayer(player).GetButtonDown("RigthShoulder") ||
-            GameManager.GetPlayer(player).GetButtonDown("LeftTrigger") ||
-            GameManager.GetPlayer(player).GetButtonDown("RightTrigger") ||
-            GameManager.GetPlayer(player).GetButtonDown("Select");
+            GameManager.GetPlayer(player).GetButton("Button A") ||
+            GameManager.GetPlayer(player).GetButton("Button B") ||
+            GameManager.GetPlayer(player).GetButton("Button X") ||
+            GameManager.GetPlayer(player).GetButton("Button Y") ||
+            GameManager.GetPlayer(player).GetButton("LeftStick Horizontal") ||
+            GameManager.GetPlayer(player).GetButton("LeftStick Vertical") ||
+            GameManager.GetPlayer(player).GetButton("RightStick Horizontal") ||
+            GameManager.GetPlayer(player).GetButton("RightStick Vertical") ||
+            GameManager.GetPlayer(player).GetButton("LeftShoulder") ||
+            GameManager.GetPlayer(player).GetButton("RigthShoulder") ||
+            GameManager.GetPlayer(player).GetButton("LeftTrigger") ||
+            GameManager.GetPlayer(player).GetButton("RightTrigger") ||
+            GameManager.GetPlayer(player).GetButton("Select");
         if (actionUsed)
         {
             inactivityScripts[player].timer = 0;
