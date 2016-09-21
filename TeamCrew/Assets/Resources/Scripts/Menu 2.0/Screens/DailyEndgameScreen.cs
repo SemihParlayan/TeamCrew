@@ -12,6 +12,7 @@ public class DailyEndgameScreen : M_Screen
     public Text diffTimeText;
     public Text timeText;
     public GameObject feedbackBackground;
+    public M_Button continueButton;
     public DailyMountainGameMode dailyGamemode;
     [HideInInspector]
     public bool canContinueToStats;
@@ -61,6 +62,7 @@ public class DailyEndgameScreen : M_Screen
     {
         movementProperties.cameraLocation.position = topMountainPosition + new Vector3(0, 2, 0);
         movementProperties.zoom = 6.0f;
+        continueButton.gameObject.SetActive(false);
 
         Invoke("OnExplosion", 1f);
     }
@@ -168,11 +170,18 @@ public class DailyEndgameScreen : M_Screen
     {
         whiteFade.gameObject.SetActive(true);
         fireWorks.ExplodeBig();
+        Invoke("ActivateContinueButton", 3f);
         Invoke("Fade", 1f);
         GameObject.FindObjectOfType<GameManager>().SpawnHangingFrogs();
 
         dailyGamemode.OnExplosion();
         dailyScreen.HideTimeTexts();
+    }
+
+    private void ActivateContinueButton()
+    {
+        continueButton.gameObject.SetActive(true);
+        SwitchButton(continueButton);
     }
     private void FadeComplete()
     {

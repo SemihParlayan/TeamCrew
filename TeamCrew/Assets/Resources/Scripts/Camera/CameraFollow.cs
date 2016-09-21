@@ -11,7 +11,7 @@ public class CameraFollow : MonoBehaviour
     public float finalStretchZoomValue = 11;
 
     private Camera cam;
-
+    private GameManager gameManager;
     public bool absoluteFinalStretchZoom;
 
     public float maxYReached;
@@ -19,6 +19,7 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
     }
 
     void OnEnable()
@@ -50,6 +51,12 @@ public class CameraFollow : MonoBehaviour
         Vector3 targetPosition = transform.position;
         targetPosition.y = topfrogPosition.y - 1.5f;
         targetPosition.x = GetMedianXPositionOfFrogs();
+
+        if (gameManager.isInDailyMountain)
+        {
+            targetPosition.y += 3f;
+        }
+
 
         //Move towards target
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * movementSpeed);

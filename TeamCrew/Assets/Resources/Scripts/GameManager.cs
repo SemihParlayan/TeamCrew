@@ -370,7 +370,7 @@ public class GameManager : MonoBehaviour
         if (!Hacks)
             return false;
 
-        return defaultPlayer.GetButtonDown("Select");
+        return defaultPlayer.GetButtonDown("Button Y");
     }
     public static bool Hacks;
     public static bool Xbox;
@@ -501,8 +501,6 @@ public class GameManager : MonoBehaviour
     }
 	void Start ()
     {
-        Application.targetFrameRate = 200;
-
         //Aquire LevelGenerator script
         generatorScript = GetComponent<LevelGeneration>();
         if (generatorScript == null)
@@ -570,14 +568,14 @@ public class GameManager : MonoBehaviour
 
         //Load player prefs
         Invoke("LoadPlayerPrefs", 0.1f);
+
+        QualitySettings.vSyncCount = 0;
 	}
 
     //Update method
     void Update()
     {
-
-        //UpdateControllers();
-        RestartGame();
+        Application.targetFrameRate = 120;
         CheckForTutorialComplete();
         CheckForFinalStretch();
         SetPlayerScripts();
@@ -1223,24 +1221,6 @@ public class GameManager : MonoBehaviour
 
 
     //Methods called from Update constantly
-
-    /// <summary>
-    /// Reloads the current scene loaded.
-    /// </summary>
-    private void RestartGame()
-    {
-        if (!Hacks)
-            return;
-
-        //Restart game with Xbox 360 Controller
-        if (GameManager.Xbox)
-        {
-
-            if (GameManager.GetPlayer(-1).GetButtonDown("Button Y"))
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-    }
-
     /// <summary>
     /// Check to see if the frogs/frog has reached the tutorial grips. If so start the game!
     /// </summary>

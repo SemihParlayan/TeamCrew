@@ -30,7 +30,6 @@ public class M_Screen : MonoBehaviour
     public bool active;
     public bool subScreen;
     public int player = 1;
-    public bool listenForKeyboardArrows = true;
     public M_Button entryButton;
     public ScreenMovementProperties movementProperties;
 
