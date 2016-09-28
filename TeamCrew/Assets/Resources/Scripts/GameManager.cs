@@ -1115,9 +1115,6 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat("SFXVolume", sounds.sfxSlider.value);
             PlayerPrefs.SetFloat("EnvironmentVolume", sounds.environmentSlider.value);
         }
-
-        //Save game settings
-        PlayerPrefs.SetInt("Monitor", OptionScreen.monitorIndex);
     }
     public void LoadPlayerPrefs()
     {
