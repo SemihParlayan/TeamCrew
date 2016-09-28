@@ -5,18 +5,12 @@ public class OptionScreen : M_Screen
 {
     public SpriteRenderer fullscreenCheckbox;
     public TextMesh monitorText;
-    public static int monitorIndex = 0;
 
     protected override void OnAwake()
     {
         base.OnAwake();
-        monitorIndex = PlayerPrefs.GetInt("Monitor", 0);
-        ClampMonitorIndex(ref monitorIndex);
-
-        //Display.displays[monitorIndex].Activate();
-        //Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, Screen.fullScreen);
-
-        bool fullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1 ? true : false; 
+        bool fullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1 ? true : false;
+        QualitySettings.SetQualityLevel(5);
     }
     protected override void OnStart()
     {
@@ -27,33 +21,40 @@ public class OptionScreen : M_Screen
     {
         Screen.fullScreen = !Screen.fullScreen;
     }
-    public void OnMonitor()
-    {
-        monitorIndex++;
-        ClampMonitorIndex(ref monitorIndex);
-
-        Display.displays[monitorIndex].Activate();
-        monitorText.text = "Display " + (monitorIndex + 1).ToString();
-    }
-
-    private void ClampMonitorIndex(ref int index)
-    {
-        int minIndex = 0;
-        int maxIndex = Display.displays.Length - 1;
-
-
-        if (index < 0)
-        {
-            index = maxIndex;
-        }
-        else if (index > maxIndex)
-        {
-            index = minIndex;
-        }
-    }
-
     void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("FullScreen", Screen.fullScreen ? 1 : 0);
+    }
+
+    //Handle monitor switching
+    public void OnMonitor()
+    {
+        int newMonitorIndex = NextMonitor();
+        monitorText.text = "Display " + (newMonitorIndex + 1).ToString();
+    }
+    private int NextMonitor()
+    {
+        int currentIndex = PlayerPrefs.GetInt("UnitySelectMonitor");
+        currentIndex++;
+        if (currentIndex >= Display.displays.Length)
+            currentIndex = 0;
+
+        StartCoroutine(SetMonitor(currentIndex));
+        return currentIndex;
+    }
+    private IEnumerator SetMonitor(int index)
+    {
+        PlayerPrefs.SetInt("UnitySelectMonitor", index);
+
+        yield return null;
+        yield return null;
+
+        bool goToFullScreen = Screen.fullScreen;
+        Screen.SetResolution(500, 500, false);
+
+        yield return null;
+        yield return null;
+
+        Screen.SetResolution(Display.displays[index].systemWidth, Display.displays[index].systemHeight, true);
     }
 }

@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F2D7AB0A-1172-15FB-5491-50D3684A6179}</ProjectGuid>
+    <ProjectGuid>{E7D9EE6F-DD80-0A56-0ED0-4EB43E31BD9F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -45,19 +45,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Editor\Steamworks.NET\RedistCopy.cs" />
-     <Compile Include="Assets\Editor\Steamworks.NET\RedistInstall.cs" />
-     <Compile Include="Assets\Rewired\Extras\ControlMapper\Scripts\Editor\ControlMapperInspector.cs" />
-     <Compile Include="Assets\Rewired\Extras\ControlMapper\Scripts\Editor\CustomButtonInspector.cs" />
-     <Compile Include="Assets\Rewired\Extras\ControlMapper\Scripts\Editor\CustomSliderInspector.cs" />
-     <Compile Include="Assets\Rewired\Extras\ControlMapper\Scripts\Editor\CustomToggleInspector.cs" />
-     <Compile Include="Assets\Rewired\Internal\Scripts\Editor\CustomInspectors\ControllerDataFilesInspector.cs" />
-     <Compile Include="Assets\Rewired\Internal\Scripts\Editor\CustomInspectors\CustomInspector_External.cs" />
-     <Compile Include="Assets\Rewired\Internal\Scripts\Editor\CustomInspectors\HardwareJoystickMapInspector.cs" />
-     <Compile Include="Assets\Rewired\Internal\Scripts\Editor\CustomInspectors\HardwareJoystickTemplateMapInspector.cs" />
-     <Compile Include="Assets\Rewired\Internal\Scripts\Editor\CustomInspectors\InputManagerInspector.cs" />
-     <Compile Include="Assets\Rewired\Internal\Scripts\Editor\CustomInspectors\UserDataStore_PlayerPrefsInspector.cs" />
-     <Compile Include="Assets\Rewired\Internal\Scripts\Editor\UnityEditorBridge.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\AmbientOcclusion\Editor\AmbientOcclusionEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\AntiAliasing\Editor\AntiAliasingEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\AntiAliasing\Editor\IAntiAliasingEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\AntiAliasing\FXAA\Editor\FXAAEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\AntiAliasing\SMAA\Editor\SMAAEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\Bloom\Editor\BloomEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\Bloom\Editor\BloomGraphDrawer.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\Common\Editor\EditorGUIHelper.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\Common\Editor\FieldFinder.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\Common\Editor\MinDrawer.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\DepthOfField\Editor\DepthOfFieldEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\LensAberrations\Editor\LensAberrationsEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\ScreenSpaceReflection\Editor\ScreenSpaceReflectionEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\TonemappingColorGrading\Editor\TonemappingColorGradingEditor.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
@@ -203,10 +204,6 @@
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{D1A5D8AC-B981-AEA3-BDE8-F5C43EF15DDC}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
-    <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{0681CAA4-148D-4441-0657-2C6A6F9C3B61}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
-    <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
-      <Project>{E7D9EE6F-DD80-0A56-0ED0-4EB43E31BD9F}</Project>      <Name>Assembly-CSharp-Editor-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
