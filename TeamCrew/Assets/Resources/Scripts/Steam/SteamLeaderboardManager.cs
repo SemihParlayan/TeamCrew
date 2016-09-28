@@ -74,6 +74,8 @@ public class LeaderboardEntry
 }
 public class SteamLeaderboardManager : MonoBehaviour
 {
+    public bool displayDebugMessages;
+
     public delegate void OnEntriesComplete();
     public delegate void OnEntriesFailed();
 
@@ -124,7 +126,9 @@ public class SteamLeaderboardManager : MonoBehaviour
         //SteamAPICall_t handle = SteamUserStats.FindLeaderboard(leaderboardName);
         //LeaderboardFindResult.Set(handle);
 
-        Debug.Log("Trying to find a leaderboard called: " + leaderboardName);
+        if (displayDebugMessages)
+            Debug.Log("Trying to find a leaderboard called: " + leaderboardName);
+
         SteamAPICall_t handle = SteamUserStats.FindOrCreateLeaderboard(leaderboardName, ELeaderboardSortMethod.k_ELeaderboardSortMethodAscending, ELeaderboardDisplayType.k_ELeaderboardDisplayTypeNumeric);
         LeaderboardFindResult.Set(handle);
     } 
@@ -132,7 +136,9 @@ public class SteamLeaderboardManager : MonoBehaviour
     {
         if (pCallback.m_bLeaderboardFound != 0)
         {
-            Debug.Log("Success!! Found a leaderboard, leaderboard: " + pCallback.m_hSteamLeaderboard);
+            if (displayDebugMessages)
+                Debug.Log("Success!! Found a leaderboard, leaderboard: " + pCallback.m_hSteamLeaderboard);
+
             m_SteamLeaderboard = pCallback.m_hSteamLeaderboard;
 
 
@@ -141,7 +147,9 @@ public class SteamLeaderboardManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Failure!! Could not find a leaderboard");
+            if (displayDebugMessages)
+                Debug.Log("Failure!! Could not find a leaderboard");
+
             FailedToGetLeaderboardEntries();
         }
     }
@@ -151,13 +159,17 @@ public class SteamLeaderboardManager : MonoBehaviour
     {
         if (m_SteamLeaderboard.ToString() != "0")
         {
-            Debug.Log("Downloading highscores from leaderboard: " + m_SteamLeaderboard);
+            if (displayDebugMessages)
+                Debug.Log("Downloading highscores from leaderboard: " + m_SteamLeaderboard);
+
             SteamAPICall_t handle = SteamUserStats.DownloadLeaderboardEntries(m_SteamLeaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobal, 1, int.MaxValue);
             LeaderboardScoresDownloaded.Set(handle);
         }
         else
         {
-            Debug.Log("Failure!! Cannot download highscores, there is no leaderboard attached");
+            if (displayDebugMessages)
+                Debug.Log("Failure!! Cannot download highscores, there is no leaderboard attached");
+
             FailedToGetLeaderboardEntries();
         }
     }
@@ -165,14 +177,18 @@ public class SteamLeaderboardManager : MonoBehaviour
     {
         if (m_SteamLeaderboard.ToString() != "0")
         {
-            Debug.Log("Success!! Downloaded leaderboard from steamservers with " + pCallback.m_cEntryCount + " entries.");
+            if (displayDebugMessages)
+                Debug.Log("Success!! Downloaded leaderboard from steamservers with " + pCallback.m_cEntryCount + " entries.");
+
             m_SteamLeaderboardEntries = pCallback.m_hSteamLeaderboardEntries;
 
             GetLeaderboardEntriesLocal();
         }
         else
         {
-            Debug.Log("Failure!! Could not download leaderboard scores");
+            if (displayDebugMessages)
+                Debug.Log("Failure!! Could not download leaderboard scores");
+
             FailedToGetLeaderboardEntries();
         }
     }
@@ -212,7 +228,8 @@ public class SteamLeaderboardManager : MonoBehaviour
                 bool result = SteamUserStats.GetDownloadedLeaderboardEntry(m_SteamLeaderboardEntries, i, out leaderboardEntry, null, 0);
                 if (!result)
                 {
-                    Debug.Log("Entry[" + i.ToString() + "] Could not be retrieved from leaderboard: " + m_SteamLeaderboard.ToString());
+                    if (displayDebugMessages)
+                        Debug.Log("Entry[" + i.ToString() + "] Could not be retrieved from leaderboard: " + m_SteamLeaderboard.ToString());
                 }
                 else
                 {
@@ -224,7 +241,8 @@ public class SteamLeaderboardManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Cannot aquire leaderboard entries, there is no leaderboard attached");
+            if (displayDebugMessages)
+                Debug.Log("Cannot aquire leaderboard entries, there is no leaderboard attached");
         }
     }
     private void SuccededToGetLeaderboardEntries()
@@ -260,7 +278,9 @@ public class SteamLeaderboardManager : MonoBehaviour
             onUploadCompleteStack += completeMethod;
             onUploadFailedStack += failedMethod;
         }
-        Debug.Log("Uploading time to leaderboard: " + m_SteamLeaderboard.ToString() + "   With time: " + timeInMilliSeconds.ToString() + " ms");
+        if (displayDebugMessages)
+            Debug.Log("Uploading time to leaderboard: " + m_SteamLeaderboard.ToString() + "   With time: " + timeInMilliSeconds.ToString() + " ms");
+
         SteamAPICall_t handle = SteamUserStats.UploadLeaderboardScore(m_SteamLeaderboard, ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodForceUpdate, timeInMilliSeconds, null, 0);
         LeaderboardScoreUploaded.Set(handle);
     }
@@ -268,7 +288,8 @@ public class SteamLeaderboardManager : MonoBehaviour
     {
         if (pCallback.m_bSuccess != 0)
         {
-            Debug.Log("Success!! Uploaded time to leaderboard: " + pCallback.m_hSteamLeaderboard);
+            if (displayDebugMessages)
+                Debug.Log("Success!! Uploaded time to leaderboard: " + pCallback.m_hSteamLeaderboard);
 
             if (onUploadCompleteStack != null)
             {
@@ -281,7 +302,8 @@ public class SteamLeaderboardManager : MonoBehaviour
             {
                 onUploadFailedStack();
             }
-            Debug.Log("Failure!! Could not upload time to leaderboard");
+            if (displayDebugMessages)
+                Debug.Log("Failure!! Could not upload time to leaderboard");
         }
     }
 
@@ -297,7 +319,8 @@ public class SteamLeaderboardManager : MonoBehaviour
     {
         if (pCallback.m_bSuccess != 0)
         {
-            Debug.Log("Number of players in Frog Climbers: " + pCallback.m_cPlayers);
+            if (displayDebugMessages)
+                Debug.Log("Number of players in Frog Climbers: " + pCallback.m_cPlayers);
         }
     }
 

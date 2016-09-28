@@ -90,7 +90,6 @@ public class DateManager : MonoBehaviour
     {
         CurrentUTCDate = GetNetworkTime();
         hasValidDate = (CurrentUTCDate.Year != 1);
-        Debug.Log("Refresing date... Valid date = " + hasValidDate);
     }
     public static string GetDateString()
     {
@@ -238,7 +237,6 @@ public class DateManager : MonoBehaviour
     }
     private void ResetLeaderboards()
     {
-        Debug.Log("Trying to reset leaderboards");
         int prevSeed = GetSeedFromUTC();
         if (!calledFirstLeaderboardFind)
         {

@@ -135,7 +135,6 @@ public class M_Screen : MonoBehaviour
         if (selectPress)
         {
             Press();
-            Debug.Log("Press" + transform.name);
         }
         else if (returnPress)
         {

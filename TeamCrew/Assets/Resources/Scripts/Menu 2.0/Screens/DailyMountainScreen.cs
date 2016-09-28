@@ -73,11 +73,6 @@ public class DailyMountainScreen : M_Screen
         c.a = Mathf.MoveTowards(c.a, targetAlpha, Time.deltaTime);
         mountainNotAvailableOverlay.color = c;
 
-
-        //Set time left text
-        //timeleftForTodayObject.text = "of which " + DateManager.GetDailyTimer().GetTimeString(true, true, true, false) + " is left";
-
-
         //Check for which frog to controll the mountain
         if (canStart)
         {
@@ -89,7 +84,13 @@ public class DailyMountainScreen : M_Screen
                     OnPlayGame();
                     GameManager.dailyMountainPlayerID = i;
                 }
+
+                if (GameManager.GetPlayer(i).GetButtonDown("Button B"))
+                {
+                    ReturnToStartScreen();
+                }
             }
+
         }
     }
 

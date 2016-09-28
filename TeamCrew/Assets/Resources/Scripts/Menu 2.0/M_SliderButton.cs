@@ -16,7 +16,8 @@ public class M_SliderButton : M_Button
 
     private Transform handle;
     public bool sliderSelected = false;
-    private float speed = 0.75f;
+    [HideInInspector]
+    public float speed = 0.75f;
 
     protected override void OnStart()
     {

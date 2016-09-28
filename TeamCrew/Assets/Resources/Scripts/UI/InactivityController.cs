@@ -11,6 +11,7 @@ public class InactivityController : MonoBehaviour
     public float frogInactivityLimit = 6;
     public float signTimer;
     public bool active;
+    public bool gameHasStartedDelay = false;
 
     //Components
 
@@ -54,6 +55,19 @@ public class InactivityController : MonoBehaviour
                 inactivityScripts[i].timer = 0;
             }
         }
+    }
+    private void GameHasStarted()
+    {
+        gameHasStartedDelay = true;
+    }
+
+    public void ResetGameStartDelay()
+    {
+        gameHasStartedDelay = false;
+    }
+    public void OnCameraReachedBottom()
+    {
+        Invoke("GameHasStarted", 0.5f);
     }
 
     void Update()
@@ -143,31 +157,29 @@ public class InactivityController : MonoBehaviour
             //Deactivate inactivity with input from players
             for (int i = 0; i < inactivityScripts.Length; i++)
             {
-                if (gameManager.gameActive)
+                if (gameHasStartedDelay)
                 {
-                    if (gameManager.tutorialComplete)
+                    if (gameManager.gameActive)
                     {
-                        DeactivateOnInput(i);
-                    }
-                    else
-                    {
-                        if (!inactivityScripts[i].IsInactive)
+                        if (gameManager.tutorialComplete)
                         {
                             DeactivateOnInput(i);
                         }
+                        else
+                        {
+                            if (!inactivityScripts[i].IsInactive)
+                            {
+                                DeactivateOnInput(i);
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    DeactivateOnInput(i);
+                    else
+                    {
+                        DeactivateOnInput(i);
+                    }
                 }
             }
         }
-        else
-        {
-            //DeactivateOnInput(GameManager.dailyMountainPlayerID);
-        }
-        Debug.Log("DailyID " + GameManager.dailyMountainPlayerID);
 
         //Set respawn script values
         for (int i = 0; i < respawn.respawnScripts.Count; i++)

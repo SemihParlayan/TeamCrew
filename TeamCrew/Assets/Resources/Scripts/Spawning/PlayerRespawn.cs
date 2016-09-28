@@ -89,5 +89,17 @@ public class PlayerRespawn : MonoBehaviour
         Vector3 worldpos = cam.ScreenToWorldPoint(arrow.rectTransform.position);
         worldpos.x = Mathf.Lerp(worldpos.x, targetX, Time.deltaTime);
         arrow.rectTransform.position = cam.WorldToScreenPoint(worldpos);
+
+        if (arrow.rectTransform.position.x < 0 || arrow.rectTransform.position.x > Screen.width)
+        {
+            Debug.Log("RAWR utanför skärmen!");
+
+            Transform topFrog = GameManager.GetTopFrog();
+
+            if (topFrog != null)
+            {
+                deathPositionX = topFrog.position.x;
+            }
+        }
     }
 }
