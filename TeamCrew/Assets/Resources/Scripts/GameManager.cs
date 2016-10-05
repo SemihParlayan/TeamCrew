@@ -193,7 +193,8 @@ public class GameManager : MonoBehaviour
     public static bool DigitalInput;
     public static bool ReturnToMenuWhenInactive;
     public static bool UseMouseAsInput;
-    public static int dailyMountainPlayerID;
+    public static int DailyMountainPlayerID;
+    public static bool AllowSounds = false;
 
     public static Transform[] players = new Transform[4];
     private static float levelHeight = 1337;
@@ -384,9 +385,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Load player prefs
-        Invoke("LoadPlayerPrefs", 0.01f);
-
-        QualitySettings.vSyncCount = 0;
+        Invoke("LoadPlayerPrefs", 0.2f);
 	}
 
     //Update method
@@ -935,6 +934,8 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat("SFXVolume", sounds.sfxSlider.value);
             PlayerPrefs.SetFloat("EnvironmentVolume", sounds.environmentSlider.value);
         }
+
+        PlayerPrefs.SetInt("VSYNC", QualitySettings.vSyncCount);
     }
     public void LoadPlayerPrefs()
     {
@@ -952,6 +953,10 @@ public class GameManager : MonoBehaviour
             sounds.sfxSlider.SetValue(sfxVolume);
             sounds.environmentSlider.SetValue(environmentVolume);
         }
+        AllowSounds = true;
+
+        int vsync = PlayerPrefs.GetInt("VSYNC", 0);
+        QualitySettings.vSyncCount = (vsync > 0) ? 1 : 0;
     }
 
     //Static methods

@@ -117,7 +117,7 @@ public class InactivityController : MonoBehaviour
             }
             else
             {
-                if (i != GameManager.dailyMountainPlayerID)
+                if (i != GameManager.DailyMountainPlayerID)
                     frog.timer = float.MaxValue;
             }
         }

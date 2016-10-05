@@ -24,6 +24,12 @@ public class M_Sounds : MonoBehaviour
     }
     public void Update()
     {
+        if (!GameManager.AllowSounds)
+        {
+            mixer.SetFloat("MasterVolume", -80f);
+            return;
+        }
+
         //Menu music
         if (playMenuMusic)
         {

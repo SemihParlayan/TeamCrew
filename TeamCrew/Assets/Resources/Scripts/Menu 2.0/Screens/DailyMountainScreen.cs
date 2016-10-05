@@ -82,7 +82,7 @@ public class DailyMountainScreen : M_Screen
                 {
                     SetPlayerToControlMountain(i);
                     OnPlayGame();
-                    GameManager.dailyMountainPlayerID = i;
+                    GameManager.DailyMountainPlayerID = i;
                 }
 
                 if (GameManager.GetPlayer(i).GetButtonDown("Button B"))
@@ -385,6 +385,9 @@ public class DailyMountainScreen : M_Screen
     }
     public void RestartDaily()
     {
+        poff.SetMenuMountainState(false, 0f);
+        poff.PoffRepeating(true, dailySeed);
+
         gameManager.ResetGameVariables();
         gameManager.CreateNewFrogs();
         gameManager.isInDailyMountain = true;

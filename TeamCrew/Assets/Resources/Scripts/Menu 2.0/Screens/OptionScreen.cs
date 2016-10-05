@@ -14,22 +14,6 @@ public class OptionScreen : M_Screen
         bool fullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1 ? true : false;
 
         QualitySettings.SetQualityLevel(5);
-
-        //Initialize resolution slider
-        float nrResolutions = Screen.resolutions.Length;
-        float stepSize = 1f / nrResolutions;
-
-        for (int i = 0; i < nrResolutions; i++)
-        {
-            Resolution c = Screen.resolutions[i];
-
-            if (c.width == Screen.currentResolution.width && c.height == Screen.currentResolution.height)
-            {
-                resolutionIndex = i;
-                resolutionSlider.SetValue(stepSize * resolutionIndex);
-                break;
-            }
-        }
     }
     protected override void OnUpdate()
     {
@@ -48,6 +32,11 @@ public class OptionScreen : M_Screen
     protected override void OnStart()
     {
         base.OnStart();
+    }
+    public override void OnSwitchedTo()
+    {
+        base.OnSwitchedTo();
+        LoadResolutionSlider();
     }
     public void OnFullScreen()
     {
@@ -135,6 +124,25 @@ public class OptionScreen : M_Screen
             if (resolutionSlider.pressed)
             {
                 changeResolution = true;
+            }
+        }
+    }
+    public void LoadResolutionSlider()
+    {
+        //Initialize resolution slider
+        float nrResolutions = Screen.resolutions.Length;
+        float stepSize = 1f / nrResolutions;
+
+        for (int i = 0; i < nrResolutions; i++)
+        {
+            Resolution c = Screen.resolutions[i];
+
+            if (c.width == Screen.currentResolution.width && c.height == Screen.currentResolution.height)
+            {
+                resolutionIndex = i + 1;
+                resolutionIndex = (int)Mathf.Clamp(resolutionIndex, 0f, nrResolutions);
+                resolutionSlider.SetValue(stepSize * resolutionIndex);
+                break;
             }
         }
     }
