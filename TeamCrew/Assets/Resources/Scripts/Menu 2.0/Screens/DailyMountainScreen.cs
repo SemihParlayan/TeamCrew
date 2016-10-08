@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Steamworks;
 using UnityEngine.UI;
+using System;
 public class DailyMountainScreen : M_Screen 
 {
 	//publics
@@ -64,6 +65,13 @@ public class DailyMountainScreen : M_Screen
     protected override void OnUpdate()
     {
         base.OnUpdate();
+
+        DateTime today = DateManager.GetDateWithOffset(dayOffset);
+        DateTime release = new DateTime(2016, 10, 6);
+
+        int days = (int)(today - release).TotalDays;
+        leftArrow.SetActive(days > 0);
+
 
         ScrollHighscores();
 
@@ -499,10 +507,10 @@ public class DailyMountainScreen : M_Screen
             return;
 
         int previousOffset = dayOffset;
-        int maxDaysRecap = -7;
+        //int maxDaysRecap = -7;
         dayOffset += dir;
 
-        dayOffset = Mathf.Clamp(dayOffset, maxDaysRecap, 0);
+        //dayOffset = Mathf.Clamp(dayOffset, maxDaysRecap, 0);
 
         if (previousOffset != dayOffset)
             RefreshLeaderboards(dayOffset);
@@ -511,7 +519,7 @@ public class DailyMountainScreen : M_Screen
         showCloudOverlay = dayOffset != 0;
 
         rightArrow.SetActive(dayOffset != 0);
-        leftArrow.SetActive(dayOffset != maxDaysRecap);
+        //leftArrow.SetActive(dayOffset != maxDaysRecap);
     }
     private void AquireLeaderboard(int offsetInDaysFromToday)
     {

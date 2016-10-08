@@ -49,10 +49,6 @@ public class DateManager : MonoBehaviour
 
         if (dailyTimer != null)
         {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                dailyTimer.AddHours(-1);
-            }
             dailyTimer.Decrement();
             foreach (TextMesh text in timeLeftTexts)
             {
@@ -113,6 +109,11 @@ public class DateManager : MonoBehaviour
         text += newTime.Year;
 
         return text;
+    }
+    public static DateTime GetDateWithOffset(int offsetInDays)
+    {
+        DateTime newTime = CurrentUTCDate.AddDays(offsetInDays);
+        return newTime;
     }
     public static int GetSeedFromUTC()
     {
@@ -193,7 +194,6 @@ public class DateManager : MonoBehaviour
 
             //**UTC** time
             var networkDateTime = (new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc)).AddMilliseconds((long)milliseconds);
-
 
             return networkDateTime;
         }
