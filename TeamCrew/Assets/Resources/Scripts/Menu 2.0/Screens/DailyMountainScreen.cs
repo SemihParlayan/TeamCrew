@@ -21,7 +21,6 @@ public class DailyMountainScreen : M_Screen
     public Text previousTimeObject;
     public DailyMountainGameMode dailyGamemode;
     public GameScreen gameScreen;
-    [HideInInspector]
     public LeaderboardEntry clientEntry;
     public TextMesh timeleftForTodayObject;
     public SpriteRenderer mountainNotAvailableOverlay;
@@ -44,10 +43,11 @@ public class DailyMountainScreen : M_Screen
     private float scrollDelay = 0.065f;
     private bool mountainGenerated;
     private bool canStart;
-    private bool hasFoundClient;
+    public bool hasFoundClient;
     public float scrollHeight = 1.462f;
     private int dayOffset = 0;
     private bool showCloudOverlay = false;
+    private bool playedGame = false;
 
 
 	//Unity methods
@@ -173,8 +173,16 @@ public class DailyMountainScreen : M_Screen
         }
 
         //Find client entry
-        if (dayOffset == 0)
-            clientEntry = GetClientEntry();
+        clientEntry = GetClientEntry();
+
+        if (playedGame)
+        {
+            if (hasFoundClient && clientEntry != null)
+            {
+                previousTimeObject.gameObject.SetActive(true);
+                previousTimeObject.text = clientEntry.timer.GetTimeString(false, true, true, true);
+            }
+        }
 
         if (this.enabled)
         {
@@ -267,6 +275,8 @@ public class DailyMountainScreen : M_Screen
     {
         base.OnSwitchedTo();
 
+        playedGame = false;
+
         //Update seed
         dailySeed = DateManager.GetSeedFromUTC();
 
@@ -357,11 +367,7 @@ public class DailyMountainScreen : M_Screen
         }
         else
         {
-            if (hasFoundClient && clientEntry != null)
-            {
-                previousTimeObject.gameObject.SetActive(true);
-                previousTimeObject.text = clientEntry.timer.GetTimeString(false, true, true, true);
-            }
+            playedGame = true;
         }
     }
 
@@ -442,7 +448,7 @@ public class DailyMountainScreen : M_Screen
         SimpleRefresh();
 
         //Show client entry at all times
-        if (clientEntry != null)
+        if (clientEntry != null && clientEntry.isClient)
         {
             int clientRank = clientEntry.globalRank;
             LeaderboardEntry topEntry = uiEntries.First().entry;
@@ -595,6 +601,7 @@ public class DailyMountainScreen : M_Screen
                 return clientEntry = entries[i];
             }
         }
+        hasFoundClient = false;
         return null;
     }
 

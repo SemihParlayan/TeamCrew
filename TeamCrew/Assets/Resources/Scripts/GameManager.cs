@@ -269,6 +269,8 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("GameManager Awake Called");
+
         //Set controllers
         rewiredPlayers[0] = ReInput.players.GetPlayer("Player0");
         rewiredPlayers[1] = ReInput.players.GetPlayer("Player1");

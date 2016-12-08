@@ -27,5 +27,9 @@ public class SteamScript : MonoBehaviour
         {
             Debug.Log("Connection to steam established!\nUsername: " + SteamFriends.GetPersonaName() + "\nSteamID: " + SteamUser.GetSteamID());
         }
+        else
+        {
+            Debug.Log("Could not connect to steam properly");
+        }
     }
 }

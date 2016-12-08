@@ -207,7 +207,7 @@ public class InactivityController : MonoBehaviour
             GameManager.GetPlayer(player).GetButton("RightStick Horizontal") ||
             GameManager.GetPlayer(player).GetButton("RightStick Vertical") ||
             GameManager.GetPlayer(player).GetButton("LeftShoulder") ||
-            GameManager.GetPlayer(player).GetButton("RigthShoulder") ||
+            GameManager.GetPlayer(player).GetButton("RightShoulder") ||
             GameManager.GetPlayer(player).GetButton("LeftTrigger") ||
             GameManager.GetPlayer(player).GetButton("RightTrigger") ||
             GameManager.GetPlayer(player).GetButton("Select");
